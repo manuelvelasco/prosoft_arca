@@ -1,0 +1,33 @@
+.label.label-blue, .label-blue.jvectormap-tip {
+    background: #3cf;
+}
+
+.link_habilitar {
+    margin-left: 25px;
+}
+
+.link_publicar {
+    margin-left: 25px;
+}
+
+.table > tbody > tr > td, .jsgrid-table > tbody > tr > td, .table > tbody > tr > th, .jsgrid-table > tbody > tr > th, .table > tfoot > tr > td, .jsgrid-table > tfoot > tr > td, .table > tfoot > tr > th, .jsgrid-table > tfoot > tr > th, .table > thead > tr > td, .jsgrid-table > thead > tr > td, .table > thead > tr > th, .jsgrid-table > thead > tr > th {
+    padding: 8px;
+}
+
+.oculta_campos{
+    height: 0px; 
+    overflow-x: hidden;
+}
+
+/* Elimina spinner de inputs de tipo number */
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    /* display: none; <- Crashes Chrome on hover */
+    -webkit-appearance: none;
+    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+}
+
+input[type=number] {
+    -moz-appearance: textfield; /* Firefox */
+}

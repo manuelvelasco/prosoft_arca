@@ -1,0 +1,3 @@
+Sitemap: https://www.albacar.mx/sitemap.txt
+User-agent: *
+Disallow: /cms/
