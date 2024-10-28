@@ -1,5 +1,5 @@
-var rutaAplicacion = "http://localhost/web/albacar3/";
-//var rutaAplicacion = "http://54.196.77.109/albacar3/";
+//var rutaAplicacion = "http://localhost/web/arca/";
+var rutaAplicacion = "http://54.196.77.109/arca/";
 //var rutaAplicacion = "https://albacar.mx/";
 
 var rutaBackend = rutaAplicacion + "backend/";
