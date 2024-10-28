@@ -1,9 +1,8 @@
 <?php
     header("Access-Control-Allow-Origin: *");
 
-    //include("../comunes/funciones.php");
-    //include("/var/www/html/albacar3/backend/comunes/funciones.php");
-    include("/var/www/html/albacar/backend/comunes/funciones.php");
+    //include("/Users/mvelasco/Socialware/Proyectos/Web/arca/backend/comunes/funciones.php");
+    include("/var/www/html/arca/backend/comunes/funciones.php");
     
     // Inicializa variable de salida
 

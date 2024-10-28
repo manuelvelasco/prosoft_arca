@@ -1,15 +1,14 @@
 <?php
-    setlocale(LC_ALL, "es_MX");     // Desarrollo
-    //setlocale(LC_ALL, "esm");     // Servidor
+    //setlocale(LC_ALL, "es_MX");     // Desarrollo
+    setlocale(LC_ALL, "esm");     // Servidor
     date_default_timezone_set('America/Monterrey');
 
 
     // Carga plugin Mailjet
 
 
-    require "/Users/mvelasco/Socialware/Proyectos/Web/albacar3/backend/plugins/mailjet/vendor/autoload.php";
-    //require "/var/www/html/albacar3/backend/plugins/mailjet/vendor/autoload.php";
-    //require "/var/www/html/albacar/backend/plugins/mailjet/vendor/autoload.php";
+    //require "/Users/mvelasco/Socialware/Proyectos/Web/arca/backend/plugins/mailjet/vendor/autoload.php";
+    require "/var/www/html/arca/backend/plugins/mailjet/vendor/autoload.php";
 
     use Mailjet\Resources;
 
@@ -50,9 +49,9 @@
 
 
     function obtenConexion() {
-        return new mysqli("localhost", "root", "root", "albacar");
-        //return new mysqli("stagedb-2.c7vpephv5j2g.us-east-1.rds.amazonaws.com", "app_respaldos_dbuser", "2brv7b24rV,8sdu8c", "albacar");
-        //return new mysqli("production.c7vpephv5j2g.us-east-1.rds.amazonaws.com", "app_albacar_dbuser", "YRWS322UYCUWE;!d8c", "albacar");
+        //return new mysqli("localhost", "root", "root", "arca");
+        return new mysqli("stagedb-2.c7vpephv5j2g.us-east-1.rds.amazonaws.com", "app_respaldos_dbuser", "2brv7b24rV,8sdu8c", "arca");
+        //return new mysqli("production.c7vpephv5j2g.us-east-1.rds.amazonaws.com", "app_respaldos_dbuser", "2brv7b24rV,8sdu8c", "arca");
     }
 
 
@@ -437,7 +436,7 @@
                     $contenido .= '{';
                         $contenido .= '"From": {';
                             $contenido .= '"Email": "contacto@socialware.mx",';
-                            $contenido .= '"Name": "Albacar"';
+                            $contenido .= '"Name": "ARCA"';
                         $contenido .= '},';
 
                         if (!estaVacio($para)) {
@@ -477,7 +476,7 @@
                             $contenido .= '],';
                         }
 
-                        $contenido .= '"CustomID": "albacar.mx_' . $fechaActual . '"';
+                        $contenido .= '"CustomID": "arca.mx_' . $fechaActual . '"';
                     $contenido .= '}';
                 $contenido .= ']';
             $contenido .= '}';
