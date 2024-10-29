@@ -8,6 +8,13 @@
     $constante_urlVehiculos = "http://54.196.77.109/arca/vehiculos/";
     //$constante_urlVehiculos = "https://albacar.mx/vehiculos/";
 
+    //$constante_rutaConcesionarios = "/Users/mvelasco/Socialware/Proyectos/Web/arca/concesionarios/";
+    $constante_rutaConcesionarios = "/var/www/html/arca/concesionarios/";
+
+    //$constante_urlConcesionarios = "http://localhost/web/arca/concesionarios/";
+    $constante_urlConcesionarios = "http://54.196.77.109/arca/concesionarios/";
+    //$constante_urlConcesionarios = "https://albacar.mx/concesionarios/";
+
     //$constante_rutaPosts = "/Users/mvelasco/Socialware/Proyectos/Web/arca/posts/";
     $constante_rutaPosts = "/var/www/html/arca/posts/";
 
