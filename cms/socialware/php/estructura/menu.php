@@ -93,5 +93,12 @@
                             </a>
                         </li>
                     <?php } ?>
+                    <?php if ($usuario_permisoConsultarConcesionarios || $usuario_permisoEditarConcesionarios) { ?>
+                        <li>
+                            <a href="concesionarios.php">
+                                Concesionarios
+                            </a>
+                        </li>
+                    <?php } ?>
                 </ul>
             </div>

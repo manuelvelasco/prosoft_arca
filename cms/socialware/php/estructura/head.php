@@ -1,4 +1,4 @@
-        <title>Albacar</title>
+        <title>ARCA</title>
 
         <meta charset="UTF-8" />
         <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" />
@@ -102,6 +102,10 @@
 
             $usuario_permisoConsultarVehiculos = isset($_SESSION["usuario_permisoConsultarVehiculos"]) ? sanitiza($conexion, $_SESSION["usuario_permisoConsultarVehiculos"]) : "";
             $usuario_permisoEditarVehiculos = isset($_SESSION["usuario_permisoEditarVehiculos"]) ? sanitiza($conexion, $_SESSION["usuario_permisoEditarVehiculos"]) : "";
+
+            $usuario_permisoConsultarConcesionarios = isset($_SESSION["usuario_permisoConsultarConcesionarios"]) ? sanitiza($conexion, $_SESSION["usuario_permisoConsultarConcesionarios"]) : "";
+            $usuario_permisoEditarConcesionarios = isset($_SESSION["usuario_permisoEditarConcesionarios"]) ? sanitiza($conexion, $_SESSION["usuario_permisoEditarConcesionarios"]) : "";
+
         ?>
 
 
