@@ -40,7 +40,7 @@
 
 
     function obtenConexion() {
-        //return new mysqli("localhost", "root", "root", "arca");
+        //return new mysqli("localhost", "root", "", "arca");
         return new mysqli("stagedb-2.c7vpephv5j2g.us-east-1.rds.amazonaws.com", "app_respaldos_dbuser", "2brv7b24rV,8sdu8c", "arca");
         //return new mysqli("production.c7vpephv5j2g.us-east-1.rds.amazonaws.com", "app_albacar_dbuser", "2brv7b24rV,8sdu8c", "arca");
     }
@@ -289,7 +289,7 @@
     }
 
 
-    function sincronizaInventarioInteliMotor() {
+    function sincronizaInventarioInteliMotor($idConcesionario) {
         try {
 
             // Obtiene conexion a base de datos
@@ -302,12 +302,21 @@
             $indice = 0;
             $idsIntelimotor = "";
 
+            //Se obtiene datos de concesionario
+
+            $concesionario_BD = consulta($conexion, "SELECT * FROM concesionario WHERE id = " . $idConcesionario);
+            $concesionario = obtenResultado($concesionario_BD);
+
+            $intelimotor_apiKey = $concesionario["intelimotor_apiKey"];
+            $intelimotor_apiSecret = $concesionario["intelimotor_apiSecret"];
+
             // Invoca web service InteliMotor
 
             $canal = curl_init();
 
             //curl_setopt($canal, CURLOPT_URL, "https://app.intelimotor.com/api/inventory-units?apiKey=89e42108c0292fdab98c7725d557ac5ac7b031c7dbfd5e4a8fc957f6c576e40a&apiSecret=df7d14926120badf19783f88b4b453cb37b681fbcbc8717a1df0f1c6e9b5aeb5&pageNumber=" . $pagina . "&pageSize=" . $tamanoPagina);
-            curl_setopt($canal, CURLOPT_URL, "https://app.intelimotor.com/api/inventory-units?apiKey=89e42108c0292fdab98c7725d557ac5ac7b031c7dbfd5e4a8fc957f6c576e40a&apiSecret=df7d14926120badf19783f88b4b453cb37b681fbcbc8717a1df0f1c6e9b5aeb5&getAll=true");
+            //curl_setopt($canal, CURLOPT_URL, "https://app.intelimotor.com/api/inventory-units?apiKey=89e42108c0292fdab98c7725d557ac5ac7b031c7dbfd5e4a8fc957f6c576e40a&apiSecret=df7d14926120badf19783f88b4b453cb37b681fbcbc8717a1df0f1c6e9b5aeb5&getAll=true");
+            curl_setopt($canal, CURLOPT_URL, "https://app.intelimotor.com/api/inventory-units?apiKey=" . $intelimotor_apiKey . "&apiSecret=" . $intelimotor_apiSecret . "&getAll=true");
             curl_setopt($canal, CURLOPT_RETURNTRANSFER, TRUE);
             curl_setopt($canal, CURLOPT_HEADER, FALSE);
             //curl_setopt($canal, CURLOPT_POST, TRUE);

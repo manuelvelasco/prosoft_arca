@@ -320,7 +320,7 @@
 
 
             $(".link_editar").click(function() {
-                $("#campo_edicion_id").val($(this).attr("data-vehiculo"));
+                $("#campo_edicion_id").val($(this).attr("data-concesionario"));
 
                 $("#campo_edicion_municipio").val($("#campo_municipio").val());
                 $("#campo_edicion_publicado").val($("#campo_publicado").val());

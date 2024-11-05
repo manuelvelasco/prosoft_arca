@@ -7,6 +7,9 @@
     session_start();
 
     include("../comunes/funciones.php");
+    $conexion = obtenConexion();
 
-    return sincronizaInventarioIntelimotor();
+    $idConcesionario = sanitiza($conexion, filter_input(INPUT_POST, "idConcesionario"));
+
+    return sincronizaInventarioIntelimotor($idConcesionario);
 ?>
