@@ -57,6 +57,18 @@
             $habilitado = estaVacio($habilitado) ? 0 : 1;
             $logotipo = "";
             $fachada = "";
+            $tieneLogotipoCargado = 0;
+
+            if (isset($_FILES["logotipo"])) {
+                try {
+                    $archivo = $_FILES["logotipo"];
+                    if ($archivo["size"] > 0) {
+                        $tieneLogotipoCargado = 1;
+                    }
+
+                } catch (Exception $e) {
+                }
+            }
 
             // Procesa el request
 
@@ -68,7 +80,7 @@
                     $mensaje .= "* Nombre Comercial es obligatorio<br />";
                 }
 
-                if ((estaVacio($id)) && (estaVacio($logotipo))) {
+                if ((estaVacio($id)) && ($tieneLogotipoCargado == 0)) {
                     $mensaje .= "* Logotipo<br />";
                 }
 
