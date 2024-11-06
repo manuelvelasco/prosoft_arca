@@ -106,6 +106,8 @@
             $usuario_permisoConsultarConcesionarios = isset($_SESSION["usuario_permisoConsultarConcesionarios"]) ? sanitiza($conexion, $_SESSION["usuario_permisoConsultarConcesionarios"]) : "";
             $usuario_permisoEditarConcesionarios = isset($_SESSION["usuario_permisoEditarConcesionarios"]) ? sanitiza($conexion, $_SESSION["usuario_permisoEditarConcesionarios"]) : "";
 
+            $usuario_idConcesionario = isset($_SESSION["usuario_idConcesionario"]) ? sanitiza($conexion, $_SESSION["usuario_idConcesionario"]) : "";
+
         ?>
 
 

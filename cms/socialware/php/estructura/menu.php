@@ -26,7 +26,7 @@
                         </li>
                     <?php } ?>
 
-                    <?php if ($esUsuarioMaster || $esUsuarioAdministrador) { ?>
+                    <?php if ($usuario_permisoConsultarVehiculos || $usuario_permisoEditarVehiculos) { ?>
                         <li>
                             <a href="vehiculos.php">
                                 Veh&iacute;culos

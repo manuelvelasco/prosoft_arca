@@ -45,6 +45,8 @@
             $_SESSION["usuario_permisoConsultarConcesionarios"] = $usuario["permisoConsultarConcesionarios"];
             $_SESSION["usuario_permisoEditarConcesionarios"] = $usuario["permisoEditarConcesionarios"];
 
+            $_SESSION["usuario_idConcesionario"] = $usuario["idConcesionario"];
+
             echo "ok";
 	} else {
 

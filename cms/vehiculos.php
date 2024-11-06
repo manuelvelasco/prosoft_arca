@@ -23,6 +23,8 @@
             $tipo = sanitiza($conexion, filter_input(INPUT_POST, "tipo"));
             $transmision = sanitiza($conexion, filter_input(INPUT_POST, "transmision"));
             $publicado = sanitiza($conexion, filter_input(INPUT_POST, "publicado"));
+            $concesionario = sanitiza($conexion, filter_input(INPUT_POST, "concesionario"));
+
         ?>
     </head>
 
@@ -56,7 +58,7 @@
 
                         <!-- Formulario -->
 
-                        <div class="row oculta_campos">
+                        <div class="row">
                             <div class="col-sm-12">
                                 <div class="panel panel-default card-view">
                                     <div class="panel-heading">
@@ -170,11 +172,42 @@
                                                         <div class="row mb-30">
                                                             <div class="col-md-6">
                                                                 <div class="form-group">
-                                                                    <label class="control-label mb-10">Publicado</label>
+                                                                    <label class="control-label mb-10">Habilitado</label>
                                                                     <select class="form-control select2" id="campo_publicado" name="publicado">
                                                                         <option <?php echo estaVacio($publicado) ? "selected" : "" ?> value="">Ver todo</option>
                                                                         <option <?php echo $publicado == "1" ? "selected" : "" ?> value="1">Si</option>
                                                                         <option <?php echo $publicado == "0" ? "selected" : "" ?> value="0">No</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label class="control-label mb-10">Concesionario</label>
+                                                                    <select class="form-control select2" id="campo_concesionario" name="concesionario">
+                                                                        <option <?php echo estaVacio($concesionario) ? "selected" : "" ?> value="">Ver todo</option>
+
+                                                                        <?php
+                                                                            if ($esUsuarioMaster || $esUsuarioAdministrador) {
+                                                                                
+                                                                                $concesionarios_BD = consulta($conexion, "SELECT * FROM concesionario ORDER BY nombreComercial");
+
+                                                                            }else{
+
+                                                                                $concesionarios_BD = consulta($conexion, "SELECT * FROM concesionario c WHERE c.id = " . $usuario_idConcesionario. " ORDER BY nombreComercial");
+                                                                                $concesionario = $usuario_idConcesionario;
+
+                                                                            }
+
+                                                                            while ($concesionario_BD = obtenResultado($concesionarios_BD)) {
+                                                                                echo "<option " . ($concesionario_BD["id"] == $concesionario ? "selected" : "") . " value='" . $concesionario_BD["id"] . "'>" . $concesionario_BD["nombreComercial"] . "</option>";
+                                                                            }
+                                                                        ?>
+
+                                                                        <!--option <?php echo $transmision == "Automática" ? "selected" : "" ?> value="Automática">Automática</option>
+                                                                        <option <?php echo $transmision == "Estándar" ? "selected" : "" ?> value="Estándar">Estándar</option>
+                                                                        <option <?php echo $transmision == "CVT" ? "selected" : "" ?> value="CVT">CVT</option>
+                                                                        <option <?php echo $transmision == "Tiptronic" ? "selected" : "" ?> value="Tiptronic">Tiptronic</option-->
                                                                     </select>
                                                                 </div>
                                                             </div>
@@ -206,6 +239,8 @@
                                                             <thead>
                                                                 <tr>
                                                                     <th>ID</th>
+                                                                    <th>Concesionario</th>
+                                                                    <th>Habilitado</th>
                                                                     <th>ID Intelimotor</th>
                                                                     <th>Marca</th>
                                                                     <th>Modelo</th>
@@ -219,6 +254,8 @@
                                                             <tfoot>
                                                                 <tr>
                                                                     <th>ID</th>
+                                                                    <th>Concesionario</th>
+                                                                    <th>Habilitado</th>
                                                                     <th>ID Intelimotor</th>
                                                                     <th>Marca</th>
                                                                     <th>Modelo</th>
@@ -256,18 +293,25 @@
                                                                         $restricciones .= " AND v.tipo = '" . $tipo . "'";
                                                                     }
 
+                                                                    if (!estaVacio($concesionario)) {
+                                                                        $restricciones .= " AND v.idConcesionario = '" . $concesionario . "'";
+                                                                    }
+
                                                                     // Consulta base de datos
 
                                                                     $vehiculos_BD = consulta($conexion, "SELECT"
-                                                                            . " v.*"
+                                                                            . " v.*, c.nombreComercial"
                                                                         . " FROM"
                                                                             . " vehiculo v"
+                                                                        . " INNER JOIN concesionario c ON v.idConcesionario = c.id"
                                                                         . " WHERE 1 = 1 " . $restricciones
                                                                         . " ORDER BY marca, modelo, ano, tipo, precio");
 
                                                                     while ($vehiculo = obtenResultado($vehiculos_BD)) {
                                                                         echo "<tr>";
                                                                             echo "<td>" . $vehiculo["id"] . "</td>";
+                                                                            echo "<td>" . $vehiculo["nombreComercial"] . "</td>";
+                                                                            echo "<td>" . ($vehiculo["publicado"] == 1 ? "Si" : "No" ) . "</td>";
                                                                             echo "<td>" . $vehiculo["intelimotor_id"] . "</td>";
                                                                             echo "<td>" . $vehiculo["marca"] . "</td>";
                                                                             echo "<td>" . $vehiculo["modelo"] . "</td>";
@@ -298,8 +342,28 @@
                                         <br />
 
                                         <div class="form-group mb-0">
-                                            <!--a class="btn btn-primary link_agregar" href="javascript:;">Agregar Vehículo</a-->
-                                            <a class="btn btn-success link_sincronizar" href="javascript:;">Sincronizar inventario InteliMotor</a>
+                                            <?php 
+
+                                            //Se valida en el caso de usuario operador, si el concesionario asignado tiene activado el servicio de Intelimotor 
+                                            $puedeAgregarVehiculo = 1;
+                                            $puedeSincronizarVehiculo = 1;
+
+                                            if ($esUsuarioOperador) {
+                                                $concesionarioAsociadoIntelimotor = consulta($conexion, "SELECT id FROM concesionario WHERE id = " . $usuario_idConcesionario . " AND intelimotor_apiKey != '' AND intelimotor_apiSecret != ''");
+                                                if (cuentaResultados($concesionarioAsociadoIntelimotor) > 0) {
+                                                    $puedeAgregarVehiculo = 0;
+                                                } else {
+                                                    $puedeSincronizarVehiculo = 0;
+                                                }
+                                            }
+
+                                            if ($usuario_permisoEditarVehiculos == 1 && $puedeAgregarVehiculo) { ?>
+                                                <a class="btn btn-primary link_agregar" href="javascript:;">Agregar Vehículo</a>
+                                            <?php }
+
+                                            if ($usuario_permisoEditarVehiculos == 1 && $puedeSincronizarVehiculo) { ?>
+                                                <a class="btn btn-success link_sincronizar" href="javascript:;">Sincronizar inventario InteliMotor</a>
+                                            <?php } ?>
                                         </div>
                                     </div>
                                 </div>
@@ -322,6 +386,7 @@
                             <input id="campo_edicion_tipo" name="origen_tipo" type="hidden" value="" />
                             <input id="campo_edicion_transmision" name="origen_transmision" type="hidden" value="" />
                             <input id="campo_edicion_publicado" name="origen_publicado" type="hidden" value="" />
+                            <input id="campo_edicion_concesionario" name="origen_concesionario" type="hidden" value="" />
                         </form>
                     <?php
                         } else {
@@ -401,9 +466,13 @@
                 $.LoadingOverlay("show", { minSize: 30, maxSize: 30 });
 
                 $.ajax({
+                    data: {
+                        idConcesionario: <?php echo estaVacio($usuario_idConcesionario) ? -1 : $usuario_idConcesionario; ?>
+                    },
+                    type: "post",
                     url: "socialware/php/ajax/sincronizaInventarioInteliMotor.php",
                     success: function(resultado) {
-console.log("resultado = " + resultado);
+                        console.log("resultado = " + resultado);
                         $("#contenedor_mensaje span").html("El inventario ha sido sincronizado. El listado se actualizará en cinco segundos");
                         $("#contenedor_mensaje").addClass("alert-success");
                         $("#contenedor_mensaje").show();
@@ -412,7 +481,7 @@ console.log("resultado = " + resultado);
 
                         $.LoadingOverlay("hide");
 
-                        setTimeout(function() { location.reload(); }, 5000);
+                        //setTimeout(function() { location.reload(); }, 5000);
                     }
                 });
             });

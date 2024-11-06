@@ -304,385 +304,390 @@
 
             //Se obtiene datos de concesionario
 
-            $concesionario_BD = consulta($conexion, "SELECT * FROM concesionario WHERE id = " . $idConcesionario);
-            $concesionario = obtenResultado($concesionario_BD);
+            if ($idConcesionario > 0) {
+               $concesionario_BD = consulta($conexion, "SELECT * FROM concesionario WHERE id = " . $idConcesionario);
+            } else {
+               $concesionario_BD = consulta($conexion, "SELECT * FROM concesionario WHERE intelimotor_apiKey != '' AND intelimotor_apiSecret != ''");
+            }
+            while ($concesionario = obtenResultado($concesionario_BD)) {
 
-            $intelimotor_apiKey = $concesionario["intelimotor_apiKey"];
-            $intelimotor_apiSecret = $concesionario["intelimotor_apiSecret"];
+                $intelimotor_apiKey = $concesionario["intelimotor_apiKey"];
+                $intelimotor_apiSecret = $concesionario["intelimotor_apiSecret"];
 
-            // Invoca web service InteliMotor
+                // Invoca web service InteliMotor
 
-            $canal = curl_init();
+                $canal = curl_init();
 
-            //curl_setopt($canal, CURLOPT_URL, "https://app.intelimotor.com/api/inventory-units?apiKey=89e42108c0292fdab98c7725d557ac5ac7b031c7dbfd5e4a8fc957f6c576e40a&apiSecret=df7d14926120badf19783f88b4b453cb37b681fbcbc8717a1df0f1c6e9b5aeb5&pageNumber=" . $pagina . "&pageSize=" . $tamanoPagina);
-            //curl_setopt($canal, CURLOPT_URL, "https://app.intelimotor.com/api/inventory-units?apiKey=89e42108c0292fdab98c7725d557ac5ac7b031c7dbfd5e4a8fc957f6c576e40a&apiSecret=df7d14926120badf19783f88b4b453cb37b681fbcbc8717a1df0f1c6e9b5aeb5&getAll=true");
-            curl_setopt($canal, CURLOPT_URL, "https://app.intelimotor.com/api/inventory-units?apiKey=" . $intelimotor_apiKey . "&apiSecret=" . $intelimotor_apiSecret . "&getAll=true");
-            curl_setopt($canal, CURLOPT_RETURNTRANSFER, TRUE);
-            curl_setopt($canal, CURLOPT_HEADER, FALSE);
-            //curl_setopt($canal, CURLOPT_POST, TRUE);
-            //curl_setopt($canal, CURLOPT_POSTFIELDS, $json);
-            curl_setopt($canal, CURLOPT_HTTPHEADER, array("Content-Type: application/json"));
+                //curl_setopt($canal, CURLOPT_URL, "https://app.intelimotor.com/api/inventory-units?apiKey=89e42108c0292fdab98c7725d557ac5ac7b031c7dbfd5e4a8fc957f6c576e40a&apiSecret=df7d14926120badf19783f88b4b453cb37b681fbcbc8717a1df0f1c6e9b5aeb5&pageNumber=" . $pagina . "&pageSize=" . $tamanoPagina);
+                //curl_setopt($canal, CURLOPT_URL, "https://app.intelimotor.com/api/inventory-units?apiKey=89e42108c0292fdab98c7725d557ac5ac7b031c7dbfd5e4a8fc957f6c576e40a&apiSecret=df7d14926120badf19783f88b4b453cb37b681fbcbc8717a1df0f1c6e9b5aeb5&getAll=true");
+                curl_setopt($canal, CURLOPT_URL, "https://app.intelimotor.com/api/inventory-units?apiKey=" . $intelimotor_apiKey . "&apiSecret=" . $intelimotor_apiSecret . "&getAll=true");
+                curl_setopt($canal, CURLOPT_RETURNTRANSFER, TRUE);
+                curl_setopt($canal, CURLOPT_HEADER, FALSE);
+                //curl_setopt($canal, CURLOPT_POST, TRUE);
+                //curl_setopt($canal, CURLOPT_POSTFIELDS, $json);
+                curl_setopt($canal, CURLOPT_HTTPHEADER, array("Content-Type: application/json"));
 
-            $respuesta = curl_exec($canal);
+                $respuesta = curl_exec($canal);
 
-            curl_close($canal);
+                curl_close($canal);
 
-            $respuesta = json_decode($respuesta);
+                $respuesta = json_decode($respuesta);
 
-            //foreach ($respuesta->data as $vehiculo) {
-            foreach ($respuesta as $vehiculo) {
-$indice++;
-try {
-                $id = $vehiculo->id;
-                $idsIntelimotor .= "'" . $id . "',";
+                //foreach ($respuesta->data as $vehiculo) {
+                foreach ($respuesta as $vehiculo) {
+    $indice++;
+    try {
+                    $id = $vehiculo->id;
+                    $idsIntelimotor .= "'" . $id . "',";
 
-                $vehiculo_BD = consulta($conexion, "SELECT id FROM vehiculo WHERE intelimotor_id = '" . $id . "'");
+                    $vehiculo_BD = consulta($conexion, "SELECT id FROM vehiculo WHERE intelimotor_id = '" . $id . "'");
 
-                if (cuentaResultados($vehiculo_BD) == 0) {
+                    if (cuentaResultados($vehiculo_BD) == 0) {
 
-                    // Es insercion
+                        // Es insercion
 
-                    consulta($conexion, "INSERT INTO vehiculo (
-                            intelimotor_id,
-                            intelimotor_imported,
-                            intelimotor_kms,
-                            intelimotor_listPrice,
-                            intelimotor_title,
-                            intelimotor_brand,
-                            intelimotor_model,
-                            intelimotor_year,
-                            intelimotor_trim,
-                            intelimotor_transmission,
-                            intelimotor_doors,
-                            intelimotor_fuelType,
-                            intelimotor_steering,
-                            intelimotor_tractionControl,
-                            intelimotor_vehicleBodyType,
-                            intelimotor_engine,
-                            intelimotor_exteriorColor,
-                            intelimotor_interiorColor,
-                            intelimotor_hasAutopilot,
-                            intelimotor_hasLightOnReminder,
-                            intelimotor_hasOnboardComputer,
-                            intelimotor_hasRearFoldingSeat,
-                            intelimotor_hasSlidingRoof,
-                            intelimotor_hasXenonHeadlights,
-                            intelimotor_hasCoasters,
-                            intelimotor_hasClimateControl,
-                            intelimotor_hasAbsBrakes,
-                            intelimotor_hasAlarm,
-                            intelimotor_hasAlloyWheels,
-                            intelimotor_hasDriverAirbag,
-                            intelimotor_hasElectronicBrakeAssist,
-                            intelimotor_hasEngineInmovilizer,
-                            intelimotor_hasFogLight,
-                            intelimotor_hasFrontFoglights,
-                            intelimotor_hasPassengerAirbag,
-                            intelimotor_hasRainSensor,
-                            intelimotor_hasRearFoglights,
-                            intelimotor_hasRearWindowDefogger,
-                            intelimotor_hasRollBar,
-                            intelimotor_hasSideImpactAirbag,
-                            intelimotor_hasStabilityControl,
-                            intelimotor_hasSteeringWheelControl,
-                            intelimotor_hasThirdStop,
-                            intelimotor_hasCurtainAirbag,
-                            intelimotor_armored,
-                            intelimotor_hasAirConditioning,
-                            intelimotor_hasElectricMirrors,
-                            intelimotor_hasGps,
-                            intelimotor_hasHeadlightControl,
-                            intelimotor_hasHeadrestRearSeat,
-                            intelimotor_hasHeightAdjustableDriverSeat,
-                            intelimotor_hasLeatherUpholstery,
-                            intelimotor_hasLightSensor,
-                            intelimotor_hasPaintedBumper,
-                            intelimotor_hasParkingSensor,
-                            intelimotor_hasPowerWindows,
-                            intelimotor_hasRemoteTrunkRelease,
-                            intelimotor_hasElectricSeats,
-                            intelimotor_hasRearBackrest,
-                            intelimotor_hasCentralPowerDoorLocks,
-                            intelimotor_hasAmfmRadio,
-                            intelimotor_hasBluetooth,
-                            intelimotor_hasCdPlayer,
-                            intelimotor_hasDvd,
-                            intelimotor_hasMp3Player,
-                            intelimotor_hasSdCard,
-                            intelimotor_hasUsb,
-                            intelimotor_hasBullBar,
-                            intelimotor_hasSpareTyreSupport,
-                            intelimotor_hasTrayCover,
-                            intelimotor_hasTrayMat,
-                            intelimotor_hasWindscreenWiper,
-                            intelimotor_singleOwner,
-                            intelimotor_youtubeVideoUrl,
-                            intelimotor_picture,
+                        consulta($conexion, "INSERT INTO vehiculo (
+                                intelimotor_id,
+                                intelimotor_imported,
+                                intelimotor_kms,
+                                intelimotor_listPrice,
+                                intelimotor_title,
+                                intelimotor_brand,
+                                intelimotor_model,
+                                intelimotor_year,
+                                intelimotor_trim,
+                                intelimotor_transmission,
+                                intelimotor_doors,
+                                intelimotor_fuelType,
+                                intelimotor_steering,
+                                intelimotor_tractionControl,
+                                intelimotor_vehicleBodyType,
+                                intelimotor_engine,
+                                intelimotor_exteriorColor,
+                                intelimotor_interiorColor,
+                                intelimotor_hasAutopilot,
+                                intelimotor_hasLightOnReminder,
+                                intelimotor_hasOnboardComputer,
+                                intelimotor_hasRearFoldingSeat,
+                                intelimotor_hasSlidingRoof,
+                                intelimotor_hasXenonHeadlights,
+                                intelimotor_hasCoasters,
+                                intelimotor_hasClimateControl,
+                                intelimotor_hasAbsBrakes,
+                                intelimotor_hasAlarm,
+                                intelimotor_hasAlloyWheels,
+                                intelimotor_hasDriverAirbag,
+                                intelimotor_hasElectronicBrakeAssist,
+                                intelimotor_hasEngineInmovilizer,
+                                intelimotor_hasFogLight,
+                                intelimotor_hasFrontFoglights,
+                                intelimotor_hasPassengerAirbag,
+                                intelimotor_hasRainSensor,
+                                intelimotor_hasRearFoglights,
+                                intelimotor_hasRearWindowDefogger,
+                                intelimotor_hasRollBar,
+                                intelimotor_hasSideImpactAirbag,
+                                intelimotor_hasStabilityControl,
+                                intelimotor_hasSteeringWheelControl,
+                                intelimotor_hasThirdStop,
+                                intelimotor_hasCurtainAirbag,
+                                intelimotor_armored,
+                                intelimotor_hasAirConditioning,
+                                intelimotor_hasElectricMirrors,
+                                intelimotor_hasGps,
+                                intelimotor_hasHeadlightControl,
+                                intelimotor_hasHeadrestRearSeat,
+                                intelimotor_hasHeightAdjustableDriverSeat,
+                                intelimotor_hasLeatherUpholstery,
+                                intelimotor_hasLightSensor,
+                                intelimotor_hasPaintedBumper,
+                                intelimotor_hasParkingSensor,
+                                intelimotor_hasPowerWindows,
+                                intelimotor_hasRemoteTrunkRelease,
+                                intelimotor_hasElectricSeats,
+                                intelimotor_hasRearBackrest,
+                                intelimotor_hasCentralPowerDoorLocks,
+                                intelimotor_hasAmfmRadio,
+                                intelimotor_hasBluetooth,
+                                intelimotor_hasCdPlayer,
+                                intelimotor_hasDvd,
+                                intelimotor_hasMp3Player,
+                                intelimotor_hasSdCard,
+                                intelimotor_hasUsb,
+                                intelimotor_hasBullBar,
+                                intelimotor_hasSpareTyreSupport,
+                                intelimotor_hasTrayCover,
+                                intelimotor_hasTrayMat,
+                                intelimotor_hasWindscreenWiper,
+                                intelimotor_singleOwner,
+                                intelimotor_youtubeVideoUrl,
+                                intelimotor_picture,
 
-                            publicado,
-                            tipo,
-                            marca,
-                            modelo,
-                            version,
-                            ano,
-                            color,
-                            precio,
-                            litros,
-                            combustible,
-                            transmision,
-                            puertas,
-                            kilometraje,
-                            numeroLlaves,
-                            unicoDueno,
-                            clima,
-                            stereo,
-                            farosNiebla,
-                            descripcion,
-                            imagenPrincipal,
-                            video_url,
-                            video_publicado,
+                                publicado,
+                                tipo,
+                                marca,
+                                modelo,
+                                version,
+                                ano,
+                                color,
+                                precio,
+                                litros,
+                                combustible,
+                                transmision,
+                                puertas,
+                                kilometraje,
+                                numeroLlaves,
+                                unicoDueno,
+                                clima,
+                                stereo,
+                                farosNiebla,
+                                descripcion,
+                                imagenPrincipal,
+                                video_url,
+                                video_publicado,
 
-                            fechaRegistro,
-                            idSucursal
-                        ) VALUES (
-                            '" . $id . "',
-                            " . ($vehiculo->imported == true ? "1" : "0") . ",
-                            " . $vehiculo->kms . ",
-                            " . $vehiculo->listPrice . ",
-                            '" . $vehiculo->listingInfo->title . "',
-                            '" . $vehiculo->listingInfo->brand . "',
-                            '" . $vehiculo->listingInfo->model . "',
-                            " . $vehiculo->listingInfo->year . ",
-                            '" . $vehiculo->listingInfo->trim . "',
-                            '" . $vehiculo->listingInfo->transmission . "',
-                            " . $vehiculo->listingInfo->doors . ",
-                            '" . $vehiculo->listingInfo->fuelType . "',
-                            '" . $vehiculo->listingInfo->steering . "',
-                            '" . $vehiculo->listingInfo->tractionControl . "',
-                            '" . $vehiculo->listingInfo->vehicleBodyType . "',
-                            '" . $vehiculo->listingInfo->engine . "',
-                            '" . $vehiculo->listingInfo->exteriorColor . "',
-                            '" . $vehiculo->listingInfo->interiorColor . "',
-                            " . ($vehiculo->listingInfo->hasAutopilot == true ? "1" : "0") . ",
-                            " . ($vehiculo->listingInfo->hasLightOnReminder == true ? "1" : "0") . ",
-                            " . ($vehiculo->listingInfo->hasOnboardComputer == true ? "1" : "0") . ",
-                            " . ($vehiculo->listingInfo->hasRearFoldingSeat == true ? "1" : "0") . ",
-                            " . ($vehiculo->listingInfo->hasSlidingRoof == true ? "1" : "0") . ",
-                            " . ($vehiculo->listingInfo->hasXenonHeadlights == true ? "1" : "0") . ",
-                            " . ($vehiculo->listingInfo->hasCoasters == true ? "1" : "0") . ",
-                            " . ($vehiculo->listingInfo->hasClimateControl == true ? "1" : "0") . ",
-                            " . ($vehiculo->listingInfo->hasAbsBrakes == true ? "1" : "0") . ",
-                            " . ($vehiculo->listingInfo->hasAlarm == true ? "1" : "0") . ",
-                            " . ($vehiculo->listingInfo->hasAlloyWheels == true ? "1" : "0") . ",
-                            " . ($vehiculo->listingInfo->hasDriverAirbag == true ? "1" : "0") . ",
-                            " . ($vehiculo->listingInfo->hasElectronicBrakeAssist == true ? "1" : "0") . ",
-                            " . ($vehiculo->listingInfo->hasEngineInmovilizer == true ? "1" : "0") . ",
-                            " . ($vehiculo->listingInfo->hasFogLight == true ? "1" : "0") . ",
-                            " . ($vehiculo->listingInfo->hasFrontFoglights == true ? "1" : "0") . ",
-                            " . ($vehiculo->listingInfo->hasPassengerAirbag == true ? "1" : "0") . ",
-                            " . ($vehiculo->listingInfo->hasRainSensor == true ? "1" : "0") . ",
-                            " . ($vehiculo->listingInfo->hasRearFoglights == true ? "1" : "0") . ",
-                            " . ($vehiculo->listingInfo->hasRearWindowDefogger == true ? "1" : "0") . ",
-                            " . ($vehiculo->listingInfo->hasRollBar == true ? "1" : "0") . ",
-                            " . ($vehiculo->listingInfo->hasSideImpactAirbag == true ? "1" : "0") . ",
-                            " . ($vehiculo->listingInfo->hasStabilityControl == true ? "1" : "0") . ",
-                            " . ($vehiculo->listingInfo->hasSteeringWheelControl == true ? "1" : "0") . ",
-                            " . ($vehiculo->listingInfo->hasThirdStop == true ? "1" : "0") . ",
-                            " . ($vehiculo->listingInfo->hasCurtainAirbag == true ? "1" : "0") . ",
-                            " . ($vehiculo->listingInfo->armored == true ? "1" : "0") . ",
-                            " . ($vehiculo->listingInfo->hasAirConditioning == true ? "1" : "0") . ",
-                            " . ($vehiculo->listingInfo->hasElectricMirrors == true ? "1" : "0") . ",
-                            " . ($vehiculo->listingInfo->hasGps == true ? "1" : "0") . ",
-                            " . ($vehiculo->listingInfo->hasHeadlightControl == true ? "1" : "0") . ",
-                            " . ($vehiculo->listingInfo->hasHeadrestRearSeat == true ? "1" : "0") . ",
-                            " . ($vehiculo->listingInfo->hasHeightAdjustableDriverSeat == true ? "1" : "0") . ",
-                            " . ($vehiculo->listingInfo->hasLeatherUpholstery == true ? "1" : "0") . ",
-                            " . ($vehiculo->listingInfo->hasLightSensor == true ? "1" : "0") . ",
-                            " . ($vehiculo->listingInfo->hasPaintedBumper == true ? "1" : "0") . ",
-                            " . ($vehiculo->listingInfo->hasParkingSensor == true ? "1" : "0") . ",
-                            " . ($vehiculo->listingInfo->hasPowerWindows == true ? "1" : "0") . ",
-                            " . ($vehiculo->listingInfo->hasRemoteTrunkRelease == true ? "1" : "0") . ",
-                            " . ($vehiculo->listingInfo->hasElectricSeats == true ? "1" : "0") . ",
-                            " . ($vehiculo->listingInfo->hasRearBackrest == true ? "1" : "0") . ",
-                            " . ($vehiculo->listingInfo->hasCentralPowerDoorLocks == true ? "1" : "0") . ",
-                            " . ($vehiculo->listingInfo->hasAmfmRadio == true ? "1" : "0") . ",
-                            " . ($vehiculo->listingInfo->hasBluetooth == true ? "1" : "0") . ",
-                            " . ($vehiculo->listingInfo->hasCdPlayer == true ? "1" : "0") . ",
-                            " . ($vehiculo->listingInfo->hasDvd == true ? "1" : "0") . ",
-                            " . ($vehiculo->listingInfo->hasMp3Player == true ? "1" : "0") . ",
-                            " . ($vehiculo->listingInfo->hasSdCard == true ? "1" : "0") . ",
-                            " . ($vehiculo->listingInfo->hasUsb == true ? "1" : "0") . ",
-                            " . ($vehiculo->listingInfo->hasBullBar == true ? "1" : "0") . ",
-                            " . ($vehiculo->listingInfo->hasSpareTyreSupport == true ? "1" : "0") . ",
-                            " . ($vehiculo->listingInfo->hasTrayCover == true ? "1" : "0") . ",
-                            " . ($vehiculo->listingInfo->hasTrayMat == true ? "1" : "0") . ",
-                            " . ($vehiculo->listingInfo->hasWindscreenWiper == true ? "1" : "0") . ",
-                            " . ($vehiculo->listingInfo->singleOwner == true ? "1" : "0") . ",
-                            '" . $vehiculo->listingInfo->youtubeVideoUrl . "',
-                            '" . $vehiculo->listingInfo->pictures[0] . "',
+                                fechaRegistro,
+                                idSucursal
+                            ) VALUES (
+                                '" . $id . "',
+                                " . ($vehiculo->imported == true ? "1" : "0") . ",
+                                " . $vehiculo->kms . ",
+                                " . $vehiculo->listPrice . ",
+                                '" . $vehiculo->listingInfo->title . "',
+                                '" . $vehiculo->listingInfo->brand . "',
+                                '" . $vehiculo->listingInfo->model . "',
+                                " . $vehiculo->listingInfo->year . ",
+                                '" . $vehiculo->listingInfo->trim . "',
+                                '" . $vehiculo->listingInfo->transmission . "',
+                                " . $vehiculo->listingInfo->doors . ",
+                                '" . $vehiculo->listingInfo->fuelType . "',
+                                '" . $vehiculo->listingInfo->steering . "',
+                                '" . $vehiculo->listingInfo->tractionControl . "',
+                                '" . $vehiculo->listingInfo->vehicleBodyType . "',
+                                '" . $vehiculo->listingInfo->engine . "',
+                                '" . $vehiculo->listingInfo->exteriorColor . "',
+                                '" . $vehiculo->listingInfo->interiorColor . "',
+                                " . ($vehiculo->listingInfo->hasAutopilot == true ? "1" : "0") . ",
+                                " . ($vehiculo->listingInfo->hasLightOnReminder == true ? "1" : "0") . ",
+                                " . ($vehiculo->listingInfo->hasOnboardComputer == true ? "1" : "0") . ",
+                                " . ($vehiculo->listingInfo->hasRearFoldingSeat == true ? "1" : "0") . ",
+                                " . ($vehiculo->listingInfo->hasSlidingRoof == true ? "1" : "0") . ",
+                                " . ($vehiculo->listingInfo->hasXenonHeadlights == true ? "1" : "0") . ",
+                                " . ($vehiculo->listingInfo->hasCoasters == true ? "1" : "0") . ",
+                                " . ($vehiculo->listingInfo->hasClimateControl == true ? "1" : "0") . ",
+                                " . ($vehiculo->listingInfo->hasAbsBrakes == true ? "1" : "0") . ",
+                                " . ($vehiculo->listingInfo->hasAlarm == true ? "1" : "0") . ",
+                                " . ($vehiculo->listingInfo->hasAlloyWheels == true ? "1" : "0") . ",
+                                " . ($vehiculo->listingInfo->hasDriverAirbag == true ? "1" : "0") . ",
+                                " . ($vehiculo->listingInfo->hasElectronicBrakeAssist == true ? "1" : "0") . ",
+                                " . ($vehiculo->listingInfo->hasEngineInmovilizer == true ? "1" : "0") . ",
+                                " . ($vehiculo->listingInfo->hasFogLight == true ? "1" : "0") . ",
+                                " . ($vehiculo->listingInfo->hasFrontFoglights == true ? "1" : "0") . ",
+                                " . ($vehiculo->listingInfo->hasPassengerAirbag == true ? "1" : "0") . ",
+                                " . ($vehiculo->listingInfo->hasRainSensor == true ? "1" : "0") . ",
+                                " . ($vehiculo->listingInfo->hasRearFoglights == true ? "1" : "0") . ",
+                                " . ($vehiculo->listingInfo->hasRearWindowDefogger == true ? "1" : "0") . ",
+                                " . ($vehiculo->listingInfo->hasRollBar == true ? "1" : "0") . ",
+                                " . ($vehiculo->listingInfo->hasSideImpactAirbag == true ? "1" : "0") . ",
+                                " . ($vehiculo->listingInfo->hasStabilityControl == true ? "1" : "0") . ",
+                                " . ($vehiculo->listingInfo->hasSteeringWheelControl == true ? "1" : "0") . ",
+                                " . ($vehiculo->listingInfo->hasThirdStop == true ? "1" : "0") . ",
+                                " . ($vehiculo->listingInfo->hasCurtainAirbag == true ? "1" : "0") . ",
+                                " . ($vehiculo->listingInfo->armored == true ? "1" : "0") . ",
+                                " . ($vehiculo->listingInfo->hasAirConditioning == true ? "1" : "0") . ",
+                                " . ($vehiculo->listingInfo->hasElectricMirrors == true ? "1" : "0") . ",
+                                " . ($vehiculo->listingInfo->hasGps == true ? "1" : "0") . ",
+                                " . ($vehiculo->listingInfo->hasHeadlightControl == true ? "1" : "0") . ",
+                                " . ($vehiculo->listingInfo->hasHeadrestRearSeat == true ? "1" : "0") . ",
+                                " . ($vehiculo->listingInfo->hasHeightAdjustableDriverSeat == true ? "1" : "0") . ",
+                                " . ($vehiculo->listingInfo->hasLeatherUpholstery == true ? "1" : "0") . ",
+                                " . ($vehiculo->listingInfo->hasLightSensor == true ? "1" : "0") . ",
+                                " . ($vehiculo->listingInfo->hasPaintedBumper == true ? "1" : "0") . ",
+                                " . ($vehiculo->listingInfo->hasParkingSensor == true ? "1" : "0") . ",
+                                " . ($vehiculo->listingInfo->hasPowerWindows == true ? "1" : "0") . ",
+                                " . ($vehiculo->listingInfo->hasRemoteTrunkRelease == true ? "1" : "0") . ",
+                                " . ($vehiculo->listingInfo->hasElectricSeats == true ? "1" : "0") . ",
+                                " . ($vehiculo->listingInfo->hasRearBackrest == true ? "1" : "0") . ",
+                                " . ($vehiculo->listingInfo->hasCentralPowerDoorLocks == true ? "1" : "0") . ",
+                                " . ($vehiculo->listingInfo->hasAmfmRadio == true ? "1" : "0") . ",
+                                " . ($vehiculo->listingInfo->hasBluetooth == true ? "1" : "0") . ",
+                                " . ($vehiculo->listingInfo->hasCdPlayer == true ? "1" : "0") . ",
+                                " . ($vehiculo->listingInfo->hasDvd == true ? "1" : "0") . ",
+                                " . ($vehiculo->listingInfo->hasMp3Player == true ? "1" : "0") . ",
+                                " . ($vehiculo->listingInfo->hasSdCard == true ? "1" : "0") . ",
+                                " . ($vehiculo->listingInfo->hasUsb == true ? "1" : "0") . ",
+                                " . ($vehiculo->listingInfo->hasBullBar == true ? "1" : "0") . ",
+                                " . ($vehiculo->listingInfo->hasSpareTyreSupport == true ? "1" : "0") . ",
+                                " . ($vehiculo->listingInfo->hasTrayCover == true ? "1" : "0") . ",
+                                " . ($vehiculo->listingInfo->hasTrayMat == true ? "1" : "0") . ",
+                                " . ($vehiculo->listingInfo->hasWindscreenWiper == true ? "1" : "0") . ",
+                                " . ($vehiculo->listingInfo->singleOwner == true ? "1" : "0") . ",
+                                '" . $vehiculo->listingInfo->youtubeVideoUrl . "',
+                                '" . $vehiculo->listingInfo->pictures[0] . "',
 
-                            " . ($vehiculo->isSold == true ? "0" : "1") . ",
-                            '" . $vehiculo->listingInfo->vehicleBodyType . "',
-                            '" . $vehiculo->listingInfo->brand . "',
-                            '" . $vehiculo->listingInfo->model . "',
-                            '" . $vehiculo->listingInfo->trim . "',
-                            " . $vehiculo->listingInfo->year . ",
-                            '" . $vehiculo->listingInfo->exteriorColor . "',
-                            " . $vehiculo->listPrice . ",
-                            '" . $vehiculo->listingInfo->engine . "',
-                            '" . $vehiculo->listingInfo->fuelType . "',
-                            '" . $vehiculo->listingInfo->transmission . "',
-                            " . $vehiculo->listingInfo->doors . ",
-                            " . $vehiculo->kms . ",
-                            1,
-                            " . ($vehiculo->listingInfo->singleOwner == true ? "1" : "0") . ",
-                            " . ($vehiculo->listingInfo->hasAirConditioning == true ? "1" : "0") . ",
-                            " . ($vehiculo->listingInfo->hasAmfmRadio == true ? "1" : "0") . ",
-                            " . ($vehiculo->listingInfo->hasFogLight == true ? "1" : "0") . ",
-                            '" . $vehiculo->listingInfo->title . "',
-                            '" . $vehiculo->listingInfo->pictures[0] . "',
-                            '" . $vehiculo->listingInfo->youtubeVideoUrl . "',
-                            1,
+                                " . ($vehiculo->isSold == true ? "0" : "1") . ",
+                                '" . $vehiculo->listingInfo->vehicleBodyType . "',
+                                '" . $vehiculo->listingInfo->brand . "',
+                                '" . $vehiculo->listingInfo->model . "',
+                                '" . $vehiculo->listingInfo->trim . "',
+                                " . $vehiculo->listingInfo->year . ",
+                                '" . $vehiculo->listingInfo->exteriorColor . "',
+                                " . $vehiculo->listPrice . ",
+                                '" . $vehiculo->listingInfo->engine . "',
+                                '" . $vehiculo->listingInfo->fuelType . "',
+                                '" . $vehiculo->listingInfo->transmission . "',
+                                " . $vehiculo->listingInfo->doors . ",
+                                " . $vehiculo->kms . ",
+                                1,
+                                " . ($vehiculo->listingInfo->singleOwner == true ? "1" : "0") . ",
+                                " . ($vehiculo->listingInfo->hasAirConditioning == true ? "1" : "0") . ",
+                                " . ($vehiculo->listingInfo->hasAmfmRadio == true ? "1" : "0") . ",
+                                " . ($vehiculo->listingInfo->hasFogLight == true ? "1" : "0") . ",
+                                '" . $vehiculo->listingInfo->title . "',
+                                '" . $vehiculo->listingInfo->pictures[0] . "',
+                                '" . $vehiculo->listingInfo->youtubeVideoUrl . "',
+                                1,
 
-                            '" . $fechaActual . "',
-                            1
-                        )");
-                } else {
+                                '" . $fechaActual . "',
+                                1
+                            )");
+                    } else {
 
-                    // Es actualizacion
+                        // Es actualizacion
 
-                    consulta($conexion, "UPDATE
-                            vehiculo
-                        SET
-                            intelimotor_imported = " . ($vehiculo->imported == true ? "1" : "0") . ",
-                            intelimotor_kms = " . $vehiculo->kms . ",
-                            intelimotor_listPrice = " . $vehiculo->listPrice . ",
-                            intelimotor_title = '" . $vehiculo->listingInfo->title . "',
-                            intelimotor_brand = '" . $vehiculo->listingInfo->brand . "',
-                            intelimotor_model = '" . $vehiculo->listingInfo->model . "',
-                            intelimotor_year = " . $vehiculo->listingInfo->year . ",
-                            intelimotor_trim = '" . $vehiculo->listingInfo->trim . "',
-                            intelimotor_transmission = '" . $vehiculo->listingInfo->transmission . "',
-                            intelimotor_doors = " . $vehiculo->listingInfo->doors . ",
-                            intelimotor_fuelType = '" . $vehiculo->listingInfo->fuelType . "',
-                            intelimotor_steering = '" . $vehiculo->listingInfo->steering . "',
-                            intelimotor_tractionControl = '" . $vehiculo->listingInfo->tractionControl . "',
-                            intelimotor_vehicleBodyType = '" . $vehiculo->listingInfo->vehicleBodyType . "',
-                            intelimotor_engine = '" . $vehiculo->listingInfo->engine . "',
-                            intelimotor_exteriorColor = '" . $vehiculo->listingInfo->exteriorColor . "',
-                            intelimotor_interiorColor = '" . $vehiculo->listingInfo->interiorColor . "',
-                            intelimotor_hasAutopilot = " . ($vehiculo->listingInfo->hasAutopilot == true ? "1" : "0") . ",
-                            intelimotor_hasLightOnReminder = " . ($vehiculo->listingInfo->hasLightOnReminder == true ? "1" : "0") . ",
-                            intelimotor_hasOnboardComputer = " . ($vehiculo->listingInfo->hasOnboardComputer == true ? "1" : "0") . ",
-                            intelimotor_hasRearFoldingSeat = " . ($vehiculo->listingInfo->hasRearFoldingSeat == true ? "1" : "0") . ",
-                            intelimotor_hasSlidingRoof = " . ($vehiculo->listingInfo->hasSlidingRoof == true ? "1" : "0") . ",
-                            intelimotor_hasXenonHeadlights = " . ($vehiculo->listingInfo->hasXenonHeadlights == true ? "1" : "0") . ",
-                            intelimotor_hasCoasters = " . ($vehiculo->listingInfo->hasCoasters == true ? "1" : "0") . ",
-                            intelimotor_hasClimateControl = " . ($vehiculo->listingInfo->hasClimateControl == true ? "1" : "0") . ",
-                            intelimotor_hasAbsBrakes = " . ($vehiculo->listingInfo->hasAbsBrakes == true ? "1" : "0") . ",
-                            intelimotor_hasAlarm = " . ($vehiculo->listingInfo->hasAlarm == true ? "1" : "0") . ",
-                            intelimotor_hasAlloyWheels = " . ($vehiculo->listingInfo->hasAlloyWheels == true ? "1" : "0") . ",
-                            intelimotor_hasDriverAirbag = " . ($vehiculo->listingInfo->hasDriverAirbag == true ? "1" : "0") . ",
-                            intelimotor_hasElectronicBrakeAssist = " . ($vehiculo->listingInfo->hasElectronicBrakeAssist == true ? "1" : "0") . ",
-                            intelimotor_hasEngineInmovilizer = " . ($vehiculo->listingInfo->hasEngineInmovilizer == true ? "1" : "0") . ",
-                            intelimotor_hasFogLight = " . ($vehiculo->listingInfo->hasFogLight == true ? "1" : "0") . ",
-                            intelimotor_hasFrontFoglights = " . ($vehiculo->listingInfo->hasFrontFoglights == true ? "1" : "0") . ",
-                            intelimotor_hasPassengerAirbag = " . ($vehiculo->listingInfo->hasPassengerAirbag == true ? "1" : "0") . ",
-                            intelimotor_hasRainSensor = " . ($vehiculo->listingInfo->hasRainSensor == true ? "1" : "0") . ",
-                            intelimotor_hasRearFoglights = " . ($vehiculo->listingInfo->hasRearFoglights == true ? "1" : "0") . ",
-                            intelimotor_hasRearWindowDefogger = " . ($vehiculo->listingInfo->hasRearWindowDefogger == true ? "1" : "0") . ",
-                            intelimotor_hasRollBar = " . ($vehiculo->listingInfo->hasRollBar == true ? "1" : "0") . ",
-                            intelimotor_hasSideImpactAirbag = " . ($vehiculo->listingInfo->hasSideImpactAirbag == true ? "1" : "0") . ",
-                            intelimotor_hasStabilityControl = " . ($vehiculo->listingInfo->hasStabilityControl == true ? "1" : "0") . ",
-                            intelimotor_hasSteeringWheelControl = " . ($vehiculo->listingInfo->hasSteeringWheelControl == true ? "1" : "0") . ",
-                            intelimotor_hasThirdStop = " . ($vehiculo->listingInfo->hasThirdStop == true ? "1" : "0") . ",
-                            intelimotor_hasCurtainAirbag = " . ($vehiculo->listingInfo->hasCurtainAirbag == true ? "1" : "0") . ",
-                            intelimotor_armored = " . ($vehiculo->listingInfo->armored == true ? "1" : "0") . ",
-                            intelimotor_hasAirConditioning = " . ($vehiculo->listingInfo->hasAirConditioning == true ? "1" : "0") . ",
-                            intelimotor_hasElectricMirrors = " . ($vehiculo->listingInfo->hasElectricMirrors == true ? "1" : "0") . ",
-                            intelimotor_hasGps = " . ($vehiculo->listingInfo->hasGps == true ? "1" : "0") . ",
-                            intelimotor_hasHeadlightControl = " . ($vehiculo->listingInfo->hasHeadlightControl == true ? "1" : "0") . ",
-                            intelimotor_hasHeadrestRearSeat = " . ($vehiculo->listingInfo->hasHeadrestRearSeat == true ? "1" : "0") . ",
-                            intelimotor_hasHeightAdjustableDriverSeat = " . ($vehiculo->listingInfo->hasHeightAdjustableDriverSeat == true ? "1" : "0") . ",
-                            intelimotor_hasLeatherUpholstery = " . ($vehiculo->listingInfo->hasLeatherUpholstery == true ? "1" : "0") . ",
-                            intelimotor_hasLightSensor = " . ($vehiculo->listingInfo->hasLightSensor == true ? "1" : "0") . ",
-                            intelimotor_hasPaintedBumper = " . ($vehiculo->listingInfo->hasPaintedBumper == true ? "1" : "0") . ",
-                            intelimotor_hasParkingSensor = " . ($vehiculo->listingInfo->hasParkingSensor == true ? "1" : "0") . ",
-                            intelimotor_hasPowerWindows = " . ($vehiculo->listingInfo->hasPowerWindows == true ? "1" : "0") . ",
-                            intelimotor_hasRemoteTrunkRelease = " . ($vehiculo->listingInfo->hasRemoteTrunkRelease == true ? "1" : "0") . ",
-                            intelimotor_hasElectricSeats = " . ($vehiculo->listingInfo->hasElectricSeats == true ? "1" : "0") . ",
-                            intelimotor_hasRearBackrest = " . ($vehiculo->listingInfo->hasRearBackrest == true ? "1" : "0") . ",
-                            intelimotor_hasCentralPowerDoorLocks = " . ($vehiculo->listingInfo->hasCentralPowerDoorLocks == true ? "1" : "0") . ",
-                            intelimotor_hasAmfmRadio = " . ($vehiculo->listingInfo->hasAmfmRadio == true ? "1" : "0") . ",
-                            intelimotor_hasBluetooth = " . ($vehiculo->listingInfo->hasBluetooth == true ? "1" : "0") . ",
-                            intelimotor_hasCdPlayer = " . ($vehiculo->listingInfo->hasCdPlayer == true ? "1" : "0") . ",
-                            intelimotor_hasDvd = " . ($vehiculo->listingInfo->hasDvd == true ? "1" : "0") . ",
-                            intelimotor_hasMp3Player = " . ($vehiculo->listingInfo->hasMp3Player == true ? "1" : "0") . ",
-                            intelimotor_hasSdCard = " . ($vehiculo->listingInfo->hasSdCard == true ? "1" : "0") . ",
-                            intelimotor_hasUsb = " . ($vehiculo->listingInfo->hasUsb == true ? "1" : "0") . ",
-                            intelimotor_hasBullBar = " . ($vehiculo->listingInfo->hasBullBar == true ? "1" : "0") . ",
-                            intelimotor_hasSpareTyreSupport = " . ($vehiculo->listingInfo->hasSpareTyreSupport == true ? "1" : "0") . ",
-                            intelimotor_hasTrayCover = " . ($vehiculo->listingInfo->hasTrayCover == true ? "1" : "0") . ",
-                            intelimotor_hasTrayMat = " . ($vehiculo->listingInfo->hasTrayMat == true ? "1" : "0") . ",
-                            intelimotor_hasWindscreenWiper = " . ($vehiculo->listingInfo->hasWindscreenWiper == true ? "1" : "0") . ",
-                            intelimotor_singleOwner = " . ($vehiculo->listingInfo->singleOwner == true ? "1" : "0") . ",
-                            intelimotor_youtubeVideoUrl = '" . $vehiculo->listingInfo->youtubeVideoUrl . "',
-                            intelimotor_picture = '" . $vehiculo->listingInfo->pictures[0] . "',
+                        consulta($conexion, "UPDATE
+                                vehiculo
+                            SET
+                                intelimotor_imported = " . ($vehiculo->imported == true ? "1" : "0") . ",
+                                intelimotor_kms = " . $vehiculo->kms . ",
+                                intelimotor_listPrice = " . $vehiculo->listPrice . ",
+                                intelimotor_title = '" . $vehiculo->listingInfo->title . "',
+                                intelimotor_brand = '" . $vehiculo->listingInfo->brand . "',
+                                intelimotor_model = '" . $vehiculo->listingInfo->model . "',
+                                intelimotor_year = " . $vehiculo->listingInfo->year . ",
+                                intelimotor_trim = '" . $vehiculo->listingInfo->trim . "',
+                                intelimotor_transmission = '" . $vehiculo->listingInfo->transmission . "',
+                                intelimotor_doors = " . $vehiculo->listingInfo->doors . ",
+                                intelimotor_fuelType = '" . $vehiculo->listingInfo->fuelType . "',
+                                intelimotor_steering = '" . $vehiculo->listingInfo->steering . "',
+                                intelimotor_tractionControl = '" . $vehiculo->listingInfo->tractionControl . "',
+                                intelimotor_vehicleBodyType = '" . $vehiculo->listingInfo->vehicleBodyType . "',
+                                intelimotor_engine = '" . $vehiculo->listingInfo->engine . "',
+                                intelimotor_exteriorColor = '" . $vehiculo->listingInfo->exteriorColor . "',
+                                intelimotor_interiorColor = '" . $vehiculo->listingInfo->interiorColor . "',
+                                intelimotor_hasAutopilot = " . ($vehiculo->listingInfo->hasAutopilot == true ? "1" : "0") . ",
+                                intelimotor_hasLightOnReminder = " . ($vehiculo->listingInfo->hasLightOnReminder == true ? "1" : "0") . ",
+                                intelimotor_hasOnboardComputer = " . ($vehiculo->listingInfo->hasOnboardComputer == true ? "1" : "0") . ",
+                                intelimotor_hasRearFoldingSeat = " . ($vehiculo->listingInfo->hasRearFoldingSeat == true ? "1" : "0") . ",
+                                intelimotor_hasSlidingRoof = " . ($vehiculo->listingInfo->hasSlidingRoof == true ? "1" : "0") . ",
+                                intelimotor_hasXenonHeadlights = " . ($vehiculo->listingInfo->hasXenonHeadlights == true ? "1" : "0") . ",
+                                intelimotor_hasCoasters = " . ($vehiculo->listingInfo->hasCoasters == true ? "1" : "0") . ",
+                                intelimotor_hasClimateControl = " . ($vehiculo->listingInfo->hasClimateControl == true ? "1" : "0") . ",
+                                intelimotor_hasAbsBrakes = " . ($vehiculo->listingInfo->hasAbsBrakes == true ? "1" : "0") . ",
+                                intelimotor_hasAlarm = " . ($vehiculo->listingInfo->hasAlarm == true ? "1" : "0") . ",
+                                intelimotor_hasAlloyWheels = " . ($vehiculo->listingInfo->hasAlloyWheels == true ? "1" : "0") . ",
+                                intelimotor_hasDriverAirbag = " . ($vehiculo->listingInfo->hasDriverAirbag == true ? "1" : "0") . ",
+                                intelimotor_hasElectronicBrakeAssist = " . ($vehiculo->listingInfo->hasElectronicBrakeAssist == true ? "1" : "0") . ",
+                                intelimotor_hasEngineInmovilizer = " . ($vehiculo->listingInfo->hasEngineInmovilizer == true ? "1" : "0") . ",
+                                intelimotor_hasFogLight = " . ($vehiculo->listingInfo->hasFogLight == true ? "1" : "0") . ",
+                                intelimotor_hasFrontFoglights = " . ($vehiculo->listingInfo->hasFrontFoglights == true ? "1" : "0") . ",
+                                intelimotor_hasPassengerAirbag = " . ($vehiculo->listingInfo->hasPassengerAirbag == true ? "1" : "0") . ",
+                                intelimotor_hasRainSensor = " . ($vehiculo->listingInfo->hasRainSensor == true ? "1" : "0") . ",
+                                intelimotor_hasRearFoglights = " . ($vehiculo->listingInfo->hasRearFoglights == true ? "1" : "0") . ",
+                                intelimotor_hasRearWindowDefogger = " . ($vehiculo->listingInfo->hasRearWindowDefogger == true ? "1" : "0") . ",
+                                intelimotor_hasRollBar = " . ($vehiculo->listingInfo->hasRollBar == true ? "1" : "0") . ",
+                                intelimotor_hasSideImpactAirbag = " . ($vehiculo->listingInfo->hasSideImpactAirbag == true ? "1" : "0") . ",
+                                intelimotor_hasStabilityControl = " . ($vehiculo->listingInfo->hasStabilityControl == true ? "1" : "0") . ",
+                                intelimotor_hasSteeringWheelControl = " . ($vehiculo->listingInfo->hasSteeringWheelControl == true ? "1" : "0") . ",
+                                intelimotor_hasThirdStop = " . ($vehiculo->listingInfo->hasThirdStop == true ? "1" : "0") . ",
+                                intelimotor_hasCurtainAirbag = " . ($vehiculo->listingInfo->hasCurtainAirbag == true ? "1" : "0") . ",
+                                intelimotor_armored = " . ($vehiculo->listingInfo->armored == true ? "1" : "0") . ",
+                                intelimotor_hasAirConditioning = " . ($vehiculo->listingInfo->hasAirConditioning == true ? "1" : "0") . ",
+                                intelimotor_hasElectricMirrors = " . ($vehiculo->listingInfo->hasElectricMirrors == true ? "1" : "0") . ",
+                                intelimotor_hasGps = " . ($vehiculo->listingInfo->hasGps == true ? "1" : "0") . ",
+                                intelimotor_hasHeadlightControl = " . ($vehiculo->listingInfo->hasHeadlightControl == true ? "1" : "0") . ",
+                                intelimotor_hasHeadrestRearSeat = " . ($vehiculo->listingInfo->hasHeadrestRearSeat == true ? "1" : "0") . ",
+                                intelimotor_hasHeightAdjustableDriverSeat = " . ($vehiculo->listingInfo->hasHeightAdjustableDriverSeat == true ? "1" : "0") . ",
+                                intelimotor_hasLeatherUpholstery = " . ($vehiculo->listingInfo->hasLeatherUpholstery == true ? "1" : "0") . ",
+                                intelimotor_hasLightSensor = " . ($vehiculo->listingInfo->hasLightSensor == true ? "1" : "0") . ",
+                                intelimotor_hasPaintedBumper = " . ($vehiculo->listingInfo->hasPaintedBumper == true ? "1" : "0") . ",
+                                intelimotor_hasParkingSensor = " . ($vehiculo->listingInfo->hasParkingSensor == true ? "1" : "0") . ",
+                                intelimotor_hasPowerWindows = " . ($vehiculo->listingInfo->hasPowerWindows == true ? "1" : "0") . ",
+                                intelimotor_hasRemoteTrunkRelease = " . ($vehiculo->listingInfo->hasRemoteTrunkRelease == true ? "1" : "0") . ",
+                                intelimotor_hasElectricSeats = " . ($vehiculo->listingInfo->hasElectricSeats == true ? "1" : "0") . ",
+                                intelimotor_hasRearBackrest = " . ($vehiculo->listingInfo->hasRearBackrest == true ? "1" : "0") . ",
+                                intelimotor_hasCentralPowerDoorLocks = " . ($vehiculo->listingInfo->hasCentralPowerDoorLocks == true ? "1" : "0") . ",
+                                intelimotor_hasAmfmRadio = " . ($vehiculo->listingInfo->hasAmfmRadio == true ? "1" : "0") . ",
+                                intelimotor_hasBluetooth = " . ($vehiculo->listingInfo->hasBluetooth == true ? "1" : "0") . ",
+                                intelimotor_hasCdPlayer = " . ($vehiculo->listingInfo->hasCdPlayer == true ? "1" : "0") . ",
+                                intelimotor_hasDvd = " . ($vehiculo->listingInfo->hasDvd == true ? "1" : "0") . ",
+                                intelimotor_hasMp3Player = " . ($vehiculo->listingInfo->hasMp3Player == true ? "1" : "0") . ",
+                                intelimotor_hasSdCard = " . ($vehiculo->listingInfo->hasSdCard == true ? "1" : "0") . ",
+                                intelimotor_hasUsb = " . ($vehiculo->listingInfo->hasUsb == true ? "1" : "0") . ",
+                                intelimotor_hasBullBar = " . ($vehiculo->listingInfo->hasBullBar == true ? "1" : "0") . ",
+                                intelimotor_hasSpareTyreSupport = " . ($vehiculo->listingInfo->hasSpareTyreSupport == true ? "1" : "0") . ",
+                                intelimotor_hasTrayCover = " . ($vehiculo->listingInfo->hasTrayCover == true ? "1" : "0") . ",
+                                intelimotor_hasTrayMat = " . ($vehiculo->listingInfo->hasTrayMat == true ? "1" : "0") . ",
+                                intelimotor_hasWindscreenWiper = " . ($vehiculo->listingInfo->hasWindscreenWiper == true ? "1" : "0") . ",
+                                intelimotor_singleOwner = " . ($vehiculo->listingInfo->singleOwner == true ? "1" : "0") . ",
+                                intelimotor_youtubeVideoUrl = '" . $vehiculo->listingInfo->youtubeVideoUrl . "',
+                                intelimotor_picture = '" . $vehiculo->listingInfo->pictures[0] . "',
 
-                            publicado = " . ($vehiculo->isSold == true ? "0" : "1") . ",
-                            tipo = '" . $vehiculo->listingInfo->vehicleBodyType . "',
-                            marca = '" . $vehiculo->listingInfo->brand . "',
-                            modelo = '" . $vehiculo->listingInfo->model . "',
-                            version = '" . $vehiculo->listingInfo->trim . "',
-                            ano = " . $vehiculo->listingInfo->year . ",
-                            color = '" . $vehiculo->listingInfo->exteriorColor . "',
-                            precio = " . $vehiculo->listPrice . ",
-                            litros = '" . $vehiculo->listingInfo->engine . "',
-                            combustible = '" . $vehiculo->listingInfo->fuelType . "',
-                            transmision = '" . $vehiculo->listingInfo->transmission . "',
-                            puertas = " . $vehiculo->listingInfo->doors . ",
-                            kilometraje = " . $vehiculo->kms . ",
-                            numeroLlaves = 1,
-                            unicoDueno = " . ($vehiculo->listingInfo->singleOwner == true ? "1" : "0") . ",
-                            clima = " . ($vehiculo->listingInfo->hasAirConditioning == true ? "1" : "0") . ",
-                            stereo = " . ($vehiculo->listingInfo->hasAmfmRadio == true ? "1" : "0") . ",
-                            farosNiebla = " . ($vehiculo->listingInfo->hasFogLight == true ? "1" : "0") . ",
-                            descripcion = '" . $vehiculo->listingInfo->title . "',
-                            imagenPrincipal = '" . $vehiculo->listingInfo->pictures[0] . "',
-                            video_url = '" . $vehiculo->listingInfo->youtubeVideoUrl . "',
-                            video_publicado = 1
-                        WHERE
-                            intelimotor_id = '" . $id . "'");
-                }
-
-                // Carga imagenes
-
-                $indiceImagenes = 0;
-
-                consulta($conexion, "DELETE FROM imagen WHERE intelimotor_id = '" . $id . "'");
-
-                foreach ($vehiculo->listingInfo->pictures as $imagen) {
-                    if ($indiceImagenes > 0) {
-                        consulta($conexion, "INSERT INTO imagen (intelimotor_id, imagen) VALUES ('" . $id . "', '" . $imagen . "')");
+                                publicado = " . ($vehiculo->isSold == true ? "0" : "1") . ",
+                                tipo = '" . $vehiculo->listingInfo->vehicleBodyType . "',
+                                marca = '" . $vehiculo->listingInfo->brand . "',
+                                modelo = '" . $vehiculo->listingInfo->model . "',
+                                version = '" . $vehiculo->listingInfo->trim . "',
+                                ano = " . $vehiculo->listingInfo->year . ",
+                                color = '" . $vehiculo->listingInfo->exteriorColor . "',
+                                precio = " . $vehiculo->listPrice . ",
+                                litros = '" . $vehiculo->listingInfo->engine . "',
+                                combustible = '" . $vehiculo->listingInfo->fuelType . "',
+                                transmision = '" . $vehiculo->listingInfo->transmission . "',
+                                puertas = " . $vehiculo->listingInfo->doors . ",
+                                kilometraje = " . $vehiculo->kms . ",
+                                numeroLlaves = 1,
+                                unicoDueno = " . ($vehiculo->listingInfo->singleOwner == true ? "1" : "0") . ",
+                                clima = " . ($vehiculo->listingInfo->hasAirConditioning == true ? "1" : "0") . ",
+                                stereo = " . ($vehiculo->listingInfo->hasAmfmRadio == true ? "1" : "0") . ",
+                                farosNiebla = " . ($vehiculo->listingInfo->hasFogLight == true ? "1" : "0") . ",
+                                descripcion = '" . $vehiculo->listingInfo->title . "',
+                                imagenPrincipal = '" . $vehiculo->listingInfo->pictures[0] . "',
+                                video_url = '" . $vehiculo->listingInfo->youtubeVideoUrl . "',
+                                video_publicado = 1
+                            WHERE
+                                intelimotor_id = '" . $id . "'");
                     }
 
-                    $indiceImagenes++;
+                    // Carga imagenes
+
+                    $indiceImagenes = 0;
+
+                    consulta($conexion, "DELETE FROM imagen WHERE intelimotor_id = '" . $id . "'");
+
+                    foreach ($vehiculo->listingInfo->pictures as $imagen) {
+                        if ($indiceImagenes > 0) {
+                            consulta($conexion, "INSERT INTO imagen (intelimotor_id, imagen) VALUES ('" . $id . "', '" . $imagen . "')");
+                        }
+
+                        $indiceImagenes++;
+                    }
+    } catch (Exception $e) {
+        echo $e->getMessage();
+        echo "<br />";
+    }
                 }
-} catch (Exception $e) {
-    echo $e->getMessage();
+
+                if (!estaVacio($idsIntelimotor)) {
+                    $idsIntelimotor = rtrim($idsIntelimotor, ",");
+
+                    consulta($conexion, "UPDATE vehiculo SET publicado = 0 WHERE intelimotor_id NOT IN (" . $idsIntelimotor . ")");
+                }
+
+    echo $fechaActual;
     echo "<br />";
-}
+    echo "Cantidad de vehiculos procesados = " . $indice;
             }
-
-            if (!estaVacio($idsIntelimotor)) {
-                $idsIntelimotor = rtrim($idsIntelimotor, ",");
-
-                consulta($conexion, "UPDATE vehiculo SET publicado = 0 WHERE intelimotor_id NOT IN (" . $idsIntelimotor . ")");
-            }
-
-echo $fechaActual;
-echo "<br />";
-echo "Cantidad de vehiculos procesados = " . $indice;
 
             // Cierra la conexion con base de datos y libera recursos
 
