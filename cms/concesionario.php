@@ -57,13 +57,13 @@
             $habilitado = estaVacio($habilitado) ? 0 : 1;
             $logotipo = "";
             $fachada = "";
-            $tieneLogotipoCargado = 0;
+            $tieneFachadaCargada = 0;
 
-            if (isset($_FILES["logotipo"])) {
+            if (isset($_FILES["fachada"])) {
                 try {
-                    $archivo = $_FILES["logotipo"];
+                    $archivo = $_FILES["fachada"];
                     if ($archivo["size"] > 0) {
-                        $tieneLogotipoCargado = 1;
+                        $tieneFachadaCargada = 1;
                     }
 
                 } catch (Exception $e) {
@@ -76,12 +76,40 @@
 
                 // Valida los campos obligatorios
 
+                if (estaVacio($razonSocial)) {
+                    $mensaje .= "* Razón Social es obligatorio<br />";
+                }
+
+                if (estaVacio($rfc)) {
+                    $mensaje .= "* RFC es obligatorio<br />";
+                }
+
                 if (estaVacio($nombreComercial)) {
                     $mensaje .= "* Nombre Comercial es obligatorio<br />";
                 }
 
-                if ((estaVacio($id)) && ($tieneLogotipoCargado == 0)) {
-                    $mensaje .= "* Logotipo<br />";
+                if (estaVacio($calle)) {
+                    $mensaje .= "* Calle es obligatorio<br />";
+                }
+
+                if (estaVacio($numeroExterior)) {
+                    $mensaje .= "* Número exterior es obligatorio<br />";
+                }
+
+                if (estaVacio($colonia)) {
+                    $mensaje .= "* Colonia es obligatorio<br />";
+                }
+
+                if (estaVacio($municipio)) {
+                    $mensaje .= "* Municipio es obligatorio<br />";
+                }
+
+                if (estaVacio($telefono)) {
+                    $mensaje .= "* Teléfono de contacto es obligatorio<br />";
+                }
+
+                if ((estaVacio($id)) && ($tieneFachadaCargada == 0)) {
+                    $mensaje .= "* Foto de fachada o foto principal es obligatorio<br />";
                 }
 
                 if (estaVacio($id)){
@@ -545,13 +573,13 @@
                                                                             <div class="row mb-30">
                                                                                 <div class="col-md-6">
                                                                                     <div class="form-group">
-                                                                                        <label class="control-label mb-10">Razón Social</label>
+                                                                                        <label class="control-label mb-10">Razón Social <span class="txt-danger ml-10">*</span></label>
                                                                                         <input class="form-control" name="razonSocial" type="text" value="<?php echo $razonSocial ?>" />
                                                                                     </div>
                                                                                 </div>
                                                                                 <div class="col-md-6">
                                                                                     <div class="form-group">
-                                                                                        <label class="control-label mb-10">RFC</label>
+                                                                                        <label class="control-label mb-10">RFC <span class="txt-danger ml-10">*</span></label>
                                                                                         <input class="form-control" name="rfc" type="text" value="<?php echo $rfc ?>" />
                                                                                     </div>
                                                                                 </div>
@@ -581,7 +609,7 @@
                                                                                 </div>
                                                                                 <div class="col-md-6">
                                                                                     <div class="form-group">
-                                                                                        <label class="control-label mb-10">Calle</label>
+                                                                                        <label class="control-label mb-10">Calle <span class="txt-danger ml-10">*</span></label>
                                                                                         <input class="form-control" name="calle" type="text" value="<?php echo $calle ?>" />
                                                                                     </div>
                                                                                 </div>
@@ -590,7 +618,7 @@
                                                                             <div class="row mb-30">
                                                                                 <div class="col-md-6">
                                                                                     <div class="form-group">
-                                                                                        <label class="control-label mb-10">Número exterior</label>
+                                                                                        <label class="control-label mb-10">Número exterior <span class="txt-danger ml-10">*</span></label>
                                                                                         <input class="form-control" name="numeroExterior" type="text" value="<?php echo $numeroExterior ?>" />
                                                                                     </div>
                                                                                 </div>
@@ -605,7 +633,7 @@
                                                                             <div class="row mb-30">
                                                                                 <div class="col-md-6">
                                                                                     <div class="form-group">
-                                                                                        <label class="control-label mb-10">Colonia</label>
+                                                                                        <label class="control-label mb-10">Colonia <span class="txt-danger ml-10">*</span></label>
                                                                                         <input class="form-control" name="colonia" type="text" value="<?php echo $colonia ?>" />
                                                                                     </div>
                                                                                 </div>
@@ -661,7 +689,7 @@
                                                                             <div class="row mb-30">
                                                                                 <div class="col-md-6">
                                                                                     <div class="form-group">
-                                                                                        <label class="control-label mb-10">Teléfono de contacto</label>
+                                                                                        <label class="control-label mb-10">Teléfono de contacto <span class="txt-danger ml-10">*</span></label>
                                                                                         <input class="form-control validaSoloNumeros" maxlength="10" name="telefono" type="tel" value="<?php echo $telefono ?>" />
                                                                                     </div>
                                                                                 </div>
@@ -691,7 +719,7 @@
                                                                             <div class="row">
                                                                                 <div class="col-md-12">
                                                                                     <div class="form-group">
-                                                                                        <label class="control-label mb-10">Logo <span class="txt-danger ml-10">*</span></label>
+                                                                                        <label class="control-label mb-10">Logo</label>
                                                                                         <div>
                                                                                             <input name="logotipo" type="file" />
                                                                                             <br />
@@ -736,7 +764,7 @@
                                                                             <div class="row">
                                                                                 <div class="col-md-12">
                                                                                     <div class="form-group">
-                                                                                        <label class="control-label mb-10">Foto de fachada o foto principal</label>
+                                                                                        <label class="control-label mb-10">Foto de fachada o foto principal <span class="txt-danger ml-10">*</span></label>
                                                                                         <div>
                                                                                             <input name="fachada" type="file" />
                                                                                             <br />
