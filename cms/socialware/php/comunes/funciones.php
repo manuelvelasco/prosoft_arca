@@ -314,6 +314,7 @@
                 $intelimotor_apiKey = $concesionario["intelimotor_apiKey"];
                 $intelimotor_apiSecret = $concesionario["intelimotor_apiSecret"];
 
+
                 // Invoca web service InteliMotor
 
                 $canal = curl_init();
@@ -447,7 +448,8 @@
                                 video_publicado,
 
                                 fechaRegistro,
-                                idSucursal
+                                idSucursal,
+                                idConcesionario
                             ) VALUES (
                                 '" . $id . "',
                                 " . ($vehiculo->imported == true ? "1" : "0") . ",
@@ -549,7 +551,8 @@
                                 1,
 
                                 '" . $fechaActual . "',
-                                1
+                                1,
+                                " . $concesionario["id"] . "
                             )");
                     } else {
 
@@ -654,7 +657,8 @@
                                 descripcion = '" . $vehiculo->listingInfo->title . "',
                                 imagenPrincipal = '" . $vehiculo->listingInfo->pictures[0] . "',
                                 video_url = '" . $vehiculo->listingInfo->youtubeVideoUrl . "',
-                                video_publicado = 1
+                                video_publicado = 1,
+                                idConcesionario = " . $concesionario["id"] . "
                             WHERE
                                 intelimotor_id = '" . $id . "'");
                     }

@@ -355,6 +355,8 @@
                                                 } else {
                                                     $puedeSincronizarVehiculo = 0;
                                                 }
+                                            } else {
+                                                $puedeAgregarVehiculo = 0;
                                             }
 
                                             if ($usuario_permisoEditarVehiculos == 1 && $puedeAgregarVehiculo) { ?>
