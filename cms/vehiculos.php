@@ -421,7 +421,13 @@
                     order: [[0, "desc"]],
                     dom: "Bfrtip",
                     buttons: [
-                        "copy", "excel", "pdf", "print"
+                        "copy", 
+                        "excel", {
+                            extend: 'pdfHtml5',
+                            orientation: 'landscape',
+                            pageSize: 'LEGAL' 
+                        }, 
+                        "print"
                     ],
                     language: {
                         decimal: "",
