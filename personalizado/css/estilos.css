@@ -495,6 +495,14 @@ label.errorModalAgendarCita {
     color: #FFF;
 }
 
+#interfaz_vehiculo .colorTextoBlanco {
+    color:white;
+}
+
+#interfaz_vehiculo #enlace_whatsappConcesionario i {
+    font-size: 18px;
+}
+
 
 
 #interfaz_vehiculo .slick-prev, .slick-next {

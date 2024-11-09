@@ -21,7 +21,7 @@
 
         // Consulta base de datos
 
-        $vehiculo_BD = consulta($conexion, "SELECT v.*, s.whatsapp AS gerente_whatsapp FROM vehiculo v LEFT JOIN sucursal s ON s.id = v.idSucursal WHERE v.id = " . $id . " AND v.publicado = 1");
+        $vehiculo_BD = consulta($conexion, "SELECT v.*, s.whatsapp AS gerente_whatsapp, c.nombreComercial, c.whatsapp AS concesionarioWhatsapp, c.colonia, c.municipio, c.fachada, c.telefono FROM vehiculo v INNER JOIN concesionario c ON v.idConcesionario = c.id LEFT JOIN sucursal s ON s.id = v.idSucursal WHERE v.id = " . $id . " AND v.publicado = 1");
 
         $resultado .= "<vehiculos>";
 
@@ -31,6 +31,7 @@
             foreach (array_keys($vehiculo) as $llave) {
                 $resultado .= "<" . $llave . ">" . $vehiculo[$llave] . "</" . $llave . ">";
             }
+            $resultado .= "<constanteUrlConcesionarios>" . $constante_urlConcesionarios . "</constanteUrlConcesionarios>";
 
             // Complementa con galeria
 
