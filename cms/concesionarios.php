@@ -178,6 +178,10 @@
                                                                         $restricciones .= " AND c.municipio = '" . $municipio ."'";
                                                                     }
 
+                                                                    if ($esUsuarioOperador) {
+                                                                        $restricciones .= " AND c.id = " . $usuario_idConcesionario;
+                                                                    }
+
                                                                     // Consulta base de datos
 
                                                                     $concesionarios_BD = consulta($conexion, "SELECT"
