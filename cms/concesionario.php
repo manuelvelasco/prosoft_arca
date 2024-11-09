@@ -43,6 +43,10 @@
             $telefono = sanitiza($conexion, filter_input(INPUT_POST, "telefono"));
             $correoElectronico = sanitiza($conexion, filter_input(INPUT_POST, "correoElectronico"));
             $whatsapp = sanitiza($conexion, filter_input(INPUT_POST, "whatsapp"));
+            $instagram = sanitiza($conexion, filter_input(INPUT_POST, "instagram"));
+            $tiktok = sanitiza($conexion, filter_input(INPUT_POST, "tiktok"));
+            $youtube = sanitiza($conexion, filter_input(INPUT_POST, "youtube"));
+
 
             // Parametros enviados por origen
 
@@ -156,6 +160,18 @@
                     $mensaje .= "* Facebook con formato correcto <br />";
                 }
 
+                if ((!estaVacio($instagram)) && (filter_var($instagram, FILTER_VALIDATE_URL) === FALSE)) {
+                    $mensaje .= "* Instagram con formato correcto <br />";
+                }
+
+                if ((!estaVacio($tiktok)) && (filter_var($tiktok, FILTER_VALIDATE_URL) === FALSE)) {
+                    $mensaje .= "* Tiktok con formato correcto <br />";
+                }
+
+                if ((!estaVacio($youtube)) && (filter_var($youtube, FILTER_VALIDATE_URL) === FALSE)) {
+                    $mensaje .= "* Youtube con formato correcto <br />";
+                }
+
                 if (!estaVacio($mensaje)) {
                     $mensaje = "Valide los siguientes datos:<br /><br />" . $mensaje;
                 } else {
@@ -184,6 +200,9 @@
                                 . ", telefono"
                                 . ", correoElectronico"
                                 . ", whatsapp"
+                                . ", instagram"
+                                . ", tiktok"
+                                . ", youtube"
                             . ") VALUES ("
                                 . $habilitado
                                 . ", '" . $intelimotor_apiKey . "'"
@@ -205,6 +224,9 @@
                                 . ", '" . $telefono . "'"
                                 . ", '" . $correoElectronico . "'"
                                 . ", '" . $whatsapp . "'"
+                                . ", '" . $instagram . "'"
+                                . ", '" . $tiktok . "'"
+                                . ", '" . $youtube . "'"
                             . ")");
 
                         $concesionario_BD = consulta($conexion, "SELECT * FROM concesionario ORDER BY id DESC LIMIT 1");
@@ -233,6 +255,9 @@
                         $whatsapp = $concesionario["whatsapp"];
                         $logotipo = $concesionario["logotipo"];
                         $fachada = $concesionario["fachada"];
+                        $instagram = $concesionario["instagram"];
+                        $tiktok = $concesionario["tiktok"];
+                        $youtube = $concesionario["youtube"];
 
 
                         $mensaje = "ok - El concesionario ha sido registrado.";
@@ -263,6 +288,9 @@
                                 . ", telefono = '" . $telefono . "'"
                                 . ", correoElectronico = '" . $correoElectronico . "'"
                                 . ", whatsapp = '" . $whatsapp . "'"
+                                . ", instagram = '" . $instagram . "'"
+                                . ", tiktok = '" . $tiktok . "'"
+                                . ", youtube = '" . $youtube . "'"
                             . " WHERE id = " . $id);
 
                         $concesionario_BD = consulta($conexion, "SELECT * FROM concesionario WHERE id = " . $id);
@@ -291,6 +319,9 @@
                         $whatsapp = $concesionario["whatsapp"];
                         $logotipo = $concesionario["logotipo"];
                         $fachada = $concesionario["fachada"];
+                        $instagram = $concesionario["instagram"];
+                        $tiktok = $concesionario["tiktok"];
+                        $youtube = $concesionario["youtube"];
 
                         $mensaje = "ok - Los cambios han sido guardados";
 
@@ -411,6 +442,9 @@
                     $whatsapp = $concesionario["whatsapp"];
                     $logotipo = $concesionario["logotipo"];
                     $fachada = $concesionario["fachada"];
+                    $instagram = $concesionario["instagram"];
+                    $tiktok = $concesionario["tiktok"];
+                    $youtube = $concesionario["youtube"];
 
                     registraEvento("CMS : Consulta de concesionario | id = " . $id);
                 } else {
@@ -437,6 +471,10 @@
                     $whatsapp = "";
                     $logotipo = "";
                     $fachada = "";
+                    $instagram = "";
+                    $tiktok = "";
+                    $youtube = "";
+
                 }
             }
 
@@ -706,6 +744,29 @@
                                                                                     <div class="form-group">
                                                                                         <label class="control-label mb-10">Número de Whatsapp</label>
                                                                                         <input class="form-control validaSoloNumeros" maxlength="10" name="whatsapp" type="text" value="<?php echo $whatsapp ?>" />
+                                                                                    </div>
+                                                                                </div>
+
+                                                                                <div class="col-md-6">
+                                                                                    <div class="form-group">
+                                                                                        <label class="control-label mb-10">Instagram</label>
+                                                                                        <input class="form-control" name="instagram" type="text" value="<?php echo $instagram ?>" />
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+
+                                                                            <div class="row mb-30">
+                                                                                <div class="col-md-6">
+                                                                                    <div class="form-group">
+                                                                                        <label class="control-label mb-10">Tiktok</label>
+                                                                                        <input class="form-control" name="tiktok" type="text" value="<?php echo $tiktok ?>" />
+                                                                                    </div>
+                                                                                </div>
+
+                                                                                <div class="col-md-6">
+                                                                                    <div class="form-group">
+                                                                                        <label class="control-label mb-10">Youtube</label>
+                                                                                        <input class="form-control" name="youtube" type="text" value="<?php echo $youtube ?>" />
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
