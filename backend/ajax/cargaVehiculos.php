@@ -34,6 +34,7 @@
         $transmision = sanitiza($conexion, filter_input(INPUT_POST, "transmision"));
         $precioMinimo = sanitiza($conexion, filter_input(INPUT_POST, "precioMinimo"));
         $precioMaximo = sanitiza($conexion, filter_input(INPUT_POST, "precioMaximo"));
+        $concesionario = sanitiza($conexion, filter_input(INPUT_POST, "concesionario"));
 
         // Inicializa variables
 
@@ -101,6 +102,11 @@
 
         if (!estaVacio($precioMaximo)) {
             $restricciones .= " AND precio <= " . $precioMaximo;
+        }
+
+        if (!estaVacio($concesionario)) {
+            $concesionario = str_replace("\\", "", $concesionario);
+            $restricciones .= " AND idConcesionario IN ( SELECT id from concesionario where nombreComercial IN (" . $concesionario . "))";
         }
 
         if (!estaVacio($destacado) && $destacado == 1) {

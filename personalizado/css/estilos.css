@@ -405,6 +405,15 @@ label.errorModalAgendarCita {
     margin-top: 6px;
 }
 
+#interfaz_vehiculos #contenedor_concesionarios{
+    max-height:80px;
+    overflow-y:scroll;
+}
+
+#interfaz_vehiculos #contenedor_concesionarios::-webkit-scrollbar { 
+    display: none;  /* Safari and Chrome */
+}
+
 @media only screen and (max-width: 1199px) {
     #interfaz_vehiculos #contenedor_filtros {
         display: none;
