@@ -1,10 +1,11 @@
-//var rutaAplicacion = "http://localhost/web/arca/";
+//var rutaAplicacion = "http://localhost/git/prosoft_arca/";
 var rutaAplicacion = "http://54.196.77.109/arca/";
 //var rutaAplicacion = "https://albacar.mx/";
 
 var rutaBackend = rutaAplicacion + "backend/";
 var rutaVehiculos = rutaAplicacion + "vehiculos/";
 var rutaPosts = rutaAplicacion + "posts/";
+var rutaConcesionarios = rutaAplicacion + "concesionarios/";
 
 
 $(function() {

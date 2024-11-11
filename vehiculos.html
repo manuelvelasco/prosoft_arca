@@ -366,7 +366,7 @@
                         <a class="drop-down" href="vehiculos.html">COMPRAR UN AUTO</a>
                     </li>
                     <li>
-                        <a class="drop-down" href="vendermiauto.html">VENDER MI AUTO</a>
+                        <a class="drop-down" href="concesionarios.html">CONCESIONARIOS</a>
                     </li>
                     <li>
                         <a class="drop-down" href="financiamiento.html">FINANCIAMIENTO</a>
@@ -1113,7 +1113,7 @@
                 $("#contenedor_concesionarios").html("");
 
                 $.ajax({
-                    url: rutaBackend + "ajax/cargaConcesionarios.php",
+                    url: rutaBackend + "ajax/cargaFiltroConcesionarios.php",
                     type: "post"
                 }).done(function (resultado, textStatus, jqXHR) {
                     var recargaVehiculos = 0;

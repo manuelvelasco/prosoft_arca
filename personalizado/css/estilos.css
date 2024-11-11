@@ -440,6 +440,163 @@ label.errorModalAgendarCita {
 }
 
 
+/* Interfaz Listado de concesionarios */
+
+
+#interfaz_concesionarios #seccionProductos {
+    background:#FAF8FB;
+}
+
+#interfaz_concesionarios .enlace_borrarFiltros, #interfaz_concesionarios .enlace_borrarEtiqueta {
+    cursor: pointer;
+}
+
+#interfaz_concesionarios .product-sidebar .product-widget {
+    background: #E9E9E9;
+}
+
+#interfaz_concesionarios .menuMarca:after {
+    border-bottom: 2px solid white;
+    border-right: 2px solid white;
+    content: '';
+    display: block;
+    height: 8px;
+    margin-top: -4px;
+    cursor:pointer;
+    position: relative;
+    right: 12px;
+    top: 50%;
+    -webkit-transform-origin: 66% 66%;
+    -ms-transform-origin: 66% 66%;
+    transform-origin: 66% 66%;
+    -webkit-transform: rotate(135deg);
+    -ms-transform: rotate(135deg);
+    transform: rotate(135deg);
+    -webkit-transition: all 0.15s ease-in-out;
+    transition: all 0.15s ease-in-out;
+    width: 8px;
+}
+
+#interfaz_concesionarios .menuMarca.activo:after{
+    border-bottom: 2px solid white;
+    border-right: 2px solid white;
+    content: '';
+    display: block;
+    height: 8px;
+    margin-top: -4px;
+    cursor:pointer;
+    position: relative;
+    right: 12px;
+    top: 50%;
+    -webkit-transform-origin: 66% 66%;
+    -ms-transform-origin: 66% 66%;
+    transform-origin: 66% 66%;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+    -webkit-transition: all 0.15s ease-in-out;
+    transition: all 0.15s ease-in-out;
+    width: 8px;
+}
+
+#interfaz_concesionarios .filtroModelo {
+    margin-left: 15px;
+}
+
+#interfaz_concesionarios .nice-select.open .list {
+    width: 150px;
+}
+
+#interfaz_concesionarios .product-card3 .new {
+    background-color: var(--primary-color1);
+    /*border-radius: 10px 0;*/
+    color: var(--black-color);
+    display: inline-block;
+    font-family: var(--font-open-sans);
+    font-size: 10px;
+    font-weight: 600;
+    left: 0;
+    line-height: 14px;
+    padding: 6px 20px;
+    position: absolute;
+    top: 0;
+    z-index: 99;
+}
+
+#interfaz_concesionarios #seccionProductos .swiper-slide img {
+    width: 100%;
+}
+
+#interfaz_concesionarios .product-card .product-content .features::after {
+    background-color: #FFF;
+}
+
+#interfaz_concesionarios #contiene_paginacionAnterior .colorGris, #interfaz_concesionarios #contiene_paginacionSiguiente .colorGris {
+    color: #E9E9E9;
+}
+
+#interfaz_concesionarios .list-group-wrapper .price-location {
+    margin-bottom: 35px;
+}
+
+#interfaz_concesionarios .list-group-wrapper h5 {
+    margin-bottom: 35px;
+}
+
+#interfaz_concesionarios #columna_resultados {
+    margin-top: 6px;
+}
+
+#interfaz_concesionarios #contenedor_concesionarios{
+    max-height:80px;
+    overflow-y:scroll;
+}
+
+#interfaz_concesionarios #contenedor_concesionarios::-webkit-scrollbar { 
+    display: none;  /* Safari and Chrome */
+}
+
+#interfaz_concesionarios .product-card .product-content .price-location {
+    display: block;
+}
+
+#interfaz_concesionarios .logotipo_concesionario {
+    height:45px;
+}
+
+#interfaz_concesionarios .product-card .product-content .features li {
+    font-size: 16px;
+    font-family: var(--font-montserrat);
+    font-weight: 400;
+    color: var(--title-color);
+}
+
+@media only screen and (max-width: 1199px) {
+    #interfaz_concesionarios #contenedor_filtros {
+        display: none;
+    }
+
+    #interfaz_concesionarios #enlace_mostrarFiltros {
+        display: block;
+    }
+
+    #interfaz_concesionarios #enlace_ocultarFiltros {
+        display: none;
+    }
+}
+
+@media only screen and (min-width: 1200px) {
+    #interfaz_concesionarios #contenedor_filtros {
+        display: block;
+    }
+
+    #interfaz_concesionarios #enlace_mostrarFiltros,
+    #interfaz_concesionarios #enlace_ocultarFiltros {
+        display: none;
+    }
+}
+
+
 /* Interfaz detalle de vehiculo */
 
 

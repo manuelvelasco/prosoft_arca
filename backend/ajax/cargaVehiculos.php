@@ -106,7 +106,7 @@
 
         if (!estaVacio($concesionario)) {
             $concesionario = str_replace("\\", "", $concesionario);
-            $restricciones .= " AND idConcesionario IN ( SELECT id from concesionario where nombreComercial IN (" . $concesionario . "))";
+            $restricciones .= " AND idConcesionario IN ( SELECT c.id from concesionario c where c.nombreComercial IN (" . $concesionario . "))";
         }
 
         if (!estaVacio($destacado) && $destacado == 1) {
