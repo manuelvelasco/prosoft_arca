@@ -159,10 +159,10 @@
 
         // Consulta base de datos
         //echo "SELECT COUNT(*) AS vehiculosEncontrados FROM vehiculo WHERE publicado = 1 AND intelimotor_id IS NOT NULL " . $restricciones; die();
-        $vehiculosEncontrados = obtenResultado(consulta($conexion, "SELECT COUNT(*) AS vehiculosEncontrados FROM vehiculo WHERE publicado = 1 AND intelimotor_id IS NOT NULL " . $restricciones))["vehiculosEncontrados"];
+        $vehiculosEncontrados = obtenResultado(consulta($conexion, "SELECT COUNT(*) AS vehiculosEncontrados FROM vehiculo WHERE publicado = 1 " . $restricciones))["vehiculosEncontrados"];
 
         //$vehiculos_BD = consulta($conexion, "SELECT id, marca, modelo, ano, precio, kilometraje, transmision, combustible, imagenPrincipal FROM vehiculo WHERE publicado = 1 " . $restricciones . $ordenamiento . $limitante);
-        $vehiculos_BD = consulta($conexion, "SELECT * FROM vehiculo WHERE publicado = 1 AND intelimotor_id IS NOT NULL " . $restricciones . $ordenamiento . $limitante);
+        $vehiculos_BD = consulta($conexion, "SELECT * FROM vehiculo WHERE publicado = 1 " . $restricciones . $ordenamiento . $limitante);
         //echo "SELECT * FROM vehiculo WHERE publicado = 1 AND intelimotor_id IS NOT NULL " . $restricciones . $ordenamiento . $limitante;
 
         $resultado .= "<vehiculos total='" . $vehiculosEncontrados . "'>";
