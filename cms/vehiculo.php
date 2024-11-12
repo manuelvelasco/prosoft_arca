@@ -1751,6 +1751,11 @@
                 if (cuentaResultados($concesionarioAsociadoIntelimotor) > 0) {
                     $tieneHabilitadoIntelimotor = 1;
                 }
+            } else {
+                $concesionarioAsociadoIntelimotor = consulta($conexion, "SELECT v.id FROM vehiculo v INNER JOIN concesionario c ON v.idConcesionario = c.id WHERE v.id = " . $id . " AND c.intelimotor_apiKey != '' AND c.intelimotor_apiSecret != ''");
+                if (cuentaResultados($concesionarioAsociadoIntelimotor) > 0) {
+                    $tieneHabilitadoIntelimotor = 1;
+                }
             }
         ?>
 
@@ -2553,15 +2558,7 @@
                                                                                 </div>
                                                                             
                                                                             
-                                                                            
-                                                                            
-                                                                            
-                                                                            
                                                                             </div>
-                                                                            
-                                                                            
-                                                                            
-                                                                            
                                                                             
                                                                             
                                                                             <div class="<?php echo $tieneHabilitadoIntelimotor == 1 ? "" : "oculta_campos"; ?>">
