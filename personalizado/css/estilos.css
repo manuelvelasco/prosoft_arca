@@ -561,7 +561,9 @@ label.errorModalAgendarCita {
 }
 
 #interfaz_concesionarios .logotipo_concesionario {
-    height:45px;
+    height: 45px;
+    margin: auto;
+    display: block;
 }
 
 #interfaz_concesionarios .product-card .product-content .features li {
