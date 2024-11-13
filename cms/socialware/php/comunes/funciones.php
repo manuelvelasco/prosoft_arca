@@ -289,7 +289,7 @@
     }
 
 
-    function sincronizaInventarioInteliMotor($idConcesionario) {
+    function sincronizaInventarioInteliMotor($idConcesionario = null) {
         try {
 
             // Obtiene conexion a base de datos
@@ -304,7 +304,7 @@
 
             //Se obtiene datos de concesionario
 
-            if ($idConcesionario > 0) {
+            if (!estaVacio($idConcesionario)) {
                $concesionario_BD = consulta($conexion, "SELECT * FROM concesionario WHERE id = " . $idConcesionario);
             } else {
                $concesionario_BD = consulta($conexion, "SELECT * FROM concesionario WHERE intelimotor_apiKey != '' AND intelimotor_apiSecret != ''");

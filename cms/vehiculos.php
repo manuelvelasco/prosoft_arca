@@ -475,7 +475,7 @@
 
                 $.ajax({
                     data: {
-                        idConcesionario: <?php echo estaVacio($usuario_idConcesionario) ? -1 : $usuario_idConcesionario; ?>
+                        idConcesionario: <?php echo estaVacio($esUsuarioOperador) ? $usuario_idConcesionario : null; ?>
                     },
                     type: "post",
                     url: "socialware/php/ajax/sincronizaInventarioInteliMotor.php",
