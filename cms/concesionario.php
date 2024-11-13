@@ -148,7 +148,7 @@
                     $mensaje .= "* Número de whatsapp con formato correcto<br />";
                 }
 
-                if ((!estaVacio($whatsapp)) && (!filter_var($correoElectronico, FILTER_VALIDATE_EMAIL))) {
+                if ((!estaVacio($correoElectronico)) && (!filter_var($correoElectronico, FILTER_VALIDATE_EMAIL))) {
                     $mensaje .= "* Correo electrónico con formato correcto<br />";
                 }
 
