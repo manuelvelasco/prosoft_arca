@@ -573,6 +573,16 @@ label.errorModalAgendarCita {
     color: var(--title-color);
 }
 
+#interfaz_concesionarios .list-group-wrapper .item .product-card .product-img {
+    display: flex;
+    min-height: 230px;
+
+}
+
+#interfaz_concesionarios .list-group-wrapper .item .product-card .product-img .swiper{
+    margin:auto auto;
+}
+
 @media only screen and (max-width: 1199px) {
     #interfaz_concesionarios #contenedor_filtros {
         display: none;
