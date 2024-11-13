@@ -599,7 +599,187 @@ label.errorModalAgendarCita {
 }
 
 
+/* Interfaz detalle de concesionario */
+
+
+
+#interfaz_concesionario .brand-category-section .brand-category-card .category-img img {
+    border-radius: 10px;
+}
+
+#interfaz_concesionario .brand-category-section .brand-category-card .category-img::after {
+    border-radius: 10px;
+}
+
+#interfaz_concesionario .brand-category-card {
+    border-radius: 10px;
+}
+
+#interfaz_concesionario .esconder {
+    visibility: hidden;
+}
+
+#interfaz_concesionario #faqs .bloqueInterno {
+    border-bottom: 1px solid lightgray;
+    margin-right: 2%;
+}
+
+#interfaz_concesionario #faqs .tituloInterno {
+    font-size: 12px;
+    font-weight: bold;
+}
+
+#interfaz_concesionario .how-it-work-section {
+    background: none;
+    padding:20px;
+}
+
+#interfaz_concesionario .callToAction img {
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+#interfaz_concesionario .mt20 {
+    margin-top:20px;
+}
+
+#interfaz_concesionario .subtitulo_detalleVehiculo {
+    font-weight: 100;
+}
+
+#interfaz_concesionario .video-btn {
+    margin: auto;
+}
+
+#interfaz_concesionario .enlace_vehiculo h5 {
+    color: #FFF;
+}
+
+#interfaz_concesionario .colorTextoBlanco {
+    color:white;
+}
+
+#interfaz_concesionario #enlace_whatsappConcesionario i {
+    font-size: 18px;
+}
+
+
+
+#interfaz_concesionario .slick-prev, .slick-next {
+    height: 40px;
+    width: 40px;
+    z-index: 1000;
+}
+
+#interfaz_concesionario .slick-prev {
+    left: 0
+}
+
+#interfaz_concesionario .slick-prev:before {
+    color: #fff;
+    content: "<";
+    font-family: 'FontAwesome';
+    font-size: 40px;
+}
+
+#interfaz_concesionario .slick-next {
+    right: 0;
+}
+
+#interfaz_concesionario .slick-next:before {
+    color: #fff;
+    content: ">";
+    font-family: 'FontAwesome';
+    font-size: 40px;
+}
+
+#interfaz_concesionario .product_main_slider img {
+    border-radius: 10px;
+    width: 100%;
+}
+
+#interfaz_concesionario .product_nav_slider .slick-slide {
+    margin-right: 5px;
+}
+
+
+
+
+#interfaz_concesionario .new {
+    font-family: var(--font-open-sans);
+    font-weight: 600;
+    font-size: 10px;
+    line-height: 14px;
+    color: var(--black-color);
+    background-color: var(--primary-color1);
+    display: inline-block;
+    z-index: 99;
+    position: absolute;
+    left: 0;
+    top: 0;
+    padding: 6px 20px;
+    border-radius: 10px 0;
+}
+
+#interfaz_concesionario #car-info i {
+    font-size: 22px;
+}
+
+#interfaz_concesionario #car-info img {
+    width: 22px;
+}
+
+#interfaz_concesionario #contenedor_vehiculosSimilares .features img {
+    width: 14px;
+}
+
+
+#interfaz_concesionario .car-details-sidebar .inquiry-form {
+    background-image: none;
+    background-color: #E9E9E9;
+}
+
+#interfaz_concesionario #campo_calcularFinanciamiento_plazo {
+    background: var(--white-color);
+    border: none;
+    border-radius: 10px;
+    color: var(--text-color);
+    font-family: var(--font-open-sans);
+    font-size: 13px;
+    font-weight: 400;
+    height: 48px;
+    outline: none;
+    padding: 10px 20px;
+    width: 100%;
+}
+
+#interfaz_concesionario #etiqueta_calcularFinanciamiento_mensualidad {
+    color: #46d993;
+}
+
+#interfaz_concesionario #contenedor_compararVehiculos_A_imagenPrincipal img,
+#interfaz_concesionario #contenedor_compararVehiculos_B_imagenPrincipal img {
+    width: 300px;
+}
+
+#interfaz_concesionario .logotipo_concesionario {
+    height: 30px;
+    float: left;
+}
+
+#interfaz_concesionario .primary-btn6 {
+    max-width: 70px;
+}
+
+#interfaz_concesionario #redesSociales_concesionario {
+    display: flex;
+    justify-content: center;
+}
+
+
+
 /* Interfaz detalle de vehiculo */
+
 
 
 #interfaz_vehiculo .brand-category-section .brand-category-card .category-img img {
