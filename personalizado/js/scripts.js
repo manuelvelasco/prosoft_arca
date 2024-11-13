@@ -275,6 +275,10 @@ $(document).on("click", ".enlace_vehiculo", function() {
     window.location = "vehiculo.html?id=" + $(this).data("id");
 });
 
+$(document).on("click", ".enlace_concesionario", function() {
+    window.location = "concesionario.html?id=" + $(this).data("id");
+});
+
 
 $(document).on("click", "#enlace_contactarWhatsapp_contactar",function(){
     $("#contenedor_contactarWhatsapp_mensaje").html("");
