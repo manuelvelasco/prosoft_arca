@@ -11,5 +11,9 @@
 
     $idConcesionario = sanitiza($conexion, filter_input(INPUT_POST, "idConcesionario"));
 
+    if ($idConcesionario == 0) {
+        $idConcesionario = null;
+    }
+
     return sincronizaInventarioIntelimotor($idConcesionario);
 ?>
