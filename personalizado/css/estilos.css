@@ -153,7 +153,7 @@ label.errorModalAgendarCita {
     background-color: #FFF;
 }
 
-#interfaz_inicio #seccion_vehiculosDestacados {
+#interfaz_inicio #seccion_vehiculosDestacados, #interfaz_inicio #seccion_vehiculosDestacados2 {
     background-color: #FAF8FB;
 }
 
@@ -193,7 +193,7 @@ label.errorModalAgendarCita {
     z-index: 1;
 }
 
-#interfaz_inicio #seccion_vehiculosConDescuentoEspecial {
+#interfaz_inicio #seccion_vehiculosConDescuentoEspecial, #interfaz_inicio #seccion_vehiculosConDescuentoEspecial2 {
     background-color: #FAF8FB;
 }
 
@@ -242,7 +242,9 @@ label.errorModalAgendarCita {
     color: #FFF;
 }
 
-
+#interfaz_inicio .justify-content-right {
+    justify-content: right !important;
+}
 
 
 #interfaz_inicio label.errorContacto {
@@ -275,6 +277,10 @@ label.errorModalAgendarCita {
 #interfaz_inicio .home6-search-area {
     z-index: 100;
     position: relative;
+}
+
+#interfaz_inicio .category-img img {
+    min-height: 200px;
 }
 
 #interfaz_inicio #buscador_palabraClave {

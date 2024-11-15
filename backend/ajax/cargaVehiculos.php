@@ -57,64 +57,64 @@
         $limitante = "";
 
         if (!estaVacio($palabraClave)) {
-            $restricciones .= " AND (LOWER(descripcion) LIKE '%" . strtolower($palabraClave) . "%')";
+            $restricciones .= " AND (LOWER(v.descripcion) LIKE '%" . strtolower($palabraClave) . "%')";
         }
 
         if (!estaVacio($kilometrosMinimo) && $kilometrosMinimo >= 0) {
-            $restricciones .= " AND kilometraje >= " . $kilometrosMinimo;
+            $restricciones .= " AND v.kilometraje >= " . $kilometrosMinimo;
         }
 
         if (!estaVacio($kilometrosMaximo) && $kilometrosMaximo >= 0) {
-            $restricciones .= " AND kilometraje <= " . $kilometrosMaximo;
+            $restricciones .= " AND v.kilometraje <= " . $kilometrosMaximo;
         }
 
         if (!estaVacio($tipo) && strpos($tipo, "VERTODO") === false) {
             $tipo = str_replace("\\", "", $tipo);
 
-            $restricciones .= " AND tipo IN (" . $tipo . ")";
+            $restricciones .= " AND v.tipo IN (" . $tipo . ")";
         }
 
         if (!estaVacio($marca) && strpos($marca, "VERTODO") === false) {
             $marca = str_replace("\\", "", $marca);
 
-            $restricciones .= " AND marca IN (" . $marca . ")";
+            $restricciones .= " AND v.marca IN (" . $marca . ")";
         }
 
         if (!estaVacio($modelo) && strpos($modelo, "VERTODO") === false) {
             $modelo = str_replace("\\", "", $modelo);
 
-            $restricciones .= " AND modelo IN (" . $modelo . ")";
+            $restricciones .= " AND v.modelo IN (" . $modelo . ")";
         }
 
         if (!estaVacio($transmision)) {
             $transmision = str_replace("\\", "", $transmision);
 
-            $restricciones .= " AND transmision IN (" . $transmision . ")";
+            $restricciones .= " AND v.transmision IN (" . $transmision . ")";
         }
 
         if (!estaVacio($anoMinimo)) {
-            $restricciones .= " AND ano >= " . $anoMinimo . " AND ano <= " . $anoMaximo;
+            $restricciones .= " AND v.ano >= " . $anoMinimo . " AND v.ano <= " . $anoMaximo;
         }
 
         if (!estaVacio($precioMinimo)) {
-            $restricciones .= " AND precio >= " . $precioMinimo;
+            $restricciones .= " AND v.precio >= " . $precioMinimo;
         }
 
         if (!estaVacio($precioMaximo)) {
-            $restricciones .= " AND precio <= " . $precioMaximo;
+            $restricciones .= " AND v.precio <= " . $precioMaximo;
         }
 
         if (!estaVacio($concesionario)) {
             $concesionario = str_replace("\\", "", $concesionario);
-            $restricciones .= " AND idConcesionario IN ( SELECT c.id from concesionario c where c.nombreComercial IN (" . $concesionario . "))";
+            $restricciones .= " AND cc.nombreComercial IN (" . $concesionario . ")";
         }
 
         if (!estaVacio($destacado) && $destacado == 1) {
-            $restricciones .= " AND destacado = 1";
+            $restricciones .= " AND v.destacado = 1";
         }
 
         if (!estaVacio($descuentoEspecial) && $descuentoEspecial == 1) {
-            $restricciones .= " AND descuentoEspecial = 1";
+            $restricciones .= " AND v.descuentoEspecial = 1";
         }
 
 /*
@@ -129,19 +129,19 @@
                     $ordenamiento = " ORDER BY RAND(" . $semillaOrdenamiento . ")";
                     break;
                 case 2:
-                    $ordenamiento = " ORDER BY id DESC";
+                    $ordenamiento = " ORDER BY v.id DESC";
                     break;
                 case 3:
-                    $ordenamiento = " ORDER BY precio ";
+                    $ordenamiento = " ORDER BY v.precio ";
                     break;
                 case 4:
-                    $ordenamiento = " ORDER BY precio DESC";
+                    $ordenamiento = " ORDER BY v.precio DESC";
                     break;
                 case 5:
-                    $ordenamiento = " ORDER BY ano";
+                    $ordenamiento = " ORDER BY v.ano";
                     break;
                 case 6:
-                    $ordenamiento = " ORDER BY ano DESC";
+                    $ordenamiento = " ORDER BY v.ano DESC";
                     break;
                 default:
                     $ordenamiento = " ORDER BY RAND(" . $semillaOrdenamiento . ")";
@@ -159,10 +159,10 @@
 
         // Consulta base de datos
         //echo "SELECT COUNT(*) AS vehiculosEncontrados FROM vehiculo WHERE publicado = 1 AND intelimotor_id IS NOT NULL " . $restricciones; die();
-        $vehiculosEncontrados = obtenResultado(consulta($conexion, "SELECT COUNT(*) AS vehiculosEncontrados FROM vehiculo WHERE publicado = 1 " . $restricciones))["vehiculosEncontrados"];
+        $vehiculosEncontrados = obtenResultado(consulta($conexion, "SELECT COUNT(*) AS vehiculosEncontrados FROM vehiculo v INNER JOIN concesionario cc ON v.idConcesionario = cc.id WHERE v.publicado = 1 " . $restricciones))["vehiculosEncontrados"];
 
         //$vehiculos_BD = consulta($conexion, "SELECT id, marca, modelo, ano, precio, kilometraje, transmision, combustible, imagenPrincipal FROM vehiculo WHERE publicado = 1 " . $restricciones . $ordenamiento . $limitante);
-        $vehiculos_BD = consulta($conexion, "SELECT * FROM vehiculo WHERE publicado = 1 " . $restricciones . $ordenamiento . $limitante);
+        $vehiculos_BD = consulta($conexion, "SELECT v.*, cc.municipio FROM vehiculo v INNER JOIN concesionario cc ON v.idConcesionario = cc.id WHERE v.publicado = 1 " . $restricciones . $ordenamiento . $limitante);
         //echo "SELECT * FROM vehiculo WHERE publicado = 1 AND intelimotor_id IS NOT NULL " . $restricciones . $ordenamiento . $limitante;
 
         $resultado .= "<vehiculos total='" . $vehiculosEncontrados . "'>";

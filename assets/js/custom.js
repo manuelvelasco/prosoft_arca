@@ -845,6 +845,50 @@
 		}
 	});
 
+	// Recent Launch Slider
+	var swiper = new Swiper(".brand-category-slider2", {
+		slidesPerView: 1,
+		speed: 1500,
+		spaceBetween: 25,
+		slidesPerView: 1,
+		autoplay: {
+			delay: 3000, // Autoplay duration in milliseconds
+			disableOnInteraction: false,
+		},
+		navigation: {
+			nextEl: ".next-5",
+			prevEl: ".prev-5",
+		},
+
+		breakpoints: {
+			280: {
+				slidesPerView: 1,
+			},
+			386: {
+				slidesPerView: 1,
+			},
+			576: {
+				slidesPerView: 2,
+				spaceBetween: 15,
+			},
+			768: {
+				slidesPerView: 3,
+				spaceBetween: 15,
+			},
+			992: {
+				slidesPerView: 3,
+				spaceBetween: 15,
+			},
+			1200: {
+				slidesPerView: 4,
+				spaceBetween: 15,
+			},
+			1400: {
+				slidesPerView: 4
+			},
+		}
+	});
+
 	//  Home3 Featured Car slider
 	var swiper = new Swiper(".home3-featured-car-slider", {
 		slidesPerView: 1,

@@ -36,7 +36,7 @@
 
         // Consulta base de datos
 
-        $modelos_BD = consulta($conexion, "SELECT DISTINCT modelo FROM vehiculo WHERE publicado = 1 AND intelimotor_id IS NOT NULL " . $restricciones . " ORDER BY modelo");
+        $modelos_BD = consulta($conexion, "SELECT DISTINCT modelo FROM vehiculo WHERE publicado = 1 " . $restricciones . " ORDER BY modelo");
 
         $resultado .= "<modelos>";
 
