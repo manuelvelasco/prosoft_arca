@@ -26,7 +26,6 @@
                         </li>
                     <?php } ?>
 
-                    <?php if ($usuario_permisoConsultarVehiculos || $usuario_permisoEditarVehiculos) { ?>
                         <li>
                             <a href="vehiculos.php">
                                 Veh&iacute;culos
@@ -47,7 +46,6 @@
                             </ul>
                             -->
                         </li>
-                    <?php } ?>
 
                     <?php if ($esUsuarioMaster || $esUsuarioAdministrador) { ?>
                         <li>
@@ -93,12 +91,10 @@
                             </a>
                         </li>
                     <?php } ?>
-                    <?php if ($usuario_permisoConsultarConcesionarios || $usuario_permisoEditarConcesionarios) { ?>
                         <li>
                             <a href="concesionarios.php">
                                 Concesionarios
                             </a>
                         </li>
-                    <?php } ?>
                 </ul>
             </div>

@@ -41,7 +41,7 @@
 
             <div class="page-wrapper">
                 <div class="container-fluid">
-                    <?php if ($esUsuarioMaster || $esUsuarioAdministrador || ($esUsuarioOperador && $usuario_permisoConsultarConcesionarios)) { ?>
+                    <?php if ($esUsuarioMaster || $esUsuarioAdministrador || $esUsuarioOperador ) { ?>
 
                         <!-- Titulo -->
 
@@ -226,10 +226,11 @@
                                         </div>
 
                                         <br />
-
-                                        <div class="form-group mb-0">
-                                            <a class="btn btn-success link_agregar" href="javascript:;">Agregar Concesionario</a>
-                                        </div>
+                                        <?php if ($esUsuarioMaster || $esUsuarioAdministrador) { ?>
+                                            <div class="form-group mb-0">
+                                                <a class="btn btn-success link_agregar" href="javascript:;">Agregar Concesionario</a>
+                                            </div>
+                                        <?php } ?>
                                     </div>
                                 </div>
                             </div>

@@ -46,7 +46,7 @@
 
             <div class="page-wrapper">
                 <div class="container-fluid">
-                    <?php if ($esUsuarioMaster || $esUsuarioAdministrador || ($esUsuarioOperador && $usuario_permisoConsultarVehiculos)) { ?>
+                    <?php if ($esUsuarioMaster || $esUsuarioAdministrador || $esUsuarioOperador ) { ?>
 
                         <!-- Titulo -->
 
@@ -359,11 +359,11 @@
                                                 $puedeAgregarVehiculo = 0;
                                             }
 
-                                            if ($usuario_permisoEditarVehiculos == 1 && $puedeAgregarVehiculo) { ?>
+                                            if ($puedeAgregarVehiculo) { ?>
                                                 <a class="btn btn-primary link_agregar" href="javascript:;">Agregar Vehículo</a>
                                             <?php }
 
-                                            if ($usuario_permisoEditarVehiculos == 1 && $puedeSincronizarVehiculo) { ?>
+                                            if ($puedeSincronizarVehiculo) { ?>
                                                 <a class="btn btn-success link_sincronizar" href="javascript:;">Sincronizar inventario InteliMotor</a>
                                             <?php } ?>
                                         </div>

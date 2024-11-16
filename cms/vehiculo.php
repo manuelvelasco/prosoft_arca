@@ -2979,9 +2979,7 @@
                                                                         </div>
 
                                                                         <div class="form-actions mt-50">
-                                                                            <?php if ($esUsuarioOperador && $usuario_permisoEditarVehiculos) {?>
-                                                                                <button class="btn btn-success" id="boton_guardar" type="button">Guardar</button>
-                                                                            <?php } ?>
+                                                                            <button class="btn btn-success" id="boton_guardar" type="button">Guardar</button>
 
                                                                             <?php if (!estaVacio($origen)) { ?>
                                                                                 <a class="btn btn-default ml-10 link_origen" type="button">Volver</a>

@@ -28,6 +28,7 @@
             $contrasena = sanitiza($conexion, filter_input(INPUT_POST, "contrasena"));
             $permisoConsultarVehiculos = sanitiza($conexion, filter_input(INPUT_POST, "permisoConsultarVehiculos"));
             $permisoEditarVehiculos = sanitiza($conexion, filter_input(INPUT_POST, "permisoEditarVehiculos"));
+            $idConcesionario = sanitiza($conexion, filter_input(INPUT_POST, "idConcesionario"));
 
             // Parametros enviados por origen
 
@@ -61,6 +62,18 @@
                     $mensaje .= "* Correo electrónico con formato correcto<br />";
                 }
 
+                if (!estaVacio($id)) {
+                    $usuario_BD = consulta($conexion, "SELECT id FROM usuario WHERE correoElectronico = '" . $correoElectronico . "' AND id <> " . $id);
+
+                    if (cuentaResultados($usuario_BD) > 0) { 
+                        $mensaje .="Ese correo ya se esta utilizando por otro usuario <br />";
+                    }
+                }
+
+                if (estaVacio($idConcesionario) && $rol == 'Operador') {
+                    $mensaje .="Para el rol Operador, es obligatorio asignarle un concesionario <br />";
+                }
+
                 if (!estaVacio($mensaje)) {
                     $mensaje = "Proporcione los siguientes datos:<br /><br />" . $mensaje;
                 } else {
@@ -88,6 +101,7 @@
                                         . ", contrasena"
                                         . ", permisoConsultarVehiculos"
                                         . ", permisoEditarVehiculos"
+                                        . ", idConcesionario"
                                     . ") VALUES ("
                                         . "1"
                                         . ", '" . $rol . "'"
@@ -96,6 +110,7 @@
                                         . ", '" . md5($contrasena) . "'"
                                         . ", " . $permisoConsultarVehiculos
                                         . ", " . $permisoEditarVehiculos
+                                        . ", " . (estaVacio($idConcesionario) ? "NULL" : $idConcesionario)
                                     . ")");
 
                                 $usuario_BD = consulta($conexion, "SELECT * FROM usuario WHERE correoElectronico = '" . $correoElectronico . "'");
@@ -109,6 +124,7 @@
                                 $contrasena = "";
                                 $permisoConsultarVehiculos = $usuario["permisoConsultarVehiculos"];
                                 $permisoEditarVehiculos = $usuario["permisoEditarVehiculos"];
+                                $idConcesionario = $usuario["idConcesionario"];
 
                                 $mensaje = "ok - El usuario ha sido registrado";
 
@@ -126,6 +142,7 @@
                             . ", correoElectronico = '" . $correoElectronico . "'"
                             . ", permisoConsultarVehiculos = " . $permisoConsultarVehiculos
                             . ", permisoEditarVehiculos = " . $permisoEditarVehiculos
+                            . ", idConcesionario = " . (estaVacio($idConcesionario) ? "NULL" : $idConcesionario)
                             . " WHERE id = " . $id);
 
                         if (!estaVacio($contrasena)) {
@@ -145,6 +162,7 @@
                         $contrasena = "";
                         $permisoConsultarVehiculos = $usuario["permisoConsultarVehiculos"];
                         $permisoEditarVehiculos = $usuario["permisoEditarVehiculos"];
+                        $idConcesionario = $usuario["idConcesionario"];
 
                         $mensaje = "ok - Los cambios han sido guardados";
 
@@ -167,6 +185,7 @@
                     $contrasena = "";
                     $permisoConsultarVehiculos = $usuario["permisoConsultarVehiculos"];
                     $permisoEditarVehiculos = $usuario["permisoEditarVehiculos"];
+                    $idConcesionario = $usuario["idConcesionario"];
 
                     registraEvento("CMS : Consulta de usuario | id = " . $id);
                 } else {
@@ -177,6 +196,7 @@
                     $contrasena = "";
                     $permisoConsultarVehiculos = 0;
                     $permisoEditarVehiculos = 0;
+                    $idConcesionario = 0;
                 }
             }
         ?>
@@ -305,11 +325,29 @@
                                                                             <div class="row mb-30">
                                                                                 <div class="col-md-6">
                                                                                     <div class="form-group">
+                                                                                        <label class="control-label mb-10">Concesionario </label>
+                                                                                        <select class="form-control select2" name="idConcesionario">
+                                                                                            <option <?php echo estaVacio($idConcesionario) ? "selected" : "" ?> value="">Seleccione</option>
+
+                                                                                            <?php
+                                                                                                $concesionarios_BD = consulta($conexion, "SELECT * FROM concesionario WHERE habilitado = 1 and eliminado = 0 ORDER BY nombreComercial");
+
+                                                                                                while ($concesionarioBD = obtenResultado($concesionarios_BD)) {
+                                                                                                    echo "<option " . (!estaVacio($idConcesionario) && $idConcesionario == $concesionarioBD["id"] ? "selected" : "") . " value='" . $concesionarioBD["id"] . "'>" . $concesionarioBD["nombreComercial"] . "</option>";
+                                                                                                }
+                                                                                            ?>
+                                                                                        </select>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="col-md-6">
+                                                                                    <div class="form-group">
                                                                                         <label class="control-label mb-10">Correo electrónico <span class="txt-danger ml-10">*</span></label>
                                                                                         <input class="form-control" name="correoElectronico" type="text" value="<?php echo $correoElectronico ?>" />
                                                                                     </div>
                                                                                 </div>
+                                                                            </div>
 
+                                                                            <div class="row mb-30">
                                                                                 <div class="col-md-6">
                                                                                     <div class="form-group">
                                                                                         <label class="control-label mb-10">Contraseña</label>
@@ -320,37 +358,6 @@
 
                                                                             <br /><br />
 
-                                                                            <div class="row mb-30">
-                                                                                <div class="col-md-12">
-                                                                                    <h5><strong>Permisos</strong></h5>
-                                                                                </div>
-                                                                            </div>
-
-                                                                            <div class="row mb-30">
-                                                                                <div class="col-md-12">
-                                                                                    <div class="table-wrap">
-                                                                                        <div class="table-responsive">
-                                                                                            <table class="table mb-0">
-                                                                                                <thead>
-                                                                                                    <tr>
-                                                                                                        <th></th>
-                                                                                                        <th>Consultar</th>
-                                                                                                        <th>Editar</th>
-                                                                                                    </tr>
-                                                                                                </thead>
-
-                                                                                                <tbody id="tabla_contactos">
-                                                                                                    <tr>
-                                                                                                        <td>Vehículos</td>
-                                                                                                        <td><input class="js-switch" <?php echo $permisoConsultarVehiculos == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" name="permisoConsultarVehiculos" <?php echo $id == $usuario_id ? "readonly" : "" ?> type="checkbox" /></td>
-                                                                                                        <td><input class="js-switch" <?php echo $permisoEditarVehiculos == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" name="permisoEditarVehiculos" <?php echo $id == $usuario_id ? "readonly" : "" ?> type="checkbox" /></td>
-                                                                                                    </tr>
-                                                                                                </tbody>
-                                                                                            </table>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
                                                                         </div>
 
                                                                         <div class="form-actions mt-50">
