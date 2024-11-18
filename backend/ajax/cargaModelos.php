@@ -41,7 +41,7 @@
         $resultado .= "<modelos>";
 
         while ($modelo = obtenResultado($modelos_BD)) {
-            $resultado .= "<modelo>" . $modelo["modelo"] . "</modelo>";
+            $resultado .= "<modelo>" . trim($modelo["modelo"]) . "</modelo>";
         }
 
         $resultado .= "</modelos>";

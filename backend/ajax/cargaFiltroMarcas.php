@@ -21,7 +21,7 @@
 
         while ($marca = obtenResultado($marcas_BD)) {
             $resultado .= "<marca>";
-            $resultado .= "<nombre>" . $marca["marca"] . "</nombre>";
+            $resultado .= "<nombre>" . trim($marca["marca"]) . "</nombre>";
             $resultado .= "</marca>";
         }
 

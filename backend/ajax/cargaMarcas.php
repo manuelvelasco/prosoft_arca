@@ -35,8 +35,8 @@
 
         while ($marca = obtenResultado($marcas_BD)) {
             $resultado .= "<marca>";
-            $resultado .= "<nombre>" . $marca["marca"] . "</nombre>";
-            $resultado .= "<modelo>" . $marca["modelo"] . "</modelo>";
+            $resultado .= "<nombre>" . trim($marca["marca"]) . "</nombre>";
+            $resultado .= "<modelo>" . trim($marca["modelo"]) . "</modelo>";
             $resultado .= "<cantidad>" . $marca["cantidad"] . "</cantidad>";
             $resultado .= "</marca>";
         }
