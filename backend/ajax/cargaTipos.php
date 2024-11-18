@@ -16,7 +16,7 @@
         // Consulta base de datos
 
         //$tipos_BD = consulta($conexion, "SELECT DISTINCT tipo FROM vehiculo where publicado = 1 ORDER BY tipo");
-        $tipos_BD = consulta($conexion, "SELECT tipo, count(*) as cantidad FROM vehiculo WHERE publicado = 1 AND intelimotor_id IS NOT NULL GROUP BY tipo ORDER BY tipo");
+        $tipos_BD = consulta($conexion, "SELECT tipo, count(*) as cantidad FROM vehiculo WHERE publicado = 1 GROUP BY tipo ORDER BY tipo");
 
         $resultado .= "<tipos>";
 
