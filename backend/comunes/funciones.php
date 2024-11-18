@@ -304,6 +304,7 @@
 
 
     function enviaCorreo($para, $titulo, $mensaje) {
+        enviaCorreoMailjet($para, null, $titulo, $mensaje, null);
 /*
         $cabeceras = "MIME-Version: 1.0\r\n";
         $cabeceras .= "Content-type: text/html; charset=utf-8\r\n";
@@ -313,12 +314,12 @@
 
         mail($para, $titulo, $mensaje, $cabeceras);
 */
-        enviaCorreoAldeamo($para, $titulo, $mensaje);
-        //enviaCorreoMailjet($para, null, $titulo, $mensaje, null);
     }
 
 
     function enviaCorreoMailer($para, $titulo, $mensaje, $porSeparado = false, $remitenteCorreoElectronico = "contacto@socialware.mx", $remitenteNombre = "Socialware") {
+        enviaCorreoMailjet($para, null, $titulo, $mensaje, null);
+/*
         try {
             $email = new PHPMailer();
             $email->CharSet = "UTF-8";
@@ -351,10 +352,13 @@
             }
         } catch (Exception $e) {
         }
+*/
     }
 
 
     function enviaCorreoAldeamo($para, $titulo, $mensaje) {
+        enviaCorreoMailjet($para, null, $titulo, $mensaje, null);
+/*
         try {
             $mensaje = preg_replace('/\s+/S', " ", $mensaje);
 
@@ -415,6 +419,7 @@
         } catch (Error $e) {
         } catch (Exception $e) {
         }
+*/
     }
 
 
