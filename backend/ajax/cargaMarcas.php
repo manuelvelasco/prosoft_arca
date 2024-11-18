@@ -29,7 +29,7 @@
 
         // Consulta base de datos
 
-        $marcas_BD = consulta($conexion, "SELECT marca, modelo, count(*) AS cantidad FROM vehiculo WHERE publicado = 1 AND intelimotor_id IS NOT NULL " . $restricciones . " GROUP BY marca, modelo ORDER BY marca, modelo");
+        $marcas_BD = consulta($conexion, "SELECT marca, modelo, count(*) AS cantidad FROM vehiculo WHERE publicado = 1 " . $restricciones . " GROUP BY marca, modelo ORDER BY marca, modelo");
 
         $resultado .= "<marcas>";
 
