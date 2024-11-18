@@ -509,7 +509,7 @@
 
             <div class="page-wrapper">
                 <div class="container-fluid">
-                    <?php if ($usuario_permisoConsultarConcesionarios || $usuario_permisoEditarConcesionarios) { ?>
+                    <?php if ($esUsuarioMaster || $esUsuarioAdministrador || $esUsuarioOperador ) { ?>
 
                         <!-- Titulo -->
 

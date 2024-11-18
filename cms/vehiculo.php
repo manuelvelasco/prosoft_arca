@@ -1774,7 +1774,7 @@
 
             <div class="page-wrapper">
                 <div class="container-fluid">
-                    <?php if ($usuario_permisoConsultarVehiculos || $usuario_permisoEditarVehiculos) { ?>
+                    <?php if ($esUsuarioMaster || $esUsuarioAdministrador || $esUsuarioOperador ) { ?>
 
                         <!-- Titulo -->
 
