@@ -87,6 +87,9 @@ label.errorModalAgendarCita {
     width: 60px;
     z-index: 100;
 }
+.whatsapp .bx {
+    margin-top: 15px;
+}
 
 .whatsapp:hover {
     color: #000;
@@ -113,6 +116,14 @@ label.errorModalAgendarCita {
 
 .signUp-modal.sell-with-us .modal-dialog .modal-content .modal-body {
     padding: 0 35px 70px 35px;
+}
+
+.bx {
+    font-size: 24px;
+}
+
+.primary-btn6 i.bx {
+    margin-left: -5px;
 }
 
 #loader {
