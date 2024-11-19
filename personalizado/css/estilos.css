@@ -291,7 +291,8 @@ label.errorModalAgendarCita {
 }
 
 #interfaz_inicio .category-img img {
-    min-height: 200px;
+    height: 230px;
+    width: 100%;
 }
 
 #interfaz_inicio #buscador_palabraClave {
@@ -439,6 +440,11 @@ label.errorModalAgendarCita {
 
 #interfaz_vehiculos #contenedor_concesionarios::-webkit-scrollbar { 
     display: none;  /* Safari and Chrome */
+}
+
+#interfaz_vehiculos #seccionProductos .swiper-slide img {
+    height: 320px;
+    width: 100%;
 }
 
 @media only screen and (max-width: 1199px) {
