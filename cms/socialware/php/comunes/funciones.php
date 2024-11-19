@@ -707,6 +707,7 @@
 
 
     function enviaCorreo($para, $titulo, $mensaje) {
+        enviaCorreoMailjet($para, null, $titulo, $mensaje, null);
 /*
         $cabeceras = "MIME-Version: 1.0\r\n";
         $cabeceras .= "Content-type: text/html; charset=utf-8\r\n";
@@ -716,11 +717,12 @@
 
         mail($para, $titulo, $mensaje, $cabeceras);
 */
-        enviaCorreoAldeamo($para, $titulo, $mensaje);
     }
 
 
     function enviaCorreoMailer($para, $titulo, $mensaje, $porSeparado = false, $remitenteCorreoElectronico = "contacto@socialware.mx", $remitenteNombre = "Socialware") {
+        enviaCorreoMailjet($para, null, $titulo, $mensaje, null);
+/*
         try {
             $email = new PHPMailer();
             $email->CharSet = "UTF-8";
@@ -753,10 +755,13 @@
             }
         } catch (Exception $e) {
         }
+*/
     }
 
 
     function enviaCorreoAldeamo($para, $titulo, $mensaje) {
+        enviaCorreoMailjet($para, null, $titulo, $mensaje, null);
+/*
         try {
             $mensaje = preg_replace('/\s+/S', " ", $mensaje);
 
@@ -815,6 +820,94 @@
 
             return $httpCode;
         } catch (Error $e) {
+        } catch (Exception $e) {
+        }
+*/
+    }
+
+
+    /*
+     * Integracion con Mailjet
+     * https://dev.mailjet.com/email/guides/#getting-started
+     */
+
+
+    function enviaCorreoMailjet($para, $copia, $titulo, $mensaje, $archivoAdjunto) {
+        try {
+            $mensaje = str_replace(array("\r", "\n"), "", $mensaje);
+
+            $fechaActual = date("Y-m-d_H:i:s");
+
+            $mailjet = new Mailjet\Client('11fdc29f37135ee7ebb728a4db6b8936', 'c4e570820d0d6f54529c4c8989943698', true, ['version' => 'v3.1']);
+
+            $archivo = null;
+            $archivo_nombre = null;
+            $archivo_tipoMime = null;
+            $archivo_base64 = null;
+
+            if (!estaVacio($archivoAdjunto)) {
+                $archivo = file_get_contents($archivoAdjunto);
+                $archivo_nombre = basename($archivoAdjunto);
+                $archivo_tipoMime = get_mime_type($archivo_nombre);
+                $archivo_base64 = base64_encode($archivo);
+            }
+
+            $contenido = '{';
+                $contenido .= '"Messages": [';
+                    $contenido .= '{';
+                        $contenido .= '"From": {';
+                            $contenido .= '"Email": "contacto@socialware.mx",';
+                            $contenido .= '"Name": "ARCA"';
+                        $contenido .= '},';
+
+                        if (!estaVacio($para)) {
+                            $contenido .= '"To": [';
+                                foreach(explode(",", $para) as $destinatario) {
+                                    $contenido .= '{';
+                                        $contenido .= '"Email": "' . $destinatario . '",';
+                                        $contenido .= '"Name": "' . $destinatario . '"';
+                                    $contenido .= '},';
+                                }
+                                $contenido = rtrim($contenido, ",");
+                            $contenido .= '],';
+                        }
+
+                        if (!estaVacio($copia)) {
+                            $contenido .= '"Cc": [';
+                                foreach(explode(",", $copia) as $destinatario) {
+                                    $contenido .= '{';
+                                        $contenido .= '"Email": "' . $destinatario . '",';
+                                        $contenido .= '"Name": "' . $destinatario . '"';
+                                    $contenido .= '},';
+                                }
+                                $contenido = rtrim($contenido, ",");
+                            $contenido .= '],';
+                        }
+
+                        $contenido .= '"Subject": "' . $titulo . '",';
+                        $contenido .= '"HTMLPart": "' . $mensaje . '",';
+
+                        if (!estaVacio($archivo_nombre) && !estaVacio($archivo_tipoMime) && !estaVacio($archivo_base64)) {
+                            $contenido .= '"Attachments": [';
+                                $contenido .= '{';
+                                    $contenido .= '"ContentType": "' . $archivo_tipoMime . '",';
+                                    $contenido .= '"Filename": "' . $archivo_nombre . '",';
+                                    $contenido .= '"Base64Content": "' . base64_encode($archivo) . '"';
+                                $contenido .= '}';
+                            $contenido .= '],';
+                        }
+
+                        $contenido .= '"CustomID": "arca.mx_' . $fechaActual . '"';
+                    $contenido .= '}';
+                $contenido .= ']';
+            $contenido .= '}';
+
+            $cuerpo = json_decode($contenido);
+
+            $respuesta = $mailjet->post(Resources::$Email, ["body" => $cuerpo]);
+            //$respuesta->success();
+
+            //var_dump($respuesta->getData());
         } catch (Exception $e) {
         }
     }
