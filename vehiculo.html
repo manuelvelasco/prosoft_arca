@@ -740,7 +740,7 @@
                                 </div>
                             </div>
 
-                            <div class="single-item mb-50 row callToAction">
+                            <!--div class="single-item mb-50 row callToAction">
                                 <div class="col-lg-6 col-md-6 col-sm-12">
                                     <a data-bs-target="#modal_contactarWhatsapp" data-bs-toggle="modal" href="#">
                                         <img alt="" src="personalizado/img/vehiculo/vehiculo_grid1.jpg"/>
@@ -761,7 +761,7 @@
                                         <img alt="" src="personalizado/img/vehiculo/vehiculo_grid4.jpg"/>
                                     </a>
                                 </div>
-                            </div>
+                            </div-->
 
                             <div class="single-item mb-50" id="faqs">
                                 <div class="faq-area">
@@ -1528,8 +1528,8 @@
 
                         // Encabezado
 
-                        $("#etiqueta_titulo").html($(this).find("modelo").text() + " " + $(this).find("version").text() + " " + ano);
-                        $("#etiqueta_subtitulo").html("$" + formatoMoneda($(this).find("precio").text()));
+                        $("#etiqueta_titulo").html("$" + formatoMoneda($(this).find("precio").text()) + " | " + $(this).find("modelo").text() + " " + $(this).find("version").text() + " " + ano);
+                        //$("#etiqueta_subtitulo").html("$" + formatoMoneda($(this).find("precio").text()));
 
                         if (ano >= 2016) {
 
@@ -1541,9 +1541,9 @@
                             var plazo = (ano > 2018 ? 60 : 48);
                             var mensualidadMinima = (capital * tasaFrecuencia) / (1 - ((1 + tasaFrecuencia) ** (plazo * -1)));
 
-                            if (ano >= 2016) {
+                            /*if (ano >= 2016) {
                                 $("#etiqueta_subtitulo").append(" | Mensualidades desde <strong>$" + formatoMoneda(mensualidadMinima) + "</strong>");
-                            }
+                            }*/
 
                             // Carga opciones de plazos en simulador
 
