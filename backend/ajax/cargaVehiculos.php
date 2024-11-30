@@ -50,6 +50,16 @@
             $tamanoPagina = 10;
         }
 
+// TEMPORAL
+
+        if ($destacado == 1) {
+            $criterioOrdenamiento = 10;
+        } else if ($descuentoEspecial == 1) {
+            $criterioOrdenamiento = 11;
+        }
+
+// TEMPORAL
+
         // Arma restricciones
 
         $restricciones = "";
@@ -143,9 +153,21 @@
                 case 6:
                     $ordenamiento = " ORDER BY v.ano DESC";
                     break;
+
+// TEMPORAL
+
+                case 10:
+                    $ordenamiento = " ORDER BY v.id";
+                    break;
+                case 11:
+                    $ordenamiento = " ORDER BY v.id DESC";
+                    break;
+
+// TEMPORAL
+
                 default:
                     //$ordenamiento = " ORDER BY RAND(" . $semillaOrdenamiento . ")";
-                    $ordenamiento = " ORDER BY v.id DESC";
+$ordenamiento = " ORDER BY v.id DESC";
                     break;
             }
         } else {
