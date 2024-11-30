@@ -144,7 +144,8 @@
                     $ordenamiento = " ORDER BY v.ano DESC";
                     break;
                 default:
-                    $ordenamiento = " ORDER BY RAND(" . $semillaOrdenamiento . ")";
+                    //$ordenamiento = " ORDER BY RAND(" . $semillaOrdenamiento . ")";
+                    $ordenamiento = " ORDER BY v.id DESC";
                     break;
             }
         } else {
