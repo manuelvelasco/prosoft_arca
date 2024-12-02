@@ -52,10 +52,8 @@
 
 // TEMPORAL
 
-        if ($destacado == 1) {
+        if ($destacado == 1 || $descuentoEspecial == 1) {
             $criterioOrdenamiento = 10;
-        } else if ($descuentoEspecial == 1) {
-            $criterioOrdenamiento = 11;
         }
 
 // TEMPORAL
@@ -158,9 +156,6 @@
 
                 case 10:
                     $ordenamiento = " ORDER BY v.id";
-                    break;
-                case 11:
-                    $ordenamiento = " ORDER BY v.id DESC";
                     break;
 
 // TEMPORAL
