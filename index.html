@@ -1527,7 +1527,7 @@
                 });
 
                 cargaVehiculosDestacados();
-                cargaVehiculosDescuentoEspecial();
+                //cargaVehiculosDescuentoEspecial();
                 //cargaResenas();
                 cargaPosts();
                 cargaMarcas();
@@ -1679,8 +1679,113 @@
                     $("#contenedor_carruselHome1").html(carrusel1);
                     $("#contenedor_carruselHome1_2").html(carrusel2);
 
-$("#contenedor_carruselHome2").html(carrusel1);
-$("#contenedor_carruselHome2_2").html(carrusel2);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+                    var carrusel1 = "";
+                    var carrusel2 = "";
+                    var cuantos = 0;
+
+                    $(resultado).find("vehiculo").each(function (index) {
+                        var id = $(this).find("id").text();
+                        var version = $(this).find("version").text();
+                        var modelo = $(this).find("modelo").text();
+                        var ano = $(this).find("ano").text();
+                        var precio = $(this).find("precio").text();
+                        var imagenPrincipal = $(this).find("imagenPrincipal").text();
+                        var destacado = $(this).find("destacado").text();
+                        var certificado = $(this).find("certificado").text();
+                        var descuentoEspecial = $(this).find("descuentoEspecial").text();
+                        var municipio = $(this).find("municipio").text();
+
+                        imagenPrincipal = (imagenPrincipal.indexOf("http") > -1 ? "" : rutaVehiculos + id + "/") + imagenPrincipal;
+
+                        if (cuantos < 8) {
+                            carrusel1 += "<div class='swiper-slide'>";
+                                carrusel1 += "<div class='brand-category-card enlace_vehiculo' data-id='" + id + "'>";
+
+                                    if (descuentoEspecial == 1) {
+                                        carrusel1 += "<span class='new'>";
+                                            carrusel1 += "Descuento especial";
+                                        carrusel1 += "</span>";
+                                    } else if (certificado == 1) {
+                                        carrusel1 += "<span class='new'>";
+                                            carrusel1 += "Certificado";
+                                        carrusel1 += "</span>";
+                                    } else if (destacado == 1) {
+                                        carrusel1 += "<span class='new'>";
+                                            carrusel1 += "Destacado";
+                                        carrusel1 += "</span>";
+                                    }
+
+                                    carrusel1 += "<div class='category-img'>";
+                                        carrusel1 += "<img alt='' src='" + imagenPrincipal + "' />";
+                                    carrusel1 += "</div>";
+                                    carrusel1 += "<div class='category-content'>";
+                                        carrusel1 += "<h5>$ " + formatoMoneda(precio) + "</h5>";
+                                        carrusel1 += "<span>" + modelo + " " + version + " " + ano + "</span>";
+                                        carrusel1 += "</br><span>" + municipio + "</span>";
+                                    carrusel1 += "</div>";
+                                carrusel1 += "</div>";
+                            carrusel1 += "</div>";
+
+                        } else {
+                            carrusel2 += "<div class='swiper-slide'>";
+                                carrusel2 += "<div class='brand-category-card enlace_vehiculo' data-id='" + id + "'>";
+
+                                    if (descuentoEspecial == 1) {
+                                        carrusel2 += "<span class='new'>";
+                                            carrusel2 += "Descuento especial";
+                                        carrusel2 += "</span>";
+                                    } else if (certificado == 1) {
+                                        carrusel2 += "<span class='new'>";
+                                            carrusel2 += "Certificado";
+                                        carrusel2 += "</span>";
+                                    } else if (destacado == 1) {
+                                        carrusel2 += "<span class='new'>";
+                                            carrusel2 += "Destacado";
+                                        carrusel2 += "</span>";
+                                    }
+
+                                    carrusel2 += "<div class='category-img'>";
+                                        carrusel2 += "<img alt='' src='" + imagenPrincipal + "' />";
+                                    carrusel2 += "</div>";
+                                    carrusel2 += "<div class='category-content'>";
+                                        carrusel2 += "<h5>$ " + formatoMoneda(precio) + "</h5>";
+                                        carrusel2 += "<span>" + modelo + " " + version + " " + ano + "</span>";
+                                        carrusel2 += "</br><span>" + municipio + "</span>";
+                                    carrusel2 += "</div>";
+                                carrusel2 += "</div>";
+                            carrusel2 += "</div>";
+                        }
+                        cuantos++;
+                    });
+*/
+                    $("#contenedor_carruselHome2").html(carrusel1);
+                    $("#contenedor_carruselHome2_2").html(carrusel2);
+
+
+
+
+
+
+
+
+
+
+
 
                 });
             }
