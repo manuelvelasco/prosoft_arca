@@ -1527,7 +1527,7 @@
                 });
 
                 cargaVehiculosDestacados();
-                //cargaVehiculosDescuentoEspecial();
+                cargaVehiculosDescuentoEspecial();
                 //cargaResenas();
                 cargaPosts();
                 cargaMarcas();
@@ -1774,20 +1774,6 @@
                         cuantos++;
                     });
 */
-                    $("#contenedor_carruselHome2").html(carrusel1);
-                    $("#contenedor_carruselHome2_2").html(carrusel2);
-
-
-
-
-
-
-
-
-
-
-
-
                 });
             }
 
@@ -1797,7 +1783,7 @@
                     url: rutaBackend + "ajax/cargaVehiculos.php",
                     type: "post",
                     data: {
-                        descuentoEspecial: 1,
+                        /*descuentoEspecial: 1,*/
                         tamanoPagina: 16
                     }
                 }).done(function (resultado, textStatus, jqXHR) {
@@ -1882,7 +1868,6 @@
 
                     $("#contenedor_carruselHome2").html(carrusel1);
                     $("#contenedor_carruselHome2_2").html(carrusel2);
-
                 });
             }
 
