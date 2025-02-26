@@ -433,9 +433,14 @@ label.errorModalAgendarCita {
     margin-top: 6px;
 }
 
-#interfaz_vehiculos #contenedor_concesionarios{
-    max-height:80px;
-    overflow-y:scroll;
+#interfaz_vehiculos #contenedor_marcas {
+    max-height: 660px;
+    overflow-y: scroll;
+}
+
+#interfaz_vehiculos #contenedor_concesionarios {
+    max-height: 280px;
+    overflow-y: scroll;
 }
 
 #interfaz_vehiculos #contenedor_concesionarios::-webkit-scrollbar { 
