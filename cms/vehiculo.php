@@ -2445,7 +2445,7 @@
                                                                                     </div>
                                                                                 </div>
 
-                                                                                <div class="row mb-30">
+                                                                                <!--div class="row mb-30">
                                                                                     <div class="col-md-12">
                                                                                         <h5><strong>Video</strong></h5>
                                                                                     </div>
@@ -2524,7 +2524,7 @@
                                                                                                                     <ul class="chat-list-wrap">
                                                                                                                         <li class="chat-list">
                                                                                                                             <div class="chat-body">
-                                                                                                                                <?php
+                                                                                                                                < ?php
                                                                                                                                     if (!estaVacio($video_vistaPrevia)) {
                                                                                                                                         echo "<div class='chat-data'>";
                                                                                                                                         echo "<img class='user-img' src='" . $constante_urlVehiculos . "/" . $id . "/" . $video_vistaPrevia . "' />";
@@ -2552,9 +2552,13 @@
                                                                                             </div>
                                                                                         </div>
                                                                                     </div>
-                                                                                </div>
-                                                                            
-                                                                            
+                                                                                </div-->
+
+                                                                                <input name="video_titulo" type="hidden" value="<?php echo $video_titulo ?>" />
+                                                                                <input name="video_publicado" type="hidden" value="<?php echo $video_publicado ?>" />
+                                                                                <input name="video_resumen" type="hidden" value="<?php echo $video_resumen ?>" />
+                                                                                <input name="video_url" type="hidden" value="<?php echo $video_url ?>" />
+                                                                                <input name="video_detalle" type="hidden" value="<?php echo $video_detalle ?>" />
                                                                             </div>
                                                                             
                                                                             
