@@ -48,11 +48,11 @@
                         </li>
 
                     <?php if ($esUsuarioMaster || $esUsuarioAdministrador) { ?>
-                        <li>
+                        <!--li>
                             <a href="financiamientos.php">
                                 Financiamientos
                             </a>
-                        </li>
+                        </li-->
                     <?php } ?>
 
                     <?php if ($esUsuarioMaster || $esUsuarioAdministrador) { ?>
@@ -70,27 +70,31 @@
                             </a>
                         </li>
                     <?php } ?>
+
                     <?php if ($esUsuarioMaster || $esUsuarioAdministrador) { ?>
-                        <li>
+                        <!--li>
                             <a href="intencionventa.php">
                                 Intención Venta
                             </a>
-                        </li>
+                        </li-->
                     <?php } ?>
+
                     <?php if ($esUsuarioMaster || $esUsuarioAdministrador) { ?>
-                        <li>
+                        <!--li>
                             <a href="citas.php">
                                 Citas
                             </a>
-                        </li>
+                        </li-->
                     <?php } ?>
+
                     <?php if ($esUsuarioMaster || $esUsuarioAdministrador) { ?>
-                        <li>
+                        <!--li>
                             <a href="sucursales.php">
                                 Sucursales
                             </a>
-                        </li>
+                        </li-->
                     <?php } ?>
+
                         <li>
                             <a href="concesionarios.php">
                                 Concesionarios
