@@ -65,15 +65,25 @@
         $limitante = "";
 
         if (!estaVacio($palabraClave)) {
-            $restricciones .= " AND (LOWER(v.descripcion) LIKE '%" . strtolower($palabraClave) . "%')";
+            $restricciones .= " AND ("
+                    . "LOWER(v.tipo) LIKE '%" . strtolower($palabraClave) . "%'"
+                    . " OR LOWER(v.marca) LIKE '%" . strtolower($palabraClave) . "%'"
+                    . " OR LOWER(v.modelo) LIKE '%" . strtolower($palabraClave) . "%'"
+                    . " OR LOWER(v.version) LIKE '%" . strtolower($palabraClave) . "%'"
+                    . " OR LOWER(v.ano) LIKE '%" . strtolower($palabraClave) . "%'"
+                    . " OR LOWER(v.color) LIKE '%" . strtolower($palabraClave) . "%'"
+                    . " OR LOWER(v.combustible) LIKE '%" . strtolower($palabraClave) . "%'"
+                    . " OR LOWER(v.transmision) LIKE '%" . strtolower($palabraClave) . "%'"
+                    . " OR LOWER(v.puntosDestacados) LIKE '%" . strtolower($palabraClave) . "%'"
+                    . " OR LOWER(v.descripcion) LIKE '%" . strtolower($palabraClave) . "%')";
         }
 
         if (!estaVacio($kilometrosMinimo) && $kilometrosMinimo >= 0) {
-            $restricciones .= " AND v.kilometraje >= " . $kilometrosMinimo;
+            $restricciones .= " AND (v.kilometraje >= " . $kilometrosMinimo . " OR v.kilometraje IS NULL)";
         }
 
         if (!estaVacio($kilometrosMaximo) && $kilometrosMaximo >= 0) {
-            $restricciones .= " AND v.kilometraje <= " . $kilometrosMaximo;
+            $restricciones .= " AND (v.kilometraje <= " . $kilometrosMaximo . " OR v.kilometraje IS NULL)";
         }
 
         if (!estaVacio($tipo) && strpos($tipo, "VERTODO") === false) {
@@ -181,7 +191,6 @@ $ordenamiento = " ORDER BY v.id DESC";
 
         //$vehiculos_BD = consulta($conexion, "SELECT id, marca, modelo, ano, precio, kilometraje, transmision, combustible, imagenPrincipal FROM vehiculo WHERE publicado = 1 " . $restricciones . $ordenamiento . $limitante);
         $vehiculos_BD = consulta($conexion, "SELECT v.*, cc.municipio FROM vehiculo v INNER JOIN concesionario cc ON v.idConcesionario = cc.id WHERE v.publicado = 1 " . $restricciones . $ordenamiento . $limitante);
-        //echo "SELECT * FROM vehiculo WHERE publicado = 1 AND intelimotor_id IS NOT NULL " . $restricciones . $ordenamiento . $limitante;
 
         $resultado .= "<vehiculos total='" . $vehiculosEncontrados . "'>";
 
