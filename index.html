@@ -1593,7 +1593,8 @@
                     url: rutaBackend + "ajax/cargaVehiculos.php",
                     type: "post",
                     data: {
-                        destacado: 1,
+                        /*destacado: 1,*/
+                        criterioOrdenamiento: 2,
                         tamanoPagina: 20
                     }
                 }).done(function (resultado, textStatus, jqXHR) {
