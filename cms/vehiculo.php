@@ -440,10 +440,6 @@
                     $mensaje .= "* Descripción<br />";
                 }
 
-                if (estaVacio($idSucursal)) {
-                    $mensaje .= "* Sucursal<br />";
-                }
-
                 if (!estaVacio($mensaje)) {
                     $mensaje = "Proporcione los siguientes datos:<br /><br />" . $mensaje;
                 } else {
@@ -543,7 +539,7 @@
                                 . ", " . (estaVacio($video_url) ? "NULL" : "'" . mysqli_real_escape_string($conexion, $video_url) . "'")
                                 . ", " . (!estaVacio($video_titulo) && !estaVacio($video_resumen) ? "'" . $fechaActual . "'" : "NULL")
                                 . ", " . $video_publicado
-                                . ", " . $idSucursal
+                                . ", " . (estaVacio($idSucursal) ? "NULL" : $idSucursal)
                                 . ", " . $idConcesionario
                             . ")");
 
@@ -727,7 +723,7 @@
                                 . ", video_url = " . (estaVacio($video_url) ? "NULL" : "'" . mysqli_real_escape_string($conexion, $video_url) . "'")
                                 . ", video_fechaPublicacion = " . (!estaVacio($video_titulo) && !estaVacio($video_resumen) ? "'" . $fechaActual . "'" : "NULL")
                                 . ", video_publicado = " . $video_publicado
-                                . ", idSucursal = " . $idSucursal
+                                . ", idSucursal = " . (estaVacio($idSucursal) ? "NULL" : $idSucursal)
                                 . ", idConcesionario = " . $idConcesionario
                             . " WHERE id = " . $id);
 
@@ -1644,7 +1640,7 @@
                     $video_url = "";
                     $video_vistaPrevia = "";
                     $video_publicado = 0;
-                    $idSucursal = 0;
+                    $idSucursal = "";
                     $idConcesionario = 0;
 
                     //Si el usuario es operador se fuerza el concesionario
@@ -1934,14 +1930,14 @@
                                                                                         </div>
                                                                                     </div>
 
-                                                                                    <div class="col-md-6">
+                                                                                    <!--div class="col-md-6">
                                                                                         <div class="form-group">
                                                                                             <label class="control-label mb-10">Sucursal <span class="txt-danger ml-10">*</span></label>
                                                                                             
                                                                                             <select class="form-control select2" name="idSucursal">
                                                                                                 <option value="">Seleccione</option>
 
-                                                                                                <?php
+                                                                                                < ?php
                                                                                                     $sucursales_BD = consulta($conexion, "SELECT * FROM sucursal ORDER BY nombre");
 
                                                                                                     while ($sucursal = obtenResultado($sucursales_BD)) {
@@ -1950,7 +1946,8 @@
                                                                                                 ?>
                                                                                             </select>
                                                                                         </div>
-                                                                                    </div>
+                                                                                    </div-->
+                                                                                    <input name="idSucursal" type="hidden" value="" />
                                                                                 </div>
 
                                                                                 <div class="row mb-30">
