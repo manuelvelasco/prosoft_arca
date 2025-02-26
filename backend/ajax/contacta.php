@@ -94,6 +94,7 @@
                         . "Mensaje: " . $mensaje;
 
                 enviaCorreo($parametro["valor"], "Albacar | Contacto", $mensaje);
+                enviaCorreo("luis@prosoft.mx", "Albacar | Contacto", $mensaje);
             }
 
             $resultado .= "ok";
