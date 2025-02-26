@@ -934,8 +934,8 @@
                                                                         </div>
 
                                                                         <div class="form-actions mt-50">
-                                                                            <?php if ($usuario_permisoEditarConcesionarios) {?>
-                                                                            <button class="btn btn-success" id="boton_guardar" type="button">Guardar</button>
+                                                                            <?php if ($esUsuarioMaster || $esUsuarioAdministrador || $usuario_permisoEditarConcesionarios == 1 ) { ?>
+                                                                                <button class="btn btn-success" id="boton_guardar" type="button">Guardar</button>
                                                                             <?php } ?>
 
                                                                             <?php if (!estaVacio($origen)) { ?>
