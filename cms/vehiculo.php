@@ -2191,7 +2191,9 @@
                                                                                     <div class="col-md-6">
                                                                                         <div class="form-group">
                                                                                             <label class="control-label mb-10">Kilometraje</label>
-                                                                                            <input class="form-control" name="kilometraje" type="number" value="<?php echo $kilometraje ?>" />
+                                                                                            <input class="form-control" name="kilometraje" pattern="\d*" type="number" value="<?php echo $kilometraje ?>" />
+<!--input class="border" type="number" numeric step="0.1" inputmode="numeric" digitOnly maxlength="6" formControlName="resultInput" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1').replace(/^0[^.]/, '0');" /-->
+
                                                                                         </div>
                                                                                     </div>
 
