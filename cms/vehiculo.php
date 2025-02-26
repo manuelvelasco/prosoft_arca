@@ -1919,9 +1919,7 @@
                                                                                     <div class="col-md-6">
                                                                                         <div class="form-group">
                                                                                             <label class="control-label mb-10">Precio <span class="txt-danger ml-10">*</span></label>
-                                                                                            <input class="form-control" name="precio"        pattern="^[1-9]\d*$"      type="number" value="<?php echo $precio ?>" />
-<!--input class="border" type="number" numeric step="0.1" inputmode="numeric" digitOnly maxlength="6" formControlName="resultInput" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1').replace(/^0[^.]/, '0');" /-->
-
+                                                                                            <input class="form-control campoNumerico" name="precio" type="number" value="<?php echo $precio ?>" />
                                                                                         </div>
                                                                                     </div>
 
@@ -2091,7 +2089,7 @@
                                                                                     <div class="col-md-6">
                                                                                         <div class="form-group">
                                                                                             <label class="control-label mb-10">Año <span class="txt-danger ml-10">*</span></label>
-                                                                                            <input class="form-control" name="ano" pattern="\d*" type="number" value="<?php echo $ano ?>" />
+                                                                                            <input class="form-control campoNumerico" name="ano" type="number" value="<?php echo $ano ?>" />
                                                                                         </div>
                                                                                     </div>
                                                                                 </div>
@@ -2193,7 +2191,7 @@
                                                                                     <div class="col-md-6">
                                                                                         <div class="form-group">
                                                                                             <label class="control-label mb-10">Kilometraje</label>
-                                                                                            <input class="form-control" name="kilometraje" pattern="\d*" type="number" value="<?php echo $kilometraje ?>" />
+                                                                                            <input class="form-control campoNumerico" name="kilometraje" type="number" value="<?php echo $kilometraje ?>" />
                                                                                         </div>
                                                                                     </div>
 
@@ -3159,6 +3157,13 @@
                     });
                 }
             }
+
+
+            document.querySelector(".campoNumerico").addEventListener("keypress", ({ key, preventDefault }) => {
+                if (isNaN(parseInt(key, 10)) && !["Backspace", "Enter"].includes(key)) {
+                    preventDefault();
+                }
+            });
         </script>
     </body>
 </html>
