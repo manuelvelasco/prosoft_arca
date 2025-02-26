@@ -31,7 +31,7 @@
                                 <div class="panel panel-default card-view mb-0">
                                     <div class="panel-heading">
                                         <div style="text-align: center; width: 100%">
-                                            <img src="../socialware/img/logo.png" style="width: 150px" />
+                                            <img src="../socialware/img/Logotipo-ARCA-01-Web.png" style="width: 150px" />
                                         </div>
 
                                         <br />
