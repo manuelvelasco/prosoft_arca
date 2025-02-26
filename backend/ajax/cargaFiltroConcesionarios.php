@@ -15,7 +15,7 @@
 
         // Consulta base de datos
 
-        $concesionarios_BD = consulta($conexion, "SELECT nombreComercial FROM concesionario WHERE habilitado = 1 AND eliminado = 0 ORDER BY nombreComercial");
+        $concesionarios_BD = consulta($conexion, "SELECT c.nombreComercial FROM concesionario c WHERE c.habilitado = 1 AND c.eliminado = 0 AND (SELECT COUNT(*) FROM vehiculo WHERE idConcesionario = c.id AND publicado = 1) > 0 ORDER BY c.nombreComercial");
 
         $resultado .= "<concesionarios>";
 
