@@ -75,7 +75,8 @@
             $limite = 3;
             $idsVehiculosSimilares = "";
 
-            $vehiculosSimilares_BD = consulta($conexion, "SELECT *, ABS(precio - " . $vehiculo["precio"] . ") AS diferencia FROM vehiculo WHERE id != " . $id . " AND publicado = 1 AND intelimotor_id IS NOT NULL AND marca = '" . $vehiculo["marca"] . "' AND modelo = '" . $vehiculo["modelo"] . "' ORDER BY diferencia");
+            $vehiculosSimilares_BD = consulta($conexion, "SELECT *, ABS(precio - " . $vehiculo["precio"] . ") AS diferencia FROM vehiculo WHERE id != " . $id . " AND publicado = 1 AND intelimotor_id IS NOT NULL AND marca = '" . $vehiculo["marca"] . "' AND modelo = '" . $vehiculo["modelo"] . "' and precio >= (select c.precio - 100000 from vehiculo c where c.id = " . $id . " ) and precio <= (select c.precio + 100000 from vehiculo c where c.id = " . $id . " ) ORDER BY rand()");
+            //echo "SELECT *, ABS(precio - " . $vehiculo["precio"] . ") AS diferencia FROM vehiculo WHERE id != " . $id . " AND publicado = 1 AND intelimotor_id IS NOT NULL AND marca = '" . $vehiculo["marca"] . "' AND modelo = '" . $vehiculo["modelo"] . "' ORDER BY diferencia";
             
             $resultado .= "<vehiculosSimilares>";
 
@@ -118,7 +119,7 @@
 
             $limite = 8;
 
-            $vehiculosEquivalentes_BD = consulta($conexion, "SELECT *, ABS(precio - " . $vehiculo["precio"] . ") AS diferencia FROM vehiculo WHERE id != " . $id . " AND publicado = 1 AND intelimotor_id IS NOT NULL ORDER BY diferencia, marca, modelo, version LIMIT " . $limite);
+            $vehiculosEquivalentes_BD = consulta($conexion, "SELECT *, ABS(precio - " . $vehiculo["precio"] . ") AS diferencia FROM vehiculo WHERE id != " . $id . " AND publicado = 1 AND intelimotor_id IS NOT NULL AND precio >= (select c.precio - 100000 from vehiculo c where c.id = " . $id . " ) AND precio <= (select c.precio + 100000 from vehiculo c where c.id = " . $id . " ) ORDER BY rand() LIMIT " . $limite);
 
             while ($vehiculoEquivalente = obtenResultado($vehiculosEquivalentes_BD)) {
                 $resultado .= "<vehiculoEquivalente>";
