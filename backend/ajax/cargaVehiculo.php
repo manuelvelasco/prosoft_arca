@@ -75,8 +75,8 @@
             $limite = 3;
             $idsVehiculosSimilares = "";
 
-            $vehiculosSimilares_BD = consulta($conexion, "SELECT *, ABS(precio - " . $vehiculo["precio"] . ") AS diferencia FROM vehiculo WHERE id != " . $id . " AND publicado = 1 AND intelimotor_id IS NOT NULL AND marca = '" . $vehiculo["marca"] . "' AND modelo = '" . $vehiculo["modelo"] . "' and precio >= (select c.precio - 100000 from vehiculo c where c.id = " . $id . " ) and precio <= (select c.precio + 100000 from vehiculo c where c.id = " . $id . " ) ORDER BY rand()");
-            //echo "SELECT *, ABS(precio - " . $vehiculo["precio"] . ") AS diferencia FROM vehiculo WHERE id != " . $id . " AND publicado = 1 AND intelimotor_id IS NOT NULL AND marca = '" . $vehiculo["marca"] . "' AND modelo = '" . $vehiculo["modelo"] . "' ORDER BY diferencia";
+            $vehiculosSimilares_BD = consulta($conexion, "SELECT *, ABS(precio - " . $vehiculo["precio"] . ") AS diferencia FROM vehiculo WHERE id != " . $id . " AND publicado = 1 AND intelimotor_id IS NOT NULL AND ano = '" . $vehiculo["ano"] . "' AND intelimotor_vehicleBodyType = '" . $vehiculo["intelimotor_vehicleBodyType"] . "' AND precio >= (select c.precio - 100000 from vehiculo c where c.id = " . $id . " ) AND precio <= (select c.precio + 100000 from vehiculo c where c.id = " . $id . " ) ORDER BY rand()");
+            //echo "SELECT *, ABS(precio - " . $vehiculo["precio"] . ") AS diferencia FROM vehiculo WHERE id != " . $id . " AND publicado = 1 AND intelimotor_id IS NOT NULL AND ano = '" . $vehiculo["ano"] . "' AND intelimotor_vehicleBodyType = '" . $vehiculo["intelimotor_vehicleBodyType"] . "' AND precio >= (select c.precio - 100000 from vehiculo c where c.id = " . $id . " ) AND precio <= (select c.precio + 100000 from vehiculo c where c.id = " . $id . " ) ORDER BY rand()";
             
             $resultado .= "<vehiculosSimilares>";
 
@@ -93,7 +93,7 @@
                 $idsVehiculosSimilares .= $vehiculoSimilar["id"] . ",";
             }
 
-            if ($limite > 0) {
+            /*if ($limite > 0) {
                 $restricciones = "";
 
                 if (!estaVacio($idsVehiculosSimilares)) {
@@ -111,7 +111,7 @@
 
                     $resultado .= "</vehiculoSimilar>";
                 }
-            }
+            }*/
 
             $resultado .= "</vehiculosSimilares>";
 
