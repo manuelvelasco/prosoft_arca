@@ -1995,75 +1995,8 @@
                                                                                         <div class="form-group">
                                                                                             <label class="control-label mb-10">Marca <span class="txt-danger ml-10">*</span></label>
                                                                                             <!--input class="form-control" name="marca" type="text" value="<?php echo $marca ?>" /-->
-                                                                                            <select class="form-control select2" name="marca">
-                                                                                                <option <?php echo estaVacio($marca) ? "selected" : "" ?> value="">Selecciona</option>
-                                                                                                <?php
-                                                                                                    $marcas_BD = consulta($conexion, "SELECT DISTINCT intelimotor_brand FROM vehiculo ORDER BY intelimotor_brand");
-
-                                                                                                    while ($marca_BD = obtenResultado($marcas_BD)) {
-                                                                                                        echo "<option " . ($marca_BD["intelimotor_brand"] == $marca ? "selected" : "") . " value='" . $marca_BD["intelimotor_brand"] . "'>" . $marca_BD["intelimotor_brand"] . "</option>";
-                                                                                                    }
-                                                                                                ?>
-                                                                                                <!--
-                                                                                                <option <?php echo $marca == "Acura" ? "selected" : "" ?> value="Acura">Acura</option>
-                                                                                                <option <?php echo $marca == "Alfa Romeo" ? "selected" : "" ?> value="Alfa Romeo">Alfa Romeo</option>
-                                                                                                <option <?php echo $marca == "Audi" ? "selected" : "" ?> value="Audi">Audi</option>
-                                                                                                <option <?php echo $marca == "BAIC" ? "selected" : "" ?> value="BAIC">BAIC</option>
-                                                                                                <option <?php echo $marca == "BMW" ? "selected" : "" ?> value="BMW">BMW</option>
-                                                                                                <option <?php echo $marca == "Buick" ? "selected" : "" ?> value="Buick">Buick</option>
-                                                                                                <option <?php echo $marca == "Cadillac" ? "selected" : "" ?> value="Cadillac">Cadillac</option>
-                                                                                                <option <?php echo $marca == "CBO Motors" ? "selected" : "" ?> value="CBO Motors">CBO Motors</option>
-                                                                                                <option <?php echo $marca == "Chevrolet" ? "selected" : "" ?> value="Chevrolet">Chevrolet</option>
-                                                                                                <option <?php echo $marca == "Chrysler" ? "selected" : "" ?> value="Chrysler">Chrysler</option>
-                                                                                                <option <?php echo $marca == "DFSK Comerciales" ? "selected" : "" ?> value="DFSK Comerciales">DFSK Comerciales</option>
-                                                                                                <option <?php echo $marca == "Dodge" ? "selected" : "" ?> value="Dodge">Dodge</option>
-                                                                                                <option <?php echo $marca == "FAW" ? "selected" : "" ?> value="FAW">FAW</option>
-                                                                                                <option <?php echo $marca == "Ferrari" ? "selected" : "" ?> value="Ferrari">Ferrari</option>
-                                                                                                <option <?php echo $marca == "Fiat" ? "selected" : "" ?> value="Fiat">Fiat</option>
-                                                                                                <option <?php echo $marca == "Ford" ? "selected" : "" ?> value="Ford">Ford</option>
-                                                                                                <option <?php echo $marca == "Foton Camiones Ligeros" ? "selected" : "" ?> value="Foton Camiones Ligeros">Foton Camiones Ligeros</option>
-                                                                                                <option <?php echo $marca == "Freightliner Camiones Ligeros" ? "selected" : "" ?> value="Freightliner Camiones Ligeros">Freightliner Camiones Ligeros</option>
-                                                                                                <option <?php echo $marca == "Giant Motors" ? "selected" : "" ?> value="Giant Motors">Giant Motors</option>
-                                                                                                <option <?php echo $marca == "GMC" ? "selected" : "" ?> value="GMC">GMC</option>
-                                                                                                <option <?php echo $marca == "Hino Camiones Ligeros" ? "selected" : "" ?> value="Hino Camiones Ligeros">Hino Camiones Ligeros</option>
-                                                                                                <option <?php echo $marca == "Honda" ? "selected" : "" ?> value="Honda">Honda</option>
-                                                                                                <option <?php echo $marca == "Hummer" ? "selected" : "" ?> value="Hummer">Hummer</option>
-                                                                                                <option <?php echo $marca == "Hyundai" ? "selected" : "" ?> value="Hyundai">Hyundai</option>
-                                                                                                <option <?php echo $marca == "Infiniti" ? "selected" : "" ?> value="Infiniti">Infiniti</option>
-                                                                                                <option <?php echo $marca == "International Camiones Ligeros" ? "selected" : "" ?> value="International Camiones Ligeros">International Camiones Ligeros</option>
-                                                                                                <option <?php echo $marca == "Isuzu Camiones Ligeros" ? "selected" : "" ?> value="Isuzu Camiones Ligeros">Isuzu Camiones Ligeros</option>
-                                                                                                <option <?php echo $marca == "JAC" ? "selected" : "" ?> value="JAC">JAC</option>
-                                                                                                <option <?php echo $marca == "Jaguar" ? "selected" : "" ?> value="Jaguar">Jaguar</option>
-                                                                                                <option <?php echo $marca == "Jeep" ? "selected" : "" ?> value="Jeep">Jeep</option>
-                                                                                                <option <?php echo $marca == "Kia" ? "selected" : "" ?> value="Kia">Kia</option>
-                                                                                                <option <?php echo $marca == "Land Rover" ? "selected" : "" ?> value="Land Rover">Land Rover</option>
-                                                                                                <option <?php echo $marca == "Lincoln" ? "selected" : "" ?> value="Lincoln">Lincoln</option>
-                                                                                                <option <?php echo $marca == "Lotus" ? "selected" : "" ?> value="Lotus">Lotus</option>
-                                                                                                <option <?php echo $marca == "Maserati" ? "selected" : "" ?> value="Maserati">Maserati</option>
-                                                                                                <option <?php echo $marca == "Mazda" ? "selected" : "" ?> value="Mazda">Mazda</option>
-                                                                                                <option <?php echo $marca == "Mercedes Benz" ? "selected" : "" ?> value="Mercedes Benz">Mercedes Benz</option>
-                                                                                                <option <?php echo $marca == "Mercury" ? "selected" : "" ?> value="Mercury">Mercury</option>
-                                                                                                <option <?php echo $marca == "Mini" ? "selected" : "" ?> value="Mini">Mini</option>
-                                                                                                <option <?php echo $marca == "Mitsubishi" ? "selected" : "" ?> value="Mitsubishi">Mitsubishi</option>
-                                                                                                <option <?php echo $marca == "Nissan" ? "selected" : "" ?> value="Nissan">Nissan</option>
-                                                                                                <option <?php echo $marca == "Peugeot" ? "selected" : "" ?> value="Peugeot">Peugeot</option>
-                                                                                                <option <?php echo $marca == "Pontiac" ? "selected" : "" ?> value="Pontiac">Pontiac</option>
-                                                                                                <option <?php echo $marca == "Porsche" ? "selected" : "" ?> value="Porsche">Porsche</option>
-                                                                                                <option <?php echo $marca == "Ram" ? "selected" : "" ?> value="Ram">Ram</option>
-                                                                                                <option <?php echo $marca == "Renault" ? "selected" : "" ?> value="Renault">Renault</option>
-                                                                                                <option <?php echo $marca == "Saab" ? "selected" : "" ?> value="Saab">Saab</option>
-                                                                                                <option <?php echo $marca == "Seat" ? "selected" : "" ?> value="Seat">Seat</option>
-                                                                                                <option <?php echo $marca == "Smart" ? "selected" : "" ?> value="Smart">Smart</option>
-                                                                                                <option <?php echo $marca == "SPARTAK" ? "selected" : "" ?> value="SPARTAK">SPARTAK</option>
-                                                                                                <option <?php echo $marca == "Sterling Camiones Ligeros" ? "selected" : "" ?> value="Sterling Camiones Ligeros">Sterling Camiones Ligeros</option>
-                                                                                                <option <?php echo $marca == "Struder Camiones Ligeros" ? "selected" : "" ?> value="Struder Camiones Ligeros">Struder Camiones Ligeros</option>
-                                                                                                <option <?php echo $marca == "Subaru" ? "selected" : "" ?> value="Subaru">Subaru</option>
-                                                                                                <option <?php echo $marca == "Suzuki" ? "selected" : "" ?> value="Suzuki">Suzuki</option>
-                                                                                                <option <?php echo $marca == "Tesla" ? "selected" : "" ?> value="Tesla">Tesla</option>
-                                                                                                <option <?php echo $marca == "Toyota" ? "selected" : "" ?> value="Toyota">Toyota</option>
-                                                                                                <option <?php echo $marca == "Volkswagen" ? "selected" : "" ?> value="Volkswagen">Volkswagen</option>
-                                                                                                <option <?php echo $marca == "Volvo" ? "selected" : "" ?> value="Volvo">Volvo</option>
-                                                                                                -->
+                                                                                            <select class="form-control select2" name="marca" id="select_marca">
+                                                                                                
                                                                                             </select>
                                                                                         </div>
                                                                                     </div>
@@ -2073,23 +2006,30 @@
                                                                                     <div class="col-md-6">
                                                                                         <div class="form-group">
                                                                                             <label class="control-label mb-10">Modelo <span class="txt-danger ml-10">*</span></label>
-                                                                                            <input class="form-control" name="modelo" type="text" value="<?php echo $modelo ?>" />
+                                                                                            <select class="form-control select2" name="modelo" id="select_modelo">
+                                                                                                
+                                                                                            </select>
                                                                                         </div>
                                                                                     </div>
 
                                                                                     <div class="col-md-6">
-                                                                                        <div class="form-group">
-                                                                                            <label class="control-label mb-10">Versión <span class="txt-danger ml-10">*</span></label>
-                                                                                            <input class="form-control" name="version" type="text" value="<?php echo $version ?>" />
+                                                                                         <div class="form-group">
+                                                                                            <label class="control-label mb-10">Año <span class="txt-danger ml-10">*</span></label>
+                                                                                            <select class="form-control select2" name="ano" id="select_ano">
+                                                                                                
+                                                                                            </select>
                                                                                         </div>
+                                                                                        
                                                                                     </div>
                                                                                 </div>
 
                                                                                 <div class="row mb-30">
                                                                                     <div class="col-md-6">
-                                                                                        <div class="form-group">
-                                                                                            <label class="control-label mb-10">Año <span class="txt-danger ml-10">*</span></label>
-                                                                                            <input class="form-control campoNumerico" name="ano" type="number" value="<?php echo $ano ?>" />
+                                                                                       <div class="form-group">
+                                                                                            <label class="control-label mb-10">Versión <span class="txt-danger ml-10">*</span></label>
+                                                                                            <select class="form-control select2" name="version" id="select_version">
+                                                                                                
+                                                                                            </select>
                                                                                         </div>
                                                                                     </div>
                                                                                 </div>
@@ -3075,6 +3015,119 @@
                     handleWidth: 110,
                     labelWidth: 110
                 });
+
+                cargaMarcas();
+            });
+
+            function cargaMarcas(){
+                $.ajax({
+                    url: "socialware/php/ajax/cargaMarcas.php",
+                    type: "post"
+                }).done(function (resultado, textStatus, jqXHR) {
+                    var contenido = "";
+
+                    var marca = '<?php echo $marca; ?>' ;
+
+                    var json = jQuery.parseJSON(resultado);
+                    $.each(json.data,function(i,nodo){
+                        if(marca == nodo.name){
+                            contenido += "<option value='" + nodo.name + "' data-id='" + nodo.id + "' selected>" + nodo.name + "</option>";
+                        }else{
+                            contenido += "<option value='" + nodo.name + "' data-id='" + nodo.id + "'>" + nodo.name + "</option>";
+                        }
+                    });
+
+                    $("#select_marca").append(contenido);
+                    cargaModelos();
+                });
+            }
+
+            function cargaModelos(){
+                var idMarca = $("#select_marca option:selected").attr("data-id");
+                $.ajax({
+                    url: "socialware/php/ajax/cargaModelos.php?marca=" + idMarca,
+                    type: "post"
+                }).done(function (resultado, textStatus, jqXHR) {
+                    var contenido = "";
+
+                    var modelo = '<?php echo $modelo; ?>' ;
+
+                    var json = jQuery.parseJSON(resultado);
+                    $.each(json.data,function(i,nodo){
+                        if(modelo == nodo.name){
+                            contenido += "<option value='" + nodo.name + "' data-id='" + nodo.id + "' selected>" + nodo.name + "</option>";
+                        }else{
+                            contenido += "<option value='" + nodo.name + "' data-id='" + nodo.id + "'>" + nodo.name + "</option>";
+                        }
+                    });
+
+                    $("#select_modelo").append(contenido);
+                    cargaAnos();
+                });
+            }
+
+            function cargaAnos(){
+                var idMarca = $("#select_marca option:selected").attr("data-id");
+                var idModelo = $("#select_modelo option:selected").attr("data-id");
+
+                $.ajax({
+                    url: "socialware/php/ajax/cargaAnos.php?marca=" + idMarca + "&modelo=" + idModelo,
+                    type: "post"
+                }).done(function (resultado, textStatus, jqXHR) {
+                    var contenido = "";
+
+                    var ano = '<?php echo $ano; ?>' ;
+
+                    var json = jQuery.parseJSON(resultado);
+                    $.each(json.data,function(i,nodo){
+                        if(ano == nodo.name){
+                            contenido += "<option value='" + nodo.name + "' data-id='" + nodo.id + "' selected>" + nodo.name + "</option>";
+                        }else{
+                            contenido += "<option value='" + nodo.name + "' data-id='" + nodo.id + "'>" + nodo.name + "</option>";
+                        }
+                    });
+
+                    $("#select_ano").append(contenido);
+                    cargaVersiones();
+                });
+            }
+
+            function cargaVersiones(){
+                var idMarca = $("#select_marca option:selected").attr("data-id");
+                var idModelo = $("#select_modelo option:selected").attr("data-id");
+                var idAno = $("#select_ano option:selected").attr("data-id");
+
+                $.ajax({
+                    url: "socialware/php/ajax/cargaVersiones.php?marca=" + idMarca + "&modelo=" + idModelo + "&ano=" + idAno,
+                    type: "post"
+                }).done(function (resultado, textStatus, jqXHR) {
+                    var contenido = "";
+
+                    var version = '<?php echo $version; ?>' ;
+
+                    var json = jQuery.parseJSON(resultado);
+                    $.each(json.data,function(i,nodo){
+                        if(version == nodo.name){
+                            contenido += "<option value='" + nodo.name + "' data-id='" + nodo.id + "' selected>" + nodo.name + "</option>";
+                        }else{
+                            contenido += "<option value='" + nodo.name + "' data-id='" + nodo.id + "'>" + nodo.name + "</option>";
+                        }
+                    });
+
+                    $("#select_version").append(contenido);
+                });
+            }
+
+            $("#select_marca").on("change", function(){
+                cargaModelos();
+            });
+
+            $("#select_modelo").on("change", function(){
+                cargaAnos();
+            });
+
+            $("#select_ano").on("change", function(){
+                cargaVersiones();
             });
 
 /*
