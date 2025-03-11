@@ -3061,6 +3061,10 @@
                         }
                     });
 
+                    $("#select_modelo").html("");
+                    $("#select_ano").html("");
+                    $("#select_version").html("");
+
                     $("#select_modelo").append(contenido);
                     cargaAnos();
                 });
@@ -3086,6 +3090,9 @@
                             contenido += "<option value='" + nodo.name + "' data-id='" + nodo.id + "'>" + nodo.name + "</option>";
                         }
                     });
+
+                    $("#select_ano").html("");
+                    $("#select_version").html("");
 
                     $("#select_ano").append(contenido);
                     cargaVersiones();
@@ -3113,6 +3120,8 @@
                             contenido += "<option value='" + nodo.name + "' data-id='" + nodo.id + "'>" + nodo.name + "</option>";
                         }
                     });
+
+                    $("#select_version").html("");
 
                     $("#select_version").append(contenido);
                 });
