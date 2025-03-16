@@ -1434,14 +1434,14 @@
 
                         // Caracteristicas
 
-                        $("#contenedor_compararVehiculos_" + indice + "_tipoVehiculo").html($(this).find("intelimotor_vehicleBodyType").text());
+                        $("#contenedor_compararVehiculos_" + indice + "_tipoVehiculo").html($(this).find("tipo").text());
                         $("#contenedor_compararVehiculos_" + indice + "_kilometros").html("<strong>Kilómetros:</strong> " + formatoMoneda($(this).find("kilometraje").text()));
                         $("#contenedor_compararVehiculos_" + indice + "_transmision").html("<strong>Transmisión:</strong> " + $(this).find("transmision").text());
-                        $("#contenedor_compararVehiculos_" + indice + "_puertas").html("<strong>Puertas:</strong> " + $(this).find("intelimotor_doors").text());
-                        $("#contenedor_compararVehiculos_" + indice + "_tipoCombustible").html("<strong>Combustible:</strong> " + $(this).find("intelimotor_fuelType").text());
-                        $("#contenedor_compararVehiculos_" + indice + "_motor").html("<strong>Motor:</strong> " + $(this).find("intelimotor_engine").text() + " lts");
-                        $("#contenedor_compararVehiculos_" + indice + "_controlTraccion").html("<strong>Tracción:</strong> " + $(this).find("intelimotor_tractionControl").text());
-                        $("#contenedor_compararVehiculos_" + indice + "_colorInterior").html("<strong>Interiores en color:</strong> " + $(this).find("intelimotor_interiorColor").text());
+                        $("#contenedor_compararVehiculos_" + indice + "_puertas").html("<strong>Puertas:</strong> " + $(this).find("puertas").text());
+                        $("#contenedor_compararVehiculos_" + indice + "_tipoCombustible").html("<strong>Combustible:</strong> " + $(this).find("combustible").text());
+                        $("#contenedor_compararVehiculos_" + indice + "_motor").html("<strong>Motor:</strong> " + $(this).find("litros").text() + " lts");
+                        $("#contenedor_compararVehiculos_" + indice + "_controlTraccion").html("<strong>Tracción:</strong> " + $(this).find("controlTraccion").text());
+                        $("#contenedor_compararVehiculos_" + indice + "_colorInterior").html("<strong>Interiores en color:</strong> " + $(this).find("colorInterior").text());
                         $("#contenedor_compararVehiculos_" + indice + "_enlace").html("<a class='primary-btn2'' href='vehiculo.html?id=" + idVehiculo + "'>Ver detalle</a>");
                     });
                 });

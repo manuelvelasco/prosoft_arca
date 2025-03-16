@@ -1657,195 +1657,195 @@
 
                         $("#etiqueta_kilometros").html(formatoMoneda($(this).find("kilometraje").text()));
                         $("#etiqueta_transmision").html($(this).find("transmision").text());
-                        $("#etiqueta_tipoVehiculo").html($(this).find("intelimotor_vehicleBodyType").text());
-                        $("#etiqueta_motor").html($(this).find("intelimotor_engine").text());
-                        $("#etiqueta_direccion").html($(this).find("intelimotor_steering").text());
-                        $(".etiqueta_colorInterior").html($(this).find("intelimotor_interiorColor").text());
+                        $("#etiqueta_tipoVehiculo").html($(this).find("tipo").text());
+                        $("#etiqueta_motor").html($(this).find("litros").text());
+                        $("#etiqueta_direccion").html($(this).find("direccion").text());
+                        $(".etiqueta_colorInterior").html($(this).find("colorInterior").text());
 
                         $("#etiqueta_puntosDestacados").html($(this).find("puntosDestacados").html());
 
                         // Caracteristicas principales - General
 
-                        $("#etiqueta_puertas").html($(this).find("intelimotor_doors").text());
-                        if($(this).find("intelimotor_doors").text() == ""){  $("#contenedor_etiqueta_puertas").hide(); }
+                        $("#etiqueta_puertas").html($(this).find("puertas").text());
+                        if($(this).find("puertas").text() == ""){  $("#contenedor_etiqueta_puertas").hide(); }
 
-                        $("#etiqueta_combustible").html($(this).find("intelimotor_fuelType").text());
-                        if($(this).find("intelimotor_fuelType").text() == ""){  $("#contenedor_etiqueta_combustible").hide(); }
+                        $("#etiqueta_combustible").html($(this).find("combustible").text());
+                        if($(this).find("combustible").text() == ""){  $("#contenedor_etiqueta_combustible").hide(); }
 
-                        $("#etiqueta_traccion").html($(this).find("intelimotor_tractionControl").text());
-                        if($(this).find("intelimotor_tractionControl").text() == ""){  $("#contenedor_etiqueta_traccion").hide(); }
+                        $("#etiqueta_traccion").html($(this).find("controlTraccion").text());
+                        if($(this).find("controlTraccion").text() == ""){  $("#contenedor_etiqueta_traccion").hide(); }
 
-                        $("#etiqueta_unicoDueno").html($(this).find("intelimotor_singleOwner").text() == 1 ? "Si" : "No");
-                        if($(this).find("intelimotor_singleOwner").text() != 1){  $("#contenedor_etiqueta_unicoDueno").hide(); }
+                        $("#etiqueta_unicoDueno").html($(this).find("unicoDueno").text() == 1 ? "Si" : "No");
+                        if($(this).find("unicoDueno").text() != 1){  $("#contenedor_etiqueta_unicoDueno").hide(); }
 
                         // Caracteristicas principales - Exterior
 
-                        $("#etiqueta_colorExterior").html($(this).find("intelimotor_exteriorColor").text());
-                        if($(this).find("intelimotor_exteriorColor").text() == ""){  $("#contenedor_etiqueta_colorExterior").hide(); }
+                        $("#etiqueta_colorExterior").html($(this).find("color").text());
+                        if($(this).find("color").text() == ""){  $("#contenedor_etiqueta_colorExterior").hide(); }
 
-                        $("#etiqueta_farosXenon").html($(this).find("intelimotor_hasXenonHeadlights").text() == 1 ? "Si" : "No");
-                        if($(this).find("intelimotor_hasXenonHeadlights").text() != 1){  $("#contenedor_etiqueta_farosXenon").hide(); }
+                        $("#etiqueta_farosXenon").html($(this).find("tieneLucesXenon").text() == 1 ? "Si" : "No");
+                        if($(this).find("tieneLucesXenon").text() != 1){  $("#contenedor_etiqueta_farosXenon").hide(); }
 
-                        $("#etiqueta_rinesAluminio").html($(this).find("intelimotor_hasAlloyWheels").text() == 1 ? "Si" : "No");
-                        if($(this).find("intelimotor_hasAlloyWheels").text() != 1){  $("#contenedor_etiqueta_rinesAluminio").hide(); }
+                        $("#etiqueta_rinesAluminio").html($(this).find("tieneRinesAleacion").text() == 1 ? "Si" : "No");
+                        if($(this).find("tieneRinesAleacion").text() != 1){  $("#contenedor_etiqueta_rinesAluminio").hide(); }
 
-                        $("#etiqueta_lucesNiebla").html($(this).find("intelimotor_hasFogLight").text() == 1 ? "Si" : "No");
-                        if($(this).find("intelimotor_hasFogLight").text() != 1){  $("#contenedor_etiqueta_lucesNiebla").hide(); }
+                        $("#etiqueta_lucesNiebla").html($(this).find("tieneLucesNieblaDelanteras").text() == 1 ? "Si" : "No");
+                        if($(this).find("tieneLucesNieblaDelanteras").text() != 1){  $("#contenedor_etiqueta_lucesNiebla").hide(); }
 
-                        $("#etiqueta_lucesNieblaFrontales").html($(this).find("intelimotor_hasFrontFoglights").text() == 1 ? "Si" : "No");
-                        if($(this).find("intelimotor_hasFrontFoglights").text() != 1){  $("#contenedor_etiqueta_lucesNieblaFrontales").hide(); }
+                        $("#etiqueta_lucesNieblaFrontales").html($(this).find("tieneFarosNiebla").text() == 1 ? "Si" : "No");
+                        if($(this).find("tieneFarosNiebla").text() != 1){  $("#contenedor_etiqueta_lucesNieblaFrontales").hide(); }
 
-                        $("#etiqueta_lucesNieblaTraseras").html($(this).find("intelimotor_hasRearFoglights").text() == 1 ? "Si" : "No");
-                        if($(this).find("intelimotor_hasRearFoglights").text() != 1){  $("#contenedor_etiqueta_lucesNieblaTraseras").hide(); }
+                        $("#etiqueta_lucesNieblaTraseras").html($(this).find("tieneLucesNieblaTraseras").text() == 1 ? "Si" : "No");
+                        if($(this).find("tieneLucesNieblaTraseras").text() != 1){  $("#contenedor_etiqueta_lucesNieblaTraseras").hide(); }
 
-                        $("#etiqueta_barraPortaequipaje").html($(this).find("intelimotor_hasRollBar").text() == 1 ? "Si" : "No");
-                        if($(this).find("intelimotor_hasRollBar").text() != 1){  $("#contenedor_etiqueta_barraPortaequipaje").hide(); }
+                        $("#etiqueta_barraPortaequipaje").html($(this).find("tieneBarraAntivuelco").text() == 1 ? "Si" : "No");
+                        if($(this).find("tieneBarraAntivuelco").text() != 1){  $("#contenedor_etiqueta_barraPortaequipaje").hide(); }
 
-                        $("#etiqueta_defensasColor").html($(this).find("intelimotor_hasPaintedBumper").text() == 1 ? "Si" : "No");
-                        if($(this).find("intelimotor_hasPaintedBumper").text() != 1){  $("#contenedor_etiqueta_defensasColor").hide(); }
+                        $("#etiqueta_defensasColor").html($(this).find("tieneDefensasColorCarroceria").text() == 1 ? "Si" : "No");
+                        if($(this).find("tieneDefensasColorCarroceria").text() != 1){  $("#contenedor_etiqueta_defensasColor").hide(); }
 
-                        $("#etiqueta_barraRemolcadora").html($(this).find("intelimotor_hasBullBar").text() == 1 ? "Si" : "No");
-                        if($(this).find("intelimotor_hasBullBar").text() != 1){  $("#contenedor_etiqueta_barraRemolcadora").hide(); }
+                        $("#etiqueta_barraRemolcadora").html($(this).find("tieneParachoques").text() == 1 ? "Si" : "No");
+                        if($(this).find("tieneParachoques").text() != 1){  $("#contenedor_etiqueta_barraRemolcadora").hide(); }
 
-                        $("#etiqueta_limpiaparabrisas").html($(this).find("intelimotor_hasWindscreenWiper").text() == 1 ? "Si" : "No");
-                        if($(this).find("intelimotor_hasWindscreenWiper").text() != 1){  $("#contenedor_etiqueta_limpiaparabrisas").hide(); }
+                        $("#etiqueta_limpiaparabrisas").html($(this).find("tieneLimpiaparabrisas").text() == 1 ? "Si" : "No");
+                        if($(this).find("tieneLimpiaparabrisas").text() != 1){  $("#contenedor_etiqueta_limpiaparabrisas").hide(); }
 
                         // Caracteristicas principales - Equipamiento y confort
 
-                        $("#etiqueta_pilotoAutomatico").html($(this).find("intelimotor_hasAutopilot").text() == 1 ? "Si" : "No");
-                        if($(this).find("intelimotor_hasAutopilot").text() != 1){  $("#contenedor_etiqueta_pilotoAutomatico").hide(); }
+                        $("#etiqueta_pilotoAutomatico").html($(this).find("tienePilotoAutomatico").text() == 1 ? "Si" : "No");
+                        if($(this).find("tienePilotoAutomatico").text() != 1){  $("#contenedor_etiqueta_pilotoAutomatico").hide(); }
 
-                        $("#etiqueta_recordatorioLucesEncendidas").html($(this).find("intelimotor_hasLightOnReminder").text() == 1 ? "Si" : "No");
-                        if($(this).find("intelimotor_hasLightOnReminder").text() != 1){  $("#contenedor_etiqueta_recordatorioLucesEncendidas").hide(); }
+                        $("#etiqueta_recordatorioLucesEncendidas").html($(this).find("tieneRecordatorioEncendidoLuces").text() == 1 ? "Si" : "No");
+                        if($(this).find("tieneRecordatorioEncendidoLuces").text() != 1){  $("#contenedor_etiqueta_recordatorioLucesEncendidas").hide(); }
 
-                        $("#etiqueta_computadoraViaje").html($(this).find("intelimotor_hasOnboardComputer").text() == 1 ? "Si" : "No");
-                        if($(this).find("intelimotor_hasOnboardComputer").text() != 1){  $("#contenedor_etiqueta_computadoraViaje").hide(); }
+                        $("#etiqueta_computadoraViaje").html($(this).find("tieneComputadoraAbordo").text() == 1 ? "Si" : "No");
+                        if($(this).find("tieneComputadoraAbordo").text() != 1){  $("#contenedor_etiqueta_computadoraViaje").hide(); }
 
-                        $("#etiqueta_techoCorredizo").html($(this).find("intelimotor_hasSlidingRoof").text() == 1 ? "Si" : "No");
-                        if($(this).find("intelimotor_hasSlidingRoof").text() != 1){  $("#contenedor_etiqueta_techoCorredizo").hide(); }
+                        $("#etiqueta_techoCorredizo").html($(this).find("tieneQuemacocos").text() == 1 ? "Si" : "No");
+                        if($(this).find("tieneQuemacocos").text() != 1){  $("#contenedor_etiqueta_techoCorredizo").hide(); }
 
-                        $("#etiqueta_controlClima").html($(this).find("intelimotor_hasClimateControl").text() == 1 ? "Si" : "No");
-                        if($(this).find("intelimotor_hasClimateControl").text() != 1){  $("#contenedor_etiqueta_controlClima").hide(); }
+                        $("#etiqueta_controlClima").html($(this).find("tieneControlTemperatura").text() == 1 ? "Si" : "No");
+                        if($(this).find("tieneControlTemperatura").text() != 1){  $("#contenedor_etiqueta_controlClima").hide(); }
 
-                        $("#etiqueta_sensorLluvia").html($(this).find("intelimotor_hasRainSensor").text() == 1 ? "Si" : "No");
-                        if($(this).find("intelimotor_hasRainSensor").text() != 1){  $("#contenedor_etiqueta_sensorLluvia").hide(); }
+                        $("#etiqueta_sensorLluvia").html($(this).find("tieneSensorLluvia").text() == 1 ? "Si" : "No");
+                        if($(this).find("tieneSensorLluvia").text() != 1){  $("#contenedor_etiqueta_sensorLluvia").hide(); }
 
-                        $("#etiqueta_desempanadorTrasero").html($(this).find("intelimotor_hasRearWindowDefogger").text() == 1 ? "Si" : "No");
-                        if($(this).find("intelimotor_hasRearWindowDefogger").text() != 1){  $("#contenedor_etiqueta_desempanadorTrasero").hide(); }
+                        $("#etiqueta_desempanadorTrasero").html($(this).find("tieneDesempanadorTrasero").text() == 1 ? "Si" : "No");
+                        if($(this).find("tieneDesempanadorTrasero").text() != 1){  $("#contenedor_etiqueta_desempanadorTrasero").hide(); }
 
-                        $("#etiqueta_aireAcondicionado").html($(this).find("intelimotor_hasAirConditioning").text() == 1 ? "Si" : "No");
-                        if($(this).find("intelimotor_hasAirConditioning").text() != 1){  $("#contenedor_etiqueta_aireAcondicionado").hide(); }
+                        $("#etiqueta_aireAcondicionado").html($(this).find("tieneAireAcondicionado").text() == 1 ? "Si" : "No");
+                        if($(this).find("tieneAireAcondicionado").text() != 1){  $("#contenedor_etiqueta_aireAcondicionado").hide(); }
 
-                        $("#etiqueta_espejosElectricos").html($(this).find("intelimotor_hasElectricMirrors").text() == 1 ? "Si" : "No");
-                        if($(this).find("intelimotor_hasElectricMirrors").text() != 1){  $("#contenedor_etiqueta_espejosElectricos").hide(); }
+                        $("#etiqueta_espejosElectricos").html($(this).find("tieneEspejosElectricos").text() == 1 ? "Si" : "No");
+                        if($(this).find("tieneEspejosElectricos").text() != 1){  $("#contenedor_etiqueta_espejosElectricos").hide(); }
 
-                        $("#etiqueta_controlFaros").html($(this).find("intelimotor_hasHeadlightControl").text() == 1 ? "Si" : "No");
-                        if($(this).find("intelimotor_hasHeadlightControl").text() != 1){  $("#contenedor_etiqueta_controlFaros").hide(); }
+                        $("#etiqueta_controlFaros").html($(this).find("tieneControlLucesDelanteras").text() == 1 ? "Si" : "No");
+                        if($(this).find("tieneControlLucesDelanteras").text() != 1){  $("#contenedor_etiqueta_controlFaros").hide(); }
 
-                        $("#etiqueta_asientoPilotoAlturaAjustable").html($(this).find("intelimotor_hasHeightAdjustableDriverSeat").text() == 1 ? "Si" : "No");
-                        if($(this).find("intelimotor_hasHeightAdjustableDriverSeat").text() != 1){  $("#contenedor_etiqueta_asientoPilotoAlturaAjustable").hide(); }
+                        $("#etiqueta_asientoPilotoAlturaAjustable").html($(this).find("tieneAsientoConductorAjusteAltura").text() == 1 ? "Si" : "No");
+                        if($(this).find("tieneAsientoConductorAjusteAltura").text() != 1){  $("#contenedor_etiqueta_asientoPilotoAlturaAjustable").hide(); }
 
-                        $("#etiqueta_sensorLuces").html($(this).find("intelimotor_hasLightSensor").text() == 1 ? "Si" : "No");
-                        if($(this).find("intelimotor_hasLightSensor").text() != 1){  $("#contenedor_etiqueta_sensorLuces").hide(); }
+                        $("#etiqueta_sensorLuces").html($(this).find("tieneSensoresLuz").text() == 1 ? "Si" : "No");
+                        if($(this).find("tieneSensoresLuz").text() != 1){  $("#contenedor_etiqueta_sensorLuces").hide(); }
 
-                        $("#etiqueta_sensorEstacionamiento").html($(this).find("intelimotor_hasParkingSensor").text() == 1 ? "Si" : "No");
-                        if($(this).find("intelimotor_hasParkingSensor").text() != 1){  $("#contenedor_etiqueta_sensorEstacionamiento").hide(); }
+                        $("#etiqueta_sensorEstacionamiento").html($(this).find("tieneSensoresReversa").text() == 1 ? "Si" : "No");
+                        if($(this).find("tieneSensoresReversa").text() != 1){  $("#contenedor_etiqueta_sensorEstacionamiento").hide(); }
 
-                        $("#etiqueta_vidriosElectricos").html($(this).find("intelimotor_hasPowerWindows").text() == 1 ? "Si" : "No");
-                        if($(this).find("intelimotor_hasPowerWindows").text() != 1){  $("#contenedor_etiqueta_vidriosElectricos").hide(); }
+                        $("#etiqueta_vidriosElectricos").html($(this).find("tieneVidriosElectricos").text() == 1 ? "Si" : "No");
+                        if($(this).find("tieneVidriosElectricos").text() != 1){  $("#contenedor_etiqueta_vidriosElectricos").hide(); }
 
-                        $("#etiqueta_aperturaRemotaCajuela").html($(this).find("intelimotor_hasRemoteTrunkRelease").text() == 1 ? "Si" : "No");
-                        if($(this).find("intelimotor_hasRemoteTrunkRelease").text() != 1){  $("#contenedor_etiqueta_aperturaRemotaCajuela").hide(); }
+                        $("#etiqueta_aperturaRemotaCajuela").html($(this).find("tieneAperturaRemotaCajuela").text() == 1 ? "Si" : "No");
+                        if($(this).find("tieneAperturaRemotaCajuela").text() != 1){  $("#contenedor_etiqueta_aperturaRemotaCajuela").hide(); }
 
-                        $("#etiqueta_asientosElectricos").html($(this).find("intelimotor_hasElectricSeats").text() == 1 ? "Si" : "No");
-                        if($(this).find("intelimotor_hasElectricSeats").text() != 1){  $("#contenedor_etiqueta_asientosElectricos").hide(); }
+                        $("#etiqueta_asientosElectricos").html($(this).find("tieneAsientosElectricos").text() == 1 ? "Si" : "No");
+                        if($(this).find("tieneAsientosElectricos").text() != 1){  $("#contenedor_etiqueta_asientosElectricos").hide(); }
 
-                        $("#etiqueta_cerraduraPuertaCentralizada").html($(this).find("intelimotor_hasCentralPowerDoorLocks").text() == 1 ? "Si" : "No");
-                        if($(this).find("intelimotor_hasCentralPowerDoorLocks").text() != 1){  $("#contenedor_etiqueta_cerraduraPuertaCentralizada").hide(); }
+                        $("#etiqueta_cerraduraPuertaCentralizada").html($(this).find("tieneSegurosElectricosCentralizados").text() == 1 ? "Si" : "No");
+                        if($(this).find("tieneSegurosElectricosCentralizados").text() != 1){  $("#contenedor_etiqueta_cerraduraPuertaCentralizada").hide(); }
 
-                        $("#etiqueta_llantaRefaccion").html($(this).find("intelimotor_hasSpareTyreSupport").text() == 1 ? "Si" : "No");
-                        if($(this).find("intelimotor_hasSpareTyreSupport").text() != 1){  $("#contenedor_etiqueta_llantaRefaccion").hide(); }
+                        $("#etiqueta_llantaRefaccion").html($(this).find("tieneLlantaRefaccion").text() == 1 ? "Si" : "No");
+                        if($(this).find("tieneLlantaRefaccion").text() != 1){  $("#contenedor_etiqueta_llantaRefaccion").hide(); }
 
                         // Caracteristicas principales - Seguridad
 
-                        $("#etiqueta_frenosABS").html($(this).find("intelimotor_hasAbsBrakes").text() == 1 ? "Si" : "No");
-                        if($(this).find("intelimotor_hasAbsBrakes").text() != 1){  $("#contenedor_etiqueta_frenosABS").hide(); }
+                        $("#etiqueta_frenosABS").html($(this).find("tieneFrenosABS").text() == 1 ? "Si" : "No");
+                        if($(this).find("tieneFrenosABS").text() != 1){  $("#contenedor_etiqueta_frenosABS").hide(); }
 
-                        $("#etiqueta_alarma").html($(this).find("intelimotor_hasAlarm").text() == 1 ? "Si" : "No");
-                        if($(this).find("intelimotor_hasAlarm").text() != 1){  $("#contenedor_etiqueta_alarma").hide(); }
+                        $("#etiqueta_alarma").html($(this).find("tieneAlarma").text() == 1 ? "Si" : "No");
+                        if($(this).find("tieneAlarma").text() != 1){  $("#contenedor_etiqueta_alarma").hide(); }
 
-                        $("#etiqueta_bolsaAireConductor").html($(this).find("intelimotor_hasDriverAirbag").text() == 1 ? "Si" : "No");
-                        if($(this).find("intelimotor_hasDriverAirbag").text() != 1){  $("#contenedor_etiqueta_bolsaAireConductor").hide(); }
+                        $("#etiqueta_bolsaAireConductor").html($(this).find("tieneBolsaAireConductor").text() == 1 ? "Si" : "No");
+                        if($(this).find("tieneBolsaAireConductor").text() != 1){  $("#contenedor_etiqueta_bolsaAireConductor").hide(); }
 
-                        $("#etiqueta_asistenteFrenadoElectrico").html($(this).find("intelimotor_hasElectronicBrakeAssist").text() == 1 ? "Si" : "No");
-                        if($(this).find("intelimotor_hasElectronicBrakeAssist").text() != 1){  $("#contenedor_etiqueta_asistenteFrenadoElectrico").hide(); }
+                        $("#etiqueta_asistenteFrenadoElectrico").html($(this).find("tieneAsistenciaFrenado").text() == 1 ? "Si" : "No");
+                        if($(this).find("tieneAsistenciaFrenado").text() != 1){  $("#contenedor_etiqueta_asistenteFrenadoElectrico").hide(); }
 
-                        $("#etiqueta_inmovilizadorMotor").html($(this).find("intelimotor_hasEngineInmovilizer").text() == 1 ? "Si" : "No");
-                        if($(this).find("intelimotor_hasEngineInmovilizer").text() != 1){  $("#contenedor_etiqueta_inmovilizadorMotor").hide(); }
+                        $("#etiqueta_inmovilizadorMotor").html($(this).find("tieneInmovilizador").text() == 1 ? "Si" : "No");
+                        if($(this).find("tieneInmovilizador").text() != 1){  $("#contenedor_etiqueta_inmovilizadorMotor").hide(); }
 
-                        $("#etiqueta_bolsaAirePasajero").html($(this).find("intelimotor_hasPassengerAirbag").text() == 1 ? "Si" : "No");
-                        if($(this).find("intelimotor_hasPassengerAirbag").text() != 1){  $("#contenedor_etiqueta_bolsaAirePasajero").hide(); }
+                        $("#etiqueta_bolsaAirePasajero").html($(this).find("tieneBolsaAirePasajero").text() == 1 ? "Si" : "No");
+                        if($(this).find("tieneBolsaAirePasajero").text() != 1){  $("#contenedor_etiqueta_bolsaAirePasajero").hide(); }
 
-                        $("#etiqueta_bolsasAireLaterales").html($(this).find("intelimotor_hasSideImpactAirbag").text() == 1 ? "Si" : "No");
-                        if($(this).find("intelimotor_hasSideImpactAirbag").text() != 1){  $("#contenedor_etiqueta_bolsasAireLaterales").hide(); }
+                        $("#etiqueta_bolsasAireLaterales").html($(this).find("tieneBolsasAireLaterales").text() == 1 ? "Si" : "No");
+                        if($(this).find("tieneBolsasAireLaterales").text() != 1){  $("#contenedor_etiqueta_bolsasAireLaterales").hide(); }
 
-                        $("#etiqueta_controlEstabilidad").html($(this).find("intelimotor_hasStabilityControl").text() == 1 ? "Si" : "No");
-                        if($(this).find("intelimotor_hasStabilityControl").text() != 1){  $("#contenedor_etiqueta_controlEstabilidad").hide(); }
+                        $("#etiqueta_controlEstabilidad").html($(this).find("tieneControlEstabilidad").text() == 1 ? "Si" : "No");
+                        if($(this).find("tieneControlEstabilidad").text() != 1){  $("#contenedor_etiqueta_controlEstabilidad").hide(); }
 
-                        $("#etiqueta_controlesVolante").html($(this).find("intelimotor_hasSteeringWheelControl").text() == 1 ? "Si" : "No");
-                        if($(this).find("intelimotor_hasSteeringWheelControl").text() != 1){  $("#contenedor_etiqueta_controlesVolante").hide(); }
+                        $("#etiqueta_controlesVolante").html($(this).find("tieneControlVolante").text() == 1 ? "Si" : "No");
+                        if($(this).find("tieneControlVolante").text() != 1){  $("#contenedor_etiqueta_controlesVolante").hide(); }
 
-                        $("#etiqueta_tercerLuzTrasera").html($(this).find("intelimotor_hasThirdStop").text() == 1 ? "Si" : "No");
-                        if($(this).find("intelimotor_hasThirdStop").text() != 1){  $("#contenedor_etiqueta_tercerLuzTrasera").hide(); }
+                        $("#etiqueta_tercerLuzTrasera").html($(this).find("tieneTerceraLuzFrenado").text() == 1 ? "Si" : "No");
+                        if($(this).find("tieneTerceraLuzFrenado").text() != 1){  $("#contenedor_etiqueta_tercerLuzTrasera").hide(); }
 
-                        $("#etiqueta_bolsasAireCortina").html($(this).find("intelimotor_hasCurtainAirbag").text() == 1 ? "Si" : "No");
-                        if($(this).find("intelimotor_hasCurtainAirbag").text() != 1){  $("#contenedor_etiqueta_bolsasAireCortina").hide(); }
+                        $("#etiqueta_bolsasAireCortina").html($(this).find("tieneBolsasAireCortina").text() == 1 ? "Si" : "No");
+                        if($(this).find("tieneBolsasAireCortina").text() != 1){  $("#contenedor_etiqueta_bolsasAireCortina").hide(); }
 
-                        $("#etiqueta_blindaje").html($(this).find("intelimotor_armored").text() == 1 ? "Si" : "No");
-                        if($(this).find("intelimotor_armored").text() != 1){  $("#contenedor_etiqueta_blindaje").hide(); }
+                        $("#etiqueta_blindaje").html($(this).find("esBlindado").text() == 1 ? "Si" : "No");
+                        if($(this).find("esBlindado").text() != 1){  $("#contenedor_etiqueta_blindaje").hide(); }
 
                         // Caracteristicas principales - Interior
 
-                        $(".etiqueta_colorInterior").html($(this).find("intelimotor_interiorColor").text());
-                        if($(this).find("intelimotor_interiorColor").text() == ""){  $("#contenedor_etiqueta_colorInterior").hide(); }
+                        $(".etiqueta_colorInterior").html($(this).find("colorInterior").text());
+                        if($(this).find("colorInterior").text() == ""){  $("#contenedor_etiqueta_colorInterior").hide(); }
 
-                        $("#etiqueta_asientosTraserosAbatibles").html($(this).find("intelimotor_hasRearFoldingSeat").text() == 1 ? "Si" : "No");
-                        if($(this).find("intelimotor_hasRearFoldingSeat").text() != 1){  $("#contenedor_etiqueta_asientosTraserosAbatibles").hide(); }
+                        $("#etiqueta_asientosTraserosAbatibles").html($(this).find("tieneAsientosTraserosAbatibles").text() == 1 ? "Si" : "No");
+                        if($(this).find("tieneAsientosTraserosAbatibles").text() != 1){  $("#contenedor_etiqueta_asientosTraserosAbatibles").hide(); }
 
-                        $("#etiqueta_portavasos").html($(this).find("intelimotor_hasCoasters").text() == 1 ? "Si" : "No");
-                        if($(this).find("intelimotor_hasCoasters").text() != 1){  $("#contenedor_etiqueta_portavasos").hide(); }
+                        $("#etiqueta_portavasos").html($(this).find("tienePortavasos").text() == 1 ? "Si" : "No");
+                        if($(this).find("tienePortavasos").text() != 1){  $("#contenedor_etiqueta_portavasos").hide(); }
 
-                        $("#etiqueta_tapiceriaPiel").html($(this).find("intelimotor_hasLeatherUpholstery").text() == 1 ? "Si" : "No");
-                        if($(this).find("intelimotor_hasLeatherUpholstery").text() != 1){  $("#contenedor_etiqueta_tapiceriaPiel").hide(); }
+                        $("#etiqueta_tapiceriaPiel").html($(this).find("tieneTapiceriaPiel").text() == 1 ? "Si" : "No");
+                        if($(this).find("tieneTapiceriaPiel").text() != 1){  $("#contenedor_etiqueta_tapiceriaPiel").hide(); }
 
-                        $("#etiqueta_CabecerasAsientosTraseros").html($(this).find("intelimotor_hasHeadrestRearSeat").text() == 1 ? "Si" : "No");
-                        if($(this).find("intelimotor_hasHeadrestRearSeat").text() != 1){  $("#contenedor_etiqueta_CabecerasAsientosTraseros").hide(); }
+                        $("#etiqueta_CabecerasAsientosTraseros").html($(this).find("tieneCabecerasAsientosTraseros").text() == 1 ? "Si" : "No");
+                        if($(this).find("tieneCabecerasAsientosTraseros").text() != 1){  $("#contenedor_etiqueta_CabecerasAsientosTraseros").hide(); }
 
                         // Caracteristicas principales - Entretenimiento
 
-                        $("#etiqueta_GPS").html($(this).find("intelimotor_hasGps").text() == 1 ? "Si" : "No");
-                        if($(this).find("intelimotor_hasGps").text() != 1){  $("#contenedor_etiqueta_GPS").hide(); }
+                        $("#etiqueta_GPS").html($(this).find("tieneGps").text() == 1 ? "Si" : "No");
+                        if($(this).find("tieneGps").text() != 1){  $("#contenedor_etiqueta_GPS").hide(); }
 
-                        $("#etiqueta_radio").html($(this).find("intelimotor_hasAmfmRadio").text() == 1 ? "Si" : "No");
-                        if($(this).find("intelimotor_hasAmfmRadio").text() != 1){  $("#contenedor_etiqueta_radio").hide(); }
+                        $("#etiqueta_radio").html($(this).find("tieneRadioAMFM").text() == 1 ? "Si" : "No");
+                        if($(this).find("tieneRadioAMFM").text() != 1){  $("#contenedor_etiqueta_radio").hide(); }
 
-                        $("#etiqueta_bluetooth").html($(this).find("intelimotor_hasBluetooth").text() == 1 ? "Si" : "No");
-                        if($(this).find("intelimotor_hasBluetooth").text() != 1){  $("#contenedor_etiqueta_bluetooth").hide(); }
+                        $("#etiqueta_bluetooth").html($(this).find("tieneBluetooth").text() == 1 ? "Si" : "No");
+                        if($(this).find("tieneBluetooth").text() != 1){  $("#contenedor_etiqueta_bluetooth").hide(); }
 
-                        $("#etiqueta_CD").html($(this).find("intelimotor_hasCdPlayer").text() == 1 ? "Si" : "No");
-                        if($(this).find("intelimotor_hasCdPlayer").text() != 1){  $("#contenedor_etiqueta_CD").hide(); }
+                        $("#etiqueta_CD").html($(this).find("tieneReproductorCD").text() == 1 ? "Si" : "No");
+                        if($(this).find("tieneReproductorCD").text() != 1){  $("#contenedor_etiqueta_CD").hide(); }
 
-                        $("#etiqueta_DVD").html($(this).find("intelimotor_hasDvd").text() == 1 ? "Si" : "No");
-                        if($(this).find("intelimotor_hasDvd").text() != 1){  $("#contenedor_etiqueta_DVD").hide(); }
+                        $("#etiqueta_DVD").html($(this).find("tieneReproductorDVD").text() == 1 ? "Si" : "No");
+                        if($(this).find("tieneReproductorDVD").text() != 1){  $("#contenedor_etiqueta_DVD").hide(); }
 
-                        $("#etiqueta_MP3").html($(this).find("intelimotor_hasMp3Player").text() == 1 ? "Si" : "No");
-                        if($(this).find("intelimotor_hasMp3Player").text() != 1){  $("#contenedor_etiqueta_MP3").hide(); }
+                        $("#etiqueta_MP3").html($(this).find("tieneReproductorMP3").text() == 1 ? "Si" : "No");
+                        if($(this).find("tieneReproductorMP3").text() != 1){  $("#contenedor_etiqueta_MP3").hide(); }
 
-                        $("#etiqueta_SD").html($(this).find("intelimotor_hasSdCard").text() == 1 ? "Si" : "No");
-                        if($(this).find("intelimotor_hasSdCard").text() != 1){  $("#contenedor_etiqueta_SD").hide(); }
+                        $("#etiqueta_SD").html($(this).find("tieneTarjetaSD").text() == 1 ? "Si" : "No");
+                        if($(this).find("tieneTarjetaSD").text() != 1){  $("#contenedor_etiqueta_SD").hide(); }
 
-                        $("#etiqueta_USB").html($(this).find("intelimotor_hasUsb").text() == 1 ? "Si" : "No");
-                        if($(this).find("intelimotor_hasUsb").text() != 1){  $("#contenedor_etiqueta_USB").hide(); }
+                        $("#etiqueta_USB").html($(this).find("tieneUsb").text() == 1 ? "Si" : "No");
+                        if($(this).find("tieneUsb").text() != 1){  $("#contenedor_etiqueta_USB").hide(); }
 
                         // Cotizador
 
@@ -2092,14 +2092,14 @@
 
                         // Caracteristicas
 
-                        $("#contenedor_compararVehiculos_" + indice + "_tipoVehiculo").html($(this).find("intelimotor_vehicleBodyType").text());
+                        $("#contenedor_compararVehiculos_" + indice + "_tipoVehiculo").html($(this).find("tipo").text());
                         $("#contenedor_compararVehiculos_" + indice + "_kilometros").html("<strong>Kilómetros:</strong> " + formatoMoneda($(this).find("kilometraje").text()));
                         $("#contenedor_compararVehiculos_" + indice + "_transmision").html("<strong>Transmisión:</strong> " + $(this).find("transmision").text());
-                        $("#contenedor_compararVehiculos_" + indice + "_puertas").html("<strong>Puertas:</strong> " + $(this).find("intelimotor_doors").text());
-                        $("#contenedor_compararVehiculos_" + indice + "_tipoCombustible").html("<strong>Combustible:</strong> " + $(this).find("intelimotor_fuelType").text());
-                        $("#contenedor_compararVehiculos_" + indice + "_motor").html("<strong>Motor:</strong> " + $(this).find("intelimotor_engine").text() + " lts");
-                        $("#contenedor_compararVehiculos_" + indice + "_controlTraccion").html("<strong>Tracción:</strong> " + $(this).find("intelimotor_tractionControl").text());
-                        $("#contenedor_compararVehiculos_" + indice + "_colorInterior").html("<strong>Interiores en color:</strong> " + $(this).find("intelimotor_interiorColor").text());
+                        $("#contenedor_compararVehiculos_" + indice + "_puertas").html("<strong>Puertas:</strong> " + $(this).find("puertas").text());
+                        $("#contenedor_compararVehiculos_" + indice + "_tipoCombustible").html("<strong>Combustible:</strong> " + $(this).find("combustible").text());
+                        $("#contenedor_compararVehiculos_" + indice + "_motor").html("<strong>Motor:</strong> " + $(this).find("litros").text() + " lts");
+                        $("#contenedor_compararVehiculos_" + indice + "_controlTraccion").html("<strong>Tracción:</strong> " + $(this).find("controlTraccion").text());
+                        $("#contenedor_compararVehiculos_" + indice + "_colorInterior").html("<strong>Interiores en color:</strong> " + $(this).find("colorInterior").text());
                         $("#contenedor_compararVehiculos_" + indice + "_enlace").html("<a class='primary-btn2'' href='vehiculo.html?id=" + idVehiculo + "'>Ver detalle</a>");
                     });
                 });

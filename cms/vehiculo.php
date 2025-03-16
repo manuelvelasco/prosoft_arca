@@ -357,14 +357,14 @@
             $impuestosCorriente = sanitiza($conexion, filter_input(INPUT_POST, "impuestosCorriente")) == "on" ? 1 : 0;
             $mantenimientosCorriente = sanitiza($conexion, filter_input(INPUT_POST, "mantenimientosCorriente")) == "on" ? 1 : 0;
             $piel = sanitiza($conexion, filter_input(INPUT_POST, "piel")) == "on" ? 1 : 0;
-            $quemacocos = sanitiza($conexion, filter_input(INPUT_POST, "quemacocos")) == "on" ? 1 : 0;
-            $clima = sanitiza($conexion, filter_input(INPUT_POST, "clima")) == "on" ? 1 : 0;
+            $tieneQuemacocos = sanitiza($conexion, filter_input(INPUT_POST, "tieneQuemacocos")) == "on" ? 1 : 0;
+            $tieneAireAcondicionado = sanitiza($conexion, filter_input(INPUT_POST, "tieneAireAcondicionado")) == "on" ? 1 : 0;
             $stereo = sanitiza($conexion, filter_input(INPUT_POST, "stereo")) == "on" ? 1 : 0;
             $manosLibres = sanitiza($conexion, filter_input(INPUT_POST, "manosLibres")) == "on" ? 1 : 0;
             $sistemaNavegacion = sanitiza($conexion, filter_input(INPUT_POST, "sistemaNavegacion")) == "on" ? 1 : 0;
             $sensoresReversa = sanitiza($conexion, filter_input(INPUT_POST, "sensoresReversa")) == "on" ? 1 : 0;
             $camaraReversa = sanitiza($conexion, filter_input(INPUT_POST, "camaraReversa")) == "on" ? 1 : 0;
-            $farosNiebla = sanitiza($conexion, filter_input(INPUT_POST, "farosNiebla")) == "on" ? 1 : 0;
+            $tieneFarosNiebla = sanitiza($conexion, filter_input(INPUT_POST, "tieneFarosNiebla")) == "on" ? 1 : 0;
             $descripcion = sanitiza($conexion, filter_input(INPUT_POST, "descripcion"));
             $puntosDestacados = sanitiza($conexion, filter_input(INPUT_POST, "puntosDestacados"));
             $video_titulo = sanitiza($conexion, filter_input(INPUT_POST, "video_titulo"));
@@ -476,14 +476,14 @@
                                 . ", impuestosCorriente"
                                 . ", mantenimientosCorriente"
                                 . ", piel"
-                                . ", quemacocos"
-                                . ", clima"
+                                . ", tieneQuemacocos"
+                                . ", tieneAireAcondicionado"
                                 . ", stereo"
                                 . ", manosLibres"
                                 . ", sistemaNavegacion"
                                 . ", sensoresReversa"
                                 . ", camaraReversa"
-                                . ", farosNiebla"
+                                . ", tieneFarosNiebla"
                                 . ", descripcion"
                                 . ", puntosDestacados"
                                 . ", video_titulo"
@@ -523,14 +523,14 @@
                                 . ", " . (estaVacio($impuestosCorriente) ? "NULL" : $impuestosCorriente)
                                 . ", " . (estaVacio($mantenimientosCorriente) ? "NULL" : $mantenimientosCorriente)
                                 . ", " . (estaVacio($piel) ? "NULL" : $piel)
-                                . ", " . (estaVacio($quemacocos) ? "NULL" : $quemacocos)
-                                . ", " . (estaVacio($clima) ? "NULL" : $clima)
+                                . ", " . (estaVacio($tieneQuemacocos) ? "NULL" : $tieneQuemacocos)
+                                . ", " . (estaVacio($tieneAireAcondicionado) ? "NULL" : $tieneAireAcondicionado)
                                 . ", " . (estaVacio($stereo) ? "NULL" : $stereo)
                                 . ", " . (estaVacio($manosLibres) ? "NULL" : $manosLibres)
                                 . ", " . (estaVacio($sistemaNavegacion) ? "NULL" : $sistemaNavegacion)
                                 . ", " . (estaVacio($sensoresReversa) ? "NULL" : $sensoresReversa)
                                 . ", " . (estaVacio($camaraReversa) ? "NULL" : $camaraReversa)
-                                . ", " . (estaVacio($farosNiebla) ? "NULL" : $farosNiebla)
+                                . ", " . (estaVacio($tieneFarosNiebla) ? "NULL" : $tieneFarosNiebla)
                                 . ", '" . mysqli_real_escape_string($conexion, $descripcion) . "'"
                                 . ", " . (estaVacio($puntosDestacados) ? "NULL" : "'" . mysqli_real_escape_string($conexion, $puntosDestacados) . "'")
                                 . ", " . (estaVacio($video_titulo) ? "NULL" : "'" . $video_titulo . "'")
@@ -575,14 +575,14 @@
                         $impuestosCorriente = $vehiculo["impuestosCorriente"];
                         $mantenimientosCorriente = $vehiculo["mantenimientosCorriente"];
                         $piel = $vehiculo["piel"];
-                        $quemacocos = $vehiculo["quemacocos"];
-                        $clima = $vehiculo["clima"];
+                        $tieneQuemacocos = $vehiculo["tieneQuemacocos"];
+                        $tieneAireAcondicionado = $vehiculo["tieneAireAcondicionado"];
                         $stereo = $vehiculo["stereo"];
                         $manosLibres = $vehiculo["manosLibres"];
                         $sistemaNavegacion = $vehiculo["sistemaNavegacion"];
                         $sensoresReversa = $vehiculo["sensoresReversa"];
                         $camaraReversa = $vehiculo["camaraReversa"];
-                        $farosNiebla = $vehiculo["farosNiebla"];
+                        $tieneFarosNiebla = $vehiculo["tieneFarosNiebla"];
                         $descripcion = $vehiculo["descripcion"];
                         $puntosDestacados = $vehiculo["puntosDestacados"];
                         $imagenPrincipal = $vehiculo["imagenPrincipal"];
@@ -707,14 +707,14 @@
                                 . ", impuestosCorriente = " . (estaVacio($impuestosCorriente) ? "NULL" : $impuestosCorriente)
                                 . ", mantenimientosCorriente = " . (estaVacio($mantenimientosCorriente) ? "NULL" : $mantenimientosCorriente)
                                 . ", piel = " . (estaVacio($piel) ? "NULL" : $piel)
-                                . ", quemacocos = " . (estaVacio($quemacocos) ? "NULL" : $quemacocos)
-                                . ", clima = " . (estaVacio($clima) ? "NULL" : $clima)
+                                . ", tieneQuemacocos = " . (estaVacio($tieneQuemacocos) ? "NULL" : $tieneQuemacocos)
+                                . ", tieneAireAcondicionado = " . (estaVacio($tieneAireAcondicionado) ? "NULL" : $tieneAireAcondicionado)
                                 . ", stereo = " . (estaVacio($stereo) ? "NULL" : $stereo)
                                 . ", manosLibres = " . (estaVacio($manosLibres) ? "NULL" : $manosLibres)
                                 . ", sistemaNavegacion = " . (estaVacio($sistemaNavegacion) ? "NULL" : $sistemaNavegacion)
                                 . ", sensoresReversa = " . (estaVacio($sensoresReversa) ? "NULL" : $sensoresReversa)
                                 . ", camaraReversa = " . (estaVacio($camaraReversa) ? "NULL" : $camaraReversa)
-                                . ", farosNiebla = " . (estaVacio($farosNiebla) ? "NULL" : $farosNiebla)
+                                . ", tieneFarosNiebla = " . (estaVacio($tieneFarosNiebla) ? "NULL" : $tieneFarosNiebla)
                                 . ", descripcion = '" . $descripcion . "'"
                                 . ", puntosDestacados = " . (estaVacio($puntosDestacados) ? "NULL" : "'" . mysqli_real_escape_string($conexion, $puntosDestacados) . "'")
                                 . ", video_titulo = " . (estaVacio($video_titulo) ? "NULL" : "'" . $video_titulo . "'")
@@ -759,14 +759,14 @@
                         $impuestosCorriente = $vehiculo["impuestosCorriente"];
                         $mantenimientosCorriente = $vehiculo["mantenimientosCorriente"];
                         $piel = $vehiculo["piel"];
-                        $quemacocos = $vehiculo["quemacocos"];
-                        $clima = $vehiculo["clima"];
+                        $tieneQuemacocos = $vehiculo["tieneQuemacocos"];
+                        $tieneAireAcondicionado = $vehiculo["tieneAireAcondicionado"];
                         $stereo = $vehiculo["stereo"];
                         $manosLibres = $vehiculo["manosLibres"];
                         $sistemaNavegacion = $vehiculo["sistemaNavegacion"];
                         $sensoresReversa = $vehiculo["sensoresReversa"];
                         $camaraReversa = $vehiculo["camaraReversa"];
-                        $farosNiebla = $vehiculo["farosNiebla"];
+                        $tieneFarosNiebla = $vehiculo["tieneFarosNiebla"];
                         $descripcion = $vehiculo["descripcion"];
                         $puntosDestacados = $vehiculo["puntosDestacados"];
                         $imagenPrincipal = $vehiculo["imagenPrincipal"];
@@ -884,14 +884,14 @@
                     $impuestosCorriente_pdf = $impuestosCorriente == 1 ? "Si" : "No";
                     $mantenimientosCorriente_pdf = $mantenimientosCorriente == 1 ? "Si" : "No";
                     $piel_pdf = $piel == 1 ? "Si" : "No";
-                    $quemacocos_pdf = $quemacocos == 1 ? "Si" : "No";
-                    $clima_pdf = $clima == 1 ? "Si" : "No";
+                    $tieneQuemacocos_pdf = $tieneQuemacocos == 1 ? "Si" : "No";
+                    $tieneAireAcondicionado_pdf = $tieneAireAcondicionado == 1 ? "Si" : "No";
                     $stereo_pdf = $stereo == 1 ? "Si" : "No";
                     $manosLibres_pdf = $manosLibres == 1 ? "Si" : "No";
                     $sistemaNavegacion_pdf = $sistemaNavegacion == 1 ? "Si" : "No";
                     $sensoresReversa_pdf = $sensoresReversa == 1 ? "Si" : "No";
                     $camaraReversa_pdf = $camaraReversa == 1 ? "Si" : "No";
-                    $farosNiebla_pdf = $farosNiebla == 1 ? "Si" : "No";
+                    $tieneFarosNiebla_pdf = $tieneFarosNiebla == 1 ? "Si" : "No";
 
                     try {
                         $pdf = new PDF_HTML();
@@ -1268,7 +1268,7 @@
                     $pdf->Cell(45,9,'Quemacocos',0,0,'L',true);
                     $pdf->SetTextColor(29,29,27);
                     $pdf->SetFont("Arial", "B", $tamanoLetraNormal);
-                    $pdf->Cell(10,9,iconv('UTF-8', 'windows-1252', $quemacocos_pdf),0,0,'L',true);
+                    $pdf->Cell(10,9,iconv('UTF-8', 'windows-1252', $tieneQuemacocos_pdf),0,0,'L',true);
 
                     $pdf->SetTextColor(119,119,119);
                     $pdf->Ln(9);
@@ -1279,7 +1279,7 @@
                     $pdf->Cell(45,9,'Clima',0,0,'L',true);
                     $pdf->SetTextColor(29,29,27);
                     $pdf->SetFont("Arial", "B", $tamanoLetraNormal);
-                    $pdf->Cell(10,9,iconv('UTF-8', 'windows-1252', $clima_pdf),0,0,'L',true);
+                    $pdf->Cell(10,9,iconv('UTF-8', 'windows-1252', $tieneAireAcondicionado_pdf),0,0,'L',true);
 
                     $pdf->SetTextColor(119,119,119);
                     $pdf->Ln(9);
@@ -1345,7 +1345,7 @@
                     $pdf->Cell(45,9,iconv('UTF-8', 'windows-1252', 'Faros de Niebla'),0,0,'L',true);
                     $pdf->SetTextColor(29,29,27);
                     $pdf->SetFont("Arial", "B", $tamanoLetraNormal);
-                    $pdf->Cell(10,9,iconv('UTF-8', 'windows-1252', $farosNiebla_pdf),0,0,'L',true);
+                    $pdf->Cell(10,9,iconv('UTF-8', 'windows-1252', $tieneFarosNiebla_pdf),0,0,'L',true);
 
                     $pdf->SetDrawColor(181,181,181);
                     $pdf->Line(149,49,200,49);
@@ -1497,14 +1497,14 @@
                     $impuestosCorriente = $vehiculo["impuestosCorriente"];
                     $mantenimientosCorriente = $vehiculo["mantenimientosCorriente"];
                     $piel = $vehiculo["piel"];
-                    $quemacocos = $vehiculo["quemacocos"];
-                    $clima = $vehiculo["clima"];
+                    $tieneQuemacocos = $vehiculo["tieneQuemacocos"];
+                    $tieneAireAcondicionado = $vehiculo["tieneAireAcondicionado"];
                     $stereo = $vehiculo["stereo"];
                     $manosLibres = $vehiculo["manosLibres"];
                     $sistemaNavegacion = $vehiculo["sistemaNavegacion"];
                     $sensoresReversa = $vehiculo["sensoresReversa"];
                     $camaraReversa = $vehiculo["camaraReversa"];
-                    $farosNiebla = $vehiculo["farosNiebla"];
+                    $tieneFarosNiebla = $vehiculo["tieneFarosNiebla"];
                     $descripcion = $vehiculo["descripcion"];
                     $puntosDestacados = $vehiculo["puntosDestacados"];
                     $imagenPrincipal = $vehiculo["imagenPrincipal"];
@@ -1623,14 +1623,14 @@
                     $impuestosCorriente = 0;
                     $mantenimientosCorriente = 0;
                     $piel = 0;
-                    $quemacocos = 0;
-                    $clima = 0;
+                    $tieneQuemacocos = 0;
+                    $tieneAireAcondicionado = 0;
                     $stereo = 0;
                     $manosLibres = 0;
                     $sistemaNavegacion = 0;
                     $sensoresReversa = 0;
                     $camaraReversa = 0;
-                    $farosNiebla = 0;
+                    $tieneFarosNiebla = 0;
                     $descripcion = "";
                     $puntosDestacados = "";
                     $imagenPrincipal = "";
@@ -2197,11 +2197,11 @@
                                                                                                         </tr>
                                                                                                         <tr>
                                                                                                             <td>Quemacocos</td>
-                                                                                                            <td><input class="js-switch" <?php echo $quemacocos == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" name="quemacocos" type="checkbox" /></td>
+                                                                                                            <td><input class="js-switch" <?php echo $tieneQuemacocos == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" name="tieneQuemacocos" type="checkbox" /></td>
                                                                                                         </tr>
                                                                                                         <tr>
                                                                                                             <td>Clima</td>
-                                                                                                            <td><input class="js-switch" <?php echo $clima == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" name="clima" type="checkbox" /></td>
+                                                                                                            <td><input class="js-switch" <?php echo $tieneAireAcondicionado == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" name="tieneAireAcondicionado" type="checkbox" /></td>
                                                                                                         </tr>
                                                                                                         <tr>
                                                                                                             <td>Stereo</td>
@@ -2225,7 +2225,7 @@
                                                                                                         </tr>
                                                                                                         <tr>
                                                                                                             <td>Faros de Niebla</td>
-                                                                                                            <td><input class="js-switch" <?php echo $farosNiebla == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" name="farosNiebla" type="checkbox" /></td>
+                                                                                                            <td><input class="js-switch" <?php echo $tieneFarosNiebla == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" name="tieneFarosNiebla" type="checkbox" /></td>
                                                                                                         </tr>
                                                                                                     </tbody>
                                                                                                 </table>
