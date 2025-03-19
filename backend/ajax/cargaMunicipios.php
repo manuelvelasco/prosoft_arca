@@ -15,7 +15,7 @@
 
         // Consulta base de datos
 
-        $municipios_BD = consulta($conexion, "SELECT DISTINCT s.municipio FROM sepomex s INNER JOIN concesionario c ON s.municipio = c.municipio WHERE c.habilitado = 1 AND c.eliminado = 0 ORDER BY s.municipio");
+        $municipios_BD = consulta($conexion, "SELECT DISTINCT s.municipio FROM sepomex s INNER JOIN concesionario c ON s.municipio = c.municipio AND (SELECT COUNT(*) FROM vehiculo WHERE idConcesionario = c.id AND publicado = 1) > 0 WHERE c.habilitado = 1 AND c.eliminado = 0 ORDER BY s.municipio");
 
         $resultado .= "<municipios>";
 

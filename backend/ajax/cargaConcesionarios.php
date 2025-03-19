@@ -50,9 +50,9 @@
 
         // Consulta base de datos
         //echo "SELECT COUNT(*) AS concesionariosEncontrados FROM concesionario WHERE habilitado = 1 AND eliminado = 0 " . $restricciones;
-        $concesionariosEncontrados = obtenResultado(consulta($conexion, "SELECT COUNT(*) AS concesionariosEncontrados FROM concesionario WHERE habilitado = 1 AND eliminado = 0 " . $restricciones))["concesionariosEncontrados"];
+        $concesionariosEncontrados = obtenResultado(consulta($conexion, "SELECT COUNT(*) AS concesionariosEncontrados FROM concesionario d WHERE habilitado = 1 AND eliminado = 0 AND (SELECT COUNT(*) FROM vehiculo WHERE idConcesionario = d.id AND publicado = 1) > 0 " . $restricciones))["concesionariosEncontrados"];
 
-        $concesionarios_BD = consulta($conexion, "SELECT * FROM concesionario WHERE habilitado = 1 " . $restricciones . $limitante);
+        $concesionarios_BD = consulta($conexion, "SELECT * FROM concesionario d WHERE habilitado = 1 AND (SELECT COUNT(*) FROM vehiculo WHERE idConcesionario = d.id AND publicado = 1) > 0 " . $restricciones . $limitante);
 
         $resultado .= "<concesionarios total='" . $concesionariosEncontrados . "'>";
 
