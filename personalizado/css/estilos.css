@@ -452,6 +452,10 @@ label.errorModalAgendarCita {
     width: 100%;
 }
 
+.product-card .product-content .price-location .price::after {
+    display: none;
+}
+
 @media only screen and (max-width: 1199px) {
     #interfaz_vehiculos #contenedor_filtros {
         display: none;
