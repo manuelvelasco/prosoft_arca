@@ -2197,7 +2197,7 @@
                                                                                 </div>
                                                                             </div>
 
-                                                                            <div class="row mb-30">
+                                                                            <!--div class="row mb-30">
                                                                                 <div class="col-md-4">
                                                                                     <div class="form-group">
                                                                                         <label class="control-label mb-10">Destacado</label>
@@ -2224,7 +2224,7 @@
                                                                                         </div>
                                                                                     </div>
                                                                                 </div>
-                                                                            </div>
+                                                                            </div-->
 
                                                                             <div class="row mb-30">
                                                                                 <div class="col-md-4">
