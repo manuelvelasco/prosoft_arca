@@ -2267,8 +2267,8 @@
                                                                             <!-- Campos de captura libre -->
 
 
-<!--div class="< ?php echo $tieneHabilitadoIntelimotor == 1 ? "oculta_campos" : ""; ?>"-->
-<div>
+<div class="<?php echo $tieneHabilitadoIntelimotor == 1 ? "oculta_campos" : ""; ?>">
+<!--div-->
                                                                                 <div class="row mb-30">
                                                                                     <div class="col-md-6">
                                                                                         <div class="form-group">
