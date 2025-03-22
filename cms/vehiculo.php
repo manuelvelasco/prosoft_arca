@@ -2266,9 +2266,7 @@
 
                                                                             <!-- Campos de captura libre -->
 
-
-<div class="<?php echo $tieneHabilitadoIntelimotor == 1 ? "oculta_campos" : ""; ?>">
-<!--div-->
+                                                                            <div class="<?php echo $tieneHabilitadoIntelimotor == 1 ? "oculta_campos" : ""; ?>">
                                                                                 <div class="row mb-30">
                                                                                     <div class="col-md-6">
                                                                                         <div class="form-group">
@@ -2628,11 +2626,11 @@
                                                                                                         <tr>
                                                                                                             <td>Recordatorio de luces encendidas</td>
                                                                                                             <td><input class="js-switch" <?php echo $tieneRecordatorioEncendidoLuces == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" name="tieneRecordatorioEncendidoLuces" type="checkbox" /></td>
-                                                                                                            <td>Reproductor CD</td>
+                                                                                                            <td>Reproductor de CD</td>
                                                                                                             <td><input class="js-switch" <?php echo $tieneReproductorCD == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" name="tieneReproductorCD" type="checkbox" /></td>
-                                                                                                            <td>Reproductor DVD</td>
+                                                                                                            <td>Reproductor de DVD</td>
                                                                                                             <td><input class="js-switch" <?php echo $tieneReproductorDVD == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" name="tieneReproductorDVD" type="checkbox" /></td>
-                                                                                                            <td>Reproductor MP3</td>
+                                                                                                            <td>Reproductor de MP3</td>
                                                                                                             <td><input class="js-switch" <?php echo $tieneReproductorMP3 == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" name="tieneReproductorMP3" type="checkbox" /></td>
                                                                                                         </tr>
                                                                                                         <tr>
@@ -3210,11 +3208,11 @@
                                                                                                             <td><input class="js-switch" <?php echo $intelimotor_hasLightOnReminder == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" readonly type="checkbox" /></td>
                                                                                                         </tr>
                                                                                                         <tr>
-                                                                                                            <td>Reproductor CD <strong>(hasCdPlayer)</strong></td>
+                                                                                                            <td>Reproductor de CD <strong>(hasCdPlayer)</strong></td>
                                                                                                             <td><input class="js-switch" <?php echo $intelimotor_hasCdPlayer == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" readonly type="checkbox" /></td>
-                                                                                                            <td>Reproductor DVD <strong>(hasDvd)</strong></td>
+                                                                                                            <td>Reproductor de DVD <strong>(hasDvd)</strong></td>
                                                                                                             <td><input class="js-switch" <?php echo $intelimotor_hasDvd == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" readonly type="checkbox" /></td>
-                                                                                                            <td>Reproductor MP3 <strong>(hasMp3Player)</strong></td>
+                                                                                                            <td>Reproductor de MP3 <strong>(hasMp3Player)</strong></td>
                                                                                                             <td><input class="js-switch" <?php echo $intelimotor_hasMp3Player == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" readonly type="checkbox" /></td>
                                                                                                             <td>Respaldos traseros <strong>(hasRearBackrest)</strong></td>
                                                                                                             <td><input class="js-switch" <?php echo $intelimotor_hasRearBackrest == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" readonly type="checkbox" /></td>
