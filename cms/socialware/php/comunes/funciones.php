@@ -1,6 +1,6 @@
 <?php
-    setlocale(LC_ALL, "es_MX");     // Desarrollo
-    //setlocale(LC_ALL, "esm");     // Servidor
+    //setlocale(LC_ALL, "es_MX");     // Desarrollo
+    setlocale(LC_ALL, "esm");     // Servidor
     date_default_timezone_set('America/Monterrey');
 
 
