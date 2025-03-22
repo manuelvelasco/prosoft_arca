@@ -366,6 +366,8 @@
             $idSucursal = sanitiza($conexion, filter_input(INPUT_POST, "idSucursal"));
             $idConcesionario = sanitiza($conexion, filter_input(INPUT_POST, "idConcesionario"));
 
+            $colorInterior = sanitiza($conexion, filter_input(INPUT_POST, "colorInterior"));
+            $direccion = sanitiza($conexion, filter_input(INPUT_POST, "direccion"));
             $tieneAireAcondicionado = sanitiza($conexion, filter_input(INPUT_POST, "tieneAireAcondicionado")) == "on" ? 1 : 0;
             $tieneAlarma = sanitiza($conexion, filter_input(INPUT_POST, "tieneAlarma")) == "on" ? 1 : 0;
             $tieneAlfombrillaLlantaRefaccion = sanitiza($conexion, filter_input(INPUT_POST, "tieneAlfombrillaLlantaRefaccion")) == "on" ? 1 : 0;
@@ -535,6 +537,8 @@
                                 . ", idSucursal"
                                 . ", idConcesionario"
 
+                                . ", colorInterior"
+                                . ", direccion"
                                 . ", tieneAireAcondicionado"
                                 . ", tieneAlarma"
                                 . ", tieneAlfombrillaLlantaRefaccion"
@@ -631,6 +635,8 @@
                                 . ", " . (estaVacio($idSucursal) ? "NULL" : $idSucursal)
                                 . ", " . $idConcesionario
 
+                                . ", " . (estaVacio($colorInterior) ? "NULL" : "'" . $colorInterior . "'")
+                                . ", " . (estaVacio($direccion) ? "NULL" : "'" . $direccion . "'")
                                 . ", " . $tieneAireAcondicionado
                                 . ", " . $tieneAlarma
                                 . ", " . $tieneAlfombrillaLlantaRefaccion
@@ -732,6 +738,8 @@
                         $idSucursal = $vehiculo["idSucursal"];
                         $idConcesionario = $vehiculo["idConcesionario"];
 
+                        $colorInterior = $vehiculo["colorInterior"];
+                        $direccion = $vehiculo["direccion"];
                         $tieneAireAcondicionado = $vehiculo["tieneAireAcondicionado"];
                         $tieneAlarma = $vehiculo["tieneAlarma"];
                         $tieneAlfombrillaLlantaRefaccion = $vehiculo["tieneAlfombrillaLlantaRefaccion"];
@@ -911,6 +919,8 @@
                                 . ", idSucursal = " . (estaVacio($idSucursal) ? "NULL" : $idSucursal)
                                 . ", idConcesionario = " . $idConcesionario
 
+                                . ", colorInterior = " . (estaVacio($colorInterior) ? "NULL" : "'" . $colorInterior . "'")
+                                . ", direccion = " . (estaVacio($direccion) ? "NULL" : "'" . $direccion . "'")
                                 . ", tieneAireAcondicionado = " . $tieneAireAcondicionado
                                 . ", tieneAlarma = " . $tieneAlarma
                                 . ", tieneAlfombrillaLlantaRefaccion = " . $tieneAlfombrillaLlantaRefaccion
@@ -1012,6 +1022,8 @@
                         $idSucursal = $vehiculo["idSucursal"];
                         $idConcesionario = $vehiculo["idConcesionario"];
 
+                        $colorInterior = $vehiculo["colorInterior"];
+                        $direccion = $vehiculo["direccion"];
                         $tieneAireAcondicionado = $vehiculo["tieneAireAcondicionado"];
                         $tieneAlarma = $vehiculo["tieneAlarma"];
                         $tieneAlfombrillaLlantaRefaccion = $vehiculo["tieneAlfombrillaLlantaRefaccion"];
@@ -1762,6 +1774,8 @@
                     $idSucursal = $vehiculo["idSucursal"];
                     $idConcesionario = $vehiculo["idConcesionario"];
 
+                    $colorInterior = $vehiculo["colorInterior"];
+                    $direccion = $vehiculo["direccion"];
                     $tieneAireAcondicionado = $vehiculo["tieneAireAcondicionado"];
                     $tieneAlarma = $vehiculo["tieneAlarma"];
                     $tieneAlfombrillaLlantaRefaccion = $vehiculo["tieneAlfombrillaLlantaRefaccion"];
@@ -1941,6 +1955,8 @@
                         $idConcesionario = $usuario_idConcesionario;
                     }
 
+                    $colorInterior = "";
+                    $direccion = "";
                     $tieneAireAcondicionado = 0;
                     $tieneAlarma = 0;
                     $tieneAlfombrillaLlantaRefaccion = 0;
@@ -2427,6 +2443,22 @@
                                                                                 <div class="row mb-30">
                                                                                     <div class="col-md-6">
                                                                                         <div class="form-group">
+                                                                                            <label class="control-label mb-10">Color interior</label>
+                                                                                            <input class="form-control" name="colorInterior" type="text" value="<?php echo $colorInterior ?>" />
+                                                                                        </div>
+                                                                                    </div>
+
+                                                                                    <div class="col-md-6">
+                                                                                        <div class="form-group">
+                                                                                            <label class="control-label mb-10">Dirección</label>
+                                                                                            <input class="form-control" name="direccion" type="text" value="<?php echo $direccion ?>" />
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+
+                                                                                <div class="row mb-30">
+                                                                                    <div class="col-md-6">
+                                                                                        <div class="form-group">
                                                                                             <label class="control-label mb-10">Combustible</label>
                                                                                             <!--input class="form-control" name="combustible" type="text" value="<?php echo $combustible ?>" /-->
                                                                                             <select class="form-control select2" name="combustible">
@@ -2715,12 +2747,16 @@
                                                                                         <div class="form-group">
                                                                                             <label class="control-label mb-10">Imagen principal</label>
                                                                                             <span>
+                                                                                                <!--
                                                                                                 <br />
                                                                                                 Se muestra en: Menú de la app
+                                                                                                -->
                                                                                                 <br />
                                                                                                 Tamaño preferente: 750 x 420 pixeles
+                                                                                                <!--
                                                                                                 <br />
                                                                                                 Formatos aceptados: .jpg, .jpeg, .png
+                                                                                                -->
                                                                                                 <br /><br />
                                                                                             </span>
                                                                                             <div>
@@ -2772,8 +2808,10 @@
                                                                                                 <br />
                                                                                                 Tamaño preferente: 750 x 420 pixeles
                                                                                                 <br />
+                                                                                                <!--
                                                                                                 Formatos aceptados: .jpg, .jpeg, .png
                                                                                                 <br />
+                                                                                                -->
                                                                                                 <span class="txt-danger">Carga limitada a 100 MB a la vez, aproximadamente 30 imágenes</span>
                                                                                                 <br /><br />
                                                                                             </span>
@@ -2797,7 +2835,8 @@
                                                                                                                                             foreach ($archivos as $archivo) {
                                                                                                                                                 $extension = strtolower(pathinfo($archivo, PATHINFO_EXTENSION));
 
-                                                                                                                                                if ($extension == "jpg" || $extension == "jpeg" || $extension == "png") {
+                                                                                                                                                //if ($extension == "jpg" || $extension == "jpeg" || $extension == "png") {
+                                                                                                                                                if ($extension !== "") {
                                                                                                                                                     echo "<div class='chat-data' id='contenedor_imagen_" . $indice . "'>";
                                                                                                                                                     echo "<img class='user-img' src='" . $constante_urlVehiculos . "/" . $id . "/galeria/" . $archivo . "' />";
 

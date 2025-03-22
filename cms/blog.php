@@ -396,8 +396,10 @@
                                                                                             <label class="control-label mb-10">Imagen principal</label>
 
                                                                                             <span>
+                                                                                                <!--
                                                                                                 <br />
                                                                                                 Formatos aceptados: .jpg, .jpeg, .png
+                                                                                                -->
                                                                                                 <br />
                                                                                                 Tamaño preferente: 850 x 425 pixeles
                                                                                                 <br />
@@ -456,8 +458,10 @@
                                                                                             <label class="control-label mb-10">Imagenes para insertar en el contenido</label>
 
                                                                                             <span>
+                                                                                                <!--
                                                                                                 <br />
                                                                                                 Formatos aceptados: .jpg, .jpeg, .png
+                                                                                                -->
                                                                                                 <br />
                                                                                                 Se muestra en:
                                                                                                 <ul class="lista_seMuestraEn">
@@ -486,7 +490,8 @@
                                                                                                                                         foreach ($archivos as $archivo) {
                                                                                                                                             $extension = strtolower(pathinfo($archivo, PATHINFO_EXTENSION));
 
-                                                                                                                                            if ($extension == "jpg" || $extension == "jpeg" || $extension == "png") {
+                                                                                                                                            //if ($extension == "jpg" || $extension == "jpeg" || $extension == "png") {
+                                                                                                                                            if ($extension !== "") {
                                                                                                                                                 echo "<div class='chat-data' id='contenedor_imagen_" . $indice . "'>";
                                                                                                                                                 echo "<img class='user-img' src='" . $constante_urlPosts . "/" . $id . "/galeria/" . $archivo . "' />";
 

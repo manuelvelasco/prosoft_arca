@@ -1,14 +1,15 @@
 <?php
-    //setlocale(LC_ALL, "es_MX");     // Desarrollo
-    setlocale(LC_ALL, "esm");     // Servidor
+    setlocale(LC_ALL, "es_MX");     // Desarrollo
+    //setlocale(LC_ALL, "esm");     // Servidor
     date_default_timezone_set('America/Monterrey');
 
 
     // Carga plugin Mailjet
 
 
-    //require "/Users/mvelasco/Socialware/Proyectos/Web/arca/backend/plugins/mailjet/vendor/autoload.php";
-    require "/var/www/html/arca/backend/plugins/mailjet/vendor/autoload.php";
+    require "/Users/mvelasco/Socialware/Proyectos/Web/arca/backend/plugins/mailjet/vendor/autoload.php";
+    //require "/var/www/html/socialware/arca/backend/plugins/mailjet/vendor/autoload.php";
+    //require "/var/www/html/arca/backend/plugins/mailjet/vendor/autoload.php";
 
     use Mailjet\Resources;
 

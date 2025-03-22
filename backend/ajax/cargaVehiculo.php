@@ -54,7 +54,8 @@
                     foreach ($archivos as $archivo) {
                         $extension = strtolower(pathinfo($archivo, PATHINFO_EXTENSION));
 
-                        if ($extension == "jpg" || $extension == "jpeg" || $extension == "png") {
+                        //if ($extension == "jpg" || $extension == "jpeg" || $extension == "png") {
+                        if ($extension !== "") {
                             $ruta = $constante_urlVehiculos . "/" . $vehiculo["id"] . "/galeria/" . $archivo;
                             $resultado .= "<imagen>" . $ruta . "</imagen>";
                         }

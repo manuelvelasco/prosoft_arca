@@ -27,6 +27,12 @@
                     <?php } ?>
 
                         <li>
+                            <a href="concesionarios.php">
+                                Concesionarios
+                            </a>
+                        </li>
+
+                        <li>
                             <a href="vehiculos.php">
                                 Veh&iacute;culos
                             </a>
@@ -94,11 +100,5 @@
                             </a>
                         </li-->
                     <?php } ?>
-
-                        <li>
-                            <a href="concesionarios.php">
-                                Concesionarios
-                            </a>
-                        </li>
                 </ul>
             </div>

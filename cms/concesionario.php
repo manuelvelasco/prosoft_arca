@@ -891,7 +891,8 @@
                                                                                                                                         foreach ($archivos as $archivo) {
                                                                                                                                             $extension = strtolower(pathinfo($archivo, PATHINFO_EXTENSION));
 
-                                                                                                                                            if ($extension == "jpg" || $extension == "jpeg" || $extension == "png") {
+                                                                                                                                            //if ($extension == "jpg" || $extension == "jpeg" || $extension == "png") {
+                                                                                                                                            if ($extension !== "") {
                                                                                                                                                 echo "<div class='chat-data' id='contenedor_imagen_" . $indice . "'>";
                                                                                                                                                 echo "<img class='user-img' src='" . $constante_urlConcesionarios . "/" . $id . "/galeria/" . $archivo . "' />";
 

@@ -348,15 +348,17 @@
                                             $puedeAgregarVehiculo = 1;
                                             $puedeSincronizarVehiculo = 1;
 
+                                            
                                             if ($esUsuarioOperador) {
                                                 $concesionarioAsociadoIntelimotor = consulta($conexion, "SELECT id FROM concesionario WHERE id = " . $usuario_idConcesionario . " AND intelimotor_apiKey != '' AND intelimotor_apiSecret != ''");
+
                                                 if (cuentaResultados($concesionarioAsociadoIntelimotor) > 0) {
                                                     $puedeAgregarVehiculo = 0;
                                                 } else {
                                                     $puedeSincronizarVehiculo = 0;
                                                 }
-                                            } else {
-                                                $puedeAgregarVehiculo = 0;
+                                            //} else {
+                                                //$puedeAgregarVehiculo = 0;
                                             }
 
                                             if ($puedeAgregarVehiculo) { ?>
