@@ -1552,7 +1552,7 @@
                     $pdf->SetFillColor(246, 247, 247);
                     $pdf->Cell(3,9,'',0,0,'L',true);
                     $pdf->SetFont("Arial", "", $tamanoLetraNormal);
-                    $pdf->Cell(45,9,'Quemacocos',0,0,'L',true);
+                    $pdf->Cell(45,9,'Techo corredizo',0,0,'L',true);
                     $pdf->SetTextColor(29,29,27);
                     $pdf->SetFont("Arial", "B", $tamanoLetraNormal);
                     $pdf->Cell(10,9,iconv('UTF-8', 'windows-1252', $tieneQuemacocos_pdf),0,0,'L',true);
@@ -2530,25 +2530,25 @@
                                                                                                             <td><input class="js-switch" <?php echo $tieneAireAcondicionado == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" name="tieneAireAcondicionado" type="checkbox" /></td>
                                                                                                             <td>Alarma</td>
                                                                                                             <td><input class="js-switch" <?php echo $tieneAlarma == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" name="tieneAlarma" type="checkbox" /></td>
-                                                                                                            <td>Alfombrilla llanta refacción</td>
+                                                                                                            <td>Alfombrilla de llanta de refacción</td>
                                                                                                             <td><input class="js-switch" <?php echo $tieneAlfombrillaLlantaRefaccion == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" name="tieneAlfombrillaLlantaRefaccion" type="checkbox" /></td>
-                                                                                                            <td>Apertura remota cajuela</td>
+                                                                                                            <td>Apertura remota de cajuela</td>
                                                                                                             <td><input class="js-switch" <?php echo $tieneAperturaRemotaCajuela == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" name="tieneAperturaRemotaCajuela" type="checkbox" /></td>
                                                                                                         </tr>
                                                                                                         <tr>
-                                                                                                            <td>Asiento conductor ajuste altura</td>
+                                                                                                            <td>Asiento de conductor con ajuste de altura</td>
                                                                                                             <td><input class="js-switch" <?php echo $tieneAsientoConductorAjusteAltura == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" name="tieneAsientoConductorAjusteAltura" type="checkbox" /></td>
                                                                                                             <td>Asientos eléctricos</td>
                                                                                                             <td><input class="js-switch" <?php echo $tieneAsientosElectricos == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" name="tieneAsientosElectricos" type="checkbox" /></td>
                                                                                                             <td>Asientos traseros abatibles</td>
                                                                                                             <td><input class="js-switch" <?php echo $tieneAsientosTraserosAbatibles == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" name="tieneAsientosTraserosAbatibles" type="checkbox" /></td>
-                                                                                                            <td>Asistencia frenado</td>
+                                                                                                            <td>Asistente de frenado</td>
                                                                                                             <td><input class="js-switch" <?php echo $tieneAsistenciaFrenado == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" name="tieneAsistenciaFrenado" type="checkbox" /></td>
                                                                                                         </tr>
                                                                                                         <tr>
-                                                                                                            <td>Bandeja llanta refacción</td>
+                                                                                                            <td>Bandeja de llanta de refacción</td>
                                                                                                             <td><input class="js-switch" <?php echo $tieneBandejaLlantaRefaccion == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" name="tieneBandejaLlantaRefaccion" type="checkbox" /></td>
-                                                                                                            <td>Barra anti vuelco</td>
+                                                                                                            <td>Barras porta equipaje</td>
                                                                                                             <td><input class="js-switch" <?php echo $tieneBarraAntivuelco == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" name="tieneBarraAntivuelco" type="checkbox" /></td>
                                                                                                             <td>Blindado</td>
                                                                                                             <td><input class="js-switch" <?php echo $esBlindado == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" name="esBlindado" type="checkbox" /></td>
@@ -2556,31 +2556,31 @@
                                                                                                             <td><input class="js-switch" <?php echo $tieneBluetooth == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" name="tieneBluetooth" type="checkbox" /></td>
                                                                                                         </tr>
                                                                                                         <tr>
-                                                                                                            <td>Bolsa aire conductor</td>
+                                                                                                            <td>Bolsa de aire conductor</td>
                                                                                                             <td><input class="js-switch" <?php echo $tieneBolsaAireConductor == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" name="tieneBolsaAireConductor" type="checkbox" /></td>
-                                                                                                            <td>Bolsa aire pasajero</td>
+                                                                                                            <td>Bolsa de aire pasajero</td>
                                                                                                             <td><input class="js-switch" <?php echo $tieneBolsaAirePasajero == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" name="tieneBolsaAirePasajero" type="checkbox" /></td>
-                                                                                                            <td>Bolsas aire laterales</td>
+                                                                                                            <td>Bolsas de aire laterales</td>
                                                                                                             <td><input class="js-switch" <?php echo $tieneBolsasAireLaterales == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" name="tieneBolsasAireLaterales" type="checkbox" /></td>
-                                                                                                            <td>Bolsas aire tipo cortina</td>
+                                                                                                            <td>Bolsas de aire tipo cortina</td>
                                                                                                             <td><input class="js-switch" <?php echo $tieneBolsasAireCortina == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" name="tieneBolsasAireCortina" type="checkbox" /></td>
                                                                                                         </tr>
                                                                                                         <tr>
                                                                                                             <td>Cabeceras asientos traseros</td>
                                                                                                             <td><input class="js-switch" <?php echo $tieneCabecerasAsientosTraseros == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" name="tieneCabecerasAsientosTraseros" type="checkbox" /></td>
-                                                                                                            <td>Computadora a bordo</td>
+                                                                                                            <td>Computadora de viaje</td>
                                                                                                             <td><input class="js-switch" <?php echo $tieneComputadoraAbordo == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" name="tieneComputadoraAbordo" type="checkbox" /></td>
-                                                                                                            <td>Control aire acondicionado</td>
+                                                                                                            <td>Control de temperatura</td>
                                                                                                             <td><input class="js-switch" <?php echo $tieneControlTemperatura == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" name="tieneControlTemperatura" type="checkbox" /></td>
-                                                                                                            <td>Control estabilidad</td>
+                                                                                                            <td>Control de estabilidad</td>
                                                                                                             <td><input class="js-switch" <?php echo $tieneControlEstabilidad == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" name="tieneControlEstabilidad" type="checkbox" /></td>
                                                                                                         </tr>
                                                                                                         <tr>
-                                                                                                            <td>Control luces delanteras</td>
+                                                                                                            <td>Control de luces delanteras</td>
                                                                                                             <td><input class="js-switch" <?php echo $tieneControlLucesDelanteras == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" name="tieneControlLucesDelanteras" type="checkbox" /></td>
-                                                                                                            <td>Control volante</td>
+                                                                                                            <td>Controles al volante</td>
                                                                                                             <td><input class="js-switch" <?php echo $tieneControlVolante == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" name="tieneControlVolante" type="checkbox" /></td>
-                                                                                                            <td>Defensas color carrocería</td>
+                                                                                                            <td>Defensas al color de la carrocería</td>
                                                                                                             <td><input class="js-switch" <?php echo $tieneDefensasColorCarroceria == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" name="tieneDefensasColorCarroceria" type="checkbox" /></td>
                                                                                                             <td>Desempañador trasero</td>
                                                                                                             <td><input class="js-switch" <?php echo $tieneDesempanadorTrasero == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" name="tieneDesempanadorTrasero" type="checkbox" /></td>
@@ -2588,7 +2588,7 @@
                                                                                                         <tr>
                                                                                                             <td>Espejos eléctricos</td>
                                                                                                             <td><input class="js-switch" <?php echo $tieneEspejosElectricos == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" name="tieneEspejosElectricos" type="checkbox" /></td>
-                                                                                                            <td>Faros niebla</td>
+                                                                                                            <td>Faros de niebla</td>
                                                                                                             <td><input class="js-switch" <?php echo $tieneFarosNiebla == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" name="tieneFarosNiebla" type="checkbox" /></td>
                                                                                                             <td>Frenos ABS</td>
                                                                                                             <td><input class="js-switch" <?php echo $tieneFrenosABS == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" name="tieneFrenosABS" type="checkbox" /></td>
@@ -2598,19 +2598,19 @@
                                                                                                         <tr>
                                                                                                             <td>Importado</td>
                                                                                                             <td><input class="js-switch" <?php echo $esImportado == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" name="esImportado" type="checkbox" /></td>
-                                                                                                            <td>inmovilizador</td>
+                                                                                                            <td>Inmovilizador de motor</td>
                                                                                                             <td><input class="js-switch" <?php echo $tieneInmovilizador == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" name="tieneInmovilizador" type="checkbox" /></td>
                                                                                                             <td>Limpiaparabrisas</td>
                                                                                                             <td><input class="js-switch" <?php echo $tieneLimpiaparabrisas == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" name="tieneLimpiaparabrisas" type="checkbox" /></td>
-                                                                                                            <td>Llanta refacción</td>
+                                                                                                            <td>Llanta de refacción</td>
                                                                                                             <td><input class="js-switch" <?php echo $tieneLlantaRefaccion == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" name="tieneLlantaRefaccion" type="checkbox" /></td>
                                                                                                         </tr>
                                                                                                         <tr>
-                                                                                                            <td>Luces niebla delanteras</td>
+                                                                                                            <td>Luces de niebla delanteras</td>
                                                                                                             <td><input class="js-switch" <?php echo $tieneLucesNieblaDelanteras == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" name="tieneLucesNieblaDelanteras" type="checkbox" /></td>
-                                                                                                            <td>Luces niebla traseras</td>
+                                                                                                            <td>Luces de niebla traseras</td>
                                                                                                             <td><input class="js-switch" <?php echo $tieneLucesNieblaTraseras == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" name="tieneLucesNieblaTraseras" type="checkbox" /></td>
-                                                                                                            <td>Luces xenón</td>
+                                                                                                            <td>Faros de xenón</td>
                                                                                                             <td><input class="js-switch" <?php echo $tieneLucesXenon == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" name="tieneLucesXenon" type="checkbox" /></td>
                                                                                                             <td>Parachoques</td>
                                                                                                             <td><input class="js-switch" <?php echo $tieneParachoques == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" name="tieneParachoques" type="checkbox" /></td>
@@ -2620,13 +2620,13 @@
                                                                                                             <td><input class="js-switch" <?php echo $tienePilotoAutomatico == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" name="tienePilotoAutomatico" type="checkbox" /></td>
                                                                                                             <td>Portavasos</td>
                                                                                                             <td><input class="js-switch" <?php echo $tienePortavasos == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" name="tienePortavasos" type="checkbox" /></td>
-                                                                                                            <td>Quemacocos</td>
+                                                                                                            <td>Techo corredizo</td>
                                                                                                             <td><input class="js-switch" <?php echo $tieneQuemacocos == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" name="tieneQuemacocos" type="checkbox" /></td>
                                                                                                             <td>Radio AM/FM</td>
                                                                                                             <td><input class="js-switch" <?php echo $tieneRadioAMFM == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" name="tieneRadioAMFM" type="checkbox" /></td>
                                                                                                         </tr>
                                                                                                         <tr>
-                                                                                                            <td>Recordatorio encendido luces</td>
+                                                                                                            <td>Recordatorio de luces encendidas</td>
                                                                                                             <td><input class="js-switch" <?php echo $tieneRecordatorioEncendidoLuces == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" name="tieneRecordatorioEncendidoLuces" type="checkbox" /></td>
                                                                                                             <td>Reproductor CD</td>
                                                                                                             <td><input class="js-switch" <?php echo $tieneReproductorCD == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" name="tieneReproductorCD" type="checkbox" /></td>
@@ -2638,25 +2638,25 @@
                                                                                                         <tr>
                                                                                                             <td>Respaldos traseros</td>
                                                                                                             <td><input class="js-switch" <?php echo $tieneRespadosTraseros == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" name="tieneRespadosTraseros" type="checkbox" /></td>
-                                                                                                            <td>Rines aleación</td>
+                                                                                                            <td>Rines de aluminio</td>
                                                                                                             <td><input class="js-switch" <?php echo $tieneRinesAleacion == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" name="tieneRinesAleacion" type="checkbox" /></td>
-                                                                                                            <td>Seguros eléctricos centralizados</td>
+                                                                                                            <td>Cerradura de puertas centralizada</td>
                                                                                                             <td><input class="js-switch" <?php echo $tieneSegurosElectricosCentralizados == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" name="tieneSegurosElectricosCentralizados" type="checkbox" /></td>
-                                                                                                            <td>Sensor lluvia</td>
+                                                                                                            <td>Sensor de lluvia</td>
                                                                                                             <td><input class="js-switch" <?php echo $tieneSensorLluvia == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" name="tieneSensorLluvia" type="checkbox" /></td>
                                                                                                         </tr>
                                                                                                         <tr>
-                                                                                                            <td>Sensores luz</td>
+                                                                                                            <td>Sensor de luz</td>
                                                                                                             <td><input class="js-switch" <?php echo $tieneSensoresLuz == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" name="tieneSensoresLuz" type="checkbox" /></td>
-                                                                                                            <td>Sensores reversa</td>
+                                                                                                            <td>Sensor de reversa</td>
                                                                                                             <td><input class="js-switch" <?php echo $tieneSensoresReversa == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" name="tieneSensoresReversa" type="checkbox" /></td>
-                                                                                                            <td>Tapicería piel</td>
+                                                                                                            <td>Tapicería de piel</td>
                                                                                                             <td><input class="js-switch" <?php echo $tieneTapiceriaPiel == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" name="tieneTapiceriaPiel" type="checkbox" /></td>
                                                                                                             <td>Tarjeta SD</td>
                                                                                                             <td><input class="js-switch" <?php echo $tieneTarjetaSD == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" name="tieneTarjetaSD" type="checkbox" /></td>
                                                                                                         </tr>
                                                                                                         <tr>
-                                                                                                            <td>Tercera luz frenado</td>
+                                                                                                            <td>Tercera luz de frenado</td>
                                                                                                             <td><input class="js-switch" <?php echo $tieneTerceraLuzFrenado == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" name="tieneTerceraLuzFrenado" type="checkbox" /></td>
                                                                                                             <td>Único dueño</td>
                                                                                                             <td><input class="js-switch" <?php echo $unicoDueno == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" name="unicoDueno" type="checkbox" /></td>
@@ -3114,25 +3114,25 @@
                                                                                                             <td><input class="js-switch" <?php echo $intelimotor_hasAirConditioning == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" readonly type="checkbox" /></td>
                                                                                                             <td>Alarma <strong>(hasAlarm)</strong></td>
                                                                                                             <td><input class="js-switch" <?php echo $intelimotor_hasAlarm == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" readonly type="checkbox" /></td>
-                                                                                                            <td>Alfombrilla llanta refacción <strong>(hasTrayMat)</strong></td>
+                                                                                                            <td>Alfombrilla de llanta de refacción <strong>(hasTrayMat)</strong></td>
                                                                                                             <td><input class="js-switch" <?php echo $intelimotor_hasTrayMat == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" readonly type="checkbox" /></td>
-                                                                                                            <td>Apertura remota cajuela <strong>(hasRemoteTrunkRelease)</strong></td>
+                                                                                                            <td>Apertura remota de cajuela <strong>(hasRemoteTrunkRelease)</strong></td>
                                                                                                             <td><input class="js-switch" <?php echo $intelimotor_hasRemoteTrunkRelease == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" readonly type="checkbox" /></td>
                                                                                                         </tr>
                                                                                                         <tr>
-                                                                                                            <td>Asiento conductor ajuste altura <strong>(hasHeightAdjustableDriverSeat)</strong></td>
+                                                                                                            <td>Asiento de conductor con ajuste de altura <strong>(hasHeightAdjustableDriverSeat)</strong></td>
                                                                                                             <td><input class="js-switch" <?php echo $intelimotor_hasHeightAdjustableDriverSeat == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" readonly type="checkbox" /></td>
                                                                                                             <td>Asientos eléctricos <strong>(hasElectricSeats)</strong></td>
                                                                                                             <td><input class="js-switch" <?php echo $intelimotor_hasElectricSeats == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" readonly type="checkbox" /></td>
                                                                                                             <td>Asientos traseros abatibles <strong>(hasRearFoldingSeat)</strong></td>
                                                                                                             <td><input class="js-switch" <?php echo $intelimotor_hasRearFoldingSeat == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" readonly type="checkbox" /></td>
-                                                                                                            <td>Asistencia frenado <strong>(hasElectronicBrakeAssist)</strong></td>
+                                                                                                            <td>Asistente de frenado <strong>(hasElectronicBrakeAssist)</strong></td>
                                                                                                             <td><input class="js-switch" <?php echo $intelimotor_hasElectronicBrakeAssist == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" readonly type="checkbox" /></td>
                                                                                                         </tr>
                                                                                                         <tr>
-                                                                                                            <td>Bandeja llanta refacción <strong>(hasTrayCover)</strong></td>
+                                                                                                            <td>Bandeja de llanta de refacción <strong>(hasTrayCover)</strong></td>
                                                                                                             <td><input class="js-switch" <?php echo $intelimotor_hasTrayCover == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" readonly type="checkbox" /></td>
-                                                                                                            <td>Barra anti vuelco <strong>(hasRollBar)</strong></td>
+                                                                                                            <td>Barras porta equipaje <strong>(hasRollBar)</strong></td>
                                                                                                             <td><input class="js-switch" <?php echo $intelimotor_hasRollBar == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" readonly type="checkbox" /></td>
                                                                                                             <td>Blindado <strong>(armored)</strong></td>
                                                                                                             <td><input class="js-switch" <?php echo $intelimotor_armored == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" readonly type="checkbox" /></td>
@@ -3140,31 +3140,31 @@
                                                                                                             <td><input class="js-switch" <?php echo $intelimotor_hasBluetooth == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" readonly type="checkbox" /></td>
                                                                                                         </tr>
                                                                                                         <tr>
-                                                                                                            <td>Bolsa aire conductor <strong>(hasDriverAirbag)</strong></td>
+                                                                                                            <td>Bolsa de aire conductor <strong>(hasDriverAirbag)</strong></td>
                                                                                                             <td><input class="js-switch" <?php echo $intelimotor_hasDriverAirbag == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" readonly type="checkbox" /></td>
-                                                                                                            <td>Bolsa aire pasajero <strong>(hasPassengerAirbag)</strong></td>
+                                                                                                            <td>Bolsa de aire pasajero <strong>(hasPassengerAirbag)</strong></td>
                                                                                                             <td><input class="js-switch" <?php echo $intelimotor_hasPassengerAirbag == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" readonly type="checkbox" /></td>
-                                                                                                            <td>Bolsas aire laterales <strong>(hasSideImpactAirbag)</strong></td>
+                                                                                                            <td>Bolsas de aire laterales <strong>(hasSideImpactAirbag)</strong></td>
                                                                                                             <td><input class="js-switch" <?php echo $intelimotor_hasSideImpactAirbag == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" readonly type="checkbox" /></td>
-                                                                                                            <td>Bolsas aire tipo cortina <strong>(hasCurtainAirbag)</strong></td>
+                                                                                                            <td>Bolsas de aire tipo cortina <strong>(hasCurtainAirbag)</strong></td>
                                                                                                             <td><input class="js-switch" <?php echo $intelimotor_hasCurtainAirbag == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" readonly type="checkbox" /></td>
                                                                                                         </tr>
                                                                                                         <tr>
                                                                                                             <td>Cabeceras asientos traseros <strong>(hasHeadrestRearSeat)</strong></td>
                                                                                                             <td><input class="js-switch" <?php echo $intelimotor_hasHeadrestRearSeat == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" readonly type="checkbox" /></td>
-                                                                                                            <td>Computadora a bordo <strong>(hasOnboardComputer)</strong></td>
+                                                                                                            <td>Computadora de viaje <strong>(hasOnboardComputer)</strong></td>
                                                                                                             <td><input class="js-switch" <?php echo $intelimotor_hasOnboardComputer == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" readonly type="checkbox" /></td>
-                                                                                                            <td>Control aire acondicionado <strong>(hasClimateControl)</strong></td>
+                                                                                                            <td>Control de temperatura <strong>(hasClimateControl)</strong></td>
                                                                                                             <td><input class="js-switch" <?php echo $intelimotor_hasClimateControl == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" readonly type="checkbox" /></td>
-                                                                                                            <td>Control estabilidad <strong>(hasStabilityControl)</strong></td>
+                                                                                                            <td>Control de estabilidad <strong>(hasStabilityControl)</strong></td>
                                                                                                             <td><input class="js-switch" <?php echo $intelimotor_hasStabilityControl == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" readonly type="checkbox" /></td>
                                                                                                         </tr>
                                                                                                         <tr>
-                                                                                                            <td>Control luces delanteras <strong>(hasHeadlightControl)</strong></td>
+                                                                                                            <td>Control de luces delanteras <strong>(hasHeadlightControl)</strong></td>
                                                                                                             <td><input class="js-switch" <?php echo $intelimotor_hasHeadlightControl == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" readonly type="checkbox" /></td>
-                                                                                                            <td>Control volante <strong>(hasSteeringWheelControl)</strong></td>
+                                                                                                            <td>Controles al volante <strong>(hasSteeringWheelControl)</strong></td>
                                                                                                             <td><input class="js-switch" <?php echo $intelimotor_hasSteeringWheelControl == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" readonly type="checkbox" /></td>
-                                                                                                            <td>Defensas color carrocería <strong>(hasPaintedBumper)</strong></td>
+                                                                                                            <td>Defensas al color de la carrocería <strong>(hasPaintedBumper)</strong></td>
                                                                                                             <td><input class="js-switch" <?php echo $intelimotor_hasPaintedBumper == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" readonly type="checkbox" /></td>
                                                                                                             <td>Desempañador trasero <strong>(hasRearWindowDefogger)</strong></td>
                                                                                                             <td><input class="js-switch" <?php echo $intelimotor_hasRearWindowDefogger == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" readonly type="checkbox" /></td>
@@ -3172,7 +3172,7 @@
                                                                                                         <tr>
                                                                                                             <td>Espejos eléctricos <strong>(hasElectricMirrors)</strong></td>
                                                                                                             <td><input class="js-switch" <?php echo $intelimotor_hasElectricMirrors == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" readonly type="checkbox" /></td>
-                                                                                                            <td>Faros niebla <strong>(hasFrontFoglights)</strong></td>
+                                                                                                            <td>Faros de niebla <strong>(hasFrontFoglights)</strong></td>
                                                                                                             <td><input class="js-switch" <?php echo $intelimotor_hasFrontFoglights == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" readonly type="checkbox" /></td>
                                                                                                             <td>Frenos ABS <strong>(hasAbsBrakes)</strong></td>
                                                                                                             <td><input class="js-switch" <?php echo $intelimotor_hasAbsBrakes == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" readonly type="checkbox" /></td>
@@ -3180,19 +3180,19 @@
                                                                                                             <td><input class="js-switch" <?php echo $intelimotor_hasGps == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" readonly type="checkbox" /></td>
                                                                                                         </tr>
                                                                                                         <tr>
-                                                                                                            <td>inmovilizador <strong>(hasEngineInmovilizer)</strong></td>
+                                                                                                            <td>Inmovilizador de motor <strong>(hasEngineInmovilizer)</strong></td>
                                                                                                             <td><input class="js-switch" <?php echo $intelimotor_hasEngineInmovilizer == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" readonly type="checkbox" /></td>
                                                                                                             <td>Limpiaparabrisas <strong>(hasWindscreenWiper)</strong></td>
                                                                                                             <td><input class="js-switch" <?php echo $intelimotor_hasWindscreenWiper == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" readonly type="checkbox" /></td>
-                                                                                                            <td>Llanta refacción <strong>(hasSpareTyreSupport)</strong></td>
+                                                                                                            <td>Llanta de refacción <strong>(hasSpareTyreSupport)</strong></td>
                                                                                                             <td><input class="js-switch" <?php echo $intelimotor_hasSpareTyreSupport == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" readonly type="checkbox" /></td>
-                                                                                                            <td>Luces niebla delanteras <strong>(hasFogLight)</strong></td>
+                                                                                                            <td>Luces de niebla delanteras <strong>(hasFogLight)</strong></td>
                                                                                                             <td><input class="js-switch" <?php echo $intelimotor_hasFogLight == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" readonly type="checkbox" /></td>
                                                                                                         </tr>
                                                                                                         <tr>
-                                                                                                            <td>Luces niebla traseras <strong>(hasRearFoglights)</strong></td>
+                                                                                                            <td>Luces de niebla traseras <strong>(hasRearFoglights)</strong></td>
                                                                                                             <td><input class="js-switch" <?php echo $intelimotor_hasRearFoglights == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" readonly type="checkbox" /></td>
-                                                                                                            <td>Luces xenón <strong>(hasXenonHeadlights)</strong></td>
+                                                                                                            <td>Faros de xenón <strong>(hasXenonHeadlights)</strong></td>
                                                                                                             <td><input class="js-switch" <?php echo $intelimotor_hasXenonHeadlights == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" readonly type="checkbox" /></td>
                                                                                                             <td>Parachoques <strong>(hasBullBar)</strong></td>
                                                                                                             <td><input class="js-switch" <?php echo $intelimotor_hasBullBar == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" readonly type="checkbox" /></td>
@@ -3202,11 +3202,11 @@
                                                                                                         <tr>
                                                                                                             <td>Portavasos <strong>(hasCoasters)</strong></td>
                                                                                                             <td><input class="js-switch" <?php echo $intelimotor_hasCoasters == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" readonly type="checkbox" /></td>
-                                                                                                            <td>Quemacocos <strong>(hasSlidingRoof)</strong></td>
+                                                                                                            <td>Techo corredizo <strong>(hasSlidingRoof)</strong></td>
                                                                                                             <td><input class="js-switch" <?php echo $intelimotor_hasSlidingRoof == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" readonly type="checkbox" /></td>
                                                                                                             <td>Radio AM/FM <strong>(hasAmfmRadio)</strong></td>
                                                                                                             <td><input class="js-switch" <?php echo $intelimotor_hasAmfmRadio == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" readonly type="checkbox" /></td>
-                                                                                                            <td>Recordatorio encendido luces <strong>(hasLightOnReminder)</strong></td>
+                                                                                                            <td>Recordatorio de luces encendidas <strong>(hasLightOnReminder)</strong></td>
                                                                                                             <td><input class="js-switch" <?php echo $intelimotor_hasLightOnReminder == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" readonly type="checkbox" /></td>
                                                                                                         </tr>
                                                                                                         <tr>
@@ -3220,23 +3220,23 @@
                                                                                                             <td><input class="js-switch" <?php echo $intelimotor_hasRearBackrest == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" readonly type="checkbox" /></td>
                                                                                                         </tr>
                                                                                                         <tr>
-                                                                                                            <td>Rines aleación <strong>(hasAlloyWheels)</strong></td>
+                                                                                                            <td>Rines de aluminio <strong>(hasAlloyWheels)</strong></td>
                                                                                                             <td><input class="js-switch" <?php echo $intelimotor_hasAlloyWheels == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" readonly type="checkbox" /></td>
-                                                                                                            <td>Seguros eléctricos centralizados <strong>(hasCentralPowerDoorLocks)</strong></td>
+                                                                                                            <td>Cerradura de puertas centralizada <strong>(hasCentralPowerDoorLocks)</strong></td>
                                                                                                             <td><input class="js-switch" <?php echo $intelimotor_hasCentralPowerDoorLocks == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" readonly type="checkbox" /></td>
-                                                                                                            <td>Sensor lluvia <strong>(hasRainSensor)</strong></td>
+                                                                                                            <td>Sensor de lluvia <strong>(hasRainSensor)</strong></td>
                                                                                                             <td><input class="js-switch" <?php echo $intelimotor_hasRainSensor == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" readonly type="checkbox" /></td>
-                                                                                                            <td>Sensores luz <strong>(hasLightSensor)</strong></td>
+                                                                                                            <td>Sensor de luz <strong>(hasLightSensor)</strong></td>
                                                                                                             <td><input class="js-switch" <?php echo $intelimotor_hasLightSensor == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" readonly type="checkbox" /></td>
                                                                                                         </tr>
                                                                                                         <tr>
-                                                                                                            <td>Sensores reversa <strong>(hasParkingSensor)</strong></td>
+                                                                                                            <td>Sensor de reversa <strong>(hasParkingSensor)</strong></td>
                                                                                                             <td><input class="js-switch" <?php echo $intelimotor_hasParkingSensor == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" readonly type="checkbox" /></td>
-                                                                                                            <td>Tapicería piel <strong>(hasLeatherUpholstery)</strong></td>
+                                                                                                            <td>Tapicería de piel <strong>(hasLeatherUpholstery)</strong></td>
                                                                                                             <td><input class="js-switch" <?php echo $intelimotor_hasLeatherUpholstery == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" readonly type="checkbox" /></td>
                                                                                                             <td>Tarjeta SD <strong>(hasSdCard)</strong></td>
                                                                                                             <td><input class="js-switch" <?php echo $intelimotor_hasSdCard == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" readonly type="checkbox" /></td>
-                                                                                                            <td>Tercera luz frenado <strong>(hasThirdStop)</strong></td>
+                                                                                                            <td>Tercera luz de frenado <strong>(hasThirdStop)</strong></td>
                                                                                                             <td><input class="js-switch" <?php echo $intelimotor_hasThirdStop == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" readonly type="checkbox" /></td>
                                                                                                         </tr>
                                                                                                         <tr>
