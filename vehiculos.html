@@ -1320,7 +1320,6 @@
                 var criterioOrdenamiento =  $("#campo_criterioOrdenamiento").val();
                 var pagina = $("#campo_pagina").val();
 
-console.log("tipo = " + tipo);
                 $.ajax({
                     url: rutaBackend + "ajax/cargaVehiculos.php",
                     type: "post",
@@ -1343,7 +1342,6 @@ console.log("tipo = " + tipo);
                         concesionario: concesionario
                     }
                 }).done(function (resultado, textStatus, jqXHR) {
-console.log(resultado);
                     var vehiculosEncontrados = 0;
                     var contenido = "";
 
@@ -1489,7 +1487,7 @@ console.log(resultado);
 
             function obtenParametroDeUrl(nombre) {
                 if (nombre = (new RegExp('[?&]' + encodeURIComponent(nombre) + '=([^&]*)')).exec(location.search)) {
-                    return decodeURIComponent(nombre[1]);
+                    return decodeURIComponent(nombre[1]).replace(/\+/g, " ");
                 }
             }
 
