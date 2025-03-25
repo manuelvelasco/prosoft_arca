@@ -290,11 +290,15 @@ label.errorModalAgendarCita {
     position: relative;
 }
 
+#interfaz_inicio .category-img {
+    text-align: center;
+}
+/*
 #interfaz_inicio .category-img img {
     height: 230px;
     width: 100%;
 }
-
+*/
 #interfaz_inicio #buscador_palabraClave {
     background-color: #F3F3F3;
     height: 50px;
@@ -1037,4 +1041,79 @@ label.errorModalAgendarCita {
 
 #interfaz_nosotros .brand-category-section .brand-category-card .category-img::after {
     background: none;
+}
+
+
+/* Imagenes responsivas */
+
+
+
+#interfaz_inicio .category-img {                /* Inicio > Carruseles superior e inferior */
+    align-items: center; /* centrado horizontal */
+    background-color: #000;
+    display: flex;
+    height: 220px;
+    justify-content: center; /* centrado vertical */
+}
+
+#interfaz_inicio .category-img img {            /* Inicio > Carruseles superior e inferior */
+    height: auto;
+    max-height: 220px;
+    max-width: 100%;
+}
+
+#interfaz_concesionario .category-img {         /* Detalle de concesionario > Carrusel inferior */
+    align-items: center; /* centrado horizontal */
+    background-color: #000;
+    display: flex;
+    height: 220px;
+    justify-content: center; /* centrado vertical */
+}
+
+#interfaz_concesionario .category-img img {     /* Detalle de concesionario > Carrusel inferior */
+    height: auto;
+    max-height: 220px;
+    max-width: 100%;
+}
+
+#interfaz_vehiculo .category-img {              /* Detalle de vehiculo > Carrusel inferior */
+    align-items: center; /* centrado horizontal */
+    background-color: #000;
+    display: flex;
+    height: 220px;
+    justify-content: center; /* centrado vertical */
+}
+
+#interfaz_vehiculo .category-img img {          /* Detalle de vehiculo > Carrusel inferior */
+    height: auto;
+    max-height: 220px;
+    max-width: 100%;
+}
+
+#interfaz_vehiculo .product-img {               /* Detalle de vehiculo > Barra derecha */
+    align-items: center; /* centrado horizontal */
+    background-color: #000;
+    display: flex;
+    height: 130px;
+    justify-content: center; /* centrado vertical */
+}
+
+#interfaz_vehiculo .product-img img {           /* Detalle de vehiculo > Barra derecha */
+    height: auto;
+    max-height: 130px;
+    max-width: 100%;
+}
+
+#interfaz_vehiculos .product-img {              /* Listado de vehiculos > Mosaico de resultados */
+    align-items: center; /* centrado horizontal */
+    background-color: #000;
+    display: flex;
+    height: 330px;
+    justify-content: center; /* centrado vertical */
+}
+
+#interfaz_vehiculos .product-img img {          /* Listado de vehiculos > Mosaico de resultados */
+    height: auto;
+    max-height: 330px;
+    max-width: 100%;
 }

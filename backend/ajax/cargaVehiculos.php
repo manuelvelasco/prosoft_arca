@@ -190,10 +190,10 @@ $ordenamiento = " ORDER BY v.id DESC";
 
         // Consulta base de datos
         //echo "SELECT COUNT(*) AS vehiculosEncontrados FROM vehiculo WHERE publicado = 1 AND intelimotor_id IS NOT NULL " . $restricciones; die();
-        $vehiculosEncontrados = obtenResultado(consulta($conexion, "SELECT COUNT(*) AS vehiculosEncontrados FROM vehiculo v INNER JOIN concesionario cc ON v.idConcesionario = cc.id WHERE v.publicado = 1 " . $restricciones))["vehiculosEncontrados"];
+        $vehiculosEncontrados = obtenResultado(consulta($conexion, "SELECT COUNT(*) AS vehiculosEncontrados FROM vehiculo v INNER JOIN concesionario cc ON v.idConcesionario = cc.id WHERE v.publicado = 1 AND cc.habilitado = 1 " . $restricciones))["vehiculosEncontrados"];
 
         //$vehiculos_BD = consulta($conexion, "SELECT id, marca, modelo, ano, precio, kilometraje, transmision, combustible, imagenPrincipal FROM vehiculo WHERE publicado = 1 " . $restricciones . $ordenamiento . $limitante);
-        $vehiculos_BD = consulta($conexion, "SELECT v.*, cc.municipio, (SELECT count(*) from analitica a where a.url like concat('%vehiculo.html?id=', v.id)) as cuantos FROM vehiculo v INNER JOIN concesionario cc ON v.idConcesionario = cc.id WHERE v.publicado = 1 " . $restricciones . $ordenamiento . $limitante);
+        $vehiculos_BD = consulta($conexion, "SELECT v.*, cc.municipio, (SELECT count(*) from analitica a where a.url like concat('%vehiculo.html?id=', v.id)) as cuantos FROM vehiculo v INNER JOIN concesionario cc ON v.idConcesionario = cc.id WHERE v.publicado = 1 AND cc.habilitado = 1 " . $restricciones . $ordenamiento . $limitante);
 
         $resultado .= "<vehiculos total='" . $vehiculosEncontrados . "'>";
 
