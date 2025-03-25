@@ -1047,7 +1047,6 @@ label.errorModalAgendarCita {
 /* Imagenes responsivas */
 
 
-
 #interfaz_inicio .category-img {                /* Inicio > Carruseles superior e inferior */
     align-items: center; /* centrado horizontal */
     background-color: #000;
@@ -1057,9 +1056,13 @@ label.errorModalAgendarCita {
 }
 
 #interfaz_inicio .category-img img {            /* Inicio > Carruseles superior e inferior */
+/*
     height: auto;
     max-height: 220px;
     max-width: 100%;
+*/
+    min-height: 220px;
+    min-width: 100%;
 }
 
 #interfaz_concesionario .category-img {         /* Detalle de concesionario > Carrusel inferior */
@@ -1071,9 +1074,13 @@ label.errorModalAgendarCita {
 }
 
 #interfaz_concesionario .category-img img {     /* Detalle de concesionario > Carrusel inferior */
+/*
     height: auto;
     max-height: 220px;
     max-width: 100%;
+*/
+    min-height: 220px;
+    min-width: 100%;
 }
 
 #interfaz_vehiculo .category-img {              /* Detalle de vehiculo > Carrusel inferior */
@@ -1085,9 +1092,13 @@ label.errorModalAgendarCita {
 }
 
 #interfaz_vehiculo .category-img img {          /* Detalle de vehiculo > Carrusel inferior */
+/*
     height: auto;
     max-height: 220px;
     max-width: 100%;
+*/
+    min-height: 220px;
+    min-width: 100%;
 }
 
 #interfaz_vehiculo .product-img {               /* Detalle de vehiculo > Barra derecha */
@@ -1099,9 +1110,13 @@ label.errorModalAgendarCita {
 }
 
 #interfaz_vehiculo .product-img img {           /* Detalle de vehiculo > Barra derecha */
+/*
     height: auto;
     max-height: 130px;
     max-width: 100%;
+*/
+    min-height: 130px;
+    min-width: 100%;
 }
 
 #interfaz_vehiculos .product-img {              /* Listado de vehiculos > Mosaico de resultados */
@@ -1113,7 +1128,11 @@ label.errorModalAgendarCita {
 }
 
 #interfaz_vehiculos .product-img img {          /* Listado de vehiculos > Mosaico de resultados */
+/*
     height: auto;
     max-height: 330px;
     max-width: 100%;
+*/
+    min-height: 330px;
+    min-width: 100%;
 }

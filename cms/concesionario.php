@@ -128,16 +128,16 @@
                 }
 
                 if (cuentaResultados($validaNombreComecial_BD) > 0) {
-                    $mensaje .= "* Ya existe un concesionario con ese nombre comercial<br />";
+                    $mensaje .= "* Ya existe una agencia con ese nombre comercial<br />";
                 }
 
                 
                 if (cuentaResultados($validaRFC_BD) > 0) {
-                    $mensaje .= "* Ya existe un concesionario con ese RFC<br />";
+                    $mensaje .= "* Ya existe una agencia con ese RFC<br />";
                 }
 
                 if (cuentaResultados($validaRazonSocial_BD) > 0) {
-                    $mensaje .= "* Ya existe un concesionario con ese razón social<br />";
+                    $mensaje .= "* Ya existe una agencia con esa razón social<br />";
                 }
 
                 if ((!estaVacio($telefono)) && (strlen($telefono) != 10)) {
@@ -260,7 +260,7 @@
                         $youtube = $concesionario["youtube"];
 
 
-                        $mensaje = "ok - El concesionario ha sido registrado.";
+                        $mensaje = "ok - La agencia ha sido registrada.";
 
                         registraEvento("CMS : Alta de concesionario | id = " . $id);
                     } else {
@@ -515,7 +515,7 @@
 
                         <div class="row heading-bg bg-blue">
                             <div class="col-xs-12">
-                                <h5 class="txt-light">Concesionario</h5>
+                                <h5 class="txt-light">Agencia</h5>
                             </div>
                         </div>
 
@@ -543,7 +543,7 @@
                                                     <div class="panel-heading">
                                                         <div class="pull-left">
                                                             <h6 class="panel-title txt-dark">
-                                                                Proporciona la información del concesionario
+                                                                Proporciona la información de la agencia
                                                             </h6>
 
                                                             <hr />
@@ -552,7 +552,7 @@
                                                         <div class="clearfix"></div>
                                                         <?php if ((!estaVacio($intelimotor_apiSecret)) && (!estaVacio($intelimotor_apiKey))) {?>
                                                             <div class="form-group mb-0 alinearDerecha">
-                                                                <a class="btn btn-success link_sincronizar" href="javascript:;">Sincronizar inventario InteliMotor del concesionario</a>
+                                                                <a class="btn btn-success link_sincronizar" href="javascript:;">Sincronizar inventario InteliMotor de la agencia</a>
                                                             </div>
                                                         <?php } ?>
                                                     </div>
@@ -1050,7 +1050,7 @@
 
 
             function eliminaImagenGaleria(id, imagen, indice) {
-                if (confirm("Al continuar se eliminará esta imagen y ya no se mostrará en la galería del concesionario, ¿desea proceder?")) {
+                if (confirm("Al continuar se eliminará esta imagen y ya no se mostrará en la galería de la agencia, ¿desea proceder?")) {
                     $.ajax({
                         data: {
                             id: id,

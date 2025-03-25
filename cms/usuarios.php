@@ -64,6 +64,7 @@
                                                         <thead>
                                                             <tr>
                                                                 <th>Id</th>
+                                                                <th>Agencia</th>
                                                                 <th>Nombre</th>
                                                                 <th>Correo electrónico</th>
                                                                 <th>Rol</th>
@@ -75,6 +76,7 @@
                                                         <tfoot>
                                                             <tr>
                                                                 <th>Id</th>
+                                                                <th>Agencia</th>
                                                                 <th>Nombre</th>
                                                                 <th>Correo electrónico</th>
                                                                 <th>Rol</th>
@@ -92,11 +94,12 @@
 
                                                                 // Consulta base de datos
 
-                                                                $usuarios_BD = consulta($conexion, "SELECT * FROM usuario WHERE rol != 'Master' " . $restricciones . " ORDER BY rol, nombre");
+                                                                $usuarios_BD = consulta($conexion, "SELECT u.*, c.nombreComercial AS concesionario_nombreComercial FROM usuario u LEFT JOIN concesionario c ON c.id = u.idConcesionario WHERE u.rol != 'Master' " . $restricciones . " ORDER BY u.rol, u.nombre");
 
                                                                 while ($usuario = obtenResultado($usuarios_BD)) {
                                                                     echo "<tr>";
                                                                     echo "<td>" . $usuario["id"] . "</td>";
+                                                                    echo "<td>" . $usuario["concesionario_nombreComercial"] . "</td>";
                                                                     echo "<td>" . $usuario["nombre"] . "</td>";
                                                                     echo "<td>" . $usuario["correoElectronico"] . "</td>";
                                                                     echo "<td>" . $usuario["rol"] . "</td>";

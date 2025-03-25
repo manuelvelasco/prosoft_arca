@@ -28,7 +28,7 @@
 
                         <li>
                             <a href="concesionarios.php">
-                                Concesionarios
+                                Agencias
                             </a>
                         </li>
 

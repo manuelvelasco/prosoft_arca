@@ -71,7 +71,7 @@
                 }
 
                 if (estaVacio($idConcesionario) && $rol == 'Operador') {
-                    $mensaje .="Para el rol Operador, es obligatorio asignarle un concesionario <br />";
+                    $mensaje .="Para el rol Operador, es obligatorio asignarle una agencia <br />";
                 }
 
                 if (!estaVacio($mensaje)) {
@@ -325,7 +325,7 @@
                                                                             <div class="row mb-30">
                                                                                 <div class="col-md-6">
                                                                                     <div class="form-group">
-                                                                                        <label class="control-label mb-10">Concesionario </label>
+                                                                                        <label class="control-label mb-10">Agencia </label>
                                                                                         <select class="form-control select2" name="idConcesionario">
                                                                                             <option <?php echo estaVacio($idConcesionario) ? "selected" : "" ?> value="">Seleccione</option>
 

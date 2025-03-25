@@ -2245,7 +2245,7 @@
                                                                             <div class="row mb-30">
                                                                                 <div class="col-md-4">
                                                                                     <div class="form-group">
-                                                                                        <label class="control-label mb-10">Concesionario</label>
+                                                                                        <label class="control-label mb-10">Agencia</label>
                                                                                         <select class="form-control select2" name="idConcesionario">
                                                                                             <option value="">Seleccione</option>
 
@@ -2291,12 +2291,13 @@
                                                                                         </div>
                                                                                     </div>
 
-                                                                                    <div class="col-md-6">
+                                                                                    <!--div class="col-md-6">
                                                                                         <div class="form-group">
                                                                                             <label class="control-label mb-10">Enganche <span class="txt-danger ml-10">*</span></label>
                                                                                             <input class="form-control" name="enganche" type="number" value="<?php echo $enganche ?>" />
                                                                                         </div>
-                                                                                    </div>
+                                                                                    </div-->
+                                                                                    <input name="enganche" type="hidden" value="<?php echo $enganche ?>" />
 
                                                                                     <!--div class="col-md-6">
                                                                                         <div class="form-group">
@@ -2489,26 +2490,29 @@
                                                                                 </div>
 
                                                                                 <div class="row mb-30">
-                                                                                    <div class="col-md-4">
+                                                                                    <!--div class="col-md-4"-->
+                                                                                    <div class="col-md-6">
                                                                                         <div class="form-group">
                                                                                             <label class="control-label mb-10">Puertas</label>
                                                                                             <input class="form-control" name="puertas" type="number" value="<?php echo $puertas ?>" />
                                                                                         </div>
                                                                                     </div>
 
-                                                                                    <div class="col-md-4">
+                                                                                    <!--div class="col-md-4"-->
+                                                                                    <div class="col-md-6">
                                                                                         <div class="form-group">
                                                                                             <label class="control-label mb-10">Asientos</label>
                                                                                             <input class="form-control" name="asientos" type="number" value="<?php echo $asientos ?>" />
                                                                                         </div>
                                                                                     </div>
 
-                                                                                    <div class="col-md-4">
+                                                                                    <!--div class="col-md-4">
                                                                                         <div class="form-group">
                                                                                             <label class="control-label mb-10">Bolsas de Aire</label>
                                                                                             <input class="form-control" name="bolsasAire" type="number" value="<?php echo $bolsasAire ?>" />
                                                                                         </div>
-                                                                                    </div>
+                                                                                    </div-->
+                                                                                    <input name="bolsasAire" type="hidden" value="<?php echo $bolsasAire ?>" />
                                                                                 </div>
 
                                                                                 <div class="row mb-30">
@@ -2719,7 +2723,7 @@
                                                                                     </div>
                                                                                 </div>
 
-                                                                                <div class="row mb-30">
+                                                                                <!--div class="row mb-30">
                                                                                     <div class="col-md-12">
                                                                                         <h5><strong>Descripción</strong> <span class="txt-danger ml-10">*</span></h5>
                                                                                     </div>
@@ -2728,13 +2732,14 @@
                                                                                 <div class="row mb-30">
                                                                                     <div class="col-md-12">
                                                                                         <div class="form-group">
-                                                                                            <!--label class="control-label mb-10">Descripción</label-->
+                                                                                            <!--label class="control-label mb-10">Descripción</label- ->
                                                                                             <div class="form-group">
                                                                                                 <textarea class="tinymce" name="descripcion"><?php echo $descripcion ?></textarea>
                                                                                             </div>
                                                                                         </div>
                                                                                     </div>
-                                                                                </div>
+                                                                                </div-->
+                                                                                <input name="descripcion" type="hidden" value="<?php echo $descripcion ?>" />
 
                                                                                 <div class="row mb-30">
                                                                                     <div class="col-md-12">

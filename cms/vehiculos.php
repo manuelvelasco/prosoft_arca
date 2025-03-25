@@ -183,7 +183,7 @@
 
                                                             <div class="col-md-6">
                                                                 <div class="form-group">
-                                                                    <label class="control-label mb-10">Concesionario</label>
+                                                                    <label class="control-label mb-10">Agencia</label>
                                                                     <select class="form-control select2" id="campo_concesionario" name="concesionario">
                                                                         <option <?php echo estaVacio($concesionario) ? "selected" : "" ?> value="">Ver todo</option>
 
@@ -239,7 +239,7 @@
                                                             <thead>
                                                                 <tr>
                                                                     <th>ID</th>
-                                                                    <th>Concesionario</th>
+                                                                    <th>Agencia</th>
                                                                     <th>Habilitado</th>
                                                                     <th>ID Intelimotor</th>
                                                                     <th>Marca</th>
@@ -254,7 +254,7 @@
                                                             <tfoot>
                                                                 <tr>
                                                                     <th>ID</th>
-                                                                    <th>Concesionario</th>
+                                                                    <th>Agencia</th>
                                                                     <th>Habilitado</th>
                                                                     <th>ID Intelimotor</th>
                                                                     <th>Marca</th>

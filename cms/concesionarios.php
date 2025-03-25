@@ -47,7 +47,7 @@
 
                         <div class="row heading-bg bg-blue">
                             <div class="col-xs-12">
-                                <h5 class="txt-light">Concesionarios</h5>
+                                <h5 class="txt-light">Agencias</h5>
                             </div>
                         </div>
 
@@ -228,7 +228,7 @@
                                         <br />
                                         <?php if ($esUsuarioMaster || $esUsuarioAdministrador) { ?>
                                             <div class="form-group mb-0">
-                                                <a class="btn btn-success link_agregar" href="javascript:;">Agregar Concesionario</a>
+                                                <a class="btn btn-success link_agregar" href="javascript:;">Agregar Agencia</a>
                                             </div>
                                         <?php } ?>
                                     </div>
