@@ -994,6 +994,11 @@
         <script src="personalizado/js/scripts.js"></script>
 
         <script>
+            var cargaMarcas_ok = false;
+            var cargaAnos_ok = false;
+            var cargaTipos_ok = false;
+            var cargaConcesionarios_ok = false;
+
             var semillaOrdenamiento = Math.floor(Math.random() * 1000);
 
 
@@ -1035,10 +1040,12 @@
                 var descuentoEspecial = obtenParametroDeUrl("descuentoEspecial");
 
                 if (descuentoEspecial && descuentoEspecial == 1) {
-                    $("#campo_descuentoEspecial").prop("checked", true).change();
+                    //$("#campo_descuentoEspecial").prop("checked", true).change();
+                    $("#campo_descuentoEspecial").prop("checked", true);
                 }
 
                 var palabraClave = (obtenParametroDeUrl("palabraClave") ? obtenParametroDeUrl("palabraClave") : "");
+
                 if (palabraClave != "") {
                     $("#campo_palabraClave").val(palabraClave);
                 }
@@ -1046,10 +1053,15 @@
                 cargaMarcas();
                 cargaAnos();
                 cargaTipos();
-                cargaVehiculos();
                 cargaConcesionarios();
 
-                
+                var intervalo = setInterval(function() {
+                    if (cargaMarcas_ok && cargaAnos_ok && cargaTipos_ok && cargaConcesionarios_ok) {
+                        cargaVehiculos();
+
+                        clearInterval(intervalo);
+                    }
+                }, 500);
             });
 
 
@@ -1080,7 +1092,8 @@
                     });
 
                     $(".filtroModelo").hide();
-                    cargaVehiculos();
+
+                    cargaMarcas_ok = true;
                 });
             }
 
@@ -1105,6 +1118,8 @@
 
                     $('#campo_anoMinimo').niceSelect('update'); 
                     $('#campo_anoMaximo').niceSelect('update'); 
+
+                    cargaAnos_ok = true;
                 });
             }
 
@@ -1118,26 +1133,20 @@
                 }).done(function (resultado, textStatus, jqXHR) {
                     var recargaVehiculos = 0;
 
-                    //var tiposVehiculo = parametroUrl.split(",");
                     var tiposVehiculo = (obtenParametroDeUrl("tipo") ? obtenParametroDeUrl("tipo") : "");
 
                     $(resultado).find("tipo").each(function (index) {
                         var nombre = $(this).find("nombre").text();
                         var cantidad = $(this).find("cantidad").text();
 
-                        //if(tiposVehiculo.includes(nombre)) {
                         if (tiposVehiculo.indexOf(nombre) > -1) {
                             $("#contenedor_tipos").append("<li><label class='containerss'><input class='tipoVehiculo' checked data-tipo='" + nombre + "' type='checkbox'><span class='checkmark'></span><span class='text'>" + nombre + " </span><span class='qty'>(" + cantidad + ")</span></label></li>");
-
-                            recargaVehiculos = 1;
                         } else {
                             $("#contenedor_tipos").append("<li><label class='containerss'><input class='tipoVehiculo' data-tipo='" + nombre + "' type='checkbox'><span class='checkmark'></span><span class='text'>" + nombre + " </span><span class='qty'>(" + cantidad + ")</span></label></li>");
                         }
                     });
 
-                    if (recargaVehiculos == 1) {
-                        cargaVehiculos();
-                    }
+                    cargaTipos_ok = true;
                 });
             }
 
@@ -1149,8 +1158,6 @@
                     url: rutaBackend + "ajax/cargaFiltroConcesionarios.php",
                     type: "post"
                 }).done(function (resultado, textStatus, jqXHR) {
-                    var recargaVehiculos = 0;
-
                     var concesionarioVehiculo = (obtenParametroDeUrl("concesionario") ? obtenParametroDeUrl("concesionario") : "");
 
                     $(resultado).find("concesionario").each(function (index) {
@@ -1158,16 +1165,12 @@
 
                         if (concesionarioVehiculo.indexOf(nombre) > -1) {
                             $("#contenedor_concesionarios").append("<li><label class='containerss'><input class='concesionarioVehiculo' checked data-concesionario='" + nombre + "' type='checkbox'><span class='checkmark'></span><span class='text'>" + nombre + " </span></label></li>");
-
-                            recargaVehiculos = 1;
                         } else {
                             $("#contenedor_concesionarios").append("<li><label class='containerss'><input class='concesionarioVehiculo' data-concesionario='" + nombre + "' type='checkbox'><span class='checkmark'></span><span class='text'>" + nombre + " </span></label></li>");
                         }
                     });
 
-                    if (recargaVehiculos == 1) {
-                        cargaVehiculos();
-                    }
+                    cargaConcesionarios_ok = true;
                 });
             }
 
@@ -1317,6 +1320,7 @@
                 var criterioOrdenamiento =  $("#campo_criterioOrdenamiento").val();
                 var pagina = $("#campo_pagina").val();
 
+console.log("tipo = " + tipo);
                 $.ajax({
                     url: rutaBackend + "ajax/cargaVehiculos.php",
                     type: "post",
@@ -1339,6 +1343,7 @@
                         concesionario: concesionario
                     }
                 }).done(function (resultado, textStatus, jqXHR) {
+console.log(resultado);
                     var vehiculosEncontrados = 0;
                     var contenido = "";
 
