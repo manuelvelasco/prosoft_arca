@@ -1053,6 +1053,7 @@ label.errorModalAgendarCita {
     display: flex;
     height: 220px;
     justify-content: center; /* centrado vertical */
+    overflow: hidden;
 }
 
 #interfaz_inicio .category-img img {            /* Inicio > Carruseles superior e inferior */
@@ -1071,6 +1072,7 @@ label.errorModalAgendarCita {
     display: flex;
     height: 220px;
     justify-content: center; /* centrado vertical */
+    overflow: hidden;
 }
 
 #interfaz_concesionario .category-img img {     /* Detalle de concesionario > Carrusel inferior */
@@ -1089,6 +1091,7 @@ label.errorModalAgendarCita {
     display: flex;
     height: 220px;
     justify-content: center; /* centrado vertical */
+    overflow: hidden;
 }
 
 #interfaz_vehiculo .category-img img {          /* Detalle de vehiculo > Carrusel inferior */
@@ -1107,6 +1110,7 @@ label.errorModalAgendarCita {
     display: flex;
     height: 130px;
     justify-content: center; /* centrado vertical */
+    overflow: hidden;
 }
 
 #interfaz_vehiculo .product-img img {           /* Detalle de vehiculo > Barra derecha */
@@ -1125,6 +1129,7 @@ label.errorModalAgendarCita {
     display: flex;
     height: 330px;
     justify-content: center; /* centrado vertical */
+    overflow: hidden;
 }
 
 #interfaz_vehiculos .product-img img {          /* Listado de vehiculos > Mosaico de resultados */
