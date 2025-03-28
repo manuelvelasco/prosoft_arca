@@ -315,26 +315,26 @@
 
                  if (!estaVacio($intelimotor_apiKey) && !estaVacio($intelimotor_apiSecret)) {
 
-                    // Despublica todos los vehiculos del concesionario
+                     // Despublica todos los vehiculos del concesionario
 
-                    consulta($conexion, "UPDATE vehiculo SET publicado = 0 WHERE idConcesionario = " . $idConcesionario);
+                     consulta($conexion, "UPDATE vehiculo SET publicado = 0 WHERE idConcesionario = " . $idConcesionario);
 
-                    // Invoca web service InteliMotor
+                     // Invoca web service InteliMotor
 
-                    $canal = curl_init();
+                     $canal = curl_init();
 
-                    //curl_setopt($canal, CURLOPT_URL, "https://app.intelimotor.com/api/inventory-units?apiKey=89e42108c0292fdab98c7725d557ac5ac7b031c7dbfd5e4a8fc957f6c576e40a&apiSecret=df7d14926120badf19783f88b4b453cb37b681fbcbc8717a1df0f1c6e9b5aeb5&pageNumber=" . $pagina . "&pageSize=" . $tamanoPagina);
-                    //curl_setopt($canal, CURLOPT_URL, "https://app.intelimotor.com/api/inventory-units?apiKey=89e42108c0292fdab98c7725d557ac5ac7b031c7dbfd5e4a8fc957f6c576e40a&apiSecret=df7d14926120badf19783f88b4b453cb37b681fbcbc8717a1df0f1c6e9b5aeb5&getAll=true");
-                    curl_setopt($canal, CURLOPT_URL, "https://app.intelimotor.com/api/inventory-units?apiKey=" . $intelimotor_apiKey . "&apiSecret=" . $intelimotor_apiSecret . "&getAll=true");
-                    curl_setopt($canal, CURLOPT_RETURNTRANSFER, TRUE);
-                    curl_setopt($canal, CURLOPT_HEADER, FALSE);
-                    //curl_setopt($canal, CURLOPT_POST, TRUE);
-                    //curl_setopt($canal, CURLOPT_POSTFIELDS, $json);
-                    curl_setopt($canal, CURLOPT_HTTPHEADER, array("Content-Type: application/json"));
+                     //curl_setopt($canal, CURLOPT_URL, "https://app.intelimotor.com/api/inventory-units?apiKey=89e42108c0292fdab98c7725d557ac5ac7b031c7dbfd5e4a8fc957f6c576e40a&apiSecret=df7d14926120badf19783f88b4b453cb37b681fbcbc8717a1df0f1c6e9b5aeb5&pageNumber=" . $pagina . "&pageSize=" . $tamanoPagina);
+                     //curl_setopt($canal, CURLOPT_URL, "https://app.intelimotor.com/api/inventory-units?apiKey=89e42108c0292fdab98c7725d557ac5ac7b031c7dbfd5e4a8fc957f6c576e40a&apiSecret=df7d14926120badf19783f88b4b453cb37b681fbcbc8717a1df0f1c6e9b5aeb5&getAll=true");
+                     curl_setopt($canal, CURLOPT_URL, "https://app.intelimotor.com/api/inventory-units?apiKey=" . $intelimotor_apiKey . "&apiSecret=" . $intelimotor_apiSecret . "&getAll=true");
+                     curl_setopt($canal, CURLOPT_RETURNTRANSFER, TRUE);
+                     curl_setopt($canal, CURLOPT_HEADER, FALSE);
+                     //curl_setopt($canal, CURLOPT_POST, TRUE);
+                     //curl_setopt($canal, CURLOPT_POSTFIELDS, $json);
+                     curl_setopt($canal, CURLOPT_HTTPHEADER, array("Content-Type: application/json"));
 
-                    $respuesta = curl_exec($canal);
+                     $respuesta = curl_exec($canal);
 
-                    curl_close($canal);
+                     curl_close($canal);
 
                      $respuesta = json_decode($respuesta);
 
