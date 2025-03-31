@@ -481,7 +481,7 @@
                 if (estaVacio($precio)) {
                     $mensaje .= "* Precio<br />";
                 }
-
+/*
                 if (estaVacio($enganche)) {
                     $mensaje .= "* Enganche<br />";
                 }
@@ -489,7 +489,7 @@
                 if (estaVacio($descripcion)) {
                     $mensaje .= "* Descripción<br />";
                 }
-
+*/
                 if (!estaVacio($mensaje)) {
                     $mensaje = "Proporcione los siguientes datos:<br /><br />" . $mensaje;
                 } else {
@@ -608,7 +608,7 @@
                                 . ", " . $ano
                                 . ", '" . $color ."'"
                                 . ", " . $precio
-                                . ", " . $enganche
+                                . ", " . (estaVacio($enganche) ? "NULL" : $enganche)
                                 . ", " . (estaVacio($litros) ? "NULL" : $litros)
                                 . ", " . (estaVacio($combustible) ? "NULL" : "'" . $combustible . "'")
                                 . ", " . (estaVacio($transmision) ? "NULL" : "'" . $transmision . "'")
@@ -624,7 +624,7 @@
                                 . ", " . (estaVacio($impuestosCorriente) ? "NULL" : $impuestosCorriente)
                                 . ", " . (estaVacio($mantenimientosCorriente) ? "NULL" : $mantenimientosCorriente)
                                 . ", " . (estaVacio($manosLibres) ? "NULL" : $manosLibres)
-                                . ", '" . mysqli_real_escape_string($conexion, $descripcion) . "'"
+                                . ", " . (estaVacio($descripcion) ? "NULL" : "'" . mysqli_real_escape_string($conexion, $descripcion) . "'")
                                 . ", " . (estaVacio($puntosDestacados) ? "NULL" : "'" . mysqli_real_escape_string($conexion, $puntosDestacados) . "'")
                                 . ", " . (estaVacio($video_titulo) ? "NULL" : "'" . $video_titulo . "'")
                                 . ", " . (estaVacio($video_resumen) ? "NULL" : "'" . $video_resumen . "'")
@@ -892,7 +892,7 @@
                                 . ", ano = " . $ano
                                 . ", color = '" . $color ."'"
                                 . ", precio = " . $precio
-                                . ", enganche = " . $enganche
+                                . ", enganche = " . (estaVacio($enganche) ? "NULL" : $enganche)
                                 . ", litros = " . (estaVacio($litros) ? "NULL" : $litros)
                                 . ", combustible = " . (estaVacio($combustible) ? "NULL" : "'" . $combustible . "'")
                                 . ", transmision = " . (estaVacio($transmision) ? "NULL" : "'" . $transmision . "'")
@@ -908,7 +908,7 @@
                                 . ", impuestosCorriente = " . (estaVacio($impuestosCorriente) ? "NULL" : $impuestosCorriente)
                                 . ", mantenimientosCorriente = " . (estaVacio($mantenimientosCorriente) ? "NULL" : $mantenimientosCorriente)
                                 . ", manosLibres = " . (estaVacio($manosLibres) ? "NULL" : $manosLibres)
-                                . ", descripcion = '" . $descripcion . "'"
+                                . ", descripcion = " . (estaVacio($descripcion) ? "NULL" : "'" . mysqli_real_escape_string($conexion, $descripcion) . "'")
                                 . ", puntosDestacados = " . (estaVacio($puntosDestacados) ? "NULL" : "'" . mysqli_real_escape_string($conexion, $puntosDestacados) . "'")
                                 . ", video_titulo = " . (estaVacio($video_titulo) ? "NULL" : "'" . $video_titulo . "'")
                                 . ", video_resumen = " . (estaVacio($video_resumen) ? "NULL" : "'" . $video_resumen . "'")
