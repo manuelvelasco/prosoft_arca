@@ -5,5 +5,5 @@
     //include("/var/www/html/socialware/arca/cms/socialware/php/comunes/funciones.php");
     include("/var/www/html/arca/cms/socialware/php/comunes/funciones.php");
 
-    sincronizaInventarioInteliMotor(94);
+    sincronizaInventarioInteliMotor();
 ?>
