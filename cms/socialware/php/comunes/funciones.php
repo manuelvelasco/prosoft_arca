@@ -535,7 +535,7 @@ error_log("\nINSERT INTO vehiculo (
                                         tieneVidriosElectricos
                                     ) VALUES (
                                         '" . $id . "',
-                                        " . $vehiculo->businessUnit->id . "',
+                                        '" . $vehiculo->businessUnit->id . "',
                                         " . ($vehiculo->imported == true ? "1" : "0") . ",
                                         " . $vehiculo->kms . ",
                                         " . $vehiculo->listPrice . ",
@@ -857,7 +857,7 @@ error_log("\nINSERT INTO vehiculo (
                                         tieneVidriosElectricos
                                     ) VALUES (
                                         '" . $id . "',
-                                        " . $vehiculo->businessUnit->id . "',
+                                        '" . $vehiculo->businessUnit->id . "',
                                         " . ($vehiculo->imported == true ? "1" : "0") . ",
                                         " . $vehiculo->kms . ",
                                         " . $vehiculo->listPrice . ",
