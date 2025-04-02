@@ -292,12 +292,13 @@
     function sincronizaInventarioInteliMotor($idConcesionario = null) {
         try {
 //$rutaLog = "/Users/mvelasco/Socialware/error.log";
-//error_log("\n\n" . date("Y-m-d H:i:s"), 3, $rutaLog);
+$rutaLog = "/var/www/html/error.log";
+error_log("\n\n" . date("Y-m-d H:i:s"), 3, $rutaLog);
 
             // Obtiene conexion a base de datos
 
             $conexion = obtenConexion();
-//error_log("\nA", 3, $rutaLog);
+error_log("\nA", 3, $rutaLog);
 
             // Inicializa variables
 
@@ -306,18 +307,18 @@
             // Se obtiene informacion de concesionario
 
             if (!estaVacio($idConcesionario)) {
-//error_log("\nB", 3, $rutaLog);
+error_log("\nB", 3, $rutaLog);
                //$concesionario_BD = consulta($conexion, "SELECT * FROM concesionario WHERE id = " . $idConcesionario);
                $concesionario_BD = consulta($conexion, "SELECT c.*, (CASE WHEN (SELECT COUNT(*) FROM concesionario c2 WHERE c2.intelimotor_apiKey = c.intelimotor_apiKey) > 1 THEN 1 ELSE 0 END) AS intelimotor_llaveCompartida FROM concesionario c WHERE c.id = " . $idConcesionario);
             } else {
-//error_log("\nC", 3, $rutaLog);
+error_log("\nC", 3, $rutaLog);
                //$concesionario_BD = consulta($conexion, "SELECT * FROM concesionario");
                $concesionario_BD = consulta($conexion, "SELECT c.*, (CASE WHEN (SELECT COUNT(*) FROM concesionario c2 WHERE c2.intelimotor_apiKey = c.intelimotor_apiKey) > 1 THEN 1 ELSE 0 END) AS intelimotor_llaveCompartida FROM concesionario c;");
                //$concesionario_BD = consulta($conexion, "SELECT c.*, (SELECT COUNT(*) FROM concesionario c2 WHERE c2.id != c.id AND c2.intelimotor_businessUnit_id = c.intelimotor_businessUnit_id) AS intelimotor_llaveCompartida FROM concesionario c");
             }
 
             while ($concesionario = obtenResultado($concesionario_BD)) {
-//error_log("\nD", 3, $rutaLog);
+error_log("\nD", 3, $rutaLog);
                 $idConcesionario = $concesionario["id"];
                 $intelimotor_apiKey = $concesionario["intelimotor_apiKey"];
                 $intelimotor_apiSecret = $concesionario["intelimotor_apiSecret"];
@@ -326,14 +327,14 @@
 
                 //if (!estaVacio($intelimotor_apiKey) && !estaVacio($intelimotor_apiSecret)) {
                 if (!estaVacio($intelimotor_apiKey) && !estaVacio($intelimotor_apiSecret) && ($intelimotor_llaveCompartida == 0 || !estaVacio($intelimotor_businessUnit_id))) {
-//error_log("\nE", 3, $rutaLog);
+error_log("\nE", 3, $rutaLog);
 
                     // Despublica todos los vehiculos del concesionario
 
                     consulta($conexion, "UPDATE vehiculo SET publicado = 0 WHERE idConcesionario = " . $idConcesionario);
-//error_log("\nE 1", 3, $rutaLog);
-//error_log("\nintelimotor_apiKey = " . $intelimotor_apiKey, 3, $rutaLog);
-//error_log("\nintelimotor_apiSecret = " . $intelimotor_apiSecret, 3, $rutaLog);
+error_log("\nE 1", 3, $rutaLog);
+error_log("\nintelimotor_apiKey = " . $intelimotor_apiKey, 3, $rutaLog);
+error_log("\nintelimotor_apiSecret = " . $intelimotor_apiSecret, 3, $rutaLog);
 
                     // Invoca web service InteliMotor
 
@@ -347,10 +348,10 @@
                     //curl_setopt($canal, CURLOPT_POST, TRUE);
                     //curl_setopt($canal, CURLOPT_POSTFIELDS, $json);
                     curl_setopt($canal, CURLOPT_HTTPHEADER, array("Content-Type: application/json"));
-//error_log("\nE 2", 3, $rutaLog);
+error_log("\nE 2", 3, $rutaLog);
 
                     $respuesta = curl_exec($canal);
-//error_log("\nE 3", 3, $rutaLog);
+error_log("\nE 3", 3, $rutaLog);
 
                     curl_close($canal);
 
@@ -358,22 +359,21 @@
 
                     //foreach ($respuesta->data as $vehiculo) {
                     foreach ($respuesta as $vehiculo) {
-//error_log("\nF", 3, $rutaLog);
+error_log("\nF", 3, $rutaLog);
                         $id = $vehiculo->id;
 
-//error_log("\nid = " . $id, 3, $rutaLog);
-//error_log("\nintelimotor_llaveCompartida = " . $intelimotor_llaveCompartida, 3, $rutaLog);
-//error_log("\nintelimotor_businessUnit_id = " . $intelimotor_businessUnit_id, 3, $rutaLog);
-//error_log("\nvehiculo-businessUnit-id = " . $vehiculo->businessUnit->id, 3, $rutaLog);
+error_log("\nid = " . $id, 3, $rutaLog);
+error_log("\nintelimotor_llaveCompartida = " . $intelimotor_llaveCompartida, 3, $rutaLog);
+error_log("\nintelimotor_businessUnit_id = " . $intelimotor_businessUnit_id, 3, $rutaLog);
+error_log("\nvehiculo-businessUnit-id = " . $vehiculo->businessUnit->id, 3, $rutaLog);
                         if ($intelimotor_llaveCompartida == 0 || $intelimotor_businessUnit_id == $vehiculo->businessUnit->id) {
-//error_log("\nG", 3, $rutaLog);
+error_log("\nG", 3, $rutaLog);
                             $vehiculo_BD = consulta($conexion, "SELECT id FROM vehiculo WHERE intelimotor_id = '" . $id . "'");
 
                             if (cuentaResultados($vehiculo_BD) == 0) {
-//error_log("\nH", 3, $rutaLog);
+error_log("\nH", 3, $rutaLog);
 
 
-/*
 error_log("\nINSERT INTO vehiculo (
                                         intelimotor_id,
                                         intelimotor_businessUnit_id,
@@ -693,7 +693,7 @@ error_log("\nINSERT INTO vehiculo (
                                         " . ($vehiculo->listingInfo->hasUsb == true ? "1" : "0") . ",
                                         " . ($vehiculo->listingInfo->hasPowerWindows == true ? "1" : "0") . "
                                      )", 3, $rutaLog);
-*/
+
                                 // Es insercion
 
                                 consulta($conexion, "INSERT INTO vehiculo (
@@ -1016,7 +1016,7 @@ error_log("\nINSERT INTO vehiculo (
                                         " . ($vehiculo->listingInfo->hasPowerWindows == true ? "1" : "0") . "
                                      )");
                             } else {
-//error_log("\nI", 3, $rutaLog);
+error_log("\nI", 3, $rutaLog);
 
                                 // Es actualizacion
 
@@ -1181,7 +1181,7 @@ error_log("\nINSERT INTO vehiculo (
                                    WHERE
                                         intelimotor_id = '" . $id . "'");
                             }
-//error_log("\nJ", 3, $rutaLog);
+error_log("\nJ", 3, $rutaLog);
 
                             // Carga imagenes
 
@@ -1200,13 +1200,13 @@ error_log("\nINSERT INTO vehiculo (
                     }
                 }
             }
-//error_log("\nK", 3, $rutaLog);
+error_log("\nK", 3, $rutaLog);
 
             // Cierra la conexion con base de datos y libera recursos
 
             liberaConexion($conexion);
         } catch (Exception $ex) {
-//error_log("\nException = " . $ex->getMessage(), 3, $rutaLog);
+error_log("\nException = " . $ex->getMessage(), 3, $rutaLog);
         }
     }
 
