@@ -162,7 +162,7 @@
                     $ordenamiento = " ORDER BY v.ano DESC";
                     break;
                 case 7:
-                    $ordenamiento = " ORDER BY cuantos DESC";
+                    $ordenamiento = " ORDER BY cuantos DESC, RAND()";
                     break;
 
 // TEMPORAL
