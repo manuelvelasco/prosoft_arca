@@ -1,8 +1,8 @@
 <?php
     header("Access-Control-Allow-Origin: *");
 
-    include("/Users/mvelasco/Socialware/Proyectos/Web/arca/backend/comunes/funciones.php");
-    //include("/var/www/html/arca/backend/comunes/funciones.php");
+    //include("/Users/mvelasco/Socialware/Proyectos/Web/arca/backend/comunes/funciones.php");
+    include("/var/www/html/arca/backend/comunes/funciones.php");
     
     // Inicializa variable de salida
 
@@ -38,9 +38,9 @@
                     . "Medio de contacto: " . $cita["medioSolicitado"] . "<br /><br />"
                     . "Si deseas reprogramar o cancelar tu cita marca al número ". $telefonoReprogramacion . ".<br /><br />";
 
-            enviaCorreo($cita["correoElectronico"], "Albacar | Solicitud de cita", $mensaje);
+            enviaCorreo($cita["correoElectronico"], "ARCA | Solicitud de cita", $mensaje);
 
-            $mensaje = "Albacar.  En breve dara inicio nuestra cita, te esperamos con gusto.  Reprograma o cancela marcando al " . $telefonoReprogramacion . ".";
+            $mensaje = "ARCA.  En breve dara inicio nuestra cita, te esperamos con gusto.  Reprograma o cancela marcando al " . $telefonoReprogramacion . ".";
 
             enviaSms($cita["telefono"], $mensaje);
         }

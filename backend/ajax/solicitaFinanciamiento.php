@@ -125,7 +125,7 @@
                             . $descripcion . "<br />";
                 }
                 
-                enviaCorreo($parametro["valor"], "Albacar | Solicitud de financiamiento", $mensaje);
+                enviaCorreo($parametro["valor"], "ARCA | Solicitud de financiamiento", $mensaje);
             }
             */
             //TODO Borrar de aqui
@@ -149,7 +149,7 @@
             }
 
             $destinatarios = $correoElectronico;
-            enviaCorreo($destinatarios, "Albacar | Solicitud de financiamiento", $mensaje);
+            enviaCorreo($destinatarios, "ARCA | Solicitud de financiamiento", $mensaje);
             //TODO a aca
             
 
@@ -159,19 +159,12 @@
 
             while ($parametro = obtenResultado($parametros_BD)) {
                 if (!estaVacio($parametro["valor"])) {
-                    $mensaje = "Albacar.  Se ha registrado una solicitud de financiamiento, accede al administrador de contenido para ver los detalles.";
+                    $mensaje = "ARCA.  Se ha registrado una solicitud de financiamiento, accede al administrador de contenido para ver los detalles.";
 
                     enviaSms($parametro["valor"], $mensaje);
                 }
             }
             */
-
-            //TODO Borrar de aqui
-            $mensaje = "Albacar.  Se ha registrado una solicitud de financiamiento, accede al administrador de contenido para ver los detalles.";
-            enviaSms("8115777042", $mensaje);
-            $mensaje = "Albacar.  Hemos recibido su solicitud, lo contactaremos en breve.";
-            enviaSms($telefono, $mensaje);
-            //TODO a aca
 
             // Envia notificacion a gerente
 
@@ -194,11 +187,11 @@
                             . "Monto del crédito: $" . formatoDecimal($montoCredito, 2) . "<br />"
                             . "Monto máximo de crédito: $" . formatoDecimal($montoMaximoCredito, 2) . "<br />";
 
-                    enviaCorreo($sucursal["correoElectronicoLider"], "Albacar | Solicitud de financiamiento", $mensaje);
+                    enviaCorreo($sucursal["correoElectronicoLider"], "ARCA | Solicitud de financiamiento", $mensaje);
                 }
 
                 if (!estaVacio($sucursal["whatsapp"])) {
-                    $mensaje = "Albacar.  Se ha registrado una solicitud de financiamiento, accede al administrador de contenido para ver los detalles.";
+                    $mensaje = "ARCA.  Se ha registrado una solicitud de financiamiento, accede al administrador de contenido para ver los detalles.";
 
                     enviaSms($sucursal["whatsapp"], $mensaje);
                 }

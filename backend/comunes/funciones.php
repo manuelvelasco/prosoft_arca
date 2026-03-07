@@ -8,8 +8,8 @@
 
 
     //require "/Users/mvelasco/Socialware/Proyectos/Web/arca/backend/plugins/mailjet/vendor/autoload.php";
-    //require "/var/www/html/socialware/arca/backend/plugins/mailjet/vendor/autoload.php";
-    require "/var/www/html/arca/backend/plugins/mailjet/vendor/autoload.php";
+    require "/var/www/html/socialware/arca/backend/plugins/mailjet/vendor/autoload.php";
+    //require "/var/www/html/arca/backend/plugins/mailjet/vendor/autoload.php";
 
     use Mailjet\Resources;
 
@@ -436,7 +436,8 @@
 
             $fechaActual = date("Y-m-d_H:i:s");
 
-            $mailjet = new Mailjet\Client('11fdc29f37135ee7ebb728a4db6b8936', 'c4e570820d0d6f54529c4c8989943698', true, ['version' => 'v3.1']);
+            //$mailjet = new Mailjet\Client('11fdc29f37135ee7ebb728a4db6b8936', 'c4e570820d0d6f54529c4c8989943698', true, ['version' => 'v3.1']);
+            $mailjet = new Mailjet\Client('11fdc29f37135ee7ebb728a4db6b8936', '1c1ab30b365153fe81e2a1f348239c53', true, ['version' => 'v3.1']);
 
             $archivo = null;
             $archivo_nombre = null;

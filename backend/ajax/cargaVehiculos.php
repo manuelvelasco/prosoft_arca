@@ -75,7 +75,9 @@
                     . " OR LOWER(v.combustible) LIKE '%" . strtolower($palabraClave) . "%'"
                     . " OR LOWER(v.transmision) LIKE '%" . strtolower($palabraClave) . "%'"
                     . " OR LOWER(v.puntosDestacados) LIKE '%" . strtolower($palabraClave) . "%'"
-                    . " OR LOWER(v.descripcion) LIKE '%" . strtolower($palabraClave) . "%')";
+                    . " OR LOWER(v.descripcion) LIKE '%" . strtolower($palabraClave) . "%'"
+                    . " OR LOWER(c.nombreComercial) LIKE '%" . strtolower($palabraClave) . "%'"
+                    . " OR LOWER(c.razonSocial) LIKE '%" . strtolower($palabraClave) . "%')";
         }
 
         if (!estaVacio($kilometrosMinimo) && $kilometrosMinimo >= 0) {
@@ -124,7 +126,7 @@
 
         if (!estaVacio($concesionario)) {
             $concesionario = str_replace("\\", "", $concesionario);
-            $restricciones .= " AND cc.nombreComercial IN (" . $concesionario . ")";
+            $restricciones .= " AND c.nombreComercial IN (" . $concesionario . ")";
         }
 
         if (!estaVacio($destacado) && $destacado == 1) {
@@ -162,7 +164,7 @@
                     $ordenamiento = " ORDER BY v.ano DESC";
                     break;
                 case 7:
-                    $ordenamiento = " ORDER BY cuantos DESC, RAND()";
+                    $ordenamiento = " ORDER BY v.visitas DESC, RAND()";
                     break;
 
 // TEMPORAL
@@ -190,10 +192,38 @@ $ordenamiento = " ORDER BY v.id DESC";
 
         // Consulta base de datos
         //echo "SELECT COUNT(*) AS vehiculosEncontrados FROM vehiculo WHERE publicado = 1 AND intelimotor_id IS NOT NULL " . $restricciones; die();
-        $vehiculosEncontrados = obtenResultado(consulta($conexion, "SELECT COUNT(*) AS vehiculosEncontrados FROM vehiculo v INNER JOIN concesionario cc ON v.idConcesionario = cc.id WHERE v.publicado = 1 AND cc.habilitado = 1 " . $restricciones))["vehiculosEncontrados"];
+        $vehiculosEncontrados = obtenResultado(consulta($conexion, "SELECT"
+                . " COUNT(*) AS vehiculosEncontrados"
+            . " FROM"
+                . " vehiculo v"
+                . " JOIN concesionario c ON c.id = v.idConcesionario"
+            . " WHERE"
+                . " v.publicado = 1"
+                . " AND c.habilitado = 1"
+                . $restricciones))["vehiculosEncontrados"];
 
         //$vehiculos_BD = consulta($conexion, "SELECT id, marca, modelo, ano, precio, kilometraje, transmision, combustible, imagenPrincipal FROM vehiculo WHERE publicado = 1 " . $restricciones . $ordenamiento . $limitante);
-        $vehiculos_BD = consulta($conexion, "SELECT v.*, cc.municipio, (SELECT count(*) from analitica a where a.url like concat('%vehiculo.html?id=', v.id)) as cuantos FROM vehiculo v INNER JOIN concesionario cc ON v.idConcesionario = cc.id WHERE v.publicado = 1 AND cc.habilitado = 1 " . $restricciones . $ordenamiento . $limitante);
+        //$vehiculos_BD = consulta($conexion, "SELECT v.*, c.municipio, (SELECT count(*) from analitica a where a.url like concat('%vehiculo.html?id=', v.id)) as cuantos FROM vehiculo v INNER JOIN concesionario c ON v.idConcesionario = c.id WHERE v.publicado = 1 AND c.habilitado = 1 " . $restricciones . $ordenamiento . $limitante);
+        $vehiculos_BD = consulta($conexion, "SELECT"
+                . " v.id"
+                . ", v.version"
+                . ", v.modelo"
+                . ", v.ano"
+                . ", v.precio"
+                . ", v.imagenPrincipal"
+                . ", v.destacado"
+                . ", v.certificado"
+                . ", v.descuentoEspecial"
+                . ", c.municipio"
+            . " FROM"
+                . " vehiculo v"
+                . " JOIN concesionario c ON c.id = v.idConcesionario"
+            . " WHERE"
+                . " v.publicado = 1"
+                . " AND c.habilitado = 1"
+                . $restricciones
+                . $ordenamiento
+                . $limitante);
 
         $resultado .= "<vehiculos total='" . $vehiculosEncontrados . "'>";
 

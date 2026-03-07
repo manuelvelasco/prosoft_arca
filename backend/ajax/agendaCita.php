@@ -132,7 +132,7 @@
                             . "<strong>Canal de ingreso</strong><br />"
                             . $canalIngreso;
 
-                    enviaCorreo($parametro["valor"], "Albacar | Solicitud de cita", $mensaje);
+                    enviaCorreo($parametro["valor"], "ARCA | Solicitud de cita", $mensaje);
                 }
             }
 
@@ -140,7 +140,7 @@
 
             while ($parametro = obtenResultado($parametros_BD)) {
                 if (!estaVacio($parametro["valor"])) {
-                    $mensaje = "Albacar.  Se ha registrado una cita, accede al administrador de contenido para ver los detalles.";
+                    $mensaje = "ARCA.  Se ha registrado una cita, accede al administrador de contenido para ver los detalles.";
 
                     enviaSms($parametro["valor"], $mensaje);
                 }
@@ -172,11 +172,11 @@
                             . "<strong>Canal de ingreso</strong><br />"
                             . $canalIngreso;
 
-                    enviaCorreo($sucursal["correoElectronicoLider"], "Albacar | Solicitud de cita", $mensaje);
+                    enviaCorreo($sucursal["correoElectronicoLider"], "ARCA | Solicitud de cita", $mensaje);
                 }
 
                 if (!estaVacio($sucursal["whatsapp"])) {
-                    $mensaje = "Albacar.  Se ha registrado una cita, accede al administrador de contenido para ver los detalles.";
+                    $mensaje = "ARCA.  Se ha registrado una cita, accede al administrador de contenido para ver los detalles.";
 
                     enviaSms($sucursal["whatsapp"], $mensaje);
                 }
@@ -197,9 +197,9 @@
                     . "Horario solicitado: " . $horaSolicitada . " hrs<br />"
                     . "Medio de contacto: " . $medioSolicitado;
 
-            enviaCorreo($correoElectronico, "Albacar | Solicitud de cita", $mensaje);
+            enviaCorreo($correoElectronico, "ARCA | Solicitud de cita", $mensaje);
 
-            $mensaje = "Albacar.  Hemos recibido tu solicitud de cita, en breve te contactaremos.";
+            $mensaje = "ARCA.  Hemos recibido tu solicitud de cita, en breve te contactaremos.";
 
             enviaSms($telefono, $mensaje);
 

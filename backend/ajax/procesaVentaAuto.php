@@ -150,7 +150,7 @@
                             . "Teléfono: " . $telefono . "<br /><br />"
                             . "<strong>Precio sugerido: $" . formatoDecimal($precioSugerido, 2) . "</strong><br /><br />";
 
-                    enviaCorreo($parametro["valor"], "Albacar | Intención de venta", $mensaje);
+                    enviaCorreo($parametro["valor"], "ARCA | Intención de venta", $mensaje);
                 }
             }
 

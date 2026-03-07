@@ -93,8 +93,8 @@
                         . "Correo electrónico: " . $correoElectronico . "<br />"
                         . "Mensaje: " . $mensaje;
 
-                enviaCorreo($parametro["valor"], "Albacar | Contacto", $mensaje);
-                enviaCorreo("luis@prosoft.mx", "Albacar | Contacto", $mensaje);
+                enviaCorreo($parametro["valor"], "ARCA | Contacto", $mensaje);
+                enviaCorreo("luis@prosoft.mx", "ARCA | Contacto", $mensaje);
             }
 
             $resultado .= "ok";

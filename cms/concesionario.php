@@ -66,10 +66,10 @@
             if (isset($_FILES["fachada"])) {
                 try {
                     $archivo = $_FILES["fachada"];
+
                     if ($archivo["size"] > 0) {
                         $tieneFachadaCargada = 1;
                     }
-
                 } catch (Exception $e) {
                 }
             }
@@ -229,40 +229,45 @@
                                 . ", '" . $youtube . "'"
                             . ")");
 
-                        $concesionario_BD = consulta($conexion, "SELECT * FROM concesionario ORDER BY id DESC LIMIT 1");
-                        $concesionario = obtenResultado($concesionario_BD);
+                        $concesionario_BD = consulta($conexion, "SELECT * FROM concesionario WHERE rfc = '" . $rfc . "'");
 
-                        $id = $concesionario["id"];
-                        $habilitado = $concesionario["habilitado"];
-                        $intelimotor_apiKey = $concesionario["intelimotor_apiKey"];
-                        $intelimotor_apiSecret = $concesionario["intelimotor_apiSecret"];
-                        $razonSocial = $concesionario["razonSocial"];
-                        $rfc = $concesionario["rfc"];
-                        $nombreComercial = $concesionario["nombreComercial"];
-                        $resumen = $concesionario["resumen"];
-                        $descripcion = $concesionario["descripcion"];
-                        $calle = $concesionario["calle"];
-                        $numeroExterior = $concesionario["numeroExterior"];
-                        $numeroInterior = $concesionario["numeroInterior"];
-                        $colonia = $concesionario["colonia"];
-                        $municipio = $concesionario["municipio"];
-                        $referenciasDomicilio = $concesionario["referenciasDomicilio"];
-                        $horario = $concesionario["horario"];
-                        $sitioWeb = $concesionario["sitioWeb"];
-                        $facebook = $concesionario["facebook"];
-                        $telefono = $concesionario["telefono"];
-                        $correoElectronico = $concesionario["correoElectronico"];
-                        $whatsapp = $concesionario["whatsapp"];
-                        $logotipo = $concesionario["logotipo"];
-                        $fachada = $concesionario["fachada"];
-                        $instagram = $concesionario["instagram"];
-                        $tiktok = $concesionario["tiktok"];
-                        $youtube = $concesionario["youtube"];
+                        if (cuentaResultados($concesionario_BD) == 0) {
+                            $mensaje = "No hemos podido registrar al concesionario, por favor revíse su información e intente de nuevo.";
+                        } else {
 
+                            $concesionario = obtenResultado($concesionario_BD);
 
-                        $mensaje = "ok - La agencia ha sido registrada.";
+                            $id = $concesionario["id"];
+                            $habilitado = $concesionario["habilitado"];
+                            $intelimotor_apiKey = $concesionario["intelimotor_apiKey"];
+                            $intelimotor_apiSecret = $concesionario["intelimotor_apiSecret"];
+                            $razonSocial = $concesionario["razonSocial"];
+                            $rfc = $concesionario["rfc"];
+                            $nombreComercial = $concesionario["nombreComercial"];
+                            $resumen = $concesionario["resumen"];
+                            $descripcion = $concesionario["descripcion"];
+                            $calle = $concesionario["calle"];
+                            $numeroExterior = $concesionario["numeroExterior"];
+                            $numeroInterior = $concesionario["numeroInterior"];
+                            $colonia = $concesionario["colonia"];
+                            $municipio = $concesionario["municipio"];
+                            $referenciasDomicilio = $concesionario["referenciasDomicilio"];
+                            $horario = $concesionario["horario"];
+                            $sitioWeb = $concesionario["sitioWeb"];
+                            $facebook = $concesionario["facebook"];
+                            $telefono = $concesionario["telefono"];
+                            $correoElectronico = $concesionario["correoElectronico"];
+                            $whatsapp = $concesionario["whatsapp"];
+                            $logotipo = $concesionario["logotipo"];
+                            $fachada = $concesionario["fachada"];
+                            $instagram = $concesionario["instagram"];
+                            $tiktok = $concesionario["tiktok"];
+                            $youtube = $concesionario["youtube"];
 
-                        registraEvento("CMS : Alta de concesionario | id = " . $id);
+                            $mensaje = "ok - La agencia ha sido registrada.";
+
+                            registraEvento("CMS : Alta de concesionario | id = " . $id);
+                        }
                     } else {
                         
                         // Es actualizacion
@@ -328,86 +333,77 @@
                         registraEvento("CMS : Actualización de concesionario | id = " . $id);
                     }
 
-                    if (!file_exists($constante_rutaConcesionarios  . $id)) {
-                        try {
-                            mkdir($constante_rutaConcesionarios  . $id, 0755, true);
-                        } catch (Exception $ex) {
-                        }
-                    }
-                    
+                    if (!estaVacio($id)) {
 
-                    // Carga logotipo
+                        // Carga logotipo
 
-                    if (isset($_FILES["logotipo"])) {
-                        try {
-                            $archivo = $_FILES["logotipo"];
+                        if (isset($_FILES["logotipo"])) {
+                            try {
+                                $archivo = $_FILES["logotipo"];
 
-                            if ($archivo["size"] > 0) {
-                                $nombreEstandarizado = $id . "_logotipo_" . date("YmdHis") . "." . pathinfo($archivo["name"], PATHINFO_EXTENSION);
-                                $archivoDestino = $constante_rutaConcesionarios . "/" . $id . "/" . $nombreEstandarizado;
-
-                                if (!file_exists($constante_rutaConcesionarios . "/" . $id)) {
-                                    mkdir($constante_rutaConcesionarios . "/" . $id, 0755, true);
-                                }
-
-                                move_uploaded_file($archivo["tmp_name"], $archivoDestino);
-
-                                consulta($conexion, "UPDATE concesionario SET logotipo = " . (estaVacio($nombreEstandarizado) ? "NULL" : "'" . $nombreEstandarizado . "'") . " WHERE id = " . $id);
-                                $logotipo = $nombreEstandarizado;
-
-                                //
-                            }
-                        } catch (Exception $e) {
-                        }
-                    }
-
-                    // Carga fachada
-
-                    if (isset($_FILES["fachada"])) {
-                        try {
-                            $archivo = $_FILES["fachada"];
-
-                            if ($archivo["size"] > 0) {
-                                $nombreEstandarizado = $id . "_fachada_" . date("YmdHis") . "." . pathinfo($archivo["name"], PATHINFO_EXTENSION);
-                                $archivoDestino = $constante_rutaConcesionarios . "/" . $id . "/" . $nombreEstandarizado;
-
-                                if (!file_exists($constante_rutaConcesionarios . "/" . $id)) {
-                                    mkdir($constante_rutaConcesionarios . "/" . $id, 0755, true);
-                                }
-
-                                move_uploaded_file($archivo["tmp_name"], $archivoDestino);
-
-                                consulta($conexion, "UPDATE concesionario SET fachada = " . (estaVacio($nombreEstandarizado) ? "NULL" : "'" . $nombreEstandarizado . "'") . " WHERE id = " . $id);
-                                $fachada = $nombreEstandarizado;
-
-                                //
-                            }
-                        } catch (Exception $e) {
-                        }
-                    }
-
-                    // Carga imagen de galeria
-
-                    if (isset($_FILES["imagenGaleria"])) {
-                        try {
-                            //$archivo = $_FILES["imagenGaleria"];
-                            $archivos = reArrayFiles($_FILES["imagenGaleria"]);
-
-                            foreach ($archivos as $archivo) {
                                 if ($archivo["size"] > 0) {
-                                    $nombreEstandarizado = $id . "_galeria_" . date("YmdHis") . "_" . rand(100, 999) . "." . pathinfo($archivo["name"], PATHINFO_EXTENSION);
-                                    $archivoDestino = $constante_rutaConcesionarios . "/" . $id . "/galeria/" . $nombreEstandarizado;
+                                    $nombreEstandarizado = $id . "_logotipo_" . date("YmdHis") . "." . pathinfo($archivo["name"], PATHINFO_EXTENSION);
+                                    $archivoDestino = $constante_rutaConcesionarios . "/" . $id . "/" . $nombreEstandarizado;
 
-                                    if (!file_exists($constante_rutaConcesionarios . "/" . $id . "/galeria")) {
-                                        mkdir($constante_rutaConcesionarios . "/" . $id . "/galeria", 0755, true);
+                                    if (!file_exists($constante_rutaConcesionarios . "/" . $id)) {
+                                        mkdir($constante_rutaConcesionarios . "/" . $id, 0755, true);
                                     }
 
                                     move_uploaded_file($archivo["tmp_name"], $archivoDestino);
 
-                                    //$pdf->Cell( 40, 40, $pdf->Image($archivoDestino, $pdf->GetX(), $pdf->GetY(), 33.78), 0, 0, 'L', false );
+                                    consulta($conexion, "UPDATE concesionario SET logotipo = " . (estaVacio($nombreEstandarizado) ? "NULL" : "'" . $nombreEstandarizado . "'") . " WHERE id = " . $id);
+
+                                    $logotipo = $nombreEstandarizado;
                                 }
+                            } catch (Exception $e) {
                             }
-                        } catch (Exception $e) {
+                        }
+
+                        // Carga fachada
+
+                        if (isset($_FILES["fachada"])) {
+                            try {
+                                $archivo = $_FILES["fachada"];
+
+                                if ($archivo["size"] > 0) {
+                                    $nombreEstandarizado = $id . "_fachada_" . date("YmdHis") . "." . pathinfo($archivo["name"], PATHINFO_EXTENSION);
+                                    $archivoDestino = $constante_rutaConcesionarios . "/" . $id . "/" . $nombreEstandarizado;
+
+                                    if (!file_exists($constante_rutaConcesionarios . "/" . $id)) {
+                                        mkdir($constante_rutaConcesionarios . "/" . $id, 0755, true);
+                                    }
+
+                                    move_uploaded_file($archivo["tmp_name"], $archivoDestino);
+
+                                    consulta($conexion, "UPDATE concesionario SET fachada = " . (estaVacio($nombreEstandarizado) ? "NULL" : "'" . $nombreEstandarizado . "'") . " WHERE id = " . $id);
+
+                                    $fachada = $nombreEstandarizado;
+                                }
+                            } catch (Exception $e) {
+                            }
+                        }
+
+                        // Carga imagen de galeria
+
+                        if (isset($_FILES["imagenGaleria"])) {
+                            try {
+                                //$archivo = $_FILES["imagenGaleria"];
+                                $archivos = reArrayFiles($_FILES["imagenGaleria"]);
+
+                                foreach ($archivos as $archivo) {
+                                    if ($archivo["size"] > 0) {
+                                        $nombreEstandarizado = $id . "_galeria_" . date("YmdHis") . "_" . rand(100, 999) . "." . pathinfo($archivo["name"], PATHINFO_EXTENSION);
+                                        $archivoDestino = $constante_rutaConcesionarios . "/" . $id . "/galeria/" . $nombreEstandarizado;
+
+                                        if (!file_exists($constante_rutaConcesionarios . "/" . $id . "/galeria")) {
+                                            mkdir($constante_rutaConcesionarios . "/" . $id . "/galeria", 0755, true);
+                                        }
+
+                                        move_uploaded_file($archivo["tmp_name"], $archivoDestino);
+                                    }
+                                }
+                            } catch (Exception $e) {
+                            }
                         }
                     }
                 }

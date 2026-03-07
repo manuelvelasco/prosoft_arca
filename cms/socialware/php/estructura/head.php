@@ -2,9 +2,9 @@
 
         <meta charset="UTF-8" />
         <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" />
-        <meta content="Albacar" name="description" />
-        <meta content="Albacar" name="keywords" />
-        <meta content="Albacar" name="author" />
+        <meta content="ARCA" name="description" />
+        <meta content="ARCA" name="keywords" />
+        <meta content="ARCA" name="author" />
 
         <!-- Favicon -->
         <link href="favicon.ico" rel="shortcut icon">

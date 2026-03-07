@@ -19,6 +19,10 @@
         $id = sanitiza($conexion, filter_input(INPUT_POST, "id"));
         $cargaReducida = sanitiza($conexion, filter_input(INPUT_POST, "cargaReducida"));
 
+        // Incrementa visitas al vehiculo
+
+        consulta($conexion, "UPDATE vehiculo SET visitas = visitas + 1 WHERE id = " . $id);
+
         // Consulta base de datos
 
         $vehiculo_BD = consulta($conexion, "SELECT v.*, s.whatsapp AS gerente_whatsapp, c.nombreComercial, c.whatsapp AS concesionarioWhatsapp, c.colonia, c.municipio, c.fachada, c.telefono FROM vehiculo v INNER JOIN concesionario c ON v.idConcesionario = c.id LEFT JOIN sucursal s ON s.id = v.idSucursal WHERE v.id = " . $id . " AND v.publicado = 1");
@@ -76,7 +80,7 @@
             $limite = 3;
             $idsVehiculosSimilares = "";
 
-            $vehiculosSimilares_BD = consulta($conexion, "SELECT *, ABS(precio - " . $vehiculo["precio"] . ") AS diferencia FROM vehiculo WHERE id != " . $id . " AND publicado = 1 AND intelimotor_id IS NOT NULL AND ano = '" . $vehiculo["ano"] . "' AND intelimotor_vehicleBodyType = '" . $vehiculo["intelimotor_vehicleBodyType"] . "' AND precio >= (select c.precio - 100000 from vehiculo c where c.id = " . $id . " ) AND precio <= (select c.precio + 100000 from vehiculo c where c.id = " . $id . " ) ORDER BY rand()");
+            $vehiculosSimilares_BD = consulta($conexion, "SELECT *, ABS(precio - " . $vehiculo["precio"] . ") AS diferencia FROM vehiculo WHERE id != " . $id . " AND publicado = 1 AND intelimotor_id IS NOT NULL AND ano = '" . $vehiculo["ano"] . "' AND intelimotor_vehicleBodyType = '" . $vehiculo["intelimotor_vehicleBodyType"] . "' AND precio >= (select c.precio - 100000 from vehiculo c where c.id = " . $id . " ) AND precio <= (select c.precio + 100000 from vehiculo c where c.id = " . $id . " ) ORDER BY rand() LIMIT 5");
             //echo "SELECT *, ABS(precio - " . $vehiculo["precio"] . ") AS diferencia FROM vehiculo WHERE id != " . $id . " AND publicado = 1 AND intelimotor_id IS NOT NULL AND ano = '" . $vehiculo["ano"] . "' AND intelimotor_vehicleBodyType = '" . $vehiculo["intelimotor_vehicleBodyType"] . "' AND precio >= (select c.precio - 100000 from vehiculo c where c.id = " . $id . " ) AND precio <= (select c.precio + 100000 from vehiculo c where c.id = " . $id . " ) ORDER BY rand()";
             
             $resultado .= "<vehiculosSimilares>";

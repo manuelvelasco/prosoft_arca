@@ -82,53 +82,36 @@
         <script src="https://kit.fontawesome.com/abc259d5cf.js" crossorigin="anonymous"></script>
 
 
-        <!-- Google tag (gtag.js) -->
+        <!-- Google tag (gtag.js) Socialware -->
 
 
-        <script async src="https://www.googletagmanager.com/gtag/js?id=AW-11011389702"></script>
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-9FPN246C99"></script>
         <script>
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('js', new Date());
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
 
-          gtag('config', 'AW-11011389702');
+            gtag('config', 'G-9FPN246C99');
         </script>
 
 
-        <!-- Google Analytics -->
-
-
-        <!-- Global site tag (gtag.js) - Google Analytics -->
-        <script async src="https://www.googletagmanager.com/gtag/js?id=G-GMG8GMVGEK"></script>
-        <script>
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('js', new Date());
-
-          gtag('config', 'G-GMG8GMVGEK');
-        </script>
-
-
-        <meta name="facebook-domain-verification" content="eld7ummaxsulq6xexyojgrwei763mp" />
-
-
-        <!-- Meta Pixel Code -->
-        <script>
-          !function(f,b,e,v,n,t,s)
-          {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-          n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-          if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-          n.queue=[];t=b.createElement(e);t.async=!0;
-          t.src=v;s=b.getElementsByTagName(e)[0];
-          s.parentNode.insertBefore(t,s)}(window, document,'script',
-          'https://connect.facebook.net/en_US/fbevents.js');
-          fbq('init', '887462435378099');
-          fbq('track', 'PageView');
-        </script>
-        <noscript><img height="1" width="1" style="display:none"
-          src="https://www.facebook.com/tr?id=887462435378099&ev=PageView&noscript=1"
-        /></noscript>
-        <!-- End Meta Pixel Code -->
+        <!-- Facebook / Whatsapp share enriquecido -->
+        <!--
+        https://developers.facebook.com/apps
+        https://developers.facebook.com/tools/debug
+        https://stackoverflow.com/questions/25100917/showing-thumbnail-for-link-in-whatsapp-ogimage-meta-tag-doesnt-work
+        -->
+        <meta property="fb:app_id" content="1343187137448402">
+        <meta property="og:type" content="website">
+        <meta property="og:url" content="https://seminuevosarca.com.mx/">
+        <meta property="og:site_name" content="ARCA">
+        <meta property="og:title" content="ARCA | Inicio">
+        <meta property="og:description" content="ARCA | Inicio">
+        <meta property="og:image" content="https://seminuevosarca.com.mx/personalizado/img/logotipo_arca_whatsapp.png">
+        <meta property="og:image:type" content="image/png">
+        <meta property="og:image:width" content="300">
+        <meta property="og:image:height" content="300">
+        <meta property="og:updated_time" content="1705524704050">
     </head>
 
 
@@ -759,7 +742,7 @@
 
         <!-- Banner home 2 -->
 
-        <div class="home5-banner-area">
+        <!--div class="home5-banner-area">
             <div class="paginations111"></div>
             <div class="swiper home3-banner-slider">
                 <div class="swiper-wrapper">
@@ -770,7 +753,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div-->
 
 
         <!-- Por que elegir ARCA -->
@@ -1581,15 +1564,15 @@
                     url: rutaBackend + "ajax/cargaContadores.php",
                     type: "post"
                 }).done(function (resultado, textStatus, jqXHR) {
-
                     $(resultado).find("contadores").each(function (index) {
                         var vehiculos = $(this).find("vehiculos").text();
                         var agencias = $(this).find("agencias").text();
+
                         $("#contadorVehiculos").append(vehiculos);
                         $("#contadorAgencias").append(agencias);
                     });
-                    $("#buscador_marca").niceSelect('update');
 
+                    $("#buscador_marca").niceSelect('update');
                 });
             }
 
@@ -1603,12 +1586,14 @@
 
                     $(resultado).find("marca").each(function (index) {
                         var nombre = $(this).find("nombre").text();
+
                         $("#buscador_marca").append("<option value='" + nombre + "'>" + nombre + "</option>");
                     });
-                    $("#buscador_marca").niceSelect('update');
 
+                    $("#buscador_marca").niceSelect('update');
                 });
             }
+
 
             function cargaTipos() {
                 $.ajax({
@@ -1619,16 +1604,18 @@
 
                     $(resultado).find("tipo").each(function (index) {
                         var nombre = $(this).find("nombre").text();
+
                         $("#buscador_tipo").append("<option value='" + nombre + "'>" + nombre + "</option>");
                     });
-                    $("#buscador_tipo").niceSelect('update');
 
+                    $("#buscador_tipo").niceSelect('update');
                 });
             }
 
 
             $("#buscador_marca").on("change", function(){
                 var marca = $(this).val();
+
                 $.ajax({
                     url: rutaBackend + "ajax/cargaModelos.php",
                     data: { marca: marca },
@@ -1639,10 +1626,11 @@
 
                     $(resultado).find("modelo").each(function (index) {
                         var nombre = $(this).text();
+
                         $("#buscador_modelo").append("<option value='" + nombre + "'>" + nombre + "</option>");
                     });
-                    $("#buscador_modelo").niceSelect('update');
 
+                    $("#buscador_modelo").niceSelect('update');
                 });
             });
 
@@ -1843,8 +1831,8 @@
                     type: "post",
                     data: {
                         /*descuentoEspecial: 1,*/
-                        tamanoPagina: 16,
-                        criterioOrdenamiento: 7
+                        criterioOrdenamiento: 7,
+                        tamanoPagina: 16
                     }
                 }).done(function (resultado, textStatus, jqXHR) {
                     var carrusel1 = "";
@@ -1893,7 +1881,6 @@
                                     carrusel1 += "</div>";
                                 carrusel1 += "</div>";
                             carrusel1 += "</div>";
-
                         } else {
                             carrusel2 += "<div class='swiper-slide'>";
                                 carrusel2 += "<div class='brand-category-card enlace_vehiculo' data-id='" + id + "'>";
@@ -1923,6 +1910,7 @@
                                 carrusel2 += "</div>";
                             carrusel2 += "</div>";
                         }
+
                         cuantos++;
                     });
 
@@ -1974,7 +1962,6 @@
                                 contenido += '</div>';
                             contenido += '</div>';
                         contenido += '</div>';
-
                     });
 
                     $("#contenedor_resenas").html(contenido);
@@ -2086,13 +2073,13 @@
             {
             "@context": "https://schema.org",
             "@type": "Organization",
-            "name": "Albacar",
-            "url": "https://www.albacar.mx/",
-            "logo": "https://www.albacar.mx/socialware/img/logotipo_pequeno.png",
+            "name": "ARCA",
+            "url": "https://seminuevosarca.com.mx/",
+            "logo": "https://seminuevosarca.com.mx/assets/img/Logotipo-ARCA-01-Web.png",
             "sameAs": [
-            "https://www.facebook.com/autosalbacar",
-            "https://www.instagram.com/autosalbacar",
-            "https://www.albacar.mx/"
+            "https://www.facebook.com/ARCASeminuevos",
+            "https://www.instagram.com/arcaacmx/",
+            "https://seminuevosarca.com.mx/"
             ]
             }
         </script>

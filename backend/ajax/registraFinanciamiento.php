@@ -77,7 +77,7 @@
                     . "<br />"
                     . "Pago mensual: $" . formatoDecimal($pagoMensual, 2);
 
-            enviaCorreo($parametro["valor"], "Albacar | Solicitud de financiamiento", $mensaje);
+            enviaCorreo($parametro["valor"], "ARCA | Solicitud de financiamiento", $mensaje);
         }
 
         // Cierra la conexion con base de datos y libera recursos

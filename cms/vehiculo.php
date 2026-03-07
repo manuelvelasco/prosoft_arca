@@ -317,14 +317,19 @@
                     $this->SetFont("Arial", "", 9);
                     $this->SetDrawColor(255,255,255);
                     $this->Cell(40,6,'(81) 1816 8933');
-                    $this->Cell(40,6,'hola@albacar.mx','','','',false,'mailto:hola@albacar.mx');
-                    $this->Cell(40,6,'www.albacar.mx','','','',false,'www.albacar.mx');
+                    $this->Cell(40,6,'arca.admon2021@gmail.com','','','',false,'arca.admon2021@gmail.com');
+                    $this->Cell(40,6,'seminuevosarca.com.mx','','','',false,'seminuevosarca.com.mx');
 
 
 
 
                 }
             }//end of class|
+
+$rutaLog = "/var/www/html/arca/error.log";
+error_log("\n\n[" . date("Y-m-d H:i:s") . "]", 3, $rutaLog);
+error_log("\nidUsuario = " . $usuario_id, 3, $rutaLog);
+
             // Obtiene parametros de request
 
             $esSubmit = sanitiza($conexion, filter_input(INPUT_POST, "esSubmit"));
@@ -496,6 +501,206 @@
                     if (estaVacio($id)) {
 
                         // Es insercion
+
+error_log("\nInserción", 3, $rutaLog);
+
+error_log("\n" . "INSERT INTO vehiculo ("
+                                . "fechaRegistro"
+                                . ", publicado"
+                                . ", destacado"
+                                . ", certificado"
+                                . ", descuentoEspecial"
+                                . ", tipo"
+                                . ", marca"
+                                . ", modelo"
+                                . ", version"
+                                . ", ano"
+                                . ", color"
+                                . ", precio"
+                                . ", enganche"
+                                . ", litros"
+                                . ", combustible"
+                                . ", transmision"
+                                . ", puertas"
+                                . ", asientos"
+                                . ", bolsasAire"
+                                . ", kilometraje"
+                                . ", tipoFactura"
+                                . ", numeroLlaves"
+                                . ", vidaUtilLlantas"
+                                . ", facturaAgencia"
+                                . ", mantenimientosAgencia"
+                                . ", impuestosCorriente"
+                                . ", mantenimientosCorriente"
+                                . ", manosLibres"
+                                . ", descripcion"
+                                . ", puntosDestacados"
+                                . ", video_titulo"
+                                . ", video_resumen"
+                                . ", video_detalle"
+                                . ", video_url"
+                                . ", video_fechaPublicacion"
+                                . ", video_publicado"
+                                . ", idSucursal"
+                                . ", idConcesionario"
+
+                                . ", colorInterior"
+                                . ", direccion"
+                                . ", tieneAireAcondicionado"
+                                . ", tieneAlarma"
+                                . ", tieneAlfombrillaLlantaRefaccion"
+                                . ", tieneAperturaRemotaCajuela"
+                                . ", tieneAsientoConductorAjusteAltura"
+                                . ", tieneAsientosElectricos"
+                                . ", tieneAsientosTraserosAbatibles"
+                                . ", tieneAsistenciaFrenado"
+                                . ", tieneBandejaLlantaRefaccion"
+                                . ", tieneBarraAntivuelco"
+                                . ", esBlindado"
+                                . ", tieneBluetooth"
+                                . ", tieneBolsaAireConductor"
+                                . ", tieneBolsaAirePasajero"
+                                . ", tieneBolsasAireLaterales"
+                                . ", tieneBolsasAireCortina"
+                                . ", tieneCabecerasAsientosTraseros"
+                                . ", tieneComputadoraAbordo"
+                                . ", tieneControlTemperatura"
+                                . ", tieneControlEstabilidad"
+                                . ", tieneControlLucesDelanteras"
+                                . ", tieneControlVolante"
+                                . ", tieneDefensasColorCarroceria"
+                                . ", tieneDesempanadorTrasero"
+                                . ", tieneEspejosElectricos"
+                                . ", tieneFarosNiebla"
+                                . ", tieneFrenosABS"
+                                . ", tieneGps"
+                                . ", esImportado"
+                                . ", tieneInmovilizador"
+                                . ", tieneLimpiaparabrisas"
+                                . ", tieneLlantaRefaccion"
+                                . ", tieneLucesNieblaDelanteras"
+                                . ", tieneLucesNieblaTraseras"
+                                . ", tieneLucesXenon"
+                                . ", tieneParachoques"
+                                . ", tienePilotoAutomatico"
+                                . ", tienePortavasos"
+                                . ", tieneQuemacocos"
+                                . ", tieneRadioAMFM"
+                                . ", tieneRecordatorioEncendidoLuces"
+                                . ", tieneReproductorCD"
+                                . ", tieneReproductorDVD"
+                                . ", tieneReproductorMP3"
+                                . ", tieneRespadosTraseros"
+                                . ", tieneRinesAleacion"
+                                . ", tieneSegurosElectricosCentralizados"
+                                . ", tieneSensorLluvia"
+                                . ", tieneSensoresLuz"
+                                . ", tieneSensoresReversa"
+                                . ", tieneTapiceriaPiel"
+                                . ", tieneTarjetaSD"
+                                . ", tieneTerceraLuzFrenado"
+                                . ", unicoDueno"
+                                . ", tieneUsb"
+                                . ", tieneVidriosElectricos"
+                            . ") VALUES ("
+                                . "'" . $fechaActual . "'"
+                                . ", " . $publicado
+                                . ", " . $destacado
+                                . ", " . $certificado
+                                . ", " . $descuentoEspecial
+                                . ", '" . $tipo ."'"
+                                . ", '" . $marca ."'"
+                                . ", '" . $modelo ."'"
+                                . ", '" . $version ."'"
+                                . ", " . $ano
+                                . ", '" . $color ."'"
+                                . ", " . $precio
+                                . ", " . (estaVacio($enganche) ? "NULL" : $enganche)
+                                . ", " . (estaVacio($litros) ? "NULL" : $litros)
+                                . ", " . (estaVacio($combustible) ? "NULL" : "'" . $combustible . "'")
+                                . ", " . (estaVacio($transmision) ? "NULL" : "'" . $transmision . "'")
+                                . ", " . (estaVacio($puertas) ? "NULL" : $puertas)
+                                . ", " . (estaVacio($asientos) ? "NULL" : $asientos)
+                                . ", " . (estaVacio($bolsasAire) ? "NULL" : $bolsasAire)
+                                . ", " . (estaVacio($kilometraje) ? "NULL" : $kilometraje)
+                                . ", " . (estaVacio($tipoFactura) ? "NULL" : "'" . $tipoFactura . "'")
+                                . ", " . $numeroLlaves
+                                . ", " . (estaVacio($vidaUtilLlantas) ? "NULL" : $vidaUtilLlantas)
+                                . ", " . (estaVacio($facturaAgencia) ? "NULL" : $facturaAgencia)
+                                . ", " . (estaVacio($mantenimientosAgencia) ? "NULL" : $mantenimientosAgencia)
+                                . ", " . (estaVacio($impuestosCorriente) ? "NULL" : $impuestosCorriente)
+                                . ", " . (estaVacio($mantenimientosCorriente) ? "NULL" : $mantenimientosCorriente)
+                                . ", " . (estaVacio($manosLibres) ? "NULL" : $manosLibres)
+                                . ", " . (estaVacio($descripcion) ? "NULL" : "'" . mysqli_real_escape_string($conexion, $descripcion) . "'")
+                                . ", " . (estaVacio($puntosDestacados) ? "NULL" : "'" . mysqli_real_escape_string($conexion, $puntosDestacados) . "'")
+                                . ", " . (estaVacio($video_titulo) ? "NULL" : "'" . $video_titulo . "'")
+                                . ", " . (estaVacio($video_resumen) ? "NULL" : "'" . $video_resumen . "'")
+                                . ", " . (estaVacio($video_detalle) ? "NULL" : "'" . mysqli_real_escape_string($conexion, $video_detalle) . "'")
+                                . ", " . (estaVacio($video_url) ? "NULL" : "'" . mysqli_real_escape_string($conexion, $video_url) . "'")
+                                . ", " . (!estaVacio($video_titulo) && !estaVacio($video_resumen) ? "'" . $fechaActual . "'" : "NULL")
+                                . ", " . $video_publicado
+                                . ", " . (estaVacio($idSucursal) ? "NULL" : $idSucursal)
+                                . ", " . $idConcesionario
+
+                                . ", " . (estaVacio($colorInterior) ? "NULL" : "'" . $colorInterior . "'")
+                                . ", " . (estaVacio($direccion) ? "NULL" : "'" . $direccion . "'")
+                                . ", " . $tieneAireAcondicionado
+                                . ", " . $tieneAlarma
+                                . ", " . $tieneAlfombrillaLlantaRefaccion
+                                . ", " . $tieneAperturaRemotaCajuela
+                                . ", " . $tieneAsientoConductorAjusteAltura
+                                . ", " . $tieneAsientosElectricos
+                                . ", " . $tieneAsientosTraserosAbatibles
+                                . ", " . $tieneAsistenciaFrenado
+                                . ", " . $tieneBandejaLlantaRefaccion
+                                . ", " . $tieneBarraAntivuelco
+                                . ", " . $esBlindado
+                                . ", " . $tieneBluetooth
+                                . ", " . $tieneBolsaAireConductor
+                                . ", " . $tieneBolsaAirePasajero
+                                . ", " . $tieneBolsasAireLaterales
+                                . ", " . $tieneBolsasAireCortina
+                                . ", " . $tieneCabecerasAsientosTraseros
+                                . ", " . $tieneComputadoraAbordo
+                                . ", " . $tieneControlTemperatura
+                                . ", " . $tieneControlEstabilidad
+                                . ", " . $tieneControlLucesDelanteras
+                                . ", " . $tieneControlVolante
+                                . ", " . $tieneDefensasColorCarroceria
+                                . ", " . $tieneDesempanadorTrasero
+                                . ", " . $tieneEspejosElectricos
+                                . ", " . $tieneFarosNiebla
+                                . ", " . $tieneFrenosABS
+                                . ", " . $tieneGps
+                                . ", " . $esImportado
+                                . ", " . $tieneInmovilizador
+                                . ", " . $tieneLimpiaparabrisas
+                                . ", " . $tieneLlantaRefaccion
+                                . ", " . $tieneLucesNieblaDelanteras
+                                . ", " . $tieneLucesNieblaTraseras
+                                . ", " . $tieneLucesXenon
+                                . ", " . $tieneParachoques
+                                . ", " . $tienePilotoAutomatico
+                                . ", " . $tienePortavasos
+                                . ", " . $tieneQuemacocos
+                                . ", " . $tieneRadioAMFM
+                                . ", " . $tieneRecordatorioEncendidoLuces
+                                . ", " . $tieneReproductorCD
+                                . ", " . $tieneReproductorDVD
+                                . ", " . $tieneReproductorMP3
+                                . ", " . $tieneRespadosTraseros
+                                . ", " . $tieneRinesAleacion
+                                . ", " . $tieneSegurosElectricosCentralizados
+                                . ", " . $tieneSensorLluvia
+                                . ", " . $tieneSensoresLuz
+                                . ", " . $tieneSensoresReversa
+                                . ", " . $tieneTapiceriaPiel
+                                . ", " . $tieneTarjetaSD
+                                . ", " . $tieneTerceraLuzFrenado
+                                . ", " . $unicoDueno
+                                . ", " . $tieneUsb
+                                . ", " . $tieneVidriosElectricos
+                            . ")", 3, $rutaLog);
 
                         consulta($conexion, "INSERT INTO vehiculo ("
                                 . "fechaRegistro"
@@ -695,190 +900,324 @@
                                 . ", " . $tieneVidriosElectricos
                             . ")");
 
-                        $vehiculo_BD = consulta($conexion, "SELECT * FROM vehiculo ORDER BY id DESC LIMIT 1");
-                        $vehiculo = obtenResultado($vehiculo_BD);
+error_log("\n" . "SELECT"
+                                . " *"
+                            . " FROM"
+                                . " vehiculo"
+                            . " WHERE"
+                                . " fechaRegistro = '" . $fechaActual . "'"
+                                . " AND idConcesionario = " . $idConcesionario
+                                . " AND tipo = '" . $tipo ."'"
+                                . " AND marca = '" . $marca ."'"
+                                . " AND modelo = '" . $modelo ."'"
+                                . " AND version = '" . $version ."'"
+                                . " AND ano = " . $ano
+                                . " AND color = '" . $color ."'"
+                                . " AND precio = " . $precio, 3, $rutaLog);
 
-                        $id = $vehiculo["id"];
-                        $publicado = $vehiculo["publicado"];
-                        $destacado = $vehiculo["destacado"];
-                        $certificado = $vehiculo["certificado"];
-                        $descuentoEspecial = $vehiculo["descuentoEspecial"];
-                        $tipo = $vehiculo["tipo"];
-                        $marca = $vehiculo["marca"];
-                        $modelo = $vehiculo["modelo"];
-                        $version = $vehiculo["version"];
-                        $ano = $vehiculo["ano"];
-                        $color = $vehiculo["color"];
-                        $precio = $vehiculo["precio"];
-                        $enganche = $vehiculo["enganche"];
-                        $litros = $vehiculo["litros"];
-                        $combustible = $vehiculo["combustible"];
-                        $transmision = $vehiculo["transmision"];
-                        $puertas = $vehiculo["puertas"];
-                        $asientos = $vehiculo["asientos"];
-                        $bolsasAire = $vehiculo["bolsasAire"];
-                        $kilometraje = $vehiculo["kilometraje"];
-                        $tipoFactura = $vehiculo["tipoFactura"];
-                        $numeroLlaves = $vehiculo["numeroLlaves"];
-                        $vidaUtilLlantas = $vehiculo["vidaUtilLlantas"];
-                        $facturaAgencia = $vehiculo["facturaAgencia"];
-                        $mantenimientosAgencia = $vehiculo["mantenimientosAgencia"];
-                        $impuestosCorriente = $vehiculo["impuestosCorriente"];
-                        $mantenimientosCorriente = $vehiculo["mantenimientosCorriente"];
-                        $manosLibres = $vehiculo["manosLibres"];
-                        $descripcion = $vehiculo["descripcion"];
-                        $puntosDestacados = $vehiculo["puntosDestacados"];
-                        $imagenPrincipal = $vehiculo["imagenPrincipal"];
-                        $video_titulo = $vehiculo["video_titulo"];
-                        $video_resumen = $vehiculo["video_resumen"];
-                        $video_detalle = $vehiculo["video_detalle"];
-                        $video_url = $vehiculo["video_url"];
-                        $video_vistaPrevia = $vehiculo["video_vistaPrevia"];
-                        $video_publicado = $vehiculo["video_publicado"];
-                        $idSucursal = $vehiculo["idSucursal"];
-                        $idConcesionario = $vehiculo["idConcesionario"];
+                        $vehiculo_BD = consulta($conexion, "SELECT"
+                                . " *"
+                            . " FROM"
+                                . " vehiculo"
+                            . " WHERE"
+                                . " fechaRegistro = '" . $fechaActual . "'"
+                                . " AND idConcesionario = " . $idConcesionario
+                                . " AND tipo = '" . $tipo ."'"
+                                . " AND marca = '" . $marca ."'"
+                                . " AND modelo = '" . $modelo ."'"
+                                . " AND version = '" . $version ."'"
+                                . " AND ano = " . $ano
+                                . " AND color = '" . $color ."'"
+                                . " AND precio = " . $precio);
 
-                        $colorInterior = $vehiculo["colorInterior"];
-                        $direccion = $vehiculo["direccion"];
-                        $tieneAireAcondicionado = $vehiculo["tieneAireAcondicionado"];
-                        $tieneAlarma = $vehiculo["tieneAlarma"];
-                        $tieneAlfombrillaLlantaRefaccion = $vehiculo["tieneAlfombrillaLlantaRefaccion"];
-                        $tieneAperturaRemotaCajuela = $vehiculo["tieneAperturaRemotaCajuela"];
-                        $tieneAsientoConductorAjusteAltura = $vehiculo["tieneAsientoConductorAjusteAltura"];
-                        $tieneAsientosElectricos = $vehiculo["tieneAsientosElectricos"];
-                        $tieneAsientosTraserosAbatibles = $vehiculo["tieneAsientosTraserosAbatibles"];
-                        $tieneAsistenciaFrenado = $vehiculo["tieneAsistenciaFrenado"];
-                        $tieneBandejaLlantaRefaccion = $vehiculo["tieneBandejaLlantaRefaccion"];
-                        $tieneBarraAntivuelco = $vehiculo["tieneBarraAntivuelco"];
-                        $esBlindado = $vehiculo["esBlindado"];
-                        $tieneBluetooth = $vehiculo["tieneBluetooth"];
-                        $tieneBolsaAireConductor = $vehiculo["tieneBolsaAireConductor"];
-                        $tieneBolsaAirePasajero = $vehiculo["tieneBolsaAirePasajero"];
-                        $tieneBolsasAireLaterales = $vehiculo["tieneBolsasAireLaterales"];
-                        $tieneBolsasAireCortina = $vehiculo["tieneBolsasAireCortina"];
-                        $tieneCabecerasAsientosTraseros = $vehiculo["tieneCabecerasAsientosTraseros"];
-                        $tieneComputadoraAbordo = $vehiculo["tieneComputadoraAbordo"];
-                        $tieneControlTemperatura = $vehiculo["tieneControlTemperatura"];
-                        $tieneControlEstabilidad = $vehiculo["tieneControlEstabilidad"];
-                        $tieneControlLucesDelanteras = $vehiculo["tieneControlLucesDelanteras"];
-                        $tieneControlVolante = $vehiculo["tieneControlVolante"];
-                        $tieneDefensasColorCarroceria = $vehiculo["tieneDefensasColorCarroceria"];
-                        $tieneDesempanadorTrasero = $vehiculo["tieneDesempanadorTrasero"];
-                        $tieneEspejosElectricos = $vehiculo["tieneEspejosElectricos"];
-                        $tieneFarosNiebla = $vehiculo["tieneFarosNiebla"];
-                        $tieneFrenosABS = $vehiculo["tieneFrenosABS"];
-                        $tieneGps = $vehiculo["tieneGps"];
-                        $esImportado = $vehiculo["esImportado"];
-                        $tieneInmovilizador = $vehiculo["tieneInmovilizador"];
-                        $tieneLimpiaparabrisas = $vehiculo["tieneLimpiaparabrisas"];
-                        $tieneLlantaRefaccion = $vehiculo["tieneLlantaRefaccion"];
-                        $tieneLucesNieblaDelanteras = $vehiculo["tieneLucesNieblaDelanteras"];
-                        $tieneLucesNieblaTraseras = $vehiculo["tieneLucesNieblaTraseras"];
-                        $tieneLucesXenon = $vehiculo["tieneLucesXenon"];
-                        $tieneParachoques = $vehiculo["tieneParachoques"];
-                        $tienePilotoAutomatico = $vehiculo["tienePilotoAutomatico"];
-                        $tienePortavasos = $vehiculo["tienePortavasos"];
-                        $tieneQuemacocos = $vehiculo["tieneQuemacocos"];
-                        $tieneRadioAMFM = $vehiculo["tieneRadioAMFM"];
-                        $tieneRecordatorioEncendidoLuces = $vehiculo["tieneRecordatorioEncendidoLuces"];
-                        $tieneReproductorCD = $vehiculo["tieneReproductorCD"];
-                        $tieneReproductorDVD = $vehiculo["tieneReproductorDVD"];
-                        $tieneReproductorMP3 = $vehiculo["tieneReproductorMP3"];
-                        $tieneRespadosTraseros = $vehiculo["tieneRespadosTraseros"];
-                        $tieneRinesAleacion = $vehiculo["tieneRinesAleacion"];
-                        $tieneSegurosElectricosCentralizados = $vehiculo["tieneSegurosElectricosCentralizados"];
-                        $tieneSensorLluvia = $vehiculo["tieneSensorLluvia"];
-                        $tieneSensoresLuz = $vehiculo["tieneSensoresLuz"];
-                        $tieneSensoresReversa = $vehiculo["tieneSensoresReversa"];
-                        $tieneTapiceriaPiel = $vehiculo["tieneTapiceriaPiel"];
-                        $tieneTarjetaSD = $vehiculo["tieneTarjetaSD"];
-                        $tieneTerceraLuzFrenado = $vehiculo["tieneTerceraLuzFrenado"];
-                        $unicoDueno = $vehiculo["unicoDueno"];
-                        $tieneUsb = $vehiculo["tieneUsb"];
-                        $tieneVidriosElectricos = $vehiculo["tieneVidriosElectricos"];
+                        if (cuentaResultados($vehiculo_BD) == 0) {
+                            $mensaje = "Ha ocurrido un error al guardar la información de su vehículo. Por favor revise los datos proporcionados y si el problema persiste envíenos un correo a <strong>soporte@socialware.mx</strong>";
+                        } else {
+                            $vehiculo = obtenResultado($vehiculo_BD);
 
-                        $intelimotor_id = $vehiculo["intelimotor_id"];
-                        $intelimotor_imported = $vehiculo["intelimotor_imported"];
-                        $intelimotor_kms = $vehiculo["intelimotor_kms"];
-                        $intelimotor_listPrice = $vehiculo["intelimotor_listPrice"];
-                        $intelimotor_title = $vehiculo["intelimotor_title"];
-                        $intelimotor_brand = $vehiculo["intelimotor_brand"];
-                        $intelimotor_model = $vehiculo["intelimotor_model"];
-                        $intelimotor_year = $vehiculo["intelimotor_year"];
-                        $intelimotor_trim = $vehiculo["intelimotor_trim"];
-                        $intelimotor_transmission = $vehiculo["intelimotor_transmission"];
-                        $intelimotor_doors = $vehiculo["intelimotor_doors"];
-                        $intelimotor_fuelType = $vehiculo["intelimotor_fuelType"];
-                        $intelimotor_steering = $vehiculo["intelimotor_steering"];
-                        $intelimotor_tractionControl = $vehiculo["intelimotor_tractionControl"];
-                        $intelimotor_vehicleBodyType = $vehiculo["intelimotor_vehicleBodyType"];
-                        $intelimotor_engine = $vehiculo["intelimotor_engine"];
-                        $intelimotor_exteriorColor = $vehiculo["intelimotor_exteriorColor"];
-                        $intelimotor_interiorColor = $vehiculo["intelimotor_interiorColor"];
-                        $intelimotor_hasAutopilot = $vehiculo["intelimotor_hasAutopilot"];
-                        $intelimotor_hasLightOnReminder = $vehiculo["intelimotor_hasLightOnReminder"];
-                        $intelimotor_hasOnboardComputer = $vehiculo["intelimotor_hasOnboardComputer"];
-                        $intelimotor_hasRearFoldingSeat = $vehiculo["intelimotor_hasRearFoldingSeat"];
-                        $intelimotor_hasSlidingRoof = $vehiculo["intelimotor_hasSlidingRoof"];
-                        $intelimotor_hasXenonHeadlights = $vehiculo["intelimotor_hasXenonHeadlights"];
-                        $intelimotor_hasCoasters = $vehiculo["intelimotor_hasCoasters"];
-                        $intelimotor_hasClimateControl = $vehiculo["intelimotor_hasClimateControl"];
-                        $intelimotor_hasAbsBrakes = $vehiculo["intelimotor_hasAbsBrakes"];
-                        $intelimotor_hasAlarm = $vehiculo["intelimotor_hasAlarm"];
-                        $intelimotor_hasAlloyWheels = $vehiculo["intelimotor_hasAlloyWheels"];
-                        $intelimotor_hasDriverAirbag = $vehiculo["intelimotor_hasDriverAirbag"];
-                        $intelimotor_hasElectronicBrakeAssist = $vehiculo["intelimotor_hasElectronicBrakeAssist"];
-                        $intelimotor_hasEngineInmovilizer = $vehiculo["intelimotor_hasEngineInmovilizer"];
-                        $intelimotor_hasFogLight = $vehiculo["intelimotor_hasFogLight"];
-                        $intelimotor_hasFrontFoglights = $vehiculo["intelimotor_hasFrontFoglights"];
-                        $intelimotor_hasPassengerAirbag = $vehiculo["intelimotor_hasPassengerAirbag"];
-                        $intelimotor_hasRainSensor = $vehiculo["intelimotor_hasRainSensor"];
-                        $intelimotor_hasRearFoglights = $vehiculo["intelimotor_hasRearFoglights"];
-                        $intelimotor_hasRearWindowDefogger = $vehiculo["intelimotor_hasRearWindowDefogger"];
-                        $intelimotor_hasRollBar = $vehiculo["intelimotor_hasRollBar"];
-                        $intelimotor_hasSideImpactAirbag = $vehiculo["intelimotor_hasSideImpactAirbag"];
-                        $intelimotor_hasStabilityControl = $vehiculo["intelimotor_hasStabilityControl"];
-                        $intelimotor_hasSteeringWheelControl = $vehiculo["intelimotor_hasSteeringWheelControl"];
-                        $intelimotor_hasThirdStop = $vehiculo["intelimotor_hasThirdStop"];
-                        $intelimotor_hasCurtainAirbag = $vehiculo["intelimotor_hasCurtainAirbag"];
-                        $intelimotor_armored = $vehiculo["intelimotor_armored"];
-                        $intelimotor_hasAirConditioning = $vehiculo["intelimotor_hasAirConditioning"];
-                        $intelimotor_hasElectricMirrors = $vehiculo["intelimotor_hasElectricMirrors"];
-                        $intelimotor_hasGps = $vehiculo["intelimotor_hasGps"];
-                        $intelimotor_hasHeadlightControl = $vehiculo["intelimotor_hasHeadlightControl"];
-                        $intelimotor_hasHeadrestRearSeat = $vehiculo["intelimotor_hasHeadrestRearSeat"];
-                        $intelimotor_hasHeightAdjustableDriverSeat = $vehiculo["intelimotor_hasHeightAdjustableDriverSeat"];
-                        $intelimotor_hasLeatherUpholstery = $vehiculo["intelimotor_hasLeatherUpholstery"];
-                        $intelimotor_hasLightSensor = $vehiculo["intelimotor_hasLightSensor"];
-                        $intelimotor_hasPaintedBumper = $vehiculo["intelimotor_hasPaintedBumper"];
-                        $intelimotor_hasParkingSensor = $vehiculo["intelimotor_hasParkingSensor"];
-                        $intelimotor_hasPowerWindows = $vehiculo["intelimotor_hasPowerWindows"];
-                        $intelimotor_hasRemoteTrunkRelease = $vehiculo["intelimotor_hasRemoteTrunkRelease"];
-                        $intelimotor_hasElectricSeats = $vehiculo["intelimotor_hasElectricSeats"];
-                        $intelimotor_hasRearBackrest = $vehiculo["intelimotor_hasRearBackrest"];
-                        $intelimotor_hasCentralPowerDoorLocks = $vehiculo["intelimotor_hasCentralPowerDoorLocks"];
-                        $intelimotor_hasAmfmRadio = $vehiculo["intelimotor_hasAmfmRadio"];
-                        $intelimotor_hasBluetooth = $vehiculo["intelimotor_hasBluetooth"];
-                        $intelimotor_hasCdPlayer = $vehiculo["intelimotor_hasCdPlayer"];
-                        $intelimotor_hasDvd = $vehiculo["intelimotor_hasDvd"];
-                        $intelimotor_hasMp3Player = $vehiculo["intelimotor_hasMp3Player"];
-                        $intelimotor_hasSdCard = $vehiculo["intelimotor_hasSdCard"];
-                        $intelimotor_hasUsb = $vehiculo["intelimotor_hasUsb"];
-                        $intelimotor_hasBullBar = $vehiculo["intelimotor_hasBullBar"];
-                        $intelimotor_hasSpareTyreSupport = $vehiculo["intelimotor_hasSpareTyreSupport"];
-                        $intelimotor_hasTrayCover = $vehiculo["intelimotor_hasTrayCover"];
-                        $intelimotor_hasTrayMat = $vehiculo["intelimotor_hasTrayMat"];
-                        $intelimotor_hasWindscreenWiper = $vehiculo["intelimotor_hasWindscreenWiper"];
-                        $intelimotor_singleOwner = $vehiculo["intelimotor_singleOwner"];
-                        $intelimotor_youtubeVideoUrl = $vehiculo["intelimotor_youtubeVideoUrl"];
-                        $intelimotor_picture = $vehiculo["intelimotor_picture"];
+                            $id = $vehiculo["id"];
+                            $publicado = $vehiculo["publicado"];
+                            $destacado = $vehiculo["destacado"];
+                            $certificado = $vehiculo["certificado"];
+                            $descuentoEspecial = $vehiculo["descuentoEspecial"];
+                            $tipo = $vehiculo["tipo"];
+                            $marca = $vehiculo["marca"];
+                            $modelo = $vehiculo["modelo"];
+                            $version = $vehiculo["version"];
+                            $ano = $vehiculo["ano"];
+                            $color = $vehiculo["color"];
+                            $precio = $vehiculo["precio"];
+                            $enganche = $vehiculo["enganche"];
+                            $litros = $vehiculo["litros"];
+                            $combustible = $vehiculo["combustible"];
+                            $transmision = $vehiculo["transmision"];
+                            $puertas = $vehiculo["puertas"];
+                            $asientos = $vehiculo["asientos"];
+                            $bolsasAire = $vehiculo["bolsasAire"];
+                            $kilometraje = $vehiculo["kilometraje"];
+                            $tipoFactura = $vehiculo["tipoFactura"];
+                            $numeroLlaves = $vehiculo["numeroLlaves"];
+                            $vidaUtilLlantas = $vehiculo["vidaUtilLlantas"];
+                            $facturaAgencia = $vehiculo["facturaAgencia"];
+                            $mantenimientosAgencia = $vehiculo["mantenimientosAgencia"];
+                            $impuestosCorriente = $vehiculo["impuestosCorriente"];
+                            $mantenimientosCorriente = $vehiculo["mantenimientosCorriente"];
+                            $manosLibres = $vehiculo["manosLibres"];
+                            $descripcion = $vehiculo["descripcion"];
+                            $puntosDestacados = $vehiculo["puntosDestacados"];
+                            $imagenPrincipal = $vehiculo["imagenPrincipal"];
+                            $video_titulo = $vehiculo["video_titulo"];
+                            $video_resumen = $vehiculo["video_resumen"];
+                            $video_detalle = $vehiculo["video_detalle"];
+                            $video_url = $vehiculo["video_url"];
+                            $video_vistaPrevia = $vehiculo["video_vistaPrevia"];
+                            $video_publicado = $vehiculo["video_publicado"];
+                            $idSucursal = $vehiculo["idSucursal"];
+                            $idConcesionario = $vehiculo["idConcesionario"];
 
-                        $mensaje = "ok - El vehiculo ha sido registrado.";
+                            $colorInterior = $vehiculo["colorInterior"];
+                            $direccion = $vehiculo["direccion"];
+                            $tieneAireAcondicionado = $vehiculo["tieneAireAcondicionado"];
+                            $tieneAlarma = $vehiculo["tieneAlarma"];
+                            $tieneAlfombrillaLlantaRefaccion = $vehiculo["tieneAlfombrillaLlantaRefaccion"];
+                            $tieneAperturaRemotaCajuela = $vehiculo["tieneAperturaRemotaCajuela"];
+                            $tieneAsientoConductorAjusteAltura = $vehiculo["tieneAsientoConductorAjusteAltura"];
+                            $tieneAsientosElectricos = $vehiculo["tieneAsientosElectricos"];
+                            $tieneAsientosTraserosAbatibles = $vehiculo["tieneAsientosTraserosAbatibles"];
+                            $tieneAsistenciaFrenado = $vehiculo["tieneAsistenciaFrenado"];
+                            $tieneBandejaLlantaRefaccion = $vehiculo["tieneBandejaLlantaRefaccion"];
+                            $tieneBarraAntivuelco = $vehiculo["tieneBarraAntivuelco"];
+                            $esBlindado = $vehiculo["esBlindado"];
+                            $tieneBluetooth = $vehiculo["tieneBluetooth"];
+                            $tieneBolsaAireConductor = $vehiculo["tieneBolsaAireConductor"];
+                            $tieneBolsaAirePasajero = $vehiculo["tieneBolsaAirePasajero"];
+                            $tieneBolsasAireLaterales = $vehiculo["tieneBolsasAireLaterales"];
+                            $tieneBolsasAireCortina = $vehiculo["tieneBolsasAireCortina"];
+                            $tieneCabecerasAsientosTraseros = $vehiculo["tieneCabecerasAsientosTraseros"];
+                            $tieneComputadoraAbordo = $vehiculo["tieneComputadoraAbordo"];
+                            $tieneControlTemperatura = $vehiculo["tieneControlTemperatura"];
+                            $tieneControlEstabilidad = $vehiculo["tieneControlEstabilidad"];
+                            $tieneControlLucesDelanteras = $vehiculo["tieneControlLucesDelanteras"];
+                            $tieneControlVolante = $vehiculo["tieneControlVolante"];
+                            $tieneDefensasColorCarroceria = $vehiculo["tieneDefensasColorCarroceria"];
+                            $tieneDesempanadorTrasero = $vehiculo["tieneDesempanadorTrasero"];
+                            $tieneEspejosElectricos = $vehiculo["tieneEspejosElectricos"];
+                            $tieneFarosNiebla = $vehiculo["tieneFarosNiebla"];
+                            $tieneFrenosABS = $vehiculo["tieneFrenosABS"];
+                            $tieneGps = $vehiculo["tieneGps"];
+                            $esImportado = $vehiculo["esImportado"];
+                            $tieneInmovilizador = $vehiculo["tieneInmovilizador"];
+                            $tieneLimpiaparabrisas = $vehiculo["tieneLimpiaparabrisas"];
+                            $tieneLlantaRefaccion = $vehiculo["tieneLlantaRefaccion"];
+                            $tieneLucesNieblaDelanteras = $vehiculo["tieneLucesNieblaDelanteras"];
+                            $tieneLucesNieblaTraseras = $vehiculo["tieneLucesNieblaTraseras"];
+                            $tieneLucesXenon = $vehiculo["tieneLucesXenon"];
+                            $tieneParachoques = $vehiculo["tieneParachoques"];
+                            $tienePilotoAutomatico = $vehiculo["tienePilotoAutomatico"];
+                            $tienePortavasos = $vehiculo["tienePortavasos"];
+                            $tieneQuemacocos = $vehiculo["tieneQuemacocos"];
+                            $tieneRadioAMFM = $vehiculo["tieneRadioAMFM"];
+                            $tieneRecordatorioEncendidoLuces = $vehiculo["tieneRecordatorioEncendidoLuces"];
+                            $tieneReproductorCD = $vehiculo["tieneReproductorCD"];
+                            $tieneReproductorDVD = $vehiculo["tieneReproductorDVD"];
+                            $tieneReproductorMP3 = $vehiculo["tieneReproductorMP3"];
+                            $tieneRespadosTraseros = $vehiculo["tieneRespadosTraseros"];
+                            $tieneRinesAleacion = $vehiculo["tieneRinesAleacion"];
+                            $tieneSegurosElectricosCentralizados = $vehiculo["tieneSegurosElectricosCentralizados"];
+                            $tieneSensorLluvia = $vehiculo["tieneSensorLluvia"];
+                            $tieneSensoresLuz = $vehiculo["tieneSensoresLuz"];
+                            $tieneSensoresReversa = $vehiculo["tieneSensoresReversa"];
+                            $tieneTapiceriaPiel = $vehiculo["tieneTapiceriaPiel"];
+                            $tieneTarjetaSD = $vehiculo["tieneTarjetaSD"];
+                            $tieneTerceraLuzFrenado = $vehiculo["tieneTerceraLuzFrenado"];
+                            $unicoDueno = $vehiculo["unicoDueno"];
+                            $tieneUsb = $vehiculo["tieneUsb"];
+                            $tieneVidriosElectricos = $vehiculo["tieneVidriosElectricos"];
 
-                        registraEvento("CMS : Alta de vehículo | id = " . $id);
+                            $intelimotor_id = $vehiculo["intelimotor_id"];
+                            $intelimotor_imported = $vehiculo["intelimotor_imported"];
+                            $intelimotor_kms = $vehiculo["intelimotor_kms"];
+                            $intelimotor_listPrice = $vehiculo["intelimotor_listPrice"];
+                            $intelimotor_title = $vehiculo["intelimotor_title"];
+                            $intelimotor_brand = $vehiculo["intelimotor_brand"];
+                            $intelimotor_model = $vehiculo["intelimotor_model"];
+                            $intelimotor_year = $vehiculo["intelimotor_year"];
+                            $intelimotor_trim = $vehiculo["intelimotor_trim"];
+                            $intelimotor_transmission = $vehiculo["intelimotor_transmission"];
+                            $intelimotor_doors = $vehiculo["intelimotor_doors"];
+                            $intelimotor_fuelType = $vehiculo["intelimotor_fuelType"];
+                            $intelimotor_steering = $vehiculo["intelimotor_steering"];
+                            $intelimotor_tractionControl = $vehiculo["intelimotor_tractionControl"];
+                            $intelimotor_vehicleBodyType = $vehiculo["intelimotor_vehicleBodyType"];
+                            $intelimotor_engine = $vehiculo["intelimotor_engine"];
+                            $intelimotor_exteriorColor = $vehiculo["intelimotor_exteriorColor"];
+                            $intelimotor_interiorColor = $vehiculo["intelimotor_interiorColor"];
+                            $intelimotor_hasAutopilot = $vehiculo["intelimotor_hasAutopilot"];
+                            $intelimotor_hasLightOnReminder = $vehiculo["intelimotor_hasLightOnReminder"];
+                            $intelimotor_hasOnboardComputer = $vehiculo["intelimotor_hasOnboardComputer"];
+                            $intelimotor_hasRearFoldingSeat = $vehiculo["intelimotor_hasRearFoldingSeat"];
+                            $intelimotor_hasSlidingRoof = $vehiculo["intelimotor_hasSlidingRoof"];
+                            $intelimotor_hasXenonHeadlights = $vehiculo["intelimotor_hasXenonHeadlights"];
+                            $intelimotor_hasCoasters = $vehiculo["intelimotor_hasCoasters"];
+                            $intelimotor_hasClimateControl = $vehiculo["intelimotor_hasClimateControl"];
+                            $intelimotor_hasAbsBrakes = $vehiculo["intelimotor_hasAbsBrakes"];
+                            $intelimotor_hasAlarm = $vehiculo["intelimotor_hasAlarm"];
+                            $intelimotor_hasAlloyWheels = $vehiculo["intelimotor_hasAlloyWheels"];
+                            $intelimotor_hasDriverAirbag = $vehiculo["intelimotor_hasDriverAirbag"];
+                            $intelimotor_hasElectronicBrakeAssist = $vehiculo["intelimotor_hasElectronicBrakeAssist"];
+                            $intelimotor_hasEngineInmovilizer = $vehiculo["intelimotor_hasEngineInmovilizer"];
+                            $intelimotor_hasFogLight = $vehiculo["intelimotor_hasFogLight"];
+                            $intelimotor_hasFrontFoglights = $vehiculo["intelimotor_hasFrontFoglights"];
+                            $intelimotor_hasPassengerAirbag = $vehiculo["intelimotor_hasPassengerAirbag"];
+                            $intelimotor_hasRainSensor = $vehiculo["intelimotor_hasRainSensor"];
+                            $intelimotor_hasRearFoglights = $vehiculo["intelimotor_hasRearFoglights"];
+                            $intelimotor_hasRearWindowDefogger = $vehiculo["intelimotor_hasRearWindowDefogger"];
+                            $intelimotor_hasRollBar = $vehiculo["intelimotor_hasRollBar"];
+                            $intelimotor_hasSideImpactAirbag = $vehiculo["intelimotor_hasSideImpactAirbag"];
+                            $intelimotor_hasStabilityControl = $vehiculo["intelimotor_hasStabilityControl"];
+                            $intelimotor_hasSteeringWheelControl = $vehiculo["intelimotor_hasSteeringWheelControl"];
+                            $intelimotor_hasThirdStop = $vehiculo["intelimotor_hasThirdStop"];
+                            $intelimotor_hasCurtainAirbag = $vehiculo["intelimotor_hasCurtainAirbag"];
+                            $intelimotor_armored = $vehiculo["intelimotor_armored"];
+                            $intelimotor_hasAirConditioning = $vehiculo["intelimotor_hasAirConditioning"];
+                            $intelimotor_hasElectricMirrors = $vehiculo["intelimotor_hasElectricMirrors"];
+                            $intelimotor_hasGps = $vehiculo["intelimotor_hasGps"];
+                            $intelimotor_hasHeadlightControl = $vehiculo["intelimotor_hasHeadlightControl"];
+                            $intelimotor_hasHeadrestRearSeat = $vehiculo["intelimotor_hasHeadrestRearSeat"];
+                            $intelimotor_hasHeightAdjustableDriverSeat = $vehiculo["intelimotor_hasHeightAdjustableDriverSeat"];
+                            $intelimotor_hasLeatherUpholstery = $vehiculo["intelimotor_hasLeatherUpholstery"];
+                            $intelimotor_hasLightSensor = $vehiculo["intelimotor_hasLightSensor"];
+                            $intelimotor_hasPaintedBumper = $vehiculo["intelimotor_hasPaintedBumper"];
+                            $intelimotor_hasParkingSensor = $vehiculo["intelimotor_hasParkingSensor"];
+                            $intelimotor_hasPowerWindows = $vehiculo["intelimotor_hasPowerWindows"];
+                            $intelimotor_hasRemoteTrunkRelease = $vehiculo["intelimotor_hasRemoteTrunkRelease"];
+                            $intelimotor_hasElectricSeats = $vehiculo["intelimotor_hasElectricSeats"];
+                            $intelimotor_hasRearBackrest = $vehiculo["intelimotor_hasRearBackrest"];
+                            $intelimotor_hasCentralPowerDoorLocks = $vehiculo["intelimotor_hasCentralPowerDoorLocks"];
+                            $intelimotor_hasAmfmRadio = $vehiculo["intelimotor_hasAmfmRadio"];
+                            $intelimotor_hasBluetooth = $vehiculo["intelimotor_hasBluetooth"];
+                            $intelimotor_hasCdPlayer = $vehiculo["intelimotor_hasCdPlayer"];
+                            $intelimotor_hasDvd = $vehiculo["intelimotor_hasDvd"];
+                            $intelimotor_hasMp3Player = $vehiculo["intelimotor_hasMp3Player"];
+                            $intelimotor_hasSdCard = $vehiculo["intelimotor_hasSdCard"];
+                            $intelimotor_hasUsb = $vehiculo["intelimotor_hasUsb"];
+                            $intelimotor_hasBullBar = $vehiculo["intelimotor_hasBullBar"];
+                            $intelimotor_hasSpareTyreSupport = $vehiculo["intelimotor_hasSpareTyreSupport"];
+                            $intelimotor_hasTrayCover = $vehiculo["intelimotor_hasTrayCover"];
+                            $intelimotor_hasTrayMat = $vehiculo["intelimotor_hasTrayMat"];
+                            $intelimotor_hasWindscreenWiper = $vehiculo["intelimotor_hasWindscreenWiper"];
+                            $intelimotor_singleOwner = $vehiculo["intelimotor_singleOwner"];
+                            $intelimotor_youtubeVideoUrl = $vehiculo["intelimotor_youtubeVideoUrl"];
+                            $intelimotor_picture = $vehiculo["intelimotor_picture"];
+
+                            $mensaje = "ok - El vehiculo ha sido registrado.";
+
+                            registraEvento("CMS : Alta de vehículo | id = " . $id);
+                        }
                     } else {
                         
                         // Es actualizacion
+
+error_log("\nActualización", 3, $rutaLog);
+
+error_log("\n" . "UPDATE vehiculo SET"
+                                . " publicado = " . $publicado
+                                . ", destacado = " . $destacado
+                                . ", certificado = " . $certificado
+                                . ", descuentoEspecial = " . $descuentoEspecial
+                                . ", tipo = '" . $tipo ."'"
+                                . ", marca = '" . $marca ."'"
+                                . ", modelo = '" . $modelo ."'"
+                                . ", version = '" . $version ."'"
+                                . ", ano = " . $ano
+                                . ", color = '" . $color ."'"
+                                . ", precio = " . $precio
+                                . ", enganche = " . (estaVacio($enganche) ? "NULL" : $enganche)
+                                . ", litros = " . (estaVacio($litros) ? "NULL" : $litros)
+                                . ", combustible = " . (estaVacio($combustible) ? "NULL" : "'" . $combustible . "'")
+                                . ", transmision = " . (estaVacio($transmision) ? "NULL" : "'" . $transmision . "'")
+                                . ", puertas = " . (estaVacio($puertas) ? "NULL" : $puertas)
+                                . ", asientos = " . (estaVacio($asientos) ? "NULL" : $asientos)
+                                . ", bolsasAire = " . (estaVacio($bolsasAire) ? "NULL" : $bolsasAire)
+                                . ", kilometraje = " . (estaVacio($kilometraje) ? "NULL" : $kilometraje)
+                                . ", tipoFactura = " . (estaVacio($tipoFactura) ? "NULL" : "'" . $tipoFactura . "'")
+                                . ", numeroLlaves = " . $numeroLlaves
+                                . ", vidaUtilLlantas = " . (estaVacio($vidaUtilLlantas) ? "NULL" : $vidaUtilLlantas)
+                                . ", facturaAgencia = " . (estaVacio($facturaAgencia) ? "NULL" : $facturaAgencia)
+                                . ", mantenimientosAgencia = " . (estaVacio($mantenimientosAgencia) ? "NULL" : $mantenimientosAgencia)
+                                . ", impuestosCorriente = " . (estaVacio($impuestosCorriente) ? "NULL" : $impuestosCorriente)
+                                . ", mantenimientosCorriente = " . (estaVacio($mantenimientosCorriente) ? "NULL" : $mantenimientosCorriente)
+                                . ", manosLibres = " . (estaVacio($manosLibres) ? "NULL" : $manosLibres)
+                                . ", descripcion = " . (estaVacio($descripcion) ? "NULL" : "'" . mysqli_real_escape_string($conexion, $descripcion) . "'")
+                                . ", puntosDestacados = " . (estaVacio($puntosDestacados) ? "NULL" : "'" . mysqli_real_escape_string($conexion, $puntosDestacados) . "'")
+                                . ", video_titulo = " . (estaVacio($video_titulo) ? "NULL" : "'" . $video_titulo . "'")
+                                . ", video_resumen = " . (estaVacio($video_resumen) ? "NULL" : "'" . $video_resumen . "'")
+                                . ", video_detalle = " . (estaVacio($video_detalle) ? "NULL" : "'" . mysqli_real_escape_string($conexion, $video_detalle) . "'")
+                                . ", video_url = " . (estaVacio($video_url) ? "NULL" : "'" . mysqli_real_escape_string($conexion, $video_url) . "'")
+                                . ", video_fechaPublicacion = " . (!estaVacio($video_titulo) && !estaVacio($video_resumen) ? "'" . $fechaActual . "'" : "NULL")
+                                . ", video_publicado = " . $video_publicado
+                                . ", idSucursal = " . (estaVacio($idSucursal) ? "NULL" : $idSucursal)
+                                . ", idConcesionario = " . $idConcesionario
+
+                                . ", colorInterior = " . (estaVacio($colorInterior) ? "NULL" : "'" . $colorInterior . "'")
+                                . ", direccion = " . (estaVacio($direccion) ? "NULL" : "'" . $direccion . "'")
+                                . ", tieneAireAcondicionado = " . $tieneAireAcondicionado
+                                . ", tieneAlarma = " . $tieneAlarma
+                                . ", tieneAlfombrillaLlantaRefaccion = " . $tieneAlfombrillaLlantaRefaccion
+                                . ", tieneAperturaRemotaCajuela = " . $tieneAperturaRemotaCajuela
+                                . ", tieneAsientoConductorAjusteAltura = " . $tieneAsientoConductorAjusteAltura
+                                . ", tieneAsientosElectricos = " . $tieneAsientosElectricos
+                                . ", tieneAsientosTraserosAbatibles = " . $tieneAsientosTraserosAbatibles
+                                . ", tieneAsistenciaFrenado = " . $tieneAsistenciaFrenado
+                                . ", tieneBandejaLlantaRefaccion = " . $tieneBandejaLlantaRefaccion
+                                . ", tieneBarraAntivuelco = " . $tieneBarraAntivuelco
+                                . ", esBlindado = " . $esBlindado
+                                . ", tieneBluetooth = " . $tieneBluetooth
+                                . ", tieneBolsaAireConductor = " . $tieneBolsaAireConductor
+                                . ", tieneBolsaAirePasajero = " . $tieneBolsaAirePasajero
+                                . ", tieneBolsasAireLaterales = " . $tieneBolsasAireLaterales
+                                . ", tieneBolsasAireCortina = " . $tieneBolsasAireCortina
+                                . ", tieneCabecerasAsientosTraseros = " . $tieneCabecerasAsientosTraseros
+                                . ", tieneComputadoraAbordo = " . $tieneComputadoraAbordo
+                                . ", tieneControlTemperatura = " . $tieneControlTemperatura
+                                . ", tieneControlEstabilidad = " . $tieneControlEstabilidad
+                                . ", tieneControlLucesDelanteras = " . $tieneControlLucesDelanteras
+                                . ", tieneControlVolante = " . $tieneControlVolante
+                                . ", tieneDefensasColorCarroceria = " . $tieneDefensasColorCarroceria
+                                . ", tieneDesempanadorTrasero = " . $tieneDesempanadorTrasero
+                                . ", tieneEspejosElectricos = " . $tieneEspejosElectricos
+                                . ", tieneFarosNiebla = " . $tieneFarosNiebla
+                                . ", tieneFrenosABS = " . $tieneFrenosABS
+                                . ", tieneGps = " . $tieneGps
+                                . ", esImportado = " . $esImportado
+                                . ", tieneInmovilizador = " . $tieneInmovilizador
+                                . ", tieneLimpiaparabrisas = " . $tieneLimpiaparabrisas
+                                . ", tieneLlantaRefaccion = " . $tieneLlantaRefaccion
+                                . ", tieneLucesNieblaDelanteras = " . $tieneLucesNieblaDelanteras
+                                . ", tieneLucesNieblaTraseras = " . $tieneLucesNieblaTraseras
+                                . ", tieneLucesXenon = " . $tieneLucesXenon
+                                . ", tieneParachoques = " . $tieneParachoques
+                                . ", tienePilotoAutomatico = " . $tienePilotoAutomatico
+                                . ", tienePortavasos = " . $tienePortavasos
+                                . ", tieneQuemacocos = " . $tieneQuemacocos
+                                . ", tieneRadioAMFM = " . $tieneRadioAMFM
+                                . ", tieneRecordatorioEncendidoLuces = " . $tieneRecordatorioEncendidoLuces
+                                . ", tieneReproductorCD = " . $tieneReproductorCD
+                                . ", tieneReproductorDVD = " . $tieneReproductorDVD
+                                . ", tieneReproductorMP3 = " . $tieneReproductorMP3
+                                . ", tieneRespadosTraseros = " . $tieneRespadosTraseros
+                                . ", tieneRinesAleacion = " . $tieneRinesAleacion
+                                . ", tieneSegurosElectricosCentralizados = " . $tieneSegurosElectricosCentralizados
+                                . ", tieneSensorLluvia = " . $tieneSensorLluvia
+                                . ", tieneSensoresLuz = " . $tieneSensoresLuz
+                                . ", tieneSensoresReversa = " . $tieneSensoresReversa
+                                . ", tieneTapiceriaPiel = " . $tieneTapiceriaPiel
+                                . ", tieneTarjetaSD = " . $tieneTarjetaSD
+                                . ", tieneTerceraLuzFrenado = " . $tieneTerceraLuzFrenado
+                                . ", unicoDueno = " . $unicoDueno
+                                . ", tieneUsb = " . $tieneUsb
+                                . ", tieneVidriosElectricos = " . $tieneVidriosElectricos
+                            . " WHERE id = " . $id, 3, $rutaLog);
 
                         consulta($conexion, "UPDATE vehiculo SET"
                                 . " publicado = " . $publicado
@@ -978,6 +1317,8 @@
                                 . ", tieneUsb = " . $tieneUsb
                                 . ", tieneVidriosElectricos = " . $tieneVidriosElectricos
                             . " WHERE id = " . $id);
+
+error_log("\n" . "SELECT * FROM vehiculo WHERE id = " . $id, 3, $rutaLog);
 
                         $vehiculo_BD = consulta($conexion, "SELECT * FROM vehiculo WHERE id = " . $id);
                         $vehiculo = obtenResultado($vehiculo_BD);
@@ -1731,6 +2072,8 @@
 
                     // Es consulta
 
+error_log("\nConsulta", 3, $rutaLog);
+
                     $vehiculo_BD = consulta($conexion, "SELECT * FROM vehiculo WHERE id = " . $id);
                     $vehiculo = obtenResultado($vehiculo_BD);
 
@@ -1911,6 +2254,9 @@
 
                     registraEvento("CMS : Consulta de vehículo | id = " . $id);
                 } else {
+
+error_log("\nAdición", 3, $rutaLog);
+
                     $publicado = 0;
                     $destacado = 0;
                     $certificado = 0;
