@@ -8,7 +8,7 @@
 
 
     //require "/Users/mvelasco/Socialware/Proyectos/Web/arca/backend/plugins/mailjet/vendor/autoload.php";
-    require "/var/www/html/socialware/arca/backend/plugins/mailjet/vendor/autoload.php";
+    require "/var/www/html/arca/backend/plugins/mailjet/vendor/autoload.php";
     //require "/var/www/html/arca/backend/plugins/mailjet/vendor/autoload.php";
 
     use Mailjet\Resources;
