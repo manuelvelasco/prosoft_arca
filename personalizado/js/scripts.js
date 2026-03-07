@@ -1,7 +1,5 @@
-var rutaAplicacion = "http://localhost/web/arca/";
-//var rutaAplicacion = "http://localhost/git/prosoft_arca/";
-//var rutaAplicacion = "http://54.196.77.109/arca/";
-//var rutaAplicacion = "https://socialware.mx/arca/";
+//var rutaAplicacion = "http://localhost/web/arca/";
+var rutaAplicacion = "http://54.196.77.109/arca/";
 //var rutaAplicacion = "https://seminuevosarca.com.mx/";
 
 var rutaBackend = rutaAplicacion + "backend/";
