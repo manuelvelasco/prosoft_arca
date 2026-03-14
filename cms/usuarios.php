@@ -14,147 +14,140 @@
     </head>
 
 
-    <body>
+    <body class="app sidebar-mini ltr">
 
-        <!-- Preloader -->
 
-        <div class="preloader-it">
-            <div class="la-anim-1"></div>
+        <!-- Loader -->
+
+
+        <div id="global-loader">
+            <img alt="Cargando..." class="loader-img" src="assets/images/loader.svg" />
         </div>
 
-        <div class="wrapper">
-            <?php include("socialware/php/estructura/encabezado.php"); ?>
+        <div class="page">
+            <div class="page-main">
+                <?php include("socialware/php/estructura/encabezado.php"); ?>
 
-            <?php include("socialware/php/estructura/menu.php"); ?>
+                <?php include("socialware/php/estructura/menu.php"); ?>
 
-            <!-- Contenido -->
+                <!-- Contenido -->
 
-            <div class="page-wrapper">
-                <div class="container-fluid">
-                    <?php if ($esUsuarioMaster || $esUsuarioAdministrador) { ?>
+                <div class="main-content app-content mt-0">
+                    <div class="side-app">
+                        <?php if ($esUsuarioMaster || $esUsuarioAdministrador) { ?>
+                            <div class="main-container container-fluid">
 
-                        <!-- Titulo -->
 
-                        <div class="row heading-bg bg-blue">
-                            <div class="col-xs-12">
-                                <h5 class="txt-light">Listado de Usuarios</h5>
-                            </div>
-                        </div>
+                                <!-- Titulo -->
 
-                        <!-- Tabla de resultados -->
 
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <div class="panel panel-default card-view">
-                                    <div class="panel-heading">
-                                        <div class="pull-left">
-                                            <h6 class="panel-title txt-dark">Resultados</h6>
+                                <div class="page-header">
+                                    <h1 class="page-title">Listado de usuarios</h1>
+                                </div>
 
-                                            <hr />
+
+                                <!-- Tabla de resultados -->
+
+
+                                <div class="row">
+                                    <div class="col-xl-12">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <div class="text-wrap">
+                                                    <div class="d-flex">
+                                                        <div class="input-group wd-150" id="contenedor_botones">
+                                                            <input class="form-control br-0" id="campo_llaveResultado" placeholder="Buscar..." type="text" />
+                                                            <a class="btn btn-primary" data-fancybox data-type="iframe" data-preload="false" data-height="900" href="usuario.php" id="boton_agregar">Agregar usuario</a>
+                                                            &nbsp;&nbsp;&nbsp;
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
-
-                                        <div class="clearfix"></div>
                                     </div>
+                                </div>
 
-                                    <div class="panel-wrapper collapse in">
-                                        <div class="panel-body">
-                                            <div class="table-wrap">
+                                <div class="row row-sm">
+                                    <div class="col-lg-12">
+                                        <div class="card">
+                                            <div class="card-header">
+                                                <h3 class="card-title">Resultados</h3>
+                                            </div>
+
+                                            <div class="card-body">
                                                 <div class="table-responsive">
-                                                    <table class="table table-hover display  pb-30" id="tabla_resultados">
+                                                    <table class="table table-bordered text-nowrap key-buttons border-bottom" id="tabla_resultados">
                                                         <thead>
                                                             <tr>
-                                                                <th>Id</th>
-                                                                <th>Agencia</th>
-                                                                <th>Nombre</th>
-                                                                <th>Correo electrónico</th>
-                                                                <th>Rol</th>
-                                                                <th>Habilitado</th>
-                                                                <th class="columna_acciones">Acciones</th>
+                                                                <th class="border-bottom-0">Id</th>
+                                                                <th class="border-bottom-0">Agencia</th>
+                                                                <th class="border-bottom-0">Nombre</th>
+                                                                <th class="border-bottom-0">Correo electrónico</th>
+                                                                <th class="border-bottom-0">Rol</th>
+                                                                <th class="border-bottom-0">Habilitado</th>
+                                                                <th class="border-bottom-0">Acciones</th>
                                                             </tr>
                                                         </thead>
 
-                                                        <tfoot>
-                                                            <tr>
-                                                                <th>Id</th>
-                                                                <th>Agencia</th>
-                                                                <th>Nombre</th>
-                                                                <th>Correo electrónico</th>
-                                                                <th>Rol</th>
-                                                                <th>Habilitado</th>
-                                                                <th>Acciones</th>
-                                                            </tr>
-                                                        </tfoot>
-
-                                                        <tbody>
+                                                        <tbody id="contenedor_resultados">
                                                             <?php
 
-                                                                // Arma restricciones
+                                                                    // Arma restricciones
 
-                                                                $restricciones = "";
+                                                                    $restricciones = "";
 
-                                                                // Consulta base de datos
+                                                                    // Consulta base de datos
 
-                                                                $usuarios_BD = consulta($conexion, "SELECT u.*, c.nombreComercial AS concesionario_nombreComercial FROM usuario u LEFT JOIN concesionario c ON c.id = u.idConcesionario WHERE u.rol != 'Master' " . $restricciones . " ORDER BY u.rol, u.nombre");
+                                                                    $usuarios_BD = consulta($conexion, "SELECT u.*, c.nombreComercial AS concesionario_nombreComercial FROM usuario u LEFT JOIN concesionario c ON c.id = u.idConcesionario WHERE u.rol != 'Master' " . $restricciones . " ORDER BY u.rol, u.nombre");
 
-                                                                while ($usuario = obtenResultado($usuarios_BD)) {
-                                                                    echo "<tr>";
-                                                                    echo "<td>" . $usuario["id"] . "</td>";
-                                                                    echo "<td>" . $usuario["concesionario_nombreComercial"] . "</td>";
-                                                                    echo "<td>" . $usuario["nombre"] . "</td>";
-                                                                    echo "<td>" . $usuario["correoElectronico"] . "</td>";
-                                                                    echo "<td>" . $usuario["rol"] . "</td>";
-                                                                    echo "<td>" . ($usuario["habilitado"] == 1 ? "Si" : "No") . "</td>";
-                                                                    echo "<td>";
-                                                                    echo "<a class='link_editar' data-id='" . $usuario["id"] . "' data-toggle='tooltip' href='javascript:;' title='Ver detalle'><i class='fa fa-search'></i></a>";
+                                                                    while ($usuario = obtenResultado($usuarios_BD)) {
+                                                                        echo "<tr>";
+                                                                        echo "<td>" . $usuario["id"] . "</td>";
+                                                                        echo "<td>" . $usuario["concesionario_nombreComercial"] . "</td>";
+                                                                        echo "<td>" . $usuario["nombre"] . "</td>";
+                                                                        echo "<td>" . $usuario["correoElectronico"] . "</td>";
+                                                                        echo "<td>" . $usuario["rol"] . "</td>";
+                                                                        echo "<td>" . ($usuario["habilitado"] == 1 ? "Si" : "No") . "</td>";
+                                                                        echo "<td>";
+                                                                        //echo "<a class='link_editar' data-id='" . $usuario["id"] . "' data-toggle='tooltip' href='javascript:;' title='Ver detalle'><i class='fa fa-search'></i></a>";
+                                                                        echo "<a data-fancybox data-type='iframe' data-preload='false' data-height='1080' href='usuario.php?id=" . $usuario["id"] . "' title='Editar'><i class='fa fa-search'></i></a>";
 
-                                                                    if ($esUsuarioMaster || $esUsuarioAdministrador) {
-                                                                        echo "<a class='link_habilitar' data-id='" . $usuario["id"] . "' data-habilitado='" . $usuario["habilitado"] . "' data-toggle='tooltip' href='javascript:;' title='" . ($usuario["habilitado"] == 1 ? "Inhabilitar" : "Habilitar") . "'><i class='fa fa-" . ($usuario["habilitado"] == 1 ? "lock" : "unlock") . "'></i></a>";
+                                                                        if ($esUsuarioMaster || $esUsuarioAdministrador) {
+                                                                            echo "<a class='link_habilitar' data-id='" . $usuario["id"] . "' data-habilitado='" . $usuario["habilitado"] . "' data-toggle='tooltip' href='javascript:;' title='" . ($usuario["habilitado"] == 1 ? "Inhabilitar" : "Habilitar") . "'><i class='fa fa-" . ($usuario["habilitado"] == 1 ? "lock" : "unlock") . "'></i></a>";
+                                                                        }
+
+                                                                        echo "</td>";
+                                                                        echo "</tr>";
                                                                     }
 
-                                                                    echo "</td>";
-                                                                    echo "</tr>";
-                                                                }
-
-                                                                registraEvento("CMS : Consulta de usuarios");
-                                                            ?>
+                                                                    registraEvento("CMS : Consulta de usuarios");
+                                                                ?>
                                                         </tbody>
                                                     </table>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-
-                                    <br />
-
-                                    <div class="form-group mb-0">
-                                        <a class="btn btn-primary link_agregar" href="javascript:;">Agregar usuario</a>
-                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        <?php
+                            } else {
+                                registraEvento("CMS : Consulta de usuarios bloqueada");
+                                muestraBloqueo();
+                            }
+                        ?>
 
-                        <!-- Formulario de redireccion hacia edicion -->
-
-                        <form action="usuario.php" id="formulario_edicion" method="post">
-                            <input name="origen" type="hidden" value="usuarios.php" />
-
-                            <!-- Ida -->
-
-                            <input id="campo_edicion_id" name="id" type="hidden" />
-                        </form>
-                    <?php
-                        } else {
-                            registraEvento("CMS : Consulta de usuarios bloqueada");
-                            muestraBloqueo();
-                        }
-                    ?>
-
-                    <?php include("socialware/php/estructura/pieDePagina.php"); ?>
+                    </div>
                 </div>
+
+
+                <?php include("socialware/php/estructura/pieDePagina.php"); ?>
+
             </div>
         </div>
 
         <?php include("socialware/php/estructura/plugins.php"); ?>
+
 
         <?php include("socialware/php/estructura/scripts.php"); ?>
 
@@ -167,38 +160,62 @@
 
                 // Inicializa tabla de resultados
 
-                $("#tabla_resultados").DataTable({
-                    //order: [[1, "asc"]],
-                    dom: "Bfrtip",
+                var tablaResultados = $("#tabla_resultados").DataTable({
                     buttons: [
-                        "copy", "excel", "pdf", "print"
+                        {
+                            extend: "copy",
+                            text: "Copiar",
+                            exportOptions: {
+                                columns: ':visible'
+                            }
+                        }
+                        , {
+                            extend: "excel",
+                            exportOptions: {
+                                columns: ':visible'
+                            }
+                        }
+                        , {
+                            extend: "pdf",
+                            exportOptions: {
+                                columns: ':visible:not(:last-child)'
+                            },
+                            orientation: "landscape"
+                        }
+                        , {
+                            extend: "colvis",
+                            text: "Columnas"
+                        }
                     ],
+                    dom: "rtip",
+                    "bDestroy": true,
+                    //pageLength: (paginacion ? "10" : "0"),
                     language: {
-                        decimal: "",
+                        scrollX: "100%",
+                        sSearch: "",
+
                         emptyTable: "No hay información",
-                        info: "Mostrando _START_ a _END_ de _TOTAL_ registros",
-                        infoEmpty: "Mostrando 0 to 0 of 0 registros",
-                        infoFiltered: "(Filtrado de _MAX_ total registros)",
-                        infoPostFix: "",
-                        lengthMenu: "Mostrar _MENU_ registros",
+                        info: "Mostrando _START_ a _END_ de _TOTAL_ resultados",
+                        infoEmpty: "Mostrando 0 a 0 de 0 resultados",
+                        infoFiltered: "(Filtrado de _MAX_ total resultados)",
+                        lengthMenu: "Mostrar _MENU_ resultados",
                         loadingRecords: "Cargando...",
                         processing: "Procesando...",
-                        search: "Buscar:",
-                        thousands: ",",
-                        zeroRecords: "No se han encontrado resultados",
+                        searchPlaceholder: "Bucar...",
+                        zeroRecords: "Sin resultados encontrados",
                         paginate: {
-                            first: "Primero",
-                            last: "Último",
-                            next: "Siguiente",
-                            previous: "Anterior"
-                        },
-                        buttons: {
-                            copy: "Copiar",
-                            excel: "Excel",
-                            pdf: "PDF",
-                            print: "Imprimir"
+                            "first": "Primero",
+                            "last": "Último",
+                            "next": "Siguiente",
+                            "previous": "Anterior"
                         }
-                    }
+                    },
+                    retrieve: true
+                });
+                 tablaResultados.buttons().container().appendTo("#contenedor_botones");
+
+                 $("#campo_llaveResultado").keyup(function() {
+                    tablaResultados.search($(this).val()).draw();
                 });
             });
 
