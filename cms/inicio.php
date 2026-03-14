@@ -16,37 +16,30 @@
     </head>
 
 
-    <body>
+    <body class="app sidebar-mini ltr">
 
-        <!-- Preloader -->
 
-        <div class="preloader-it">
-            <div class="la-anim-1"></div>
+        <!-- Loader -->
+
+
+        <div id="global-loader">
+            <img alt="Cargando..." class="loader-img" src="assets/images/loader.svg" />
         </div>
 
-        <div class="wrapper">
-            <?php include("socialware/php/estructura/encabezado.php"); ?>
+        <div class="page">
+            <div class="page-main">
+                <?php include("socialware/php/estructura/encabezado.php"); ?>
 
-            <?php include("socialware/php/estructura/menu.php"); ?>
+                <?php include("socialware/php/estructura/menu.php"); ?>
 
-            <!-- Contenido -->
+                <!-- Contenido -->
 
-            <div class="page-wrapper">
-                <div class="container-fluid">
-
-                    <!-- Titulo -->
-
-                    <div class="row heading-bg bg-blue">
-                        <div class="col-xs-12">
-                            <h5 class="txt-light">Inicio</h5>
-                        </div>
-                    </div>
-
-                    <?php if ($esUsuarioMaster || $esUsuarioAdministrador) { ?>
-                    <?php } ?>
-
-                    <?php include("socialware/php/estructura/pieDePagina.php"); ?>
+                <div class="main-content app-content mt-0">
                 </div>
+
+
+                <?php include("socialware/php/estructura/pieDePagina.php"); ?>
+
             </div>
         </div>
 

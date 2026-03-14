@@ -1,9 +1,11 @@
                     <!-- Pie de pagina -->
 
-                    <footer class="footer container-fluid pl-30 pr-30">
-                        <div class="row">
-                            <div class="col-sm-12 text-right">
-                                <!--p>< ?php echo date("Y") ?> &copy; Impulsora N&eacute;ctar</p-->
+                    <footer class="footer">
+                        <div class="container">
+                            <div class="row align-items-center flex-row-reverse">
+                                <div class="col-md-12 col-sm-12 text-center">
+                                    Derechos reservados © <script>document.write(new Date().getFullYear())</script> <a href="javascript:void(0)" target="_blank">ARCA</a>. Desarrollado por <a href="https://socialware.mx" target="_blank"> Socialware</a>.
+                                </div>
                             </div>
                         </div>
                     </footer>
