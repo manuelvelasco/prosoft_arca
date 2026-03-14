@@ -8,80 +8,100 @@
         <?php include("socialware/php/comunes/funciones.php"); ?>
 
         <?php include("socialware/php/estructura/head.php"); ?>
+
+        <style>
+            .header-brand-img {
+                max-width: 120px;
+            }
+
+            .tabs-menu1 ul li {
+                text-align: center; 
+                width: 100%
+            }
+            .panel-primary{
+                border: none;
+            }
+            .tab-pane{
+                margin-left: 0;
+            }
+            .panel{
+                box-shadow: none;
+            }
+            .btn-primary{
+                margin-left: 0;
+            }
+        </style>
     </head>
 
 
     <body>
 
-        <!-- Preloader -->
+        <div class="login-img">
 
-        <div class="preloader-it">
-            <div class="la-anim-1"></div>
-        </div>
 
-        <div class="wrapper pa-0">
+            <!-- Loader -->
 
-            <!-- Contenido -->
 
-            <div class="page-wrapper pa-0 ma-0">
-                <div class="container-fluid">
-                    <div class="table-struct full-width full-height">
-                        <div class="table-cell vertical-align-middle">
-                            <div class="auth-form  ml-auto mr-auto no-float">
-                                <div class="panel panel-default card-view mb-0">
-                                    <div class="panel-heading">
-                                        <div style="text-align: center; width: 100%">
-                                            <img src="../personalizado/img/Logotipo-ARCA-01-Web.png" style="width: 150px" />
+            <div id="global-loader">
+                <img alt="Loader" class="loader-img" src="assets/images/loader.svg">
+            </div>
+
+
+            <!-- Contenido especifico de la pagina -->
+
+
+            <div class="page">
+                <div class="">
+                    <div class="container-login100">
+                        <div class="wrap-login100 p-6">
+                            <form class="login100-form validate-form" id="formulario_acceso">
+                                <div class="text-center mb-3">
+                                    <img alt="" class="header-brand-img" src="../personalizado/img/Logotipo-ARCA-01-Web.png" />
+                                </div>
+
+                                <span class="login100-form-title pb-5">
+                                    Inicio de sesión
+                                </span>
+
+                                <div id="contenedor_mensaje"></div>
+
+                                <div class="panel panel-primary">
+                                    <div class="tab-menu-heading">
+                                        <div class="tabs-menu1">
+                                            <ul class="nav panel-tabs">
+                                                <li class="mx-0"><a class="active" data-bs-toggle="tab" href="#tab5">Correo electrónico</a></li>
+                                            </ul>
                                         </div>
-
-                                        <br />
-
-                                        <div class="pull-left">
-                                            <h6 class="panel-title txt-dark">Proporcione sus datos de acceso</h6>
-                                        </div>
-
-                                        <div class="clearfix"></div>
                                     </div>
 
-                                    <div class="panel-wrapper collapse in">
-                                        <div class="panel-body">
-                                            <div class="alert" id="contenedor_mensaje">
-                                                <span></span>
-                                            </div>
-
-                                            <div class="row">
-                                                <div class="col-sm-12 col-xs-12">
-                                                    <div class="form-wrap">
-                                                        <form id="formulario_acceso">
-                                                            <div class="form-group">
-                                                                <label class="control-label mb-10" for="correoElectronico">Correo electrónico</label>
-
-                                                                <div class="input-group">
-                                                                    <input autocomplete="off" class="form-control" name="correoElectronico" required="" type="text">
-                                                                    <div class="input-group-addon"><i class="icon-envelope"></i></div>
-                                                                </div>
-                                                            </div>
-
-                                                            <div class="form-group">
-                                                                <label class="control-label mb-10" for="contrasena">Contraseña</label>
-
-                                                                <div class="input-group">
-                                                                    <input class="form-control" name="contrasena" required="" type="password">
-                                                                    <div class="input-group-addon"><i class="icon-lock"></i></div>
-                                                                </div>
-                                                            </div>
-
-                                                            <div class="form-group">
-                                                                <button class="btn btn-primary btn-block" id="submit_acceso" type="button">Iniciar sesión</button>
-                                                            </div>
-                                                        </form>
-                                                    </div>
+                                    <div class="panel-body tabs-menu-body p-0 pt-5">
+                                        <div class="tab-content">
+                                            <div class="tab-pane active" id="tab5">
+                                                <div class="wrap-input100 validate-input input-group" data-bs-validate="Valid email is required: ex@abc.xyz">
+                                                    <a href="javascript:void(0)" class="input-group-text bg-white text-muted">
+                                                        <i class="zmdi zmdi-email text-muted" aria-hidden="true"></i>
+                                                    </a>
+                                                    <input class="input100 border-start-0 form-control ms-0" id="campo_correoElectronico" name="correoElectronico" placeholder="Correo electrónico" type="email" />
                                                 </div>
+
+                                                <div class="wrap-input100 validate-input input-group" id="Password-toggle">
+                                                    <a href="javascript:void(0)" class="input-group-text bg-white text-muted">
+                                                        <i class="zmdi zmdi-eye text-muted" aria-hidden="true"></i>
+                                                    </a>
+                                                    <input class="input100 border-start-0 form-control ms-0" id="campo_contrasena" name="contrasena" placeholder="Contraseña" type="password" />
+                                                </div>
+
+                                                <div class="container-login100-form-btn">
+                                                    <a href="#" id="boton_iniciarSesion" class="login100-form-btn btn-primary">
+                                                        Acceder
+                                                    </a>
+                                                </div>
+
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -95,7 +115,7 @@
 
 
         <script>
-            $("#submit_acceso").click(function () {
+            $("#boton_iniciarSesion").click(function () {
                 $("#contenedor_mensaje").hide();
                 $("#contenedor_mensaje").removeClass("alert-danger");
 
@@ -107,7 +127,7 @@
                         if (resultado === "ok") {
                             window.location.replace("inicio.php");
                         } else {
-                            $("#contenedor_mensaje span").html(resultado);
+                            $("#contenedor_mensaje").html(resultado);
                             $("#contenedor_mensaje").addClass("alert-danger");
                             $("#contenedor_mensaje").show();
                         }

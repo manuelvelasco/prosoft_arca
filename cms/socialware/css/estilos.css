@@ -27,6 +27,37 @@
     overflow-x: hidden;
 }
 
+.side-header{
+    height:96px !important;
+}
+
+.perfilUsuarioVisible{
+    display: block !important;
+    left: -135px !important;
+}
+
+.dt-buttons {
+    left: 25px;
+    position: static;
+}
+
+.dt-buttons {
+    margin-right: 25px;
+}
+
+.dt-buttons .dt-button{
+    margin-right: 0;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+div.dt-button-collection .dt-button{
+    min-width: 100%;
+    border: 0 !important;
+    margin-bottom: 0;
+    margin-top:0;
+}
+
 /* Elimina spinner de inputs de tipo number */
 
 input::-webkit-outer-spin-button,

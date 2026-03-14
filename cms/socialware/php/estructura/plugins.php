@@ -83,6 +83,7 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
         <script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.html5.min.js"></script>
         <script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.print.min.js"></script>
+        <script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.colVis.min.js"></script>
 
         <!--
         Jquery UI
@@ -92,3 +93,63 @@
         <link href="socialware/js/jquery-ui/jquery-ui.structure.min.css" rel="stylesheet" type="text/css" />
         <link href="socialware/js/jquery-ui/jquery-ui.theme.min.css" rel="stylesheet" type="text/css" />
         <script src="socialware/js/jquery-ui/jquery-ui.min.js"></script>
+
+        <!-- Nuevo diseño -->
+
+        <script src="assets/plugins/bootstrap/js/popper.min.js"></script>
+
+        <!-- SPARKLINE JS-->
+        <script src="assets/js/jquery.sparkline.min.js"></script>
+
+        <!-- CHART-CIRCLE JS-->
+        <script src="assets/js/circle-progress.min.js"></script>
+
+        <!-- C3 CHART JS -->
+        <script src="assets/plugins/charts-c3/d3.v5.min.js"></script>
+        <script src="assets/plugins/charts-c3/c3-chart.js"></script>
+
+        <!-- SHOW PASSWORD JS -->
+        <script src="assets/js/show-password.min.js"></script>
+
+        <!-- INPUT MASK JS-->
+        <script src="assets/plugins/input-mask/jquery.mask.min.js"></script>
+
+        <!-- GENERATE OTP JS -->
+        <script src="assets/js/generate-otp.js"></script>
+
+        <!-- SIDEBAR JS -->
+        <script src="assets/plugins/sidebar/sidebar.js"></script>
+
+        <!-- Color Theme js -->
+        <script src="assets/js/themeColors.js"></script>
+
+        <!-- Sticky js -->
+        <script src="assets/js/sticky.js"></script>
+
+        <!--
+        Fancybox
+        https://fancyapps.com/docs/ui/fancybox/
+        -->
+        <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.umd.js"></script>
+
+        <!-- CUSTOM JS -->
+        <script src="assets/js/custom.js"></script>
+
+        <script>
+            var script = document.createElement('script');
+            script.src = "assets/plugins/sidemenu/sidemenu.js";
+            document.body.appendChild(script);
+
+            if ($(".app-sidebar__overlay").css("visibility") == "visible") {
+                setTimeout(function () {
+                    $(".app-sidebar__toggle").trigger("click");
+                }, 300);
+            }
+
+            $(".profile-1").click(function(){
+                $(".perfilUsuario").toggleClass("perfilUsuarioVisible");
+            });
+        </script>
+
+        <!-- Nuevo diseño -->
+

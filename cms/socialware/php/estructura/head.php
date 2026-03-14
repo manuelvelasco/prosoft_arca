@@ -67,6 +67,34 @@
 
         <link href="https://fonts.googleapis.com/css?family=Kodchasan|Audiowide|Gruppo" rel="stylesheet">
 
+
+        <!-- Nuevo Diseño -->
+
+        <link href="assets/css/style.css" rel="stylesheet" />
+        <link href="assets/css/dark-style.css" rel="stylesheet" />
+        <link href="assets/css/transparent-style.css" rel="stylesheet">
+        <link href="assets/css/skin-modes.css" rel="stylesheet" />
+
+        <!--- FONT-ICONS CSS -->
+        <link href="assets/css/icons.css" rel="stylesheet" />
+
+        <!-- COLOR SKIN CSS -->
+        <link href="assets/colors/color1.css" id="theme" media="all" rel="stylesheet" type="text/css" />
+
+         <!--
+        Fancybox
+        https://fancyapps.com/docs/ui/fancybox/
+        -->
+        <link href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" rel="stylesheet" />
+
+
+        <!-- Estilos personalizados -->
+
+
+        <link href="assets/socialware/css/estilos.css" rel="stylesheet" />
+
+        <!-- Termina nuevo diseño -->
+
         <?php include("socialware/php/plugins/numeroAtexto_pesos.php"); ?>
 
         <?php
@@ -245,6 +273,15 @@
             th, td {
                 color: #2f2c2c !important;
                 font-size: 10px;
+            }
+
+            /* Nuevo Diseño */
+            .alert-danger{
+                position: relative;
+                padding: 0.75rem 1.25rem !important;
+                margin-bottom: 1rem;
+                border: 1px solid transparent;
+                border-radius: 5px;
             }
 
             @media (max-width: 1400px) {
