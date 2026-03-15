@@ -22,7 +22,7 @@
                             <ul class="slide-menu open" style="display: block;">
                                 <li class="side-menu-label1"><a href="javascript:void(0)">Crones</a></li>
                                 <li><a class="sub-slide-item enlace_cron" href="usuarios.php">Consultar</a></li>
-                                <li><a class="sub-slide-item enlace_cron" href="usuario.php">Agregar</a></li>
+                                <li><a class="sub-slide-item enlace_cron" data-fancybox data-type="iframe" data-preload="false" data-height="900" href="usuario.php">Agregar</a></li>
                             </ul>
                     </li>
                 <?php } ?>

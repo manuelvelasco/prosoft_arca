@@ -11,16 +11,61 @@
         <?php include("socialware/php/comunes/funciones.php"); ?>
 
         <?php include("socialware/php/estructura/head.php"); ?>
+
+        <style>
+
+            /* Botones */
+
+            #boton_cerrar {
+                margin-right: 0;
+            }
+
+            #boton_eliminar {
+                margin-left: 0;
+            }
+
+            #contenedor_botonesDerechos {
+                text-align: right;
+            }
+
+            #contenedor_botonesIzquierdos {
+                text-align: left;
+            }
+
+            /* Despliegue embebido sin margen izquierdo por ausencia de menu */
+
+            .app-content {
+                margin-left: 0;
+            }
+
+            /* Tablas de permisos */
+
+            .tabla_permisos {
+                width: 100%;
+            }
+
+            .tabla_permisos th {
+                text-align: left;
+                width: 50%;
+            }
+
+            /* Varios */
+
+            hr {
+                border-color: #888;
+            }
+        </style>
     </head>
 
 
-    <body>
+    <body class="app ltr">
         <?php
 
             // Obtiene parametros de request
 
             $esSubmit = sanitiza($conexion, filter_input(INPUT_POST, "esSubmit"));
-            $id = sanitiza($conexion, filter_input(INPUT_POST, "id"));
+            $id = sanitiza($conexion, filter_input(INPUT_GET, "id"));
+            $campo_id = sanitiza($conexion, filter_input(INPUT_POST, "campo_id"));
             $habilitado = sanitiza($conexion, filter_input(INPUT_POST, "habilitado"));
             $rol = sanitiza($conexion, filter_input(INPUT_POST, "rol"));
             $nombre = sanitiza($conexion, filter_input(INPUT_POST, "nombre"));
@@ -71,7 +116,7 @@
                 }
 
                 if (estaVacio($idConcesionario) && $rol == 'Operador') {
-                    $mensaje .="Para el rol Operador, es obligatorio asignarle una agencia <br />";
+                   $mensaje .="Para el rol Operador, es obligatorio asignarle una agencia <br />";
                 }
 
                 if (!estaVacio($mensaje)) {
@@ -203,169 +248,87 @@
 
         <!-- Preloader -->
 
-        <div class="preloader-it">
-            <div class="la-anim-1"></div>
+        <div id="global-loader">
+            <img alt="Cargando..." class="loader-img" src="assets/images/loader.svg" />
         </div>
 
-        <div class="wrapper">
-            <?php include("socialware/php/estructura/encabezado.php"); ?>
+        <div class="page">
+            <div class="page-main">
 
-            <?php include("socialware/php/estructura/menu.php"); ?>
 
-            <!-- Contenido -->
+                <!-- Menu oculto -->
 
-            <div class="page-wrapper">
-                <div class="container-fluid">
-                    <?php if ($esUsuarioMaster || $esUsuarioAdministrador) { ?>
 
-                        <!-- Titulo -->
+                <div class="main-sidemenu" style="display: none;"> 
+                    <div class="slide-left disabled" id="slide-left"><svg fill="#7b8191" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M13.293 6.293 7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"/></svg></div>
 
-                        <div class="row heading-bg bg-blue">
-                            <div class="col-xs-12">
-                                <h5 class="txt-light">Edición de Usuario</h5>
+                    <ul class="side-menu" id="contenedor_menu"></ul>
+
+                    <div class="slide-right" id="slide-right"><svg fill="#7b8191" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M10.707 17.707 16.414 12l-5.707-5.707-1.414 1.414L13.586 12l-4.293 4.293z"/></svg></div>
+                </div>
+
+
+                <!-- Contenido -->
+
+
+                <div class="main-content app-content mt-0">
+                    <div class="side-app">
+                        <div class="main-container container-fluid">
+                            <!-- Titulo -->
+
+
+                            <div class="page-header">
+                                <h1 class="page-title">Edición de usuario</h1>
+
+                                <div>
+                                    <!--
+                                    <ol class="breadcrumb">
+                                        <li class="breadcrumb-item"><a href="dashboard.html">Inicio</a></li>
+                                        <li class="breadcrumb-item"><a href="javascript:void(0)">Catálogos</a></li>
+                                        <li class="breadcrumb-item"><a href="javascript:void(0)">Usuarios</a></li>
+                                        <li aria-current="page" class="breadcrumb-item active">Detalle de usuario</li>
+                                    </ol>
+                                    -->
+                                </div>
                             </div>
-                        </div>
+                            <form autocomplete="off" id="formulario" method="post">
 
-                        <!-- Bloques de informacion -->
+                                <input id="campo_esSubmit" name="esSubmit" type="hidden" value="1" />
 
-                        <form action="usuario.php" enctype="multipart/form-data" method="post">
-                            <input name="esSubmit" type="hidden" value="1" />
-                            <input name="id" type="hidden" value="<?php echo $id ?>" />
+                                <div class="alert" id="contenedor_mensaje">
+                                    <span></span>
+                                </div>
 
-                            <input name="origen" type="hidden" value="<?php echo $origen ?>" />
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <h5><strong>Información de control</strong></h5>
 
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <div class="panel panel-default card-view">
-                                        <div class="panel-wrapper collapse in">
-                                            <div class="panel-body">
-                                                <div class="alert" id="contenedor_mensaje">
-                                                    <span></span>
-                                                </div>
+                                                <hr />
 
-                                                <!-- Generales -->
-
-                                                <div class="panel panel-default card-view">
-                                                    <div class="panel-heading">
-                                                        <div class="pull-left">
-                                                            <h6 class="panel-title txt-dark">
-                                                                Proporciona la información del usuario
-                                                            </h6>
-
-                                                            <hr />
+                                                <div class="row">
+                                                    <div class="col-md-4 col-sm-6 col-xs-12">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="row mb-12">
+                                                                    <label class="form-label col-md-4" for="campo_id">ID</label>
+                                                                    <div class="col-md-8">
+                                                                        <input class="form-control" id="campo_id" name="id" readonly type="text" value="<?php echo $id; ?>" />
+                                                                    </div>
+                                                                </div>
+                                                            </div>
                                                         </div>
-
-                                                        <div class="clearfix"></div>
                                                     </div>
-
-                                                    <div class="panel-wrapper collapse in">
-                                                        <div class="panel-body">
-                                                            <div class="row">
-                                                                <div class="col-sm-12 col-xs-12">
-                                                                    <div class="form-wrap">
-                                                                        <div class="form-body">
-                                                                            <!--?php if (!estaVacio($id)) { ?-->
-                                                                                <div class="row mb-30">
-                                                                                    <div class="col-md-12">
-                                                                                        <h5><strong>Información de control</strong></h5>
-                                                                                    </div>
-                                                                                </div>
-
-                                                                                <div class="row mb-30">
-                                                                                    <div class="col-md-6">
-                                                                                        <div class="form-group">
-                                                                                            <label class="control-label mb-10">Id</label>
-                                                                                            <input class="form-control" readonly type="text" value="<?php echo $id ?>" />
-                                                                                        </div>
-                                                                                    </div>
-
-                                                                                    <div class="col-md-6">
-                                                                                        <div class="form-group">
-                                                                                            <label class="control-label mb-10">Habilitado</label>
-                                                                                            <div>
-                                                                                                <input <?php echo $habilitado == 1 ? "checked" : "" ?> class="form-control bs-switch" data-off-text="Inhabilitado" data-on-text="Habilitado" name="habilitado" type="checkbox" />
-                                                                                            </div>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                            <!--?php } ?-->
-
-                                                                            <br /><br />
-
-                                                                            <div class="row mb-30">
-                                                                                <div class="col-md-12">
-                                                                                    <h5><strong>Datos generales</strong></h5>
-                                                                                </div>
-                                                                            </div>
-
-                                                                            <div class="row mb-30">
-                                                                                <div class="col-md-6">
-                                                                                    <div class="form-group">
-                                                                                        <label class="control-label mb-10">Nombre <span class="txt-danger ml-10">*</span></label>
-                                                                                        <input class="form-control" name="nombre" type="text" value="<?php echo $nombre ?>" />
-                                                                                    </div>
-                                                                                </div>
-
-                                                                                <div class="col-md-6">
-                                                                                    <div class="form-group">
-                                                                                        <label class="control-label mb-10">Rol <span class="txt-danger ml-10">*</span></label>
-                                                                                        <select class="form-control select2" name="rol">
-                                                                                            <option <?php echo estaVacio($rol) ? "selected" : "" ?> value="">Seleccione</option>
-
-                                                                                            <?php if ($esUsuarioMaster) { ?>
-                                                                                                <option <?php echo ($rol == "Master") ? "selected" : "" ?> value="Master">Master</option>
-                                                                                            <?php } ?>
-                                                                                            <option <?php echo ($rol == "Administrador") ? "selected" : "" ?> value="Administrador">Administrador</option>
-                                                                                            <option <?php echo ($rol == "Operador") ? "selected" : "" ?> value="Operador">Operador</option>
-                                                                                        </select>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-
-                                                                            <div class="row mb-30">
-                                                                                <div class="col-md-6">
-                                                                                    <div class="form-group">
-                                                                                        <label class="control-label mb-10">Agencia </label>
-                                                                                        <select class="form-control select2" name="idConcesionario">
-                                                                                            <option <?php echo estaVacio($idConcesionario) ? "selected" : "" ?> value="">Seleccione</option>
-
-                                                                                            <?php
-                                                                                                $concesionarios_BD = consulta($conexion, "SELECT * FROM concesionario WHERE habilitado = 1 and eliminado = 0 ORDER BY nombreComercial");
-
-                                                                                                while ($concesionarioBD = obtenResultado($concesionarios_BD)) {
-                                                                                                    echo "<option " . (!estaVacio($idConcesionario) && $idConcesionario == $concesionarioBD["id"] ? "selected" : "") . " value='" . $concesionarioBD["id"] . "'>" . $concesionarioBD["nombreComercial"] . "</option>";
-                                                                                                }
-                                                                                            ?>
-                                                                                        </select>
-                                                                                    </div>
-                                                                                </div>
-                                                                                <div class="col-md-6">
-                                                                                    <div class="form-group">
-                                                                                        <label class="control-label mb-10">Correo electrónico <span class="txt-danger ml-10">*</span></label>
-                                                                                        <input class="form-control" name="correoElectronico" type="text" value="<?php echo $correoElectronico ?>" />
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-
-                                                                            <div class="row mb-30">
-                                                                                <div class="col-md-6">
-                                                                                    <div class="form-group">
-                                                                                        <label class="control-label mb-10">Contraseña</label>
-                                                                                        <input class="form-control" name="contrasena" type="text" value="<?php echo $contrasena ?>" />
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-
-                                                                            <br /><br />
-
-                                                                        </div>
-
-                                                                        <div class="form-actions mt-50">
-                                                                            <button class="btn btn-success" type="submit">Guardar</button>
-
-                                                                            <?php if (!estaVacio($origen)) { ?>
-                                                                                <a class="btn btn-default ml-10 link_origen" type="button">Volver</a>
-                                                                            <?php } ?>
+                                                    <div class="col-md-4 col-sm-6 col-xs-12">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="row mb-12">
+                                                                    <label class="form-label col-md-4" for="campo_habilitado">Habilitado</label>
+                                                                    <div class="col-md-8">
+                                                                        <div class="material-switch">
+                                                                            <input <?php echo $habilitado == 1 ? "checked" : "" ?> id="campo_habilitado" name="habilitado" type="checkbox" />
+                                                                            <label class="label-info" for="campo_habilitado"></label>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -377,25 +340,117 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </form>
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="card">
+                                            <div class="card-body">
 
-                        <!-- Formulario de retorno a pagina origen -->
+                                                <h5><strong>Datos generales</strong></h5>
 
-                        <form action="<?php echo $origen ?>" id="formulario_origen" method="post">
-                            <input name="esSubmit" type="hidden" value="1" />
-                        </form>
-                    <?php
-                        } else {
-                            registraEvento("CMS : Consulta de usuario bloqueada | id = " . $id);
-                            muestraBloqueo();
-                        }
-                    ?>
+                                                <hr />
 
-                    <?php include("socialware/php/estructura/pieDePagina.php"); ?>
+                                                <div class="row">
+                                                    <div class="col-md-4 col-sm-6 col-xs-12">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="row mb-4">
+                                                                    <label class="form-label col-md-4" for="campo_nombre">Nombre <span class="text-danger">*</span></label>
+                                                                    <div class="col-md-8">
+                                                                        <input class="form-control" id="campo_nombre" name="nombre" type="text" value="<?php echo $nombre; ?>" />
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4 col-sm-6 col-xs-12">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="row mb-4">
+                                                                    <label class="form-label col-md-4" for="campo_rol">Rol <span class="text-danger">*</span></label>
+                                                                    <div class="col-md-8">
+                                                                        <select class="form-control select2-show-search form-select" data-placeholder="Elige" id="campo_rol" name="rol">
+                                                                            <option value="Master" <?php echo ($rol == "Master") ? "selected" : "" ?>>Master</option>
+                                                                            <option value="Administrador" <?php echo ($rol == "Administrador") ? "selected" : "" ?>>Administrador</option>
+                                                                            <option value="Operador" <?php echo ($rol == "Operador") ? "selected" : "" ?>>Operador</option>
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4 col-sm-6 col-xs-12">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="row mb-4">
+                                                                    <label class="form-label col-md-4" for="campo_idConcesionario">Agencia</label>
+                                                                    <div class="col-md-8">
+                                                                        <select class="form-control select2-show-search form-select" data-placeholder="Elige" id="campo_idConcesionario" name="idConcesionario">
+                                                                            <option <?php echo estaVacio($idConcesionario) ? "selected" : "" ?> value="">Seleccione</option>
+                                                                            <?php
+                                                                                $concesionarios_BD = consulta($conexion, "SELECT * FROM concesionario WHERE habilitado = 1 and eliminado = 0 ORDER BY nombreComercial");
+
+                                                                                while ($concesionarioBD = obtenResultado($concesionarios_BD)) {
+                                                                                    echo "<option " . (!estaVacio($idConcesionario) && $idConcesionario == $concesionarioBD["id"] ? "selected" : "") . " value='" . $concesionarioBD["id"] . "'>" . $concesionarioBD["nombreComercial"] . "</option>";
+                                                                                }
+                                                                            ?>
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4 col-sm-6 col-xs-12">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="row mb-4">
+                                                                    <label class="form-label col-md-4" for="campo_correoElectronico">Correo electrónico <span class="text-danger">*</span></label>
+                                                                    <div class="col-md-8">
+                                                                        <input class="form-control" id="campo_correoElectronico" name="correoElectronico" type="text" value="<?php echo $correoElectronico; ?>" />
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4 col-sm-6 col-xs-12">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="row mb-4">
+                                                                    <label class="form-label col-md-4" for="campo_contrasena">Contraseña</label>
+                                                                    <div class="col-md-8">
+                                                                        <input class="form-control" id="campo_contrasena" name="contrasena" type="password" value="<?php echo $contrasena; ?>" />
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row mt-6">
+                                    <div class="col-md-8 col-sm-6" id="contenedor_botonesIzquierdos">
+                                        <div class="form-group">
+                                            <!--a class="btn btn-danger mb-3" href="javascript:void(0)" id="boton_eliminar">Eliminar</a-->
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4 col-sm-6" id="contenedor_botonesDerechos">
+                                        <div class="form-group">
+                                            <button class="btn btn-success mb-3" type="submit" id="boton_guardar">Guardar</button>
+                                            <a class="btn btn-default mb-3" href="javascript:void(0)" id="boton_cerrar">Cerrar</a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
+
 
         <?php include("socialware/php/estructura/plugins.php"); ?>
 
