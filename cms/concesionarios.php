@@ -24,146 +24,161 @@
     </head>
 
 
-    <body>
+    <body class="app sidebar-mini ltr">
 
-        <!-- Preloader -->
 
-        <div class="preloader-it">
-            <div class="la-anim-1"></div>
+        <!-- Loader -->
+
+
+        <div id="global-loader">
+            <img alt="Cargando..." class="loader-img" src="assets/images/loader.svg" />
         </div>
 
-        <div class="wrapper">
-            <?php include("socialware/php/estructura/encabezado.php"); ?>
+        <div class="page">
+            <div class="page-main">
+                <?php include("socialware/php/estructura/encabezado.php"); ?>
 
-            <?php include("socialware/php/estructura/menu.php"); ?>
+                <?php include("socialware/php/estructura/menu.php"); ?>
 
-            <!-- Contenido -->
+                <!-- Contenido -->
 
-            <div class="page-wrapper">
-                <div class="container-fluid">
-                    <?php if ($esUsuarioMaster || $esUsuarioAdministrador || $esUsuarioOperador ) { ?>
+                <div class="main-content app-content mt-0">
+                    <div class="side-app">
+                        <?php if ($esUsuarioMaster || $esUsuarioAdministrador || $esUsuarioOperador ) { ?>
+                            <div class="main-container container-fluid">
 
-                        <!-- Titulo -->
 
-                        <div class="row heading-bg bg-blue">
-                            <div class="col-xs-12">
-                                <h5 class="txt-light">Agencias</h5>
-                            </div>
-                        </div>
+                                <!-- Titulo -->
 
-                        <!-- Formulario -->
 
-                        <div class="row ">
-                            <div class="col-sm-12">
-                                <div class="panel panel-default card-view">
-                                    <div class="panel-heading">
-                                        <div class="pull-left">
-                                            <h6 class="panel-title txt-dark">Utilice los filtros para detallar su búsqueda</h6>
-                                            <hr />
-                                        </div>
+                                <div class="page-header">
+                                    <h1 class="page-title">Agencias</h1>
+                                </div>
 
-                                        <div class="clearfix"></div>
-                                    </div>
+                                <!-- Filtros -->
 
-                                    <div class="panel-wrapper collapse in">
-                                        <div class="panel-body">
-                                            <div class="alert" id="contenedor_mensaje">
-                                                <span></span>
-                                            </div>
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <h5><strong>Utilice los filtros para detallar su búsqueda</strong></h5>
 
-                                            <div class="form-wrap">
+                                                <hr />
+
                                                 <form action="concesionarios.php" method="post">
                                                     <input name="esSubmit" type="hidden" value="1" />
 
-                                                    <div class="form-body">
-                                                        <div class="row mb-30">
-                                                            <div class="col-md-6">
-                                                                <div class="form-group">
-                                                                    <label class="control-label mb-10">Publicado</label>
-                                                                    <select class="form-control select2" id="campo_publicado" name="publicado">
-                                                                        <option <?php echo estaVacio($publicado) ? "selected" : "" ?> value="">Ver todo</option>
-                                                                        <option <?php echo $publicado == "1" ? "selected" : "" ?> value="1">Si</option>
-                                                                        <option <?php echo $publicado == "0" ? "selected" : "" ?> value="0">No</option>
-                                                                    </select>
-                                                                </div>
-                                                            </div>
-
-                                                            <div class="col-md-6">
-                                                                <div class="form-group">
-                                                                    <label class="control-label mb-10">Municipio</label>
-                                                                    <select class="form-control select2" id="campo_municipio" name="municipio">
-                                                                        <option <?php echo estaVacio($municipio) ? "selected" : "" ?> value="">Ver todo</option>
-
-                                                                        <?php
-                                                                            $municipios_BD = consulta($conexion, "SELECT DISTINCT municipio FROM sepomex WHERE idEstado = 19 ORDER BY municipio");
-
-                                                                            while ($municipio_BD = obtenResultado($municipios_BD)) {
-                                                                                echo "<option " . ($municipio_BD["municipio"] == $municipio ? "selected" : "") . " value='" . $municipio_BD["municipio"] . "'>" . $municipio_BD["municipio"] . "</option>";
-                                                                            }
-                                                                        ?>
-                                                                    </select>
+                                                    <div class="row">
+                                                        <div class="col-md-4 col-sm-6 col-xs-12">
+                                                            <div class="row">
+                                                                <div class="col-12">
+                                                                    <div class="row mb-12">
+                                                                        <label class="form-label col-md-4" for="campo_publicado">Publicado</label>
+                                                                        <div class="col-md-8">
+                                                                            <select class="form-control select2-show-search form-select" data-placeholder="Ver todo" id="campo_publicado" name="publicado">
+                                                                                <option <?php echo estaVacio($publicado) ? "selected" : "" ?> value="">Ver todo</option>
+                                                                                <option <?php echo $publicado == "1" ? "selected" : "" ?> value="1">Si</option>
+                                                                                <option <?php echo $publicado == "0" ? "selected" : "" ?> value="0">No</option>
+                                                                            </select>
+                                                                        </div>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                    </div>
+                                                        <div class="col-md-4 col-sm-6 col-xs-12">
+                                                            <div class="row">
+                                                                <div class="col-12">
+                                                                    <div class="row mb-12">
+                                                                        <label class="form-label col-md-4" for="campo_habilitado">Municipio</label>
+                                                                        <div class="col-md-8">
+                                                                            <select class="form-control select2-show-search form-select" data-placeholder="Ver todo" id="campo_municipio" name="municipio">
+                                                                                <option <?php echo estaVacio($municipio) ? "selected" : "" ?> value="">Ver todo</option>
 
-                                                    <div class="form-actions mt-10">
-                                                        <button class="btn btn-primary" id="boton_consultar" type="submit">Consultar</button>
+                                                                                <?php
+                                                                                    $municipios_BD = consulta($conexion, "SELECT DISTINCT municipio FROM sepomex WHERE idEstado = 19 ORDER BY municipio");
+
+                                                                                    while ($municipio_BD = obtenResultado($municipios_BD)) {
+                                                                                        echo "<option " . ($municipio_BD["municipio"] == $municipio ? "selected" : "") . " value='" . $municipio_BD["municipio"] . "'>" . $municipio_BD["municipio"] . "</option>";
+                                                                                    }
+                                                                                ?>
+                                                                            </select>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-4 col-sm-6 col-xs-12">
+                                                            <div class="row">
+                                                                <div class="col-12">
+                                                                    <div class="row mb-12">
+                                                                        <div class="col-md-8">
+                                                                            <button class="btn btn-success mb-3" type="submit" id="boton_consultar">Consultar</button>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </form>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
 
-                        <!-- Tabla de resultados -->
 
-                        <?php if (!estaVacio($esSubmit) && $esSubmit === "1") { ?>
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <div class="panel panel-default card-view">
-                                        <div class="panel-wrapper collapse in">
-                                            <div class="panel-body">
-                                                <div class="table-wrap">
+                                <!-- Tabla de resultados -->
+
+
+                                <div class="row">
+                                    <div class="col-xl-12">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <div class="text-wrap">
+                                                    <div class="d-flex">
+                                                        <div class="input-group wd-150" id="contenedor_botones">
+                                                            <input class="form-control br-0" id="campo_llaveResultado" placeholder="Buscar..." type="text" />
+                                                            <?php if ($esUsuarioMaster || $esUsuarioAdministrador) { ?>
+                                                                <a class="btn btn-primary" data-fancybox data-type="iframe" data-preload="false" data-height="900" href="concesionario.php" id="boton_agregar">Agregar Agencia</a>
+                                                                &nbsp;&nbsp;&nbsp;
+                                                            <?php } ?>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <?php if (!estaVacio($esSubmit) && $esSubmit === "1") { ?>
+
+                                    <div class="row row-sm">
+                                        <div class="col-lg-12">
+                                            <div class="card">
+                                                <div class="card-header">
+                                                    <h3 class="card-title">Resultados</h3>
+                                                </div>
+
+                                                <div class="card-body">
                                                     <div class="table-responsive">
-                                                        <table class="table table-hover display  pb-30" id="tabla_resultados">
+                                                        <table class="table table-bordered text-nowrap key-buttons border-bottom" id="tabla_resultados">
                                                             <thead>
                                                                 <tr>
-                                                                    <th>Logo</th>
-                                                                    <th>ID</th>
-                                                                    <th>Publicado</th>
-                                                                    <th>Razón Social</th>
-                                                                    <th>Nombre Comercial</th>
-                                                                    <th>Colonia</th>
-                                                                    <th>Municipio</th>
-                                                                    <th>Link Sitio Web</th>
-                                                                    <th>Teléfono de Contacto</th>
-                                                                    <th>Email</th>
-                                                                    <th>Número de Whatsapp</th>
-                                                                    <th class="columna_acciones">Acciones</th>
+                                                                    <th class="border-bottom-0">Logo</th>
+                                                                    <th class="border-bottom-0">Id</th>
+                                                                    <th class="border-bottom-0">Publicado</th>
+                                                                    <th class="border-bottom-0">Razón Social</th>
+                                                                    <th class="border-bottom-0">Nombre Comercial</th>
+                                                                    <th class="border-bottom-0">Colonia</th>
+                                                                    <th class="border-bottom-0">Municipio</th>
+                                                                    <th class="border-bottom-0">Link Sitio Web</th>
+                                                                    <th class="border-bottom-0">Teléfono de Contacto</th>
+                                                                    <th class="border-bottom-0">Email</th>
+                                                                    <th class="border-bottom-0">Número de Whatsapp</th>
+                                                                    <th class="border-bottom-0">Acciones</th>
                                                                 </tr>
                                                             </thead>
 
-                                                            <tfoot>
-                                                                <tr>
-                                                                    <th>Logo</th>
-                                                                    <th>ID</th>
-                                                                    <th>Publicado</th>
-                                                                    <th>Razón Social</th>
-                                                                    <th>Nombre Comercial</th>
-                                                                    <th>Colonia</th>
-                                                                    <th>Municipio</th>
-                                                                    <th>Link Sitio Web</th>
-                                                                    <th>Teléfono de Contacto</th>
-                                                                    <th>Email</th>
-                                                                    <th>Número de Whatsapp</th>
-                                                                    <th>Acciones</th>
-                                                                </tr>
-                                                            </tfoot>
-
-                                                            <tbody>
+                                                            <tbody id="contenedor_resultados">
                                                                 <?php
 
                                                                     // Arma restricciones
@@ -224,49 +239,29 @@
                                                 </div>
                                             </div>
                                         </div>
-
-                                        <br />
-                                        <?php if ($esUsuarioMaster || $esUsuarioAdministrador) { ?>
-                                            <div class="form-group mb-0">
-                                                <a class="btn btn-success link_agregar" href="javascript:;">Agregar Agencia</a>
-                                            </div>
-                                        <?php } ?>
                                     </div>
-                                </div>
+                                <?php } ?>
                             </div>
-                        <?php } ?>
+                        <?php
+                            } else {
+                                registraEvento("CMS : Consulta de concesionarios bloqueada");
+                                muestraBloqueo();
+                            }
+                        ?>
 
-                        <!-- Formulario de redireccion hacia edicion -->
-
-                        <form action="concesionario.php" id="formulario_edicion" method="post">
-                            <input name="origen" type="hidden" value="concesionarios.php" />
-
-                            <!-- Ida -->
-
-                            <input id="campo_edicion_id" name="id" type="hidden" />
-
-                            <!-- Regreso -->
-
-                            <input id="campo_edicion_municipio" name="origen_municipio" type="hidden" value="" />
-                            <input id="campo_edicion_publicado" name="origen_publicado" type="hidden" value="" />
-                        </form>
-                    <?php
-                        } else {
-                            registraEvento("CMS : Consulta de concesionarios bloqueada");
-                            muestraBloqueo();
-                        }
-                    ?>
-
-                    <?php include("socialware/php/estructura/pieDePagina.php"); ?>
+                    </div>
                 </div>
+
+
+                <?php include("socialware/php/estructura/pieDePagina.php"); ?>
+
             </div>
         </div>
 
         <?php include("socialware/php/estructura/plugins.php"); ?>
 
-        <?php include("socialware/php/estructura/scripts.php"); ?>
 
-        <script src="https://cdn.jsdelivr.net/npm/gasparesganga-jquery-loading-overlay@2.1.7/dist/loadingoverlay.min.js"></script>
+        <?php include("socialware/php/estructura/scripts.php"); ?>
 
 
         <!-- Scripts -->
@@ -277,49 +272,67 @@
 
                 // Inicializa tabla de resultados
 
-                $("#tabla_resultados").DataTable({
-                    order: [[0, "desc"]],
-                    dom: "Bfrtip",
+                var tablaResultados = $("#tabla_resultados").DataTable({
                     buttons: [
-                        "copy", 
-                        "excel", {
-                            extend: 'pdfHtml5',
-                            orientation: 'landscape',
-                            pageSize: 'LEGAL' 
-                        }, 
-                        "print"
+                        {
+                            extend: "copy",
+                            text: "Copiar",
+                            exportOptions: {
+                                columns: ':visible'
+                            }
+                        }
+                        , {
+                            extend: "excel",
+                            exportOptions: {
+                                columns: ':visible'
+                            }
+                        }
+                        , {
+                            extend: "pdf",
+                            exportOptions: {
+                                columns: ':visible:not(:last-child)'
+                            },
+                            orientation: "landscape"
+                        }
+                        , {
+                            extend: "colvis",
+                            text: "Columnas"
+                        }
                     ],
+                    dom: "rtip",
+                    "bDestroy": true,
+                    //pageLength: (paginacion ? "10" : "0"),
                     language: {
-                        decimal: "",
+                        scrollX: "100%",
+                        sSearch: "",
+
                         emptyTable: "No hay información",
-                        info: "Mostrando _START_ a _END_ de _TOTAL_ registros",
-                        infoEmpty: "Mostrando 0 to 0 of 0 registros",
-                        infoFiltered: "(Filtrado de _MAX_ total registros)",
-                        infoPostFix: "",
-                        lengthMenu: "Mostrar _MENU_ registros",
+                        info: "Mostrando _START_ a _END_ de _TOTAL_ resultados",
+                        infoEmpty: "Mostrando 0 a 0 de 0 resultados",
+                        infoFiltered: "(Filtrado de _MAX_ total resultados)",
+                        lengthMenu: "Mostrar _MENU_ resultados",
                         loadingRecords: "Cargando...",
                         processing: "Procesando...",
-                        search: "Buscar:",
-                        thousands: ",",
-                        zeroRecords: "No se han encontrado resultados",
+                        searchPlaceholder: "Bucar...",
+                        zeroRecords: "Sin resultados encontrados",
                         paginate: {
-                            first: "Primero",
-                            last: "Último",
-                            next: "Siguiente",
-                            previous: "Anterior"
-                        },
-                        buttons: {
-                            copy: "Copiar",
-                            excel: "Excel",
-                            pdf: "PDF",
-                            print: "Imprimir"
+                            "first": "Primero",
+                            "last": "Último",
+                            "next": "Siguiente",
+                            "previous": "Anterior"
                         }
-                    }
+                    },
+                    retrieve: true
+                });
+                 tablaResultados.buttons().container().appendTo("#contenedor_botones");
+
+                 $("#campo_llaveResultado").keyup(function() {
+                    tablaResultados.search($(this).val()).draw();
                 });
             });
 
 
-            // Redirige hacia alta
+             // Redirige hacia alta
 
 
             $(".link_agregar").click(function() {
@@ -338,38 +351,6 @@
 
                 $("#formulario_edicion").submit();
             });
-
-
-            // Publica / Oculta un concesionario
-
-
-            /*$(".link_publicar").click(function() {
-                var id = $(this).attr("data-id");
-                var publicado = $(this).attr("data-publicado");
-
-                if (publicado == 1) {
-                    if (confirm("Al continuar se dejara de mostrar este vehículo en el sitio web, ¿desea proceder?")) {
-                        habilitarConcesionario(id, "0");
-                    }
-                } else {
-                    habilitarConcesionario(id, "1");
-                }
-            });*/
-
-
-            /*function habilitarConcesionario(id, publicado) {
-                $.ajax({
-                    data: {
-                        id: id,
-                        publicado: publicado
-                    },
-                    type: "post",
-                    url: "socialware/php/ajax/habilitaConcesionario.php",
-                    success: function(resultado) {
-                        location.reload();
-                    }
-                });
-            }*/
         </script>
     </body>
 </html>
