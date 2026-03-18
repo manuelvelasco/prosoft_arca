@@ -113,7 +113,7 @@
                                                                         echo "<a data-fancybox data-type='iframe' data-preload='false' data-height='1080' href='usuario.php?id=" . $usuario["id"] . "' title='Editar'><i class='fa fa-search'></i></a>";
 
                                                                         if ($esUsuarioMaster || $esUsuarioAdministrador) {
-                                                                            echo "<a class='link_habilitar' data-id='" . $usuario["id"] . "' data-habilitado='" . $usuario["habilitado"] . "' data-toggle='tooltip' href='javascript:;' title='" . ($usuario["habilitado"] == 1 ? "Inhabilitar" : "Habilitar") . "'><i class='fa fa-" . ($usuario["habilitado"] == 1 ? "lock" : "unlock") . "'></i></a>";
+                                                                            echo "<a class='link_habilitar' data-id='" . $usuario["id"] . "' data-habilitado='" . $usuario["habilitado"] . "'  href='javascript:;' title='" . ($usuario["habilitado"] == 1 ? "Inhabilitar" : "Habilitar") . "'><i class='fa fa-" . ($usuario["habilitado"] == 1 ? "lock" : "unlock") . "'></i></a>";
                                                                         }
 
                                                                         echo "</td>";

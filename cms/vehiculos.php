@@ -361,7 +361,7 @@
 
                                                                                 if ($esUsuarioMaster || $esUsuarioAdministrador) {
                                                                                     //echo "<a class='link_publicar' data-id='" . $vehiculo["id"] . "'  data-publicado='" . $vehiculo["publicado"] . "' data-toggle='tooltip' href='javascript:;' title='" . ($vehiculo["publicado"] == 1 ? "Ocultar" : "Publicar") . "'><i class='fa fa-" . ($vehiculo["publicado"] == 1 ? "eye-slash" : "eye") . "'></i></a>";
-                                                                                    echo "<a class='link_publicar' data-id='" . $vehiculo["id"] . "'  data-publicado='" . $vehiculo["publicado"] . "' data-toggle='tooltip' href='javascript:;' style='color: " . ($vehiculo["publicado"] == 1 ? "#2f2c2c" : "#bfbcbc") . "' title='" . ($vehiculo["publicado"] == 1 ? "Dejar de publicar" : "Publicar") . "'><i class='fa fa-globe'></i></a>";
+                                                                                    echo "<a class='link_publicar' data-id='" . $vehiculo["id"] . "'  data-publicado='" . $vehiculo["publicado"] . "' href='javascript:;' style='color: " . ($vehiculo["publicado"] == 1 ? "#2f2c2c" : "#bfbcbc") . "' title='" . ($vehiculo["publicado"] == 1 ? "Dejar de publicar" : "Publicar") . "'><i class='fa fa-globe'></i></a>";
                                                                                 }
 
                                                                             echo "</td>";

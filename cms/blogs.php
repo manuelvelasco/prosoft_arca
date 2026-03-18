@@ -99,7 +99,7 @@
                                                                             echo "<td>" . $blog["titulo"] . "</td>";
                                                                             echo "<td>";
                                                                             if ($esUsuarioMaster || $esUsuarioAdministrador) {
-                                                                                echo "<a class='link_habilitar' data-id='" . $blog["id"] . "'  data-habilitado='" . $blog["habilitado"] . "' data-toggle='tooltip' href='javascript:;' style='color: " . ($blog["habilitado"] == 1 ? "#2f2c2c" : "#bfbcbc") . "'  title='" . ($blog["habilitado"] == 1 ? "Dejar de publicar" : "Publicar") . "'><i class='fa fa-globe'></i></a>";
+                                                                                echo "<a class='link_habilitar' data-id='" . $blog["id"] . "'  data-habilitado='" . $blog["habilitado"] . "'  href='javascript:;' style='color: " . ($blog["habilitado"] == 1 ? "#2f2c2c" : "#bfbcbc") . "'  title='" . ($blog["habilitado"] == 1 ? "Dejar de publicar" : "Publicar") . "'><i class='fa fa-globe'></i></a>";
                                                                             }
                                                                             echo "</td>";
                                                                             echo "<td>";
