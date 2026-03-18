@@ -24,252 +24,290 @@
             $transmision = sanitiza($conexion, filter_input(INPUT_POST, "transmision"));
             $publicado = sanitiza($conexion, filter_input(INPUT_POST, "publicado"));
             $concesionario = sanitiza($conexion, filter_input(INPUT_POST, "concesionario"));
-
         ?>
     </head>
 
 
-    <body>
+    <body class="app sidebar-mini ltr">
 
-        <!-- Preloader -->
 
-        <div class="preloader-it">
-            <div class="la-anim-1"></div>
+        <!-- Loader -->
+
+
+        <div id="global-loader">
+            <img alt="Cargando..." class="loader-img" src="assets/images/loader.svg" />
         </div>
 
-        <div class="wrapper">
-            <?php include("socialware/php/estructura/encabezado.php"); ?>
+        <div class="page">
+            <div class="page-main">
+                <?php include("socialware/php/estructura/encabezado.php"); ?>
 
-            <?php include("socialware/php/estructura/menu.php"); ?>
+                <?php include("socialware/php/estructura/menu.php"); ?>
 
-            <!-- Contenido -->
+                <!-- Contenido -->
 
-            <div class="page-wrapper">
-                <div class="container-fluid">
-                    <?php if ($esUsuarioMaster || $esUsuarioAdministrador || $esUsuarioOperador ) { ?>
+                <div class="main-content app-content mt-0">
+                    <div class="side-app">
+                        <?php if ($esUsuarioMaster || $esUsuarioAdministrador || $esUsuarioOperador ) { ?>
+                            <div class="main-container container-fluid">
 
-                        <!-- Titulo -->
 
-                        <div class="row heading-bg bg-blue">
-                            <div class="col-xs-12">
-                                <h5 class="txt-light">Vehículos</h5>
-                            </div>
-                        </div>
+                                <!-- Titulo -->
 
-                        <!-- Formulario -->
 
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <div class="panel panel-default card-view">
-                                    <div class="panel-heading">
-                                        <div class="pull-left">
-                                            <h6 class="panel-title txt-dark">Utilice los filtros para detallar su búsqueda</h6>
+                                <div class="page-header">
+                                    <h1 class="page-title">Vehículos</h1>
+                                </div>
 
-                                            <hr />
-                                        </div>
+                                <!-- Filtros -->
 
-                                        <div class="clearfix"></div>
-                                    </div>
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <h5><strong>Utilice los filtros para detallar su búsqueda</strong></h5>
 
-                                    <div class="panel-wrapper collapse in">
-                                        <div class="panel-body">
-                                            <div class="alert" id="contenedor_mensaje">
-                                                <span></span>
-                                            </div>
+                                                <hr />
 
-                                            <div class="form-wrap">
                                                 <form action="vehiculos.php" method="post">
                                                     <input name="esSubmit" type="hidden" value="1" />
 
-                                                    <div class="form-body">
-                                                        <div class="row mb-30">
-                                                            <div class="col-md-6">
-                                                                <div class="form-group">
-                                                                    <label class="control-label mb-10">Tipo</label>
-                                                                    <select class="form-control select2" id="campo_tipo" name="tipo">
-                                                                        <option <?php echo estaVacio($tipo) ? "selected" : "" ?> value="">Ver todo</option>
+                                                    <div class="row">
+                                                        <div class="col-md-4 col-sm-6 col-xs-12">
+                                                            <div class="row">
+                                                                <div class="col-12">
+                                                                    <div class="row mb-12">
+                                                                        <label class="form-label col-md-3" for="campo_tipo">Tipo</label>
+                                                                        <div class="col-md-9">
+                                                                            <select class="form-control select2-show-search form-select" data-placeholder="Ver todo" id="campo_tipo" name="tipo">
+                                                                                <option <?php echo estaVacio($tipo) ? "selected" : "" ?> value="">Ver todo</option>
+                                                                                <?php
+                                                                                    $tipos_BD = consulta($conexion, "SELECT DISTINCT tipo FROM vehiculo ORDER BY tipo");
 
-                                                                        <?php
-                                                                            $tipos_BD = consulta($conexion, "SELECT DISTINCT tipo FROM vehiculo ORDER BY tipo");
-
-                                                                            while ($tipo_BD = obtenResultado($tipos_BD)) {
-                                                                                echo "<option " . ($tipo_BD["tipo"] == $tipo ? "selected" : "") . " value='" . $tipo_BD["tipo"] . "'>" . $tipo_BD["tipo"] . "</option>";
-                                                                            }
-                                                                        ?>
-
-                                                                        <!--option <?php echo $tipo == "Auto" ? "selected" : "" ?> value="Auto">Auto</option>
-                                                                        <option <?php echo $tipo == "Pickup" ? "selected" : "" ?> value="Pickup">Pickup</option>
-                                                                        <option <?php echo $tipo == "SUV" ? "selected" : "" ?> value="SUV">SUV</option>
-                                                                        <option <?php echo $tipo == "Jeep" ? "selected" : "" ?> value="Jeep">Jeep</option>
-                                                                        <option <?php echo $tipo == "Todo terreno" ? "selected" : "" ?> value="Todo terreno">Todo terreno</option-->
-                                                                    </select>
+                                                                                    while ($tipo_BD = obtenResultado($tipos_BD)) {
+                                                                                        echo "<option " . ($tipo_BD["tipo"] == $tipo ? "selected" : "") . " value='" . $tipo_BD["tipo"] . "'>" . $tipo_BD["tipo"] . "</option>";
+                                                                                    }
+                                                                                ?>
+                                                                            </select>
+                                                                        </div>
+                                                                    </div>
                                                                 </div>
                                                             </div>
+                                                        </div>
+                                                        <div class="col-md-4 col-sm-6 col-xs-12">
+                                                            <div class="row">
+                                                                <div class="col-12">
+                                                                    <div class="row mb-12">
+                                                                        <label class="form-label col-md-3" for="campo_marca">Marca</label>
+                                                                        <div class="col-md-9">
+                                                                            <select class="form-control select2-show-search form-select" data-placeholder="Ver todo" id="campo_marca" name="marca">
+                                                                                <option <?php echo estaVacio($marca) ? "selected" : "" ?> value="">Ver todo</option>
 
-                                                            <div class="col-md-6">
-                                                                <div class="form-group">
-                                                                    <label class="control-label mb-10">Marca</label>
-                                                                    <select class="form-control select2" id="campo_marca" name="marca">
-                                                                        <option <?php echo estaVacio($marca) ? "selected" : "" ?> value="">Ver todo</option>
+                                                                                <?php
+                                                                                    $marcas_BD = consulta($conexion, "SELECT DISTINCT marca FROM vehiculo ORDER BY marca");
 
-                                                                        <?php
-                                                                            $marcas_BD = consulta($conexion, "SELECT DISTINCT marca FROM vehiculo ORDER BY marca");
+                                                                                    while ($marca_BD = obtenResultado($marcas_BD)) {
+                                                                                        echo "<option " . ($marca_BD["marca"] == $marca ? "selected" : "") . " value='" . $marca_BD["marca"] . "'>" . $marca_BD["marca"] . "</option>";
+                                                                                    }
+                                                                                ?>
+                                                                            </select>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-4 col-sm-6 col-xs-12">
+                                                            <div class="row">
+                                                                <div class="col-12">
+                                                                    <div class="row mb-12">
+                                                                        <label class="form-label col-md-3" for="campo_ano">Año</label>
+                                                                        <div class="col-md-9">
+                                                                            <select class="form-control select2-show-search form-select" data-placeholder="Ver todo" id="campo_ano" name="ano">
+                                                                                <option <?php echo estaVacio($ano) ? "selected" : "" ?> value="">Ver todo</option>
 
-                                                                            while ($marca_BD = obtenResultado($marcas_BD)) {
-                                                                                echo "<option " . ($marca_BD["marca"] == $marca ? "selected" : "") . " value='" . $marca_BD["marca"] . "'>" . $marca_BD["marca"] . "</option>";
-                                                                            }
-                                                                        ?>
-                                                                    </select>
+                                                                                <?php
+                                                                                    $anos_BD = consulta($conexion, "SELECT DISTINCT ano FROM vehiculo ORDER BY ano");
+
+                                                                                    while ($ano_BD = obtenResultado($anos_BD)) {
+                                                                                        echo "<option " . ($ano_BD["ano"] == $ano ? "selected" : "") . " value='" . $ano_BD["ano"] . "'>" . $ano_BD["ano"] . "</option>";
+                                                                                    }
+                                                                                ?>
+                                                                            </select>
+                                                                        </div>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
 
-                                                    <div class="form-body">
-                                                        <div class="row mb-30">
-                                                            <div class="col-md-6">
-                                                                <div class="form-group">
-                                                                    <label class="control-label mb-10">Año</label>
-                                                                    <select class="form-control select2" id="campo_ano" name="ano">
-                                                                        <option <?php echo estaVacio($ano) ? "selected" : "" ?> value="">Ver todo</option>
+                                                    <div class="row mt-20">
+                                                        <div class="col-md-4 col-sm-6 col-xs-12">
+                                                            <div class="row">
+                                                                <div class="col-12">
+                                                                    <div class="row mb-12">
+                                                                        <label class="form-label col-md-3" for="campo_transmision">Transmisión</label>
+                                                                        <div class="col-md-9">
+                                                                            <select class="form-control select2-show-search form-select" data-placeholder="Ver todo" id="campo_transmision" name="transmision">
+                                                                                <option <?php echo estaVacio($transmision) ? "selected" : "" ?> value="">Ver todo</option>
+                                                                                <?php
+                                                                                    $transmisiones_BD = consulta($conexion, "SELECT DISTINCT transmision FROM vehiculo ORDER BY transmision");
 
-                                                                        <?php
-                                                                            $anos_BD = consulta($conexion, "SELECT DISTINCT ano FROM vehiculo ORDER BY ano");
-
-                                                                            while ($ano_BD = obtenResultado($anos_BD)) {
-                                                                                echo "<option " . ($ano_BD["ano"] == $ano ? "selected" : "") . " value='" . $ano_BD["ano"] . "'>" . $ano_BD["ano"] . "</option>";
-                                                                            }
-                                                                        ?>
-                                                                    </select>
+                                                                                    while ($transmision_BD = obtenResultado($transmisiones_BD)) {
+                                                                                        echo "<option " . ($transmision_BD["transmision"] == $transmision ? "selected" : "") . " value='" . $transmision_BD["transmision"] . "'>" . $transmision_BD["transmision"] . "</option>";
+                                                                                    }
+                                                                                ?>
+                                                                            </select>
+                                                                        </div>
+                                                                    </div>
                                                                 </div>
                                                             </div>
+                                                        </div>
+                                                        <div class="col-md-4 col-sm-6 col-xs-12">
+                                                            <div class="row">
+                                                                <div class="col-12">
+                                                                    <div class="row mb-12">
+                                                                        <label class="form-label col-md-3" for="campo_habilitado">Habilitado</label>
+                                                                        <div class="col-md-9">
+                                                                            <select class="form-control select2-show-search form-select" data-placeholder="Ver todo" id="campo_habilitado" name="publicado">
+                                                                                <option <?php echo estaVacio($publicado) ? "selected" : "" ?> value="">Ver todo</option>
+                                                                                <option <?php echo $publicado == "1" ? "selected" : "" ?> value="1">Si</option>
+                                                                                <option <?php echo $publicado == "0" ? "selected" : "" ?> value="0">No</option>
+                                                                            </select>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-4 col-sm-6 col-xs-12">
+                                                            <div class="row">
+                                                                <div class="col-12">
+                                                                    <div class="row mb-12">
+                                                                        <label class="form-label col-md-3" for="campo_concesionario">Agencia</label>
+                                                                        <div class="col-md-9">
+                                                                            <select class="form-control select2-show-search form-select" data-placeholder="Ver todo" id="campo_concesionario" name="concesionario">
+                                                                                <option <?php echo estaVacio($concesionario) ? "selected" : "" ?> value="">Ver todo</option>
 
-                                                            <div class="col-md-6">
-                                                                <div class="form-group">
-                                                                    <label class="control-label mb-10">Transmisión</label>
-                                                                    <select class="form-control select2" id="campo_transmision" name="transmision">
-                                                                        <option <?php echo estaVacio($transmision) ? "selected" : "" ?> value="">Ver todo</option>
+                                                                                <?php
+                                                                                    if ($esUsuarioMaster || $esUsuarioAdministrador) {
+                                                                                        
+                                                                                        $concesionarios_BD = consulta($conexion, "SELECT * FROM concesionario ORDER BY nombreComercial");
 
-                                                                        <?php
-                                                                            $transmisiones_BD = consulta($conexion, "SELECT DISTINCT transmision FROM vehiculo ORDER BY transmision");
+                                                                                    }else{
 
-                                                                            while ($transmision_BD = obtenResultado($transmisiones_BD)) {
-                                                                                echo "<option " . ($transmision_BD["transmision"] == $transmision ? "selected" : "") . " value='" . $transmision_BD["transmision"] . "'>" . $transmision_BD["transmision"] . "</option>";
-                                                                            }
-                                                                        ?>
+                                                                                        $concesionarios_BD = consulta($conexion, "SELECT * FROM concesionario c WHERE c.id = " . $usuario_idConcesionario. " ORDER BY nombreComercial");
+                                                                                        $concesionario = $usuario_idConcesionario;
 
-                                                                        <!--option <?php echo $transmision == "Automática" ? "selected" : "" ?> value="Automática">Automática</option>
-                                                                        <option <?php echo $transmision == "Estándar" ? "selected" : "" ?> value="Estándar">Estándar</option>
-                                                                        <option <?php echo $transmision == "CVT" ? "selected" : "" ?> value="CVT">CVT</option>
-                                                                        <option <?php echo $transmision == "Tiptronic" ? "selected" : "" ?> value="Tiptronic">Tiptronic</option-->
-                                                                    </select>
+                                                                                    }
+
+                                                                                    while ($concesionario_BD = obtenResultado($concesionarios_BD)) {
+                                                                                        echo "<option " . ($concesionario_BD["id"] == $concesionario ? "selected" : "") . " value='" . $concesionario_BD["id"] . "'>" . $concesionario_BD["nombreComercial"] . "</option>";
+                                                                                    }
+                                                                                ?>
+                                                                            </select>
+                                                                        </div>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
 
-                                                    <div class="form-body">
-                                                        <div class="row mb-30">
-                                                            <div class="col-md-6">
-                                                                <div class="form-group">
-                                                                    <label class="control-label mb-10">Habilitado</label>
-                                                                    <select class="form-control select2" id="campo_publicado" name="publicado">
-                                                                        <option <?php echo estaVacio($publicado) ? "selected" : "" ?> value="">Ver todo</option>
-                                                                        <option <?php echo $publicado == "1" ? "selected" : "" ?> value="1">Si</option>
-                                                                        <option <?php echo $publicado == "0" ? "selected" : "" ?> value="0">No</option>
-                                                                    </select>
-                                                                </div>
-                                                            </div>
-
-                                                            <div class="col-md-6">
-                                                                <div class="form-group">
-                                                                    <label class="control-label mb-10">Agencia</label>
-                                                                    <select class="form-control select2" id="campo_concesionario" name="concesionario">
-                                                                        <option <?php echo estaVacio($concesionario) ? "selected" : "" ?> value="">Ver todo</option>
-
-                                                                        <?php
-                                                                            if ($esUsuarioMaster || $esUsuarioAdministrador) {
-                                                                                
-                                                                                $concesionarios_BD = consulta($conexion, "SELECT * FROM concesionario ORDER BY nombreComercial");
-
-                                                                            }else{
-
-                                                                                $concesionarios_BD = consulta($conexion, "SELECT * FROM concesionario c WHERE c.id = " . $usuario_idConcesionario. " ORDER BY nombreComercial");
-                                                                                $concesionario = $usuario_idConcesionario;
-
-                                                                            }
-
-                                                                            while ($concesionario_BD = obtenResultado($concesionarios_BD)) {
-                                                                                echo "<option " . ($concesionario_BD["id"] == $concesionario ? "selected" : "") . " value='" . $concesionario_BD["id"] . "'>" . $concesionario_BD["nombreComercial"] . "</option>";
-                                                                            }
-                                                                        ?>
-
-                                                                        <!--option <?php echo $transmision == "Automática" ? "selected" : "" ?> value="Automática">Automática</option>
-                                                                        <option <?php echo $transmision == "Estándar" ? "selected" : "" ?> value="Estándar">Estándar</option>
-                                                                        <option <?php echo $transmision == "CVT" ? "selected" : "" ?> value="CVT">CVT</option>
-                                                                        <option <?php echo $transmision == "Tiptronic" ? "selected" : "" ?> value="Tiptronic">Tiptronic</option-->
-                                                                    </select>
+                                                    <div class="row mt-20">
+                                                        <div class="col-md-4 col-sm-6 col-xs-12">
+                                                            <div class="row">
+                                                                <div class="col-12">
+                                                                    <div class="row mb-12">
+                                                                        <div class="col-md-8">
+                                                                            <button class="btn btn-success mb-3 ml-0" type="submit" id="boton_consultar">Consultar</button>
+                                                                        </div>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                    </div>
-
-                                                    <div class="form-actions mt-10">
-                                                        <button class="btn btn-primary" id="boton_consultar" type="submit">Consultar</button>
                                                     </div>
                                                 </form>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
 
-                        <!-- Tabla de resultados -->
 
-                        <?php if (!estaVacio($esSubmit) && $esSubmit === "1") { ?>
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <div class="panel panel-default card-view">
-                                        <div class="panel-wrapper collapse in">
-                                            <div class="panel-body">
-                                                <div class="table-wrap">
+                                <!-- Tabla de resultados -->
+
+
+                                <div class="row">
+                                    <div class="col-xl-12">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <div class="text-wrap">
+                                                    <div class="d-flex">
+                                                        <div class="input-group wd-150" id="contenedor_botones">
+                                                            <input class="form-control br-0" id="campo_llaveResultado" placeholder="Buscar..." type="text" />
+                                                            <?php 
+
+                                                                //Se valida en el caso de usuario operador, si el concesionario asignado tiene activado el servicio de Intelimotor 
+                                                                $puedeAgregarVehiculo = 1;
+                                                                $puedeSincronizarVehiculo = 1;
+
+                                                                
+                                                                if ($esUsuarioOperador) {
+                                                                    $concesionarioAsociadoIntelimotor = consulta($conexion, "SELECT id FROM concesionario WHERE id = " . $usuario_idConcesionario . " AND intelimotor_apiKey != '' AND intelimotor_apiSecret != ''");
+
+                                                                    if (cuentaResultados($concesionarioAsociadoIntelimotor) > 0) {
+                                                                        $puedeAgregarVehiculo = 0;
+                                                                    } else {
+                                                                        $puedeSincronizarVehiculo = 0;
+                                                                    }
+                                                                //} else {
+                                                                    //$puedeAgregarVehiculo = 0;
+                                                                }
+                                                            ?>
+
+                                                            <?php if ($puedeAgregarVehiculo) { ?>
+                                                                <a class="btn btn-primary" data-fancybox data-type="iframe" data-preload="false" data-height="900" href="vehiculo.php" id="boton_agregar">Agregar Vehículo</a>
+                                                                &nbsp;&nbsp;&nbsp;
+                                                            <?php } ?>
+
+                                                            <?php if ($puedeSincronizarVehiculo) { ?>
+                                                                <a class="btn btn-warning link_sincronizar" href="javascript:;">Sincronizar inventario InteliMotor</a>
+                                                                &nbsp;&nbsp;&nbsp;
+                                                            <?php } ?>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <?php if (!estaVacio($esSubmit) && $esSubmit === "1") { ?>
+
+                                    <div class="row row-sm">
+                                        <div class="col-lg-12">
+                                            <div class="card">
+                                                <div class="card-header">
+                                                    <h3 class="card-title">Resultados</h3>
+                                                </div>
+
+                                                <div class="card-body">
                                                     <div class="table-responsive">
-                                                        <table class="table table-hover display  pb-30" id="tabla_resultados">
+                                                        <table class="table table-bordered text-nowrap key-buttons border-bottom" id="tabla_resultados">
                                                             <thead>
                                                                 <tr>
-                                                                    <th>ID</th>
-                                                                    <th>Agencia</th>
-                                                                    <th>Habilitado</th>
-                                                                    <th>ID Intelimotor</th>
-                                                                    <th>Marca</th>
-                                                                    <th>Modelo</th>
-                                                                    <th>Año</th>
-                                                                    <th>Tipo</th>
-                                                                    <th>Precio</th>
-                                                                    <th class="columna_acciones">Acciones</th>
+                                                                    <th class="border-bottom-0">Id</th>
+                                                                    <th class="border-bottom-0">Agencia</th>
+                                                                    <th class="border-bottom-0">Habilitado</th>
+                                                                    <th class="border-bottom-0">ID Intelimotor</th>
+                                                                    <th class="border-bottom-0">Marca</th>
+                                                                    <th class="border-bottom-0">Modelo</th>
+                                                                    <th class="border-bottom-0">Año</th>
+                                                                    <th class="border-bottom-0">Tipo</th>
+                                                                    <th class="border-bottom-0">Precio</th>
+                                                                    <th class="border-bottom-0">Acciones</th>
                                                                 </tr>
                                                             </thead>
 
-                                                            <tfoot>
-                                                                <tr>
-                                                                    <th>ID</th>
-                                                                    <th>Agencia</th>
-                                                                    <th>Habilitado</th>
-                                                                    <th>ID Intelimotor</th>
-                                                                    <th>Marca</th>
-                                                                    <th>Modelo</th>
-                                                                    <th>Año</th>
-                                                                    <th>Tipo</th>
-                                                                    <th>Precio</th>
-                                                                    <th>Acciones</th>
-                                                                </tr>
-                                                            </tfoot>
-
-                                                            <tbody>
+                                                            <tbody id="contenedor_resultados">
                                                                 <?php
-
-                                                                    // Arma restricciones
 
                                                                     $restricciones = "";
 
@@ -319,7 +357,7 @@
                                                                             echo "<td>" . $vehiculo["tipo"] . "</td>";
                                                                             echo "<td>" . formatoMoneda($vehiculo["precio"]) . "</td>";
                                                                             echo "<td>";
-                                                                                echo "<a class='link_editar' data-vehiculo='" . $vehiculo["id"] . "'  data-toggle='tooltip' href='javascript:;' title='Ver detalle'><i class='fa fa-search'></i></a>";
+                                                                                echo "<a data-fancybox data-type='iframe' data-preload='false' data-height='1080' href='vehiculo.php?id=" . $vehiculo["id"] . "' title='Editar'><i class='fa fa-search'></i></a>";
 
                                                                                 if ($esUsuarioMaster || $esUsuarioAdministrador) {
                                                                                     //echo "<a class='link_publicar' data-id='" . $vehiculo["id"] . "'  data-publicado='" . $vehiculo["publicado"] . "' data-toggle='tooltip' href='javascript:;' title='" . ($vehiculo["publicado"] == 1 ? "Ocultar" : "Publicar") . "'><i class='fa fa-" . ($vehiculo["publicado"] == 1 ? "eye-slash" : "eye") . "'></i></a>";
@@ -338,77 +376,29 @@
                                                 </div>
                                             </div>
                                         </div>
-
-                                        <br />
-
-                                        <div class="form-group mb-0">
-                                            <?php 
-
-                                            //Se valida en el caso de usuario operador, si el concesionario asignado tiene activado el servicio de Intelimotor 
-                                            $puedeAgregarVehiculo = 1;
-                                            $puedeSincronizarVehiculo = 1;
-
-                                            
-                                            if ($esUsuarioOperador) {
-                                                $concesionarioAsociadoIntelimotor = consulta($conexion, "SELECT id FROM concesionario WHERE id = " . $usuario_idConcesionario . " AND intelimotor_apiKey != '' AND intelimotor_apiSecret != ''");
-
-                                                if (cuentaResultados($concesionarioAsociadoIntelimotor) > 0) {
-                                                    $puedeAgregarVehiculo = 0;
-                                                } else {
-                                                    $puedeSincronizarVehiculo = 0;
-                                                }
-                                            //} else {
-                                                //$puedeAgregarVehiculo = 0;
-                                            }
-
-                                            if ($puedeAgregarVehiculo) { ?>
-                                                <a class="btn btn-primary link_agregar" href="javascript:;">Agregar Vehículo</a>
-                                            <?php }
-
-                                            if ($puedeSincronizarVehiculo) { ?>
-                                                <a class="btn btn-success link_sincronizar" href="javascript:;">Sincronizar inventario InteliMotor</a>
-                                            <?php } ?>
-                                        </div>
                                     </div>
-                                </div>
+                                <?php } ?>
                             </div>
-                        <?php } ?>
+                        <?php
+                            } else {
+                                registraEvento("CMS : Consulta de vehículos bloqueada");
+                                muestraBloqueo();
+                            }
+                        ?>
 
-                        <!-- Formulario de redireccion hacia edicion -->
-
-                        <form action="vehiculo.php" id="formulario_edicion" method="post">
-                            <input name="origen" type="hidden" value="vehiculos.php" />
-
-                            <!-- Ida -->
-
-                            <input id="campo_edicion_id" name="id" type="hidden" />
-
-                            <!-- Regreso -->
-
-                            <input id="campo_edicion_marca" name="origen_marca" type="hidden" value="" />
-                            <input id="campo_edicion_ano" name="origen_ano" type="hidden" value="" />
-                            <input id="campo_edicion_tipo" name="origen_tipo" type="hidden" value="" />
-                            <input id="campo_edicion_transmision" name="origen_transmision" type="hidden" value="" />
-                            <input id="campo_edicion_publicado" name="origen_publicado" type="hidden" value="" />
-                            <input id="campo_edicion_concesionario" name="origen_concesionario" type="hidden" value="" />
-                        </form>
-                    <?php
-                        } else {
-                            registraEvento("CMS : Consulta de vehículos bloqueada");
-                            muestraBloqueo();
-                        }
-                    ?>
-
-                    <?php include("socialware/php/estructura/pieDePagina.php"); ?>
+                    </div>
                 </div>
+
+
+                <?php include("socialware/php/estructura/pieDePagina.php"); ?>
+
             </div>
         </div>
 
         <?php include("socialware/php/estructura/plugins.php"); ?>
 
-        <?php include("socialware/php/estructura/scripts.php"); ?>
 
-        <script src="https://cdn.jsdelivr.net/npm/gasparesganga-jquery-loading-overlay@2.1.7/dist/loadingoverlay.min.js"></script>
+        <?php include("socialware/php/estructura/scripts.php"); ?>
 
 
         <!-- Scripts -->
@@ -419,57 +409,67 @@
 
                 // Inicializa tabla de resultados
 
-                $("#tabla_resultados").DataTable({
-                    order: [[0, "desc"]],
-                    dom: "Bfrtip",
+                var tablaResultados = $("#tabla_resultados").DataTable({
                     buttons: [
-                        "copy", 
-                        "excel", {
-                            extend: 'pdfHtml5',
-                            orientation: 'landscape',
-                            pageSize: 'LEGAL' 
-                        }, 
-                        "print"
+                        {
+                            extend: "copy",
+                            text: "Copiar",
+                            exportOptions: {
+                                columns: ':visible'
+                            }
+                        }
+                        , {
+                            extend: "excel",
+                            exportOptions: {
+                                columns: ':visible'
+                            }
+                        }
+                        , {
+                            extend: "pdf",
+                            exportOptions: {
+                                columns: ':visible:not(:last-child)'
+                            },
+                            orientation: "landscape"
+                        }
+                        , {
+                            extend: "colvis",
+                            text: "Columnas"
+                        }
                     ],
+                    dom: "rtip",
+                    "bDestroy": true,
+                    //pageLength: (paginacion ? "10" : "0"),
                     language: {
-                        decimal: "",
+                        scrollX: "100%",
+                        sSearch: "",
+
                         emptyTable: "No hay información",
-                        info: "Mostrando _START_ a _END_ de _TOTAL_ registros",
-                        infoEmpty: "Mostrando 0 to 0 of 0 registros",
-                        infoFiltered: "(Filtrado de _MAX_ total registros)",
-                        infoPostFix: "",
-                        lengthMenu: "Mostrar _MENU_ registros",
+                        info: "Mostrando _START_ a _END_ de _TOTAL_ resultados",
+                        infoEmpty: "Mostrando 0 a 0 de 0 resultados",
+                        infoFiltered: "(Filtrado de _MAX_ total resultados)",
+                        lengthMenu: "Mostrar _MENU_ resultados",
                         loadingRecords: "Cargando...",
                         processing: "Procesando...",
-                        search: "Buscar:",
-                        thousands: ",",
-                        zeroRecords: "No se han encontrado resultados",
+                        searchPlaceholder: "Bucar...",
+                        zeroRecords: "Sin resultados encontrados",
                         paginate: {
-                            first: "Primero",
-                            last: "Último",
-                            next: "Siguiente",
-                            previous: "Anterior"
-                        },
-                        buttons: {
-                            copy: "Copiar",
-                            excel: "Excel",
-                            pdf: "PDF",
-                            print: "Imprimir"
+                            "first": "Primero",
+                            "last": "Último",
+                            "next": "Siguiente",
+                            "previous": "Anterior"
                         }
-                    }
+                    },
+                    retrieve: true
+                });
+                 tablaResultados.buttons().container().appendTo("#contenedor_botones");
+
+                 $("#campo_llaveResultado").keyup(function() {
+                    tablaResultados.search($(this).val()).draw();
                 });
             });
 
 
-            // Redirige hacia alta
-
-
-            $(".link_agregar").click(function() {
-                $("#formulario_edicion").submit();
-            });
-
-
-            // Sincronizar inventario InteliMotor
+             // Sincronizar inventario InteliMotor
 
 
             $(".link_sincronizar").click(function() {
@@ -495,23 +495,6 @@
                     }
                 });
             });
-
-
-            // Redirige hacia edicion
-
-
-            $(".link_editar").click(function() {
-                $("#campo_edicion_id").val($(this).attr("data-vehiculo"));
-
-                $("#campo_edicion_marca").val($("#campo_marca").val());
-                $("#campo_edicion_ano").val($("#campo_ano").val());
-                $("#campo_edicion_tipo").val($("#campo_tipo").val());
-                $("#campo_edicion_transmision").val($("#campo_transmision").val());
-                $("#campo_edicion_publicado").val($("#campo_publicado").val());
-
-                $("#formulario_edicion").submit();
-            });
-
 
             // Publica / Oculta un vehiculo
 

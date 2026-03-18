@@ -220,7 +220,7 @@
                                                                             echo "<td>" . $concesionario["correoElectronico"] . "</td>";
                                                                             echo "<td>" . $concesionario["whatsapp"] . "</td>";
                                                                             echo "<td>";
-                                                                                echo "<a class='link_editar' data-concesionario='" . $concesionario["id"] . "'  data-toggle='tooltip' href='javascript:;' title='Ver detalle'><i class='fa fa-search'></i></a>";
+                                                                                echo "<a data-fancybox data-type='iframe' data-preload='false' data-height='1080' href='concesionario.php?id=" . $concesionario["id"] . "' title='Editar'><i class='fa fa-search'></i></a>";
 
                                                                                 /*if ($esUsuarioMaster || $esUsuarioAdministrador) {
                                                                                     //echo "<a class='link_publicar' data-id='" . $concesionario["id"] . "'  data-habilitado='" . $concesionario["habilitado"] . "' data-toggle='tooltip' href='javascript:;' title='" . ($concesionario["habilitado"] == 1 ? "Ocultar" : "Publicar") . "'><i class='fa fa-" . ($concesionario["habilitado"] == 1 ? "eye-slash" : "eye") . "'></i></a>";

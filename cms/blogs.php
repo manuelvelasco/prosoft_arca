@@ -103,7 +103,7 @@
                                                                             }
                                                                             echo "</td>";
                                                                             echo "<td>";
-                                                                                echo "<a class='link_editar' data-blog='" . $blog["id"] . "'  data-toggle='tooltip' href='javascript:;' title='Ver detalle'><i class='fa fa-search'></i></a>";
+                                                                                echo "<a data-fancybox data-type='iframe' data-preload='false' data-height='1080' href='blog.php?id=" . $blog["id"] . "' title='Editar'><i class='fa fa-search'></i></a>";
 
                                                                             echo "</td>";
                                                                         echo "</tr>";
