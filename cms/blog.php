@@ -11,14 +11,60 @@
         <?php include("socialware/php/comunes/funciones.php"); ?>
 
         <?php include("socialware/php/estructura/head.php"); ?>
+
+        <style>
+
+            /* Botones */
+
+            #boton_cerrar {
+                margin-right: 0;
+            }
+
+            #boton_eliminar {
+                margin-left: 0;
+            }
+
+            #contenedor_botonesDerechos {
+                text-align: right;
+            }
+
+            #contenedor_botonesIzquierdos {
+                text-align: left;
+            }
+
+            /* Despliegue embebido sin margen izquierdo por ausencia de menu */
+
+            .app-content {
+                margin-left: 0;
+            }
+
+            /* Tablas de permisos */
+
+            .tabla_permisos {
+                width: 100%;
+            }
+
+            .tabla_permisos th {
+                text-align: left;
+                width: 50%;
+            }
+
+            /* Varios */
+
+            hr {
+                border-color: #888;
+            }
+        </style>
     </head>
-    <body>
+
+
+    <body class="app ltr">
         <?php
 
             // Obtiene parametros de request
 
             $esSubmit = filter_input(INPUT_POST, "esSubmit");
-            $id = filter_input(INPUT_POST, "id");
+            $id = sanitiza($conexion, filter_input(INPUT_GET, "id"));
             $habilitado = filter_input(INPUT_POST, "habilitado");
             $fecha = filter_input(INPUT_POST, "fecha");
             $autor = filter_input(INPUT_POST, "autor");
@@ -147,6 +193,7 @@
                                     $imagenPrincipal = $nombreEstandarizado;
                                 }
                             } catch (Exception $e) {
+
                             }
                         }
 
@@ -234,315 +281,101 @@
 
         <!-- Preloader -->
 
-        <div class="preloader-it">
-            <div class="la-anim-1"></div>
+        <div id="global-loader">
+            <img alt="Cargando..." class="loader-img" src="assets/images/loader.svg" />
         </div>
 
-        <div class="wrapper">
-            <?php include("socialware/php/estructura/encabezado.php"); ?>
+        <div class="page">
+            <div class="page-main">
 
-            <?php include("socialware/php/estructura/menu.php"); ?>
 
-            <!-- Contenido -->
+                <!-- Menu oculto -->
 
-            <div class="page-wrapper">
-                <div class="container-fluid">
-                    <?php if ($esUsuarioMaster || $esUsuarioAdministrador) { ?>
 
-                        <!-- Titulo -->
+                <div class="main-sidemenu" style="display: none;"> 
+                    <div class="slide-left disabled" id="slide-left"><svg fill="#7b8191" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M13.293 6.293 7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"/></svg></div>
 
-                        <div class="row heading-bg bg-blue">
-                            <div class="col-xs-12">
-                                <h5 class="txt-light">Detalle de Post</h5>
-                            </div>
-                        </div>
+                    <ul class="side-menu" id="contenedor_menu"></ul>
 
-                        <!-- Bloques de informacion -->
+                    <div class="slide-right" id="slide-right"><svg fill="#7b8191" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M10.707 17.707 16.414 12l-5.707-5.707-1.414 1.414L13.586 12l-4.293 4.293z"/></svg></div>
+                </div>
 
-                        <form action="blog.php" enctype="multipart/form-data" method="post">
-                            <input name="esSubmit" type="hidden" value="1" />
 
-                            <input name="origen" type="hidden" value="<?php echo $origen ?>" />
+                <!-- Contenido -->
 
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <div class="panel panel-default card-view">
-                                        <div class="panel-wrapper collapse in">
-                                            <div class="panel-body">
-                                                <div class="alert" id="contenedor_mensaje">
-                                                    <span></span>
-                                                </div>
+                <?php if ($esUsuarioMaster || $esUsuarioAdministrador) { ?>
 
-                                                <!-- Generales -->
+                    <div class="main-content app-content mt-0">
+                        <div class="side-app">
+                            <div class="main-container container-fluid">
+                                <!-- Titulo -->
 
-                                                <div class="panel panel-default card-view">
-                                                    <div class="panel-heading">
-                                                        <div class="pull-left">
-                                                            <h6 class="panel-title txt-dark">
-                                                                Proporciona la información que se solicita
-                                                            </h6>
 
-                                                            <hr />
-                                                        </div>
+                                <div class="page-header">
+                                    <h1 class="page-title">Detalle de post</h1>
 
-                                                        <div class="clearfix"></div>
-                                                    </div>
+                                    <div>
+                                        <!--
+                                        <ol class="breadcrumb">
+                                            <li class="breadcrumb-item"><a href="dashboard.html">Inicio</a></li>
+                                            <li class="breadcrumb-item"><a href="javascript:void(0)">Catálogos</a></li>
+                                            <li class="breadcrumb-item"><a href="javascript:void(0)">Usuarios</a></li>
+                                            <li aria-current="page" class="breadcrumb-item active">Detalle de usuario</li>
+                                        </ol>
+                                        -->
+                                    </div>
+                                </div>
+                                <form autocomplete="off" enctype="multipart/form-data" id="formulario" method="post" >
 
-                                                    <div class="panel-wrapper collapse in">
-                                                        <div class="panel-body">
+                                    <input id="campo_esSubmit" name="esSubmit" type="hidden" value="1" />
+
+                                    <div class="alert" id="contenedor_mensaje">
+                                        <span></span>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <h5><strong>Información de control</strong></h5>
+
+                                                    <hr />
+
+                                                    <div class="row">
+                                                        <div class="col-md-4 col-sm-6 col-xs-12">
                                                             <div class="row">
-                                                                <div class="col-sm-12 col-xs-12">
-                                                                    <div class="form-wrap">
-                                                                        <div class="form-body">
-                                                                            <div class="row mb-30">
-                                                                                <div class="col-md-12">
-                                                                                    <h5><strong>Información de control</strong></h5>
-                                                                                </div>
-                                                                            </div>
-
-                                                                            <div class="row mb-30">
-                                                                                <div class="col-md-6">
-                                                                                    <div class="form-group">
-                                                                                        <label class="control-label mb-10">Id</label>
-                                                                                        <input class="form-control" name="id" readonly type="text" value="<?php echo $id ?>" />
-                                                                                    </div>
-                                                                                </div>
-
-                                                                                <div class="col-md-6">
-                                                                                    <div class="form-group">
-                                                                                        <label class="control-label mb-10">Fecha de registro</label>
-                                                                                        <input class="form-control" name="fecha" readonly type="text" value="<?php echo $fecha ?>" />
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-
-                                                                            <div class="row mb-30">
-                                                                                <div class="col-md-6">
-                                                                                    <div class="form-group">
-                                                                                        <label class="control-label mb-10">Publicado</label>
-                                                                                        <div>
-                                                                                            <input <?php echo $habilitado == 1 ? "checked" : "" ?> class="form-control bs-switch" data-off-text="No publicado" data-on-text="Publicado" name="habilitado" type="checkbox" />
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-
-                                                                            <div class="row mb-30">
-                                                                                <div class="col-md-12">
-                                                                                    <h5><strong>Datos generales</strong></h5>
-                                                                                </div>
-                                                                            </div>
-
-                                                                            <div class="row mb-30">
-                                                                                <div class="col-md-6">
-                                                                                    <div class="form-group">
-                                                                                        <label class="control-label mb-10">Título <span class="txt-danger ml-10">*</span></label>
-                                                                                        <input class="form-control" name="titulo" type="text" value="<?php echo $titulo ?>" />
-                                                                                    </div>
-                                                                                </div>
-
-                                                                                <div class="col-md-6">
-                                                                                    <div class="form-group">
-                                                                                        <label class="control-label mb-10">Autor <span class="txt-danger ml-10">*</span></label>
-                                                                                        <input class="form-control" name="autor" type="text" value="<?php echo $autor ?>" />
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-
-                                                                            <div class="row mb-30">
-                                                                                <div class="col-md-6">
-                                                                                    <div class="form-group">
-                                                                                        <label class="control-label mb-10">Resumen</label>
-                                                                                        <textarea class="form-control" name="resumen" rows="3"><?php echo $resumen ?></textarea>
-                                                                                    </div>
-                                                                                </div>
-
-                                                                                <div class="col-md-6">
-                                                                                    <div class="form-group">
-                                                                                        <label class="control-label mb-10">Etiquetas</label>
-                                                                                        <div class="tags-default">
-                                                                                            <input class="form-control" data-role="tagsinput" name="etiquetas" placeholder="Separa con coma" type="text" value="<?php echo $etiquetas ?>" />
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="row mb-30">
-                                                                                <div class="col-md-6">
-                                                                                    <div class="form-group">
-                                                                                        <label class="control-label mb-10">Categoría &nbsp; <span class="txt-danger">*</span></label>
-                                                                                        <input class="form-control" data-role="tagsinput" name="categoria" placeholder="Categoria" type="text" value="<?php echo $categoria ?>" />
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="row mb-30">
-                                                                                <div class="col-md-12">
-                                                                                    <div class="form-group">
-                                                                                        <label class="control-label mb-10">Detalle</label>
-                                                                                        <textarea class="tinymce" name="detalle"><?php echo $detalle ?></textarea>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-
-                                                                            <?php if (!estaVacio($id)) { ?>
-                                                                                <div class="row mb-30">
-                                                                                    <div class="col-md-12">
-                                                                                        <h5><strong>Multimedia</strong></h5>
-                                                                                    </div>
-                                                                                </div>
-
-                                                                                <div class="row">
-                                                                                    <div class="col-md-12">
-                                                                                        <div class="form-group">
-                                                                                            <label class="control-label mb-10">Imagen principal</label>
-
-                                                                                            <span>
-                                                                                                <!--
-                                                                                                <br />
-                                                                                                Formatos aceptados: .jpg, .jpeg, .png
-                                                                                                -->
-                                                                                                <br />
-                                                                                                Tamaño preferente: 850 x 425 pixeles
-                                                                                                <br />
-                                                                                                Se muestra en:
-                                                                                                <ul class="lista_seMuestraEn">
-                                                                                                    <li>Blog</li>
-                                                                                                    <li>Detalle de post</li>
-                                                                                                </ul>
-                                                                                                <br /><br />
-                                                                                            </span>
-
-                                                                                            <div>
-                                                                                                <input name="imagenPrincipal" type="file" />
-                                                                                                <br />
-                                                                                                <div class="row">
-                                                                                                    <div class="col-sm-12">
-                                                                                                        <div class="panel panel-success card-view">
-                                                                                                            <div class="panel-wrapper collapse in">
-                                                                                                                <div class="panel-body">
-                                                                                                                    <ul class="chat-list-wrap">
-                                                                                                                        <li class="chat-list">
-                                                                                                                            <div class="chat-body">
-                                                                                                                            <?php
-                                                                                                                                if (!estaVacio($imagenPrincipal)) {
-                                                                                                                                    echo "<div class='chat-data'>";
-                                                                                                                                    echo "<img class='user-img' src='" . $constante_urlPosts . "/" . $id . "/" . $imagenPrincipal . "' />";
-
-                                                                                                                                    echo "<div class='user-data'>";
-                                                                                                                                    echo "<span class='name block'>" . $imagenPrincipal . "</span>";
-                                                                                                                                    echo "<span class='time block txt-grey'>";
-                                                                                                                                    echo "<a data-lightbox='imagen' href='" . $constante_urlPosts . "/" . $id . "/" . $imagenPrincipal . "'>Ampliar</a>";
-                                                                                                                                    echo "&nbsp;&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;&nbsp;";
-                                                                                                                                    echo "<a download href='" . $constante_urlPosts . "/" . $id . "/" . $imagenPrincipal . "'>Descargar</a>";
-                                                                                                                                    echo "</span>";
-                                                                                                                                    echo "</div>";
-                                                                                                                                    echo "<div class='clearfix'></div>";
-                                                                                                                                    echo "</div>";
-                                                                                                                                }
-                                                                                                                            ?>
-                                                                                                                            </div>
-                                                                                                                        </li>
-                                                                                                                    </ul>
-                                                                                                                </div>
-                                                                                                            </div>
-                                                                                                        </div>
-                                                                                                    </div>
-                                                                                                </div>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-
-                                                                                <div class="row">
-                                                                                    <div class="col-md-12">
-                                                                                        <div class="form-group">
-                                                                                            <label class="control-label mb-10">Imagenes para insertar en el contenido</label>
-
-                                                                                            <span>
-                                                                                                <!--
-                                                                                                <br />
-                                                                                                Formatos aceptados: .jpg, .jpeg, .png
-                                                                                                -->
-                                                                                                <br />
-                                                                                                Se muestra en:
-                                                                                                <ul class="lista_seMuestraEn">
-                                                                                                    <li>Detalle del post</li>
-                                                                                                </ul>
-                                                                                                <br /><br />
-                                                                                            </span>
-
-                                                                                            <div>
-                                                                                                <input id="campo_archivo" multiple name="imagenGaleria[]" type="file" />
-                                                                                                <br />
-                                                                                                <div class="row">
-                                                                                                    <div class="col-sm-12">
-                                                                                                        <div class="panel panel-success card-view">
-                                                                                                            <div class="panel-wrapper collapse in">
-                                                                                                                <div class="panel-body">
-                                                                                                                    <ul class="chat-list-wrap">
-                                                                                                                        <li class="chat-list">
-                                                                                                                            <div class="chat-body">
-                                                                                                                            <?php
-                                                                                                                                if (!estaVacio($id)) {
-                                                                                                                                    try {
-                                                                                                                                        $archivos = scandir($constante_rutaPosts . $id . "/galeria");
-                                                                                                                                        $indice = 1;
-                                                                                                                                        
-                                                                                                                                        foreach ($archivos as $archivo) {
-                                                                                                                                            $extension = strtolower(pathinfo($archivo, PATHINFO_EXTENSION));
-
-                                                                                                                                            //if ($extension == "jpg" || $extension == "jpeg" || $extension == "png") {
-                                                                                                                                            if ($extension !== "") {
-                                                                                                                                                echo "<div class='chat-data' id='contenedor_imagen_" . $indice . "'>";
-                                                                                                                                                echo "<img class='user-img' src='" . $constante_urlPosts . "/" . $id . "/galeria/" . $archivo . "' />";
-
-                                                                                                                                                echo "<div class='user-data'>";
-                                                                                                                                                echo "<span class='name block'>". $constante_urlPosts . $id . "/galeria/" . $archivo . "</span>";
-                                                                                                                                                echo "<span class='time block txt-grey'>";
-                                                                                                                                                echo "<a data-lightbox='imagen' href='" . $constante_urlPosts . "/" . $id . "/galeria/" . $archivo . "'>Ampliar</a>";
-                                                                                                                                                echo "&nbsp;&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;&nbsp;";
-                                                                                                                                                echo "<a download href='" . $constante_urlPosts . "/" . $id . "/galeria/" . $archivo . "'>Descargar</a>";
-                                                                                                                                                echo "&nbsp;&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;&nbsp;";
-                                                                                                                                                echo "<a href='javascript:eliminaImagenGaleria(" . $id . ", \"" . $archivo . "\", " . $indice . ")'>Eliminar</a>";
-                                                                                                                                                echo "</span>";
-                                                                                                                                                echo "</div>";
-                                                                                                                                                echo "<div class='clearfix'></div>";
-                                                                                                                                                echo "</div>";
-
-                                                                                                                                                $indice++;
-                                                                                                                                            }
-                                                                                                                                        }
-                                                                                                                                    } catch (Exception $e) {
-                                                                                                                                    }
-                                                                                                                                }
-                                                                                                                            ?>
-                                                                                                                            </div>
-                                                                                                                        </li>
-                                                                                                                    </ul>
-
-                                                                                                                    <div class="alert alert-dismissable" id="contenedor_mensaje" style="display: none">
-                                                                                                                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button> <span id="contenedor_mensaje_contenido"></span>
-                                                                                                                    </div>
-                                                                                                                </div>
-                                                                                                            </div>
-                                                                                                        </div>
-                                                                                                    </div>
-                                                                                                </div>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-
-                                                                            <?php } ?>
+                                                                <div class="col-12">
+                                                                    <div class="row mb-12">
+                                                                        <label class="form-label col-md-4" for="campo_id">ID</label>
+                                                                        <div class="col-md-8">
+                                                                            <input class="form-control" id="campo_id" name="id" readonly type="text" value="<?php echo $id; ?>" />
                                                                         </div>
-
-                                                                        <div class="form-actions mt-50">
-                                                                            <?php if ($esUsuarioMaster || $esUsuarioAdministrador) { ?>
-                                                                                <button class="btn btn-success" type="submit">Guardar</button>
-                                                                            <?php } ?>
-
-                                                                            <?php if (!estaVacio($origen)) { ?>
-                                                                                <a class="btn btn-default ml-10 link_origen" type="button">Volver</a>
-                                                                            <?php } ?>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-4 col-sm-6 col-xs-12">
+                                                            <div class="row">
+                                                                <div class="col-12">
+                                                                    <div class="row mb-12">
+                                                                        <label class="form-label col-md-4" for="campo_fecha">Fecha de registro</label>
+                                                                        <div class="col-md-8">
+                                                                            <input class="form-control" id="campo_fecha" name="fecha" readonly type="text" value="<?php echo $fecha; ?>" />
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-4 col-sm-6 col-xs-12">
+                                                            <div class="row">
+                                                                <div class="col-12">
+                                                                    <div class="row mb-12">
+                                                                        <label class="form-label col-md-4" for="campo_habilitado">Publicado</label>
+                                                                        <div class="col-md-8">
+                                                                            <div class="material-switch">
+                                                                                <input <?php echo $habilitado == 1 ? "checked" : "" ?> id="campo_habilitado" name="habilitado" type="checkbox" />
+                                                                                <label class="label-info" for="campo_habilitado"></label>
+                                                                            </div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -553,26 +386,288 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="card">
+                                                <div class="card-body">
+
+                                                    <h5><strong>Datos generales</strong></h5>
+
+                                                    <hr />
+
+                                                    <div class="row">
+                                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                                            <div class="row">
+                                                                <div class="col-12">
+                                                                    <div class="row mb-20">
+                                                                        <label class="form-label col-md-2" for="campo_titulo">Título <span class="text-danger">*</span></label>
+                                                                        <div class="col-md-10">
+                                                                            <input class="form-control" id="campo_titulo" name="titulo" type="text" value="<?php echo $titulo; ?>" />
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                                            <div class="row">
+                                                                <div class="col-12">
+                                                                    <div class="row mb-20">
+                                                                        <label class="form-label col-md-2" for="campo_autor">Autor <span class="text-danger">*</span></label>
+                                                                        <div class="col-md-10">
+                                                                            <input class="form-control" id="campo_autor" name="autor" type="text" value="<?php echo $autor; ?>" />
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md64 col-sm-6 col-xs-12">
+                                                            <div class="row">
+                                                                <div class="col-12">
+                                                                    <div class="row mb-20">
+                                                                        <label class="form-label col-md-2" for="campo_etiquetas">Etiquetas </label>
+                                                                        <div class="col-md-10">
+                                                                            <input class="form-control" id="campo_etiquetas" name="etiquetas" placeholder="Separa con comas" type="text" value="<?php echo $etiquetas; ?>" />
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                                            <div class="row">
+                                                                <div class="col-12">
+                                                                    <div class="row mb-20">
+                                                                        <label class="form-label col-md-2" for="campo_categoria">Categoría <span class="text-danger">*</span></label>
+                                                                        <div class="col-md-10">
+                                                                            <input class="form-control" id="campo_categoria" name="categoria" type="text" value="<?php echo $categoria; ?>" />
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-12 col-sm-12 col-xs-12">
+                                                            <div class="row">
+                                                                <div class="col-12">
+                                                                    <div class="row mb-20">
+                                                                        <label class="form-label col-md-1" for="campo_resumen">Resumen </label>
+                                                                        <div class="col-md-11">
+                                                                            <textarea class="form-control" id="campo_resumen" name="resumen" rows="3"><?php echo $resumen ?></textarea>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-12 col-sm-12 col-xs-12">
+                                                            <div class="row">
+                                                                <div class="col-12">
+                                                                    <div class="row mb-20">
+                                                                        <label class="form-label col-md-1" for="campo_detalle">Detalle</label>
+                                                                        <div class="col-md-11">
+                                                                            <textarea class="tinymce" id="campo_detalle" name="detalle"><?php echo $detalle ?></textarea>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <?php if (!estaVacio($id)) { ?>
+
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <div class="card">
+                                                    <div class="card-body">
+                                                        <h5><strong>Multimedia</strong></h5>
+
+                                                        <hr />
+
+                                                        <div class="row">
+                                                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                                                <div class="row">
+                                                                    <div class="col-md-12">
+                                                                        <div class="form-group">
+                                                                            <label class="control-label mb-10">Imagen principal</label>
+
+                                                                            <span>
+                                                                                <!--
+                                                                                <br />
+                                                                                Formatos aceptados: .jpg, .jpeg, .png
+                                                                                -->
+                                                                                <br />
+                                                                                Tamaño preferente: 850 x 425 pixeles
+                                                                                <br />
+                                                                                Se muestra en:
+                                                                                <ul class="lista_seMuestraEn">
+                                                                                    <li>Blog</li>
+                                                                                    <li>Detalle de post</li>
+                                                                                </ul>
+                                                                                <br /><br />
+                                                                            </span>
+
+                                                                            <div>
+                                                                                <input name="imagenPrincipal" type="file" />
+                                                                                <br />
+                                                                                <div class="row">
+                                                                                    <div class="col-sm-12">
+                                                                                        <div class="panel panel-success card-view">
+                                                                                            <div class="panel-wrapper in">
+                                                                                                <div class="panel-body">
+                                                                                                    <ul class="chat-list-wrap">
+                                                                                                        <li class="chat-list">
+                                                                                                            <div class="chat-body">
+                                                                                                            <?php
+                                                                                                                if (!estaVacio($imagenPrincipal)) {
+                                                                                                                    echo "<div class='chat-data'>";
+                                                                                                                    echo "<img class='user-img' src='" . $constante_urlPosts . "/" . $id . "/" . $imagenPrincipal . "' />";
+
+                                                                                                                    echo "<div class='user-data'>";
+                                                                                                                    echo "<span class='name block'>" . $imagenPrincipal . "</span>";
+                                                                                                                    echo "<span class='time block txt-grey'>";
+                                                                                                                    echo "<a data-lightbox='imagen' href='" . $constante_urlPosts . "/" . $id . "/" . $imagenPrincipal . "'>Ampliar</a>";
+                                                                                                                    echo "&nbsp;&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;&nbsp;";
+                                                                                                                    echo "<a download href='" . $constante_urlPosts . "/" . $id . "/" . $imagenPrincipal . "'>Descargar</a>";
+                                                                                                                    echo "</span>";
+                                                                                                                    echo "</div>";
+                                                                                                                    echo "<div class='clearfix'></div>";
+                                                                                                                    echo "</div>";
+                                                                                                                }
+                                                                                                            ?>
+                                                                                                            </div>
+                                                                                                        </li>
+                                                                                                    </ul>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                                                <div class="row">
+                                                                    <div class="col-md-12">
+                                                                        <div class="form-group">
+                                                                            <label class="control-label mb-10">Imagenes para insertar en el contenido</label>
+
+                                                                            <span>
+                                                                                <!--
+                                                                                <br />
+                                                                                Formatos aceptados: .jpg, .jpeg, .png
+                                                                                -->
+                                                                                <br />
+                                                                                Se muestra en:
+                                                                                <ul class="lista_seMuestraEn">
+                                                                                    <li>Detalle del post</li>
+                                                                                </ul>
+                                                                                <br /><br />
+                                                                            </span>
+
+                                                                            <div>
+                                                                                <input id="campo_archivo" multiple name="imagenGaleria[]" type="file" />
+                                                                                <br />
+                                                                                <div class="row">
+                                                                                    <div class="col-sm-12">
+                                                                                        <div class="panel panel-success card-view">
+                                                                                            <div class="panel-wrapper in">
+                                                                                                <div class="panel-body">
+                                                                                                    <ul class="chat-list-wrap">
+                                                                                                        <li class="chat-list">
+                                                                                                            <div class="chat-body">
+                                                                                                            <?php
+                                                                                                                if (!estaVacio($id)) {
+                                                                                                                    try {
+                                                                                                                        $archivos = scandir($constante_rutaPosts . $id . "/galeria");
+                                                                                                                        $indice = 1;
+                                                                                                                        
+                                                                                                                        foreach ($archivos as $archivo) {
+                                                                                                                            $extension = strtolower(pathinfo($archivo, PATHINFO_EXTENSION));
+
+                                                                                                                            //if ($extension == "jpg" || $extension == "jpeg" || $extension == "png") {
+                                                                                                                            if ($extension !== "") {
+                                                                                                                                echo "<div class='chat-data' id='contenedor_imagen_" . $indice . "'>";
+                                                                                                                                echo "<img class='user-img' src='" . $constante_urlPosts . "/" . $id . "/galeria/" . $archivo . "' />";
+
+                                                                                                                                echo "<div class='user-data'>";
+                                                                                                                                echo "<span class='name block'>". $constante_urlPosts . $id . "/galeria/" . $archivo . "</span>";
+                                                                                                                                echo "<span class='time block txt-grey'>";
+                                                                                                                                echo "<a data-lightbox='imagen' href='" . $constante_urlPosts . "/" . $id . "/galeria/" . $archivo . "'>Ampliar</a>";
+                                                                                                                                echo "&nbsp;&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;&nbsp;";
+                                                                                                                                echo "<a download href='" . $constante_urlPosts . "/" . $id . "/galeria/" . $archivo . "'>Descargar</a>";
+                                                                                                                                echo "&nbsp;&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;&nbsp;";
+                                                                                                                                echo "<a href='javascript:eliminaImagenGaleria(" . $id . ", \"" . $archivo . "\", " . $indice . ")'>Eliminar</a>";
+                                                                                                                                echo "</span>";
+                                                                                                                                echo "</div>";
+                                                                                                                                echo "<div class='clearfix'></div>";
+                                                                                                                                echo "</div>";
+
+                                                                                                                                $indice++;
+                                                                                                                            }
+                                                                                                                        }
+                                                                                                                    } catch (Exception $e) {
+                                                                                                                    }
+                                                                                                                }
+                                                                                                            ?>
+                                                                                                            </div>
+                                                                                                        </li>
+                                                                                                    </ul>
+
+                                                                                                    <div class="alert alert-dismissable" id="contenedor_mensaje" style="display: none">
+                                                                                                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button> <span id="contenedor_mensaje_contenido"></span>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    <?php } ?>
+
+                                    <div class="row mt-6">
+                                        <div class="col-md-8 col-sm-6" id="contenedor_botonesIzquierdos">
+                                            <div class="form-group">
+                                                <!--a class="btn btn-danger mb-3" href="javascript:void(0)" id="boton_eliminar">Eliminar</a-->
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-4 col-sm-6" id="contenedor_botonesDerechos">
+                                            <div class="form-group">
+                                                <?php if ($esUsuarioMaster || $esUsuarioAdministrador) { ?>
+                                                    <button class="btn btn-success mb-3" type="submit" id="boton_guardar">Guardar</button>
+                                                <?php } ?>
+                                                <a class="btn btn-default mb-3" href="javascript:void(0)" id="boton_cerrar">Cerrar</a>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </form>
                             </div>
-                        </form>
+                        </div>
+                    </div>
+                <?php
+                    } else {
+                        registraEvento("CMS : Consulta de post bloqueada | id = " . $id);
+                        muestraBloqueo();
+                    }
+                ?>
 
-                        <!-- Formulario de retorno a pagina origen -->
-
-                        <form action="<?php echo $origen ?>" id="formulario_origen" method="post">
-                            <input name="esSubmit" type="hidden" value="1" />
-
-                        </form>
-                    <?php
-                        } else {
-                            registraEvento("CMS : Consulta de post bloqueada | id = " . $id);
-                            muestraBloqueo();
-                        }
-                    ?>
-
-                </div>
             </div>
         </div>
+
 
         <?php include("socialware/php/estructura/plugins.php"); ?>
 
@@ -593,7 +688,6 @@
 
 
         <!-- Scripts -->
-
 
 
         <script>
@@ -644,7 +738,7 @@
                     }
                 }); */
 
-            // Regresa a la interfaz de origen
+            // Borra una imagen de la galeria
             
             function eliminaImagenGaleria(id, imagen, indice) {
                 if (confirm("Al continuar se eliminará esta imagen y ya no se mostrará en la galería del post, ¿desea proceder?")) {
@@ -664,12 +758,7 @@
                 }
             }
 
-            $(".link_origen").click(function() {
-                $("#formulario_origen").submit();
-            });
 
-
-            // Borra una imagen de la galeria
 
         </script>
     </body>
