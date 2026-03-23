@@ -26,13 +26,13 @@
                             </ul>
                     </li>
                 <?php } ?>
-                <li><a class="side-menu__item" href="concesionarios.php"><span class="side-menu__label">Agencias</span></a></li>
-                <li><a class="side-menu__item" href="vehiculos.php"><span class="side-menu__label">Veh&iacute;culos</span></a></li>
+                <li><a class="side-menu__item" href="concesionarios.php"><i class="side-menu__icon fa fa-youtube"></i><span class="side-menu__label">Agencias</span></a></li>
+                <li><a class="side-menu__item" href="vehiculos.php"><i class="side-menu__icon fa fa-youtube"></i><span class="side-menu__label">Veh&iacute;culos</span></a></li>
                 <?php if ($esUsuarioMaster || $esUsuarioAdministrador) { ?>
-                    <li><a class="side-menu__item" href="blogs.php"><span class="side-menu__label">Blogs</span></a></li>
+                    <li><a class="side-menu__item" href="blogs.php"><i class="side-menu__icon fa fa-youtube"></i><span class="side-menu__label">Blogs</span></a></li>
                 <?php } ?>
                 <?php if ($esUsuarioMaster || $esUsuarioAdministrador) { ?>
-                    <li><a class="side-menu__item" href="contacto.php"><span class="side-menu__label">Contacto</span></a></li>
+                    <li><a class="side-menu__item" href="contacto.php"><i class="side-menu__icon fa fa-youtube"></i><span class="side-menu__label">Contacto</span></a></li>
                 <?php } ?>
             </ul>
 
