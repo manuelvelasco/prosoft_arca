@@ -65,6 +65,9 @@
 
             $esSubmit = filter_input(INPUT_POST, "esSubmit");
             $id = sanitiza($conexion, filter_input(INPUT_GET, "id"));
+            if($esSubmit == 1){
+                $id = sanitiza($conexion, filter_input(INPUT_POST, "id"));
+            }
             $habilitado = filter_input(INPUT_POST, "habilitado");
             $fecha = filter_input(INPUT_POST, "fecha");
             $autor = filter_input(INPUT_POST, "autor");
