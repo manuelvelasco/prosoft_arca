@@ -2,38 +2,15 @@
     float:right;
 }
 
-.icono_listado {
-    width:80px;
+#contenedor_mensaje span{
+    color: white;
 }
 
-.label.label-blue, .label-blue.jvectormap-tip {
-    background: #3cf;
-}
-
-.link_habilitar {
-    margin-left: 25px;
-}
-
-.link_publicar {
-    margin-left: 25px;
-}
-
-.table > tbody > tr > td, .jsgrid-table > tbody > tr > td, .table > tbody > tr > th, .jsgrid-table > tbody > tr > th, .table > tfoot > tr > td, .jsgrid-table > tfoot > tr > td, .table > tfoot > tr > th, .jsgrid-table > tfoot > tr > th, .table > thead > tr > td, .jsgrid-table > thead > tr > td, .table > thead > tr > th, .jsgrid-table > thead > tr > th {
-    padding: 8px;
-}
-
-.oculta_campos{
-    height: 0px; 
-    overflow-x: hidden;
-}
-
-.side-header{
-    height:96px !important;
-}
-
-.perfilUsuarioVisible{
-    display: block !important;
-    left: -135px !important;
+div.dt-button-collection .dt-button{
+    min-width: 100%;
+    border: 0 !important;
+    margin-bottom: 0;
+    margin-top:0;
 }
 
 .dt-buttons {
@@ -51,24 +28,52 @@
     margin-bottom: 5px;
 }
 
-div.dt-button-collection .dt-button{
-    min-width: 100%;
-    border: 0 !important;
-    margin-bottom: 0;
-    margin-top:0;
+.icono_listado {
+    width:80px;
 }
 
-#contenedor_mensaje span{
-    color: white;
+.label.label-blue, .label-blue.jvectormap-tip {
+    background: #3cf;
+}
+
+.link_habilitar {
+    margin-left: 25px;
+}
+
+.link_publicar {
+    margin-left: 25px;
+}
+
+.main-sidemenu{
+    margin-top: 40px;
+}
+
+.oculta_campos{
+    height: 0px; 
+    overflow-x: hidden;
+}
+
+.perfilUsuarioVisible{
+    display: block !important;
+    left: -135px !important;
 }
 
 .select2-selection__rendered{
     border: none !important;
 }
 
-.main-sidemenu{
-    margin-top: 40px;
+.side-app{
+    margin-bottom: 20px;
 }
+
+.side-header{
+    height:96px !important;
+}
+
+.table > tbody > tr > td, .jsgrid-table > tbody > tr > td, .table > tbody > tr > th, .jsgrid-table > tbody > tr > th, .table > tfoot > tr > td, .jsgrid-table > tfoot > tr > td, .table > tfoot > tr > th, .jsgrid-table > tfoot > tr > th, .table > thead > tr > td, .jsgrid-table > thead > tr > td, .table > thead > tr > th, .jsgrid-table > thead > tr > th {
+    padding: 8px;
+}
+
 /* Elimina spinner de inputs de tipo number */
 
 input::-webkit-outer-spin-button,
