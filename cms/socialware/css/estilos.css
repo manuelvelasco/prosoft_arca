@@ -2,6 +2,14 @@
     float:right;
 }
 
+.card-body div.mb-20{
+    height: 40px;
+}
+
+.card-body.intelimotor div.mb-20{
+    height: 60px;
+}
+
 #contenedor_mensaje span{
     color: white;
 }

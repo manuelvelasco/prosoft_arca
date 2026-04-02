@@ -11,10 +11,54 @@
         <?php include("socialware/php/comunes/funciones.php"); ?>
 
         <?php include("socialware/php/estructura/head.php"); ?>
+
+        <style>
+
+            /* Botones */
+
+            #boton_cerrar {
+                margin-right: 0;
+            }
+
+            #boton_eliminar {
+                margin-left: 0;
+            }
+
+            #contenedor_botonesDerechos {
+                text-align: right;
+            }
+
+            #contenedor_botonesIzquierdos {
+                text-align: left;
+            }
+
+            /* Despliegue embebido sin margen izquierdo por ausencia de menu */
+
+            .app-content {
+                margin-left: 0;
+            }
+
+            /* Tablas de permisos */
+
+            .tabla_permisos {
+                width: 100%;
+            }
+
+            .tabla_permisos th {
+                text-align: left;
+                width: 50%;
+            }
+
+            /* Varios */
+
+            hr {
+                border-color: #888;
+            }
+        </style>
     </head>
 
 
-    <body>
+    <body class="app ltr">
         <?php
             require("socialware/php/plugins/fpdf181/fpdf.php");
 
@@ -327,13 +371,16 @@
             }//end of class|
 
 $rutaLog = "/var/www/html/arca/error.log";
-error_log("\n\n[" . date("Y-m-d H:i:s") . "]", 3, $rutaLog);
-error_log("\nidUsuario = " . $usuario_id, 3, $rutaLog);
+/*error_log("\n\n[" . date("Y-m-d H:i:s") . "]", 3, $rutaLog);
+error_log("\nidUsuario = " . $usuario_id, 3, $rutaLog);*/
 
             // Obtiene parametros de request
 
             $esSubmit = sanitiza($conexion, filter_input(INPUT_POST, "esSubmit"));
-            $id = sanitiza($conexion, filter_input(INPUT_POST, "id"));
+            $id = sanitiza($conexion, filter_input(INPUT_GET, "id"));
+            if($esSubmit == 1){
+                $id = sanitiza($conexion, filter_input(INPUT_POST, "id"));
+            }
             $publicado = sanitiza($conexion, filter_input(INPUT_POST, "publicado"));
             $destacado = sanitiza($conexion, filter_input(INPUT_POST, "destacado"));
             $certificado = sanitiza($conexion, filter_input(INPUT_POST, "certificado"));
@@ -2072,7 +2119,7 @@ error_log("\n" . "SELECT * FROM vehiculo WHERE id = " . $id, 3, $rutaLog);
 
                     // Es consulta
 
-error_log("\nConsulta", 3, $rutaLog);
+//error_log("\nConsulta", 3, $rutaLog);
 
                     $vehiculo_BD = consulta($conexion, "SELECT * FROM vehiculo WHERE id = " . $id);
                     $vehiculo = obtenResultado($vehiculo_BD);
@@ -2469,1304 +2516,113 @@ error_log("\nAdición", 3, $rutaLog);
 
         <!-- Preloader -->
 
-        <div class="preloader-it">
-            <div class="la-anim-1"></div>
+        <div id="global-loader">
+            <img alt="Cargando..." class="loader-img" src="assets/images/loader.svg" />
         </div>
 
-        <div class="wrapper">
-            <?php include("socialware/php/estructura/encabezado.php"); ?>
+        <div class="page">
+            <div class="page-main">
 
-            <?php include("socialware/php/estructura/menu.php"); ?>
 
-            <!-- Contenido -->
+                <!-- Menu oculto -->
 
-            <div class="page-wrapper">
-                <div class="container-fluid">
-                    <?php if ($esUsuarioMaster || $esUsuarioAdministrador || $esUsuarioOperador ) { ?>
 
-                        <!-- Titulo -->
+                <div class="main-sidemenu" style="display: none;"> 
+                    <div class="slide-left disabled" id="slide-left"><svg fill="#7b8191" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M13.293 6.293 7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"/></svg></div>
 
-                        <div class="row heading-bg bg-blue">
-                            <div class="col-xs-12">
-                                <h5 class="txt-light">Vehículo</h5>
-                            </div>
-                        </div>
+                    <ul class="side-menu" id="contenedor_menu"></ul>
 
-                        <!-- Bloques de informacion -->
+                    <div class="slide-right" id="slide-right"><svg fill="#7b8191" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M10.707 17.707 16.414 12l-5.707-5.707-1.414 1.414L13.586 12l-4.293 4.293z"/></svg></div>
+                </div>
 
-                        <form action="vehiculo.php" enctype="multipart/form-data" id="formulario" method="post">
-                            <input name="esSubmit" type="hidden" value="1" />
 
-                            <input name="origen" type="hidden" value="<?php echo $origen ?>" />
-                            <input name="origen_marca" type="hidden" value="<?php echo $origen_marca ?>" />
-                            <input name="origen_ano" type="hidden" value="<?php echo $origen_ano ?>" />
-                            <input name="origen_tipo" type="hidden" value="<?php echo $origen_tipo ?>" />
-                            <input name="origen_transmision" type="hidden" value="<?php echo $origen_transmision ?>" />
-                            <input name="origen_publicado" type="hidden" value="<?php echo $origen_publicado ?>" />
-                            <input name="origen_concesionario" type="hidden" value="<?php echo $origen_concesionario ?>" />
+                <!-- Contenido -->
 
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <div class="panel panel-default card-view">
-                                        <div class="panel-wrapper collapse in">
-                                            <div class="panel-body">
-                                                <div class="alert" id="contenedor_mensaje">
-                                                    <span></span>
-                                                </div>
+                <?php if ($esUsuarioMaster || $esUsuarioAdministrador || $esUsuarioOperador ) { ?>
 
-                                                <!-- Generales -->
+                    <div class="main-content app-content mt-0">
+                        <div class="side-app">
+                            <div class="main-container container-fluid">
+                                <!-- Titulo -->
 
-                                                <div class="panel panel-default card-view">
-                                                    <div class="panel-heading">
-                                                        <div class="pull-left">
-                                                            <h6 class="panel-title txt-dark">
-                                                                Proporciona la información del vehículo
-                                                            </h6>
 
-                                                            <hr />
-                                                        </div>
+                                <div class="page-header">
+                                    <h1 class="page-title">Proporciona la información del vehículo</h1>
 
-                                                        <div class="clearfix"></div>
-                                                    </div>
+                                    <div>
+                                        <!--
+                                        <ol class="breadcrumb">
+                                            <li class="breadcrumb-item"><a href="dashboard.html">Inicio</a></li>
+                                            <li class="breadcrumb-item"><a href="javascript:void(0)">Catálogos</a></li>
+                                            <li class="breadcrumb-item"><a href="javascript:void(0)">Usuarios</a></li>
+                                            <li aria-current="page" class="breadcrumb-item active">Detalle de usuario</li>
+                                        </ol>
+                                        -->
+                                    </div>
+                                </div>
+                                <form autocomplete="off" enctype="multipart/form-data" id="formulario" method="post" >
 
-                                                    <div class="panel-wrapper collapse in">
-                                                        <div class="panel-body">
+                                    <input id="campo_esSubmit" name="esSubmit" type="hidden" value="1" />
+
+                                    <div class="alert" id="contenedor_mensaje">
+                                        <span></span>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <h5><strong>Información de control</strong></h5>
+
+                                                    <hr />
+
+                                                    <div class="row">
+                                                        <div class="col-md-4 col-sm-6 col-xs-12">
                                                             <div class="row">
-                                                                <div class="col-sm-12 col-xs-12">
-                                                                    <div class="form-wrap">
-                                                                        <div class="form-body">
-                                                                            <div class="row mb-30">
-                                                                                <div class="col-md-12">
-                                                                                    <h5><strong>Información de control</strong></h5>
-                                                                                </div>
-                                                                            </div>
-
-                                                                            <div class="row mb-30">
-                                                                                <div class="col-md-6">
-                                                                                    <div class="form-group">
-                                                                                        <label class="control-label mb-10">Id</label>
-                                                                                        <input class="form-control" name="id" readonly type="number" value="<?php echo $id ?>" />
-                                                                                    </div>
-                                                                                </div>
-
-                                                                                <div class="col-md-6">
-                                                                                    <div class="form-group">
-                                                                                        <label class="control-label mb-10">Publicado</label>
-                                                                                        <div>
-                                                                                            <input <?php echo $publicado == 1 ? "checked" : "" ?> class="form-control bs-switch" data-off-text="No publicado" data-on-text="Publicado" name="publicado" type="checkbox" />
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-
-                                                                            <!--div class="row mb-30">
-                                                                                <div class="col-md-4">
-                                                                                    <div class="form-group">
-                                                                                        <label class="control-label mb-10">Destacado</label>
-                                                                                        <div>
-                                                                                            <input <?php echo $destacado == 1 ? "checked" : "" ?> class="form-control bs-switch" data-off-text="No Destacado" data-on-text="Destacado" name="destacado" type="checkbox" />
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-
-                                                                                <div class="col-md-4">
-                                                                                    <div class="form-group">
-                                                                                        <label class="control-label mb-10">Certificado</label>
-                                                                                        <div>
-                                                                                            <input <?php echo $certificado == 1 ? "checked" : "" ?> class="form-control bs-switch" data-off-text="No Certificado" data-on-text="Certificado" name="certificado" type="checkbox" />
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-
-                                                                                <div class="col-md-4">
-                                                                                    <div class="form-group">
-                                                                                        <label class="control-label mb-10">Vehículo con descuento especial</label>
-                                                                                        <div>
-                                                                                            <input <?php echo $descuentoEspecial == 1 ? "checked" : "" ?> class="form-control bs-switch" data-off-text="Sin Descuento" data-on-text="Con Descuento" name="descuentoEspecial" type="checkbox" />
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div-->
-
-                                                                            <div class="row mb-30">
-                                                                                <div class="col-md-4">
-                                                                                    <div class="form-group">
-                                                                                        <label class="control-label mb-10">Agencia</label>
-                                                                                        <select class="form-control select2" name="idConcesionario">
-                                                                                            <option value="">Seleccione</option>
-
-                                                                                            <?php
-                                                                                                if ($esUsuarioOperador) {
-                                                                                                    $concesionarios_BD = consulta($conexion, "SELECT * FROM concesionario WHERE id = " . $usuario_idConcesionario . " ORDER BY nombreComercial");
-                                                                                                } else {
-                                                                                                    $concesionarios_BD = consulta($conexion, "SELECT * FROM concesionario ORDER BY nombreComercial");
-                                                                                                }
-                                                                                                while ($concesionario = obtenResultado($concesionarios_BD)) {
-                                                                                                    echo "<option " . ($idConcesionario == $concesionario["id"] ? "selected" : "") . " value='" . $concesionario["id"] . "'>" . $concesionario["nombreComercial"] . "</option>";
-                                                                                                }
-                                                                                            ?>
-                                                                                        </select>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-
-                                                                            <div class="row mb-30">
-                                                                                <div class="col-md-12">
-                                                                                    <h5><strong>Puntos destacados</strong></h5>
-                                                                                </div>
-                                                                            </div>
-
-                                                                            <div class="row mb-30">
-                                                                                <div class="col-md-12">
-                                                                                    <div class="form-group">
-                                                                                        <div class="form-group">
-                                                                                            <textarea class="form-control" name="puntosDestacados" rows="5"><?php echo $puntosDestacados ?></textarea>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-
-                                                                            <!-- Campos de captura libre -->
-
-                                                                            <div class="<?php echo $tieneHabilitadoIntelimotor == 1 ? "oculta_campos" : ""; ?>">
-                                                                                <div class="row mb-30">
-                                                                                    <div class="col-md-6">
-                                                                                        <div class="form-group">
-                                                                                            <label class="control-label mb-10">Precio <span class="txt-danger ml-10">*</span></label>
-                                                                                            <input class="form-control campoNumerico" name="precio" type="number" value="<?php echo $precio ?>" />
-                                                                                        </div>
-                                                                                    </div>
-
-                                                                                    <div class="col-md-6">
-                                                                                        <div class="form-group">
-                                                                                            <label class="control-label mb-10">Enganche <span class="txt-danger ml-10">*</span></label>
-                                                                                            <input class="form-control" name="enganche" type="number" value="<?php echo $enganche ?>" />
-                                                                                        </div>
-                                                                                    </div>
-
-                                                                                    <!--div class="col-md-6">
-                                                                                        <div class="form-group">
-                                                                                            <label class="control-label mb-10">Sucursal <span class="txt-danger ml-10">*</span></label>
-                                                                                            
-                                                                                            <select class="form-control select2" name="idSucursal">
-                                                                                                <option value="">Seleccione</option>
-
-                                                                                                < ?php
-                                                                                                    $sucursales_BD = consulta($conexion, "SELECT * FROM sucursal ORDER BY nombre");
-
-                                                                                                    while ($sucursal = obtenResultado($sucursales_BD)) {
-                                                                                                        echo "<option " . (!estaVacio($idSucursal) && $idSucursal == $sucursal["id"] ? "selected" : "") . " value='" . $sucursal["id"] . "'>" . $sucursal["nombre"] . "</option>";
-                                                                                                    }
-                                                                                                ?>
-                                                                                            </select>
-                                                                                        </div>
-                                                                                    </div-->
-                                                                                    <input name="idSucursal" type="hidden" value="" />
-                                                                                </div>
-
-                                                                                <div class="row mb-30">
-                                                                                    <div class="col-md-12">
-                                                                                        <h5><strong>Datos generales</strong></h5>
-                                                                                    </div>
-                                                                                </div>
-
-                                                                                <div class="row mb-30">
-                                                                                    <div class="col-md-6">
-                                                                                        <div class="form-group">
-                                                                                            <label class="control-label mb-10">Tipo <span class="txt-danger ml-10">*</span></label>
-                                                                                            <!--input class="form-control" name="tipo" type="text" value="<?php //echo $tipo ?>" /-->
-                                                                                            <select class="form-control select2" name="tipo">
-                                                                                                <option <?php echo estaVacio($tipo) ? "selected" : "" ?> value="">Selecciona</option>
-                                                                                                <!--
-                                                                                                <option < ?php echo $tipo == "Auto" ? "selected" : "" ?> value="Auto">Auto</option>
-                                                                                                <option < ?php echo $tipo == "Jeep" ? "selected" : "" ?> value="Jeep">Jeep</option>
-                                                                                                <option < ?php echo $tipo == "Pickup" ? "selected" : "" ?> value="Pickup">Pickup</option>
-                                                                                                <option < ?php echo $tipo == "SUV" ? "selected" : "" ?> value="SUV">SUV</option>
-                                                                                                <option < ?php echo $tipo == "Todo terreno" ? "selected" : "" ?> value="Todo terreno">Todo terreno</option>
-                                                                                                <option < ?php echo $tipo == "Van y minivan" ? "selected" : "" ?> value="Van y minivan">Van y minivan</option>
-                                                                                                <option < ?php echo $tipo == "Vehículos de trabajo" ? "selected" : "" ?> value="Vehículos de trabajo">Vehículos de trabajo</option-->
-
-                                                                                                <?php
-                                                                                                    $tipos_BD = consulta($conexion, "SELECT DISTINCT intelimotor_vehicleBodyType FROM vehiculo ORDER BY intelimotor_vehicleBodyType");
-
-                                                                                                    while ($tipo_BD = obtenResultado($tipos_BD)) {
-                                                                                                        echo "<option " . ($tipo_BD["intelimotor_vehicleBodyType"] == $tipo ? "selected" : "") . " value='" . $tipo_BD["intelimotor_vehicleBodyType"] . "'>" . $tipo_BD["intelimotor_vehicleBodyType"] . "</option>";
-                                                                                                    }
-                                                                                                ?>
-                                                                                                <!--    
-                                                                                                <option <?php echo $tipo == "Coupé" ? "selected" : "" ?> value="Coupé">Coupé</option>
-                                                                                                <option <?php echo $tipo == "Hatchback" ? "selected" : "" ?> value="Hatchback">Hatchback</option>
-                                                                                                <option <?php echo $tipo == "Pick-Up" ? "selected" : "" ?> value="Pick-Up">Pick-Up</option>
-                                                                                                <option <?php echo $tipo == "Sedán" ? "selected" : "" ?> value="Sedán">Sedán</option>
-                                                                                                <option <?php echo $tipo == "SUV" ? "selected" : "" ?> value="SUV">SUV</option>
-                                                                                                <option <?php echo $tipo == "Van" ? "selected" : "" ?> value="Van">Van</option>
-                                                                                                -->
-                                                                                            </select>
-                                                                                        </div>
-                                                                                    </div>
-
-                                                                                    <div class="col-md-6">
-                                                                                        <div class="form-group">
-                                                                                            <label class="control-label mb-10">Marca <span class="txt-danger ml-10">*</span></label>
-                                                                                            <!--input class="form-control" name="marca" type="text" value="<?php echo $marca ?>" /-->
-                                                                                            <select class="form-control select2" name="marca" id="select_marca">
-                                                                                                
-                                                                                            </select>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-
-                                                                                <div class="row mb-30">
-                                                                                    <div class="col-md-6">
-                                                                                        <div class="form-group">
-                                                                                            <label class="control-label mb-10">Modelo <span class="txt-danger ml-10">*</span></label>
-                                                                                            <select class="form-control select2" name="modelo" id="select_modelo">
-                                                                                                
-                                                                                            </select>
-                                                                                        </div>
-                                                                                    </div>
-
-                                                                                    <div class="col-md-6">
-                                                                                         <div class="form-group">
-                                                                                            <label class="control-label mb-10">Año <span class="txt-danger ml-10">*</span></label>
-                                                                                            <select class="form-control select2" name="ano" id="select_ano">
-                                                                                                
-                                                                                            </select>
-                                                                                        </div>
-                                                                                        
-                                                                                    </div>
-                                                                                </div>
-
-                                                                                <div class="row mb-30">
-                                                                                    <div class="col-md-6">
-                                                                                       <div class="form-group">
-                                                                                            <label class="control-label mb-10">Versión <span class="txt-danger ml-10">*</span></label>
-                                                                                            <select class="form-control select2" name="version" id="select_version">
-                                                                                                
-                                                                                            </select>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-
-                                                                                <div class="row mb-30">
-                                                                                    <div class="col-md-12">
-                                                                                        <h5><strong>Características</strong></h5>
-                                                                                    </div>
-                                                                                </div>
-
-                                                                                <div class="row mb-30">
-                                                                                    <div class="col-md-6">
-                                                                                        <div class="form-group">
-                                                                                            <label class="control-label mb-10">Color <span class="txt-danger ml-10">*</span></label>
-                                                                                            <input class="form-control" name="color" type="text" value="<?php echo $color ?>" />
-                                                                                        </div>
-                                                                                    </div>
-
-                                                                                    <div class="col-md-6">
-                                                                                        <div class="form-group">
-                                                                                            <label class="control-label mb-10">Transmisión</label>
-                                                                                            <!--input class="form-control" name="transmision" type="text" value="<?php echo $transmision ?>" /-->
-                                                                                            <select class="form-control select2" name="transmision">
-                                                                                                <option <?php echo estaVacio($transmision) ? "selected" : "" ?> value="">Selecciona</option>
-                                                                                                <?php
-                                                                                                    $transmisiones_BD = consulta($conexion, "SELECT DISTINCT intelimotor_transmission FROM vehiculo ORDER BY intelimotor_transmission");
-
-                                                                                                    while ($transmision_BD = obtenResultado($transmisiones_BD)) {
-                                                                                                        echo "<option " . ($transmision_BD["intelimotor_transmission"] == $transmision ? "selected" : "") . " value='" . $transmision_BD["intelimotor_transmission"] . "'>" . $transmision_BD["intelimotor_transmission"] . "</option>";
-                                                                                                    }
-                                                                                                ?>
-                                                                                                <!--
-                                                                                                <option <?php echo $transmision == "Automática" ? "selected" : "" ?> value="Automática">Automática</option>
-                                                                                                <option <?php echo $transmision == "CVT" ? "selected" : "" ?> value="CVT">CVT</option>
-                                                                                                <option <?php echo $transmision == "Estándar" ? "selected" : "" ?> value="Estándar">Estándar</option>
-                                                                                                <option <?php echo $transmision == "Tiptronic" ? "selected" : "" ?> value="Tiptronic">Tiptronic</option>
-                                                                                                -->
-                                                                                            </select>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-
-                                                                                <div class="row mb-30">
-                                                                                    <div class="col-md-6">
-                                                                                        <div class="form-group">
-                                                                                            <label class="control-label mb-10">Color interior</label>
-                                                                                            <input class="form-control" name="colorInterior" type="text" value="<?php echo $colorInterior ?>" />
-                                                                                        </div>
-                                                                                    </div>
-
-                                                                                    <div class="col-md-6">
-                                                                                        <div class="form-group">
-                                                                                            <label class="control-label mb-10">Dirección</label>
-                                                                                            <input class="form-control" name="direccion" type="text" value="<?php echo $direccion ?>" />
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-
-                                                                                <div class="row mb-30">
-                                                                                    <div class="col-md-6">
-                                                                                        <div class="form-group">
-                                                                                            <label class="control-label mb-10">Combustible</label>
-                                                                                            <!--input class="form-control" name="combustible" type="text" value="<?php echo $combustible ?>" /-->
-                                                                                            <select class="form-control select2" name="combustible">
-                                                                                                <option <?php echo estaVacio($combustible) ? "selected" : "" ?> value="">Selecciona</option>
-                                                                                                <?php
-                                                                                                    $combustibles_BD = consulta($conexion, "SELECT DISTINCT intelimotor_fuelType FROM vehiculo ORDER BY intelimotor_fuelType");
-
-                                                                                                    while ($combustible_BD = obtenResultado($combustibles_BD)) {
-                                                                                                        echo "<option " . ($combustible_BD["intelimotor_fuelType"] == $combustible ? "selected" : "") . " value='" . $combustible_BD["intelimotor_fuelType"] . "'>" . $combustible_BD["intelimotor_fuelType"] . "</option>";
-                                                                                                    }
-                                                                                                ?>
-                                                                                                <!--
-                                                                                                <option <?php echo $combustible == "Diesel" ? "selected" : "" ?> value="Diesel">Diesel</option>
-                                                                                                <option <?php echo $combustible == "Eléctrico" ? "selected" : "" ?> value="Eléctrico">Eléctrico</option>
-                                                                                                <option <?php echo $combustible == "Gasolina" ? "selected" : "" ?> value="Gasolina">Gasolina</option>
-                                                                                                <option <?php echo $combustible == "Híbrido" ? "selected" : "" ?> value="Híbrido">Híbrido</option>
-                                                                                                -->
-                                                                                            </select>
-                                                                                        </div>
-                                                                                    </div>
-
-                                                                                    <div class="col-md-6">
-                                                                                        <div class="form-group">
-                                                                                            <label class="control-label mb-10">Litros</label>
-                                                                                            <input class="form-control" name="litros" type="number" value="<?php echo $litros ?>" />
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-
-                                                                                <div class="row mb-30">
-                                                                                    <div class="col-md-4">
-                                                                                        <div class="form-group">
-                                                                                            <label class="control-label mb-10">Puertas</label>
-                                                                                            <input class="form-control" name="puertas" type="number" value="<?php echo $puertas ?>" />
-                                                                                        </div>
-                                                                                    </div>
-
-                                                                                    <div class="col-md-4">
-                                                                                        <div class="form-group">
-                                                                                            <label class="control-label mb-10">Asientos</label>
-                                                                                            <input class="form-control" name="asientos" type="number" value="<?php echo $asientos ?>" />
-                                                                                        </div>
-                                                                                    </div>
-
-                                                                                    <div class="col-md-4">
-                                                                                        <div class="form-group">
-                                                                                            <label class="control-label mb-10">Bolsas de Aire</label>
-                                                                                            <input class="form-control" name="bolsasAire" type="number" value="<?php echo $bolsasAire ?>" />
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-
-                                                                                <div class="row mb-30">
-                                                                                    <div class="col-md-6">
-                                                                                        <div class="form-group">
-                                                                                            <label class="control-label mb-10">Kilometraje</label>
-                                                                                            <input class="form-control campoNumerico" name="kilometraje" type="number" value="<?php echo $kilometraje ?>" />
-                                                                                        </div>
-                                                                                    </div>
-
-                                                                                    <div class="col-md-6">
-                                                                                        <div class="form-group">
-                                                                                            <label class="control-label mb-10">Tipo de factura</label>
-                                                                                            <input class="form-control" name="tipoFactura" type="text" value="<?php echo $tipoFactura ?>" />
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-
-                                                                                <div class="row mb-30">
-                                                                                    <div class="col-md-6">
-                                                                                        <div class="form-group">
-                                                                                            <label class="control-label mb-10">Número de llaves</label>
-                                                                                            <input class="form-control" name="numeroLlaves" type="number" value="<?php echo $numeroLlaves ?>" />
-                                                                                        </div>
-                                                                                    </div>
-
-                                                                                    <div class="col-md-6">
-                                                                                        <div class="form-group">
-                                                                                            <label class="control-label mb-10">Vida útil de las llantas (%)</label>
-                                                                                            <input class="form-control" name="vidaUtilLlantas" type="number" value="<?php echo $vidaUtilLlantas ?>" />
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-
-                                                                                <div class="row mb-30">
-                                                                                    <div class="col-md-12">
-                                                                                        <h5><strong>Destacados</strong></h5>
-                                                                                    </div>
-                                                                                </div>
-
-                                                                                <div class="row mb-30">
-                                                                                    <div class="col-md-12">
-                                                                                        <div class="table-wrap">
-                                                                                            <div class="table-responsive">
-                                                                                                <table class="table mb-0">
-                                                                                                    <tbody>
-                                                                                                        <tr>
-                                                                                                            <td>Aire acondicionado</td>
-                                                                                                            <td><input class="js-switch" <?php echo $tieneAireAcondicionado == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" name="tieneAireAcondicionado" type="checkbox" /></td>
-                                                                                                            <td>Alarma</td>
-                                                                                                            <td><input class="js-switch" <?php echo $tieneAlarma == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" name="tieneAlarma" type="checkbox" /></td>
-                                                                                                            <td>Alfombrilla de llanta de refacción</td>
-                                                                                                            <td><input class="js-switch" <?php echo $tieneAlfombrillaLlantaRefaccion == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" name="tieneAlfombrillaLlantaRefaccion" type="checkbox" /></td>
-                                                                                                            <td>Apertura remota de cajuela</td>
-                                                                                                            <td><input class="js-switch" <?php echo $tieneAperturaRemotaCajuela == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" name="tieneAperturaRemotaCajuela" type="checkbox" /></td>
-                                                                                                        </tr>
-                                                                                                        <tr>
-                                                                                                            <td>Asiento de conductor con ajuste de altura</td>
-                                                                                                            <td><input class="js-switch" <?php echo $tieneAsientoConductorAjusteAltura == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" name="tieneAsientoConductorAjusteAltura" type="checkbox" /></td>
-                                                                                                            <td>Asientos eléctricos</td>
-                                                                                                            <td><input class="js-switch" <?php echo $tieneAsientosElectricos == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" name="tieneAsientosElectricos" type="checkbox" /></td>
-                                                                                                            <td>Asientos traseros abatibles</td>
-                                                                                                            <td><input class="js-switch" <?php echo $tieneAsientosTraserosAbatibles == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" name="tieneAsientosTraserosAbatibles" type="checkbox" /></td>
-                                                                                                            <td>Asistente de frenado</td>
-                                                                                                            <td><input class="js-switch" <?php echo $tieneAsistenciaFrenado == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" name="tieneAsistenciaFrenado" type="checkbox" /></td>
-                                                                                                        </tr>
-                                                                                                        <tr>
-                                                                                                            <td>Bandeja de llanta de refacción</td>
-                                                                                                            <td><input class="js-switch" <?php echo $tieneBandejaLlantaRefaccion == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" name="tieneBandejaLlantaRefaccion" type="checkbox" /></td>
-                                                                                                            <td>Barras porta equipaje</td>
-                                                                                                            <td><input class="js-switch" <?php echo $tieneBarraAntivuelco == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" name="tieneBarraAntivuelco" type="checkbox" /></td>
-                                                                                                            <td>Blindado</td>
-                                                                                                            <td><input class="js-switch" <?php echo $esBlindado == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" name="esBlindado" type="checkbox" /></td>
-                                                                                                            <td>Bluetooth</td>
-                                                                                                            <td><input class="js-switch" <?php echo $tieneBluetooth == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" name="tieneBluetooth" type="checkbox" /></td>
-                                                                                                        </tr>
-                                                                                                        <tr>
-                                                                                                            <td>Bolsa de aire conductor</td>
-                                                                                                            <td><input class="js-switch" <?php echo $tieneBolsaAireConductor == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" name="tieneBolsaAireConductor" type="checkbox" /></td>
-                                                                                                            <td>Bolsa de aire pasajero</td>
-                                                                                                            <td><input class="js-switch" <?php echo $tieneBolsaAirePasajero == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" name="tieneBolsaAirePasajero" type="checkbox" /></td>
-                                                                                                            <td>Bolsas de aire laterales</td>
-                                                                                                            <td><input class="js-switch" <?php echo $tieneBolsasAireLaterales == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" name="tieneBolsasAireLaterales" type="checkbox" /></td>
-                                                                                                            <td>Bolsas de aire tipo cortina</td>
-                                                                                                            <td><input class="js-switch" <?php echo $tieneBolsasAireCortina == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" name="tieneBolsasAireCortina" type="checkbox" /></td>
-                                                                                                        </tr>
-                                                                                                        <tr>
-                                                                                                            <td>Cabeceras asientos traseros</td>
-                                                                                                            <td><input class="js-switch" <?php echo $tieneCabecerasAsientosTraseros == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" name="tieneCabecerasAsientosTraseros" type="checkbox" /></td>
-                                                                                                            <td>Computadora de viaje</td>
-                                                                                                            <td><input class="js-switch" <?php echo $tieneComputadoraAbordo == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" name="tieneComputadoraAbordo" type="checkbox" /></td>
-                                                                                                            <td>Control de temperatura</td>
-                                                                                                            <td><input class="js-switch" <?php echo $tieneControlTemperatura == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" name="tieneControlTemperatura" type="checkbox" /></td>
-                                                                                                            <td>Control de estabilidad</td>
-                                                                                                            <td><input class="js-switch" <?php echo $tieneControlEstabilidad == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" name="tieneControlEstabilidad" type="checkbox" /></td>
-                                                                                                        </tr>
-                                                                                                        <tr>
-                                                                                                            <td>Control de luces delanteras</td>
-                                                                                                            <td><input class="js-switch" <?php echo $tieneControlLucesDelanteras == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" name="tieneControlLucesDelanteras" type="checkbox" /></td>
-                                                                                                            <td>Controles al volante</td>
-                                                                                                            <td><input class="js-switch" <?php echo $tieneControlVolante == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" name="tieneControlVolante" type="checkbox" /></td>
-                                                                                                            <td>Defensas al color de la carrocería</td>
-                                                                                                            <td><input class="js-switch" <?php echo $tieneDefensasColorCarroceria == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" name="tieneDefensasColorCarroceria" type="checkbox" /></td>
-                                                                                                            <td>Desempañador trasero</td>
-                                                                                                            <td><input class="js-switch" <?php echo $tieneDesempanadorTrasero == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" name="tieneDesempanadorTrasero" type="checkbox" /></td>
-                                                                                                        </tr>
-                                                                                                        <tr>
-                                                                                                            <td>Espejos eléctricos</td>
-                                                                                                            <td><input class="js-switch" <?php echo $tieneEspejosElectricos == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" name="tieneEspejosElectricos" type="checkbox" /></td>
-                                                                                                            <td>Faros de niebla</td>
-                                                                                                            <td><input class="js-switch" <?php echo $tieneFarosNiebla == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" name="tieneFarosNiebla" type="checkbox" /></td>
-                                                                                                            <td>Frenos ABS</td>
-                                                                                                            <td><input class="js-switch" <?php echo $tieneFrenosABS == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" name="tieneFrenosABS" type="checkbox" /></td>
-                                                                                                            <td>GPS</td>
-                                                                                                            <td><input class="js-switch" <?php echo $tieneGps == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" name="tieneGps" type="checkbox" /></td>
-                                                                                                        </tr>
-                                                                                                        <tr>
-                                                                                                            <td>Importado</td>
-                                                                                                            <td><input class="js-switch" <?php echo $esImportado == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" name="esImportado" type="checkbox" /></td>
-                                                                                                            <td>Inmovilizador de motor</td>
-                                                                                                            <td><input class="js-switch" <?php echo $tieneInmovilizador == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" name="tieneInmovilizador" type="checkbox" /></td>
-                                                                                                            <td>Limpiaparabrisas</td>
-                                                                                                            <td><input class="js-switch" <?php echo $tieneLimpiaparabrisas == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" name="tieneLimpiaparabrisas" type="checkbox" /></td>
-                                                                                                            <td>Llanta de refacción</td>
-                                                                                                            <td><input class="js-switch" <?php echo $tieneLlantaRefaccion == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" name="tieneLlantaRefaccion" type="checkbox" /></td>
-                                                                                                        </tr>
-                                                                                                        <tr>
-                                                                                                            <td>Luces de niebla delanteras</td>
-                                                                                                            <td><input class="js-switch" <?php echo $tieneLucesNieblaDelanteras == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" name="tieneLucesNieblaDelanteras" type="checkbox" /></td>
-                                                                                                            <td>Luces de niebla traseras</td>
-                                                                                                            <td><input class="js-switch" <?php echo $tieneLucesNieblaTraseras == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" name="tieneLucesNieblaTraseras" type="checkbox" /></td>
-                                                                                                            <td>Faros de xenón</td>
-                                                                                                            <td><input class="js-switch" <?php echo $tieneLucesXenon == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" name="tieneLucesXenon" type="checkbox" /></td>
-                                                                                                            <td>Parachoques</td>
-                                                                                                            <td><input class="js-switch" <?php echo $tieneParachoques == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" name="tieneParachoques" type="checkbox" /></td>
-                                                                                                        </tr>
-                                                                                                        <tr>
-                                                                                                            <td>Piloto automático</td>
-                                                                                                            <td><input class="js-switch" <?php echo $tienePilotoAutomatico == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" name="tienePilotoAutomatico" type="checkbox" /></td>
-                                                                                                            <td>Portavasos</td>
-                                                                                                            <td><input class="js-switch" <?php echo $tienePortavasos == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" name="tienePortavasos" type="checkbox" /></td>
-                                                                                                            <td>Techo corredizo</td>
-                                                                                                            <td><input class="js-switch" <?php echo $tieneQuemacocos == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" name="tieneQuemacocos" type="checkbox" /></td>
-                                                                                                            <td>Radio AM/FM</td>
-                                                                                                            <td><input class="js-switch" <?php echo $tieneRadioAMFM == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" name="tieneRadioAMFM" type="checkbox" /></td>
-                                                                                                        </tr>
-                                                                                                        <tr>
-                                                                                                            <td>Recordatorio de luces encendidas</td>
-                                                                                                            <td><input class="js-switch" <?php echo $tieneRecordatorioEncendidoLuces == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" name="tieneRecordatorioEncendidoLuces" type="checkbox" /></td>
-                                                                                                            <td>Reproductor de CD</td>
-                                                                                                            <td><input class="js-switch" <?php echo $tieneReproductorCD == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" name="tieneReproductorCD" type="checkbox" /></td>
-                                                                                                            <td>Reproductor de DVD</td>
-                                                                                                            <td><input class="js-switch" <?php echo $tieneReproductorDVD == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" name="tieneReproductorDVD" type="checkbox" /></td>
-                                                                                                            <td>Reproductor de MP3</td>
-                                                                                                            <td><input class="js-switch" <?php echo $tieneReproductorMP3 == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" name="tieneReproductorMP3" type="checkbox" /></td>
-                                                                                                        </tr>
-                                                                                                        <tr>
-                                                                                                            <td>Respaldos traseros</td>
-                                                                                                            <td><input class="js-switch" <?php echo $tieneRespadosTraseros == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" name="tieneRespadosTraseros" type="checkbox" /></td>
-                                                                                                            <td>Rines de aluminio</td>
-                                                                                                            <td><input class="js-switch" <?php echo $tieneRinesAleacion == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" name="tieneRinesAleacion" type="checkbox" /></td>
-                                                                                                            <td>Cerradura de puertas centralizada</td>
-                                                                                                            <td><input class="js-switch" <?php echo $tieneSegurosElectricosCentralizados == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" name="tieneSegurosElectricosCentralizados" type="checkbox" /></td>
-                                                                                                            <td>Sensor de lluvia</td>
-                                                                                                            <td><input class="js-switch" <?php echo $tieneSensorLluvia == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" name="tieneSensorLluvia" type="checkbox" /></td>
-                                                                                                        </tr>
-                                                                                                        <tr>
-                                                                                                            <td>Sensor de luz</td>
-                                                                                                            <td><input class="js-switch" <?php echo $tieneSensoresLuz == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" name="tieneSensoresLuz" type="checkbox" /></td>
-                                                                                                            <td>Sensor de reversa</td>
-                                                                                                            <td><input class="js-switch" <?php echo $tieneSensoresReversa == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" name="tieneSensoresReversa" type="checkbox" /></td>
-                                                                                                            <td>Tapicería de piel</td>
-                                                                                                            <td><input class="js-switch" <?php echo $tieneTapiceriaPiel == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" name="tieneTapiceriaPiel" type="checkbox" /></td>
-                                                                                                            <td>Tarjeta SD</td>
-                                                                                                            <td><input class="js-switch" <?php echo $tieneTarjetaSD == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" name="tieneTarjetaSD" type="checkbox" /></td>
-                                                                                                        </tr>
-                                                                                                        <tr>
-                                                                                                            <td>Tercera luz de frenado</td>
-                                                                                                            <td><input class="js-switch" <?php echo $tieneTerceraLuzFrenado == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" name="tieneTerceraLuzFrenado" type="checkbox" /></td>
-                                                                                                            <td>Único dueño</td>
-                                                                                                            <td><input class="js-switch" <?php echo $unicoDueno == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" name="unicoDueno" type="checkbox" /></td>
-                                                                                                            <td>USB</td>
-                                                                                                            <td><input class="js-switch" <?php echo $tieneUsb == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" name="tieneUsb" type="checkbox" /></td>
-                                                                                                            <td>Vidrios eléctricos</td>
-                                                                                                            <td><input class="js-switch" <?php echo $tieneVidriosElectricos == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" name="tieneVidriosElectricos" type="checkbox" /></td>
-                                                                                                        </tr>
-
-                                                                                                        <!-- NO EXISTEN EN INTELIMOTOR -->
-
-                                                                                                        <tr>
-                                                                                                            <td>Factura de agencia</td>
-                                                                                                            <td><input class="js-switch" <?php echo $facturaAgencia == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" name="facturaAgencia" type="checkbox" /></td>
-                                                                                                            <td>Impuestos al corriente</td>
-                                                                                                            <td><input class="js-switch" <?php echo $impuestosCorriente == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" name="impuestosCorriente" type="checkbox" /></td>
-                                                                                                            <td>Manos libres</td>
-                                                                                                            <td><input class="js-switch" <?php echo $manosLibres == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" name="manosLibres" type="checkbox" /></td>
-                                                                                                            <td>Mantenimientos al corriente</td>
-                                                                                                            <td><input class="js-switch" <?php echo $mantenimientosCorriente == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" name="mantenimientosCorriente" type="checkbox" /></td>
-                                                                                                        </tr>
-                                                                                                        <tr>
-                                                                                                            <td>Mantenimientos de agencia</td>
-                                                                                                            <td><input class="js-switch" <?php echo $mantenimientosAgencia == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" name="mantenimientosAgencia" type="checkbox" /></td>
-                                                                                                        </tr>
-                                                                                                    </tbody>
-                                                                                                </table>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-
-                                                                                <div class="row mb-30">
-                                                                                    <div class="col-md-12">
-                                                                                        <h5><strong>Descripción</strong> <span class="txt-danger ml-10">*</span></h5>
-                                                                                    </div>
-                                                                                </div>
-
-                                                                                <div class="row mb-30">
-                                                                                    <div class="col-md-12">
-                                                                                        <div class="form-group">
-                                                                                            <!--label class="control-label mb-10">Descripción</label-->
-                                                                                            <div class="form-group">
-                                                                                                <textarea class="tinymce" name="descripcion"><?php echo $descripcion ?></textarea>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-
-                                                                                <div class="row mb-30">
-                                                                                    <div class="col-md-12">
-                                                                                        <h5><strong>Multimedia</strong></h5>
-                                                                                    </div>
-                                                                                </div>
-
-                                                                                <div class="row">
-                                                                                    <div class="col-md-12">
-                                                                                        <div class="form-group">
-                                                                                            <label class="control-label mb-10">Imagen principal</label>
-                                                                                            <span>
-                                                                                                <!--
-                                                                                                <br />
-                                                                                                Se muestra en: Menú de la app
-                                                                                                -->
-                                                                                                <br />
-                                                                                                Tamaño preferente: 750 x 420 pixeles
-                                                                                                <!--
-                                                                                                <br />
-                                                                                                Formatos aceptados: .jpg, .jpeg, .png
-                                                                                                -->
-                                                                                                <br /><br />
-                                                                                            </span>
-                                                                                            <div>
-                                                                                                <input name="imagenPrincipal" type="file" />
-                                                                                                <br />
-                                                                                                <div class="row">
-                                                                                                    <div class="col-sm-12">
-                                                                                                        <div class="panel panel-success card-view">
-                                                                                                            <div class="panel-wrapper collapse in">
-                                                                                                                <div class="panel-body">
-                                                                                                                    <ul class="chat-list-wrap">
-                                                                                                                        <li class="chat-list">
-                                                                                                                            <div class="chat-body">
-                                                                                                                                <?php
-                                                                                                                                    if (!estaVacio($imagenPrincipal)) {
-                                                                                                                                        echo "<div class='chat-data'>";
-                                                                                                                                        echo "<img class='user-img' src='" . $constante_urlVehiculos . "/" . $id . "/" . $imagenPrincipal . "' />";
-
-                                                                                                                                        echo "<div class='user-data'>";
-                                                                                                                                        echo "<span class='name block capitalize-font'>" . $imagenPrincipal . "</span>";
-                                                                                                                                        echo "<span class='time block txt-grey'>";
-                                                                                                                                        echo "<a data-lightbox='imagen' href='" . $constante_urlVehiculos . "/" . $id . "/" . $imagenPrincipal . "'>Ampliar</a>";
-                                                                                                                                        echo "&nbsp;&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;&nbsp;";
-                                                                                                                                        echo "<a download href='" . $constante_urlVehiculos . "/" . $id . "/" . $imagenPrincipal . "'>Descargar</a>";
-                                                                                                                                        echo "</span>";
-                                                                                                                                        echo "</div>";
-                                                                                                                                        echo "<div class='clearfix'></div>";
-                                                                                                                                        echo "</div>";
-                                                                                                                                    }
-                                                                                                                                ?>
-                                                                                                                            </div>
-                                                                                                                        </li>
-                                                                                                                    </ul>
-                                                                                                                </div>
-                                                                                                            </div>
-                                                                                                        </div>
-                                                                                                    </div>
-                                                                                                </div>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-
-                                                                                <div class="row">
-                                                                                    <div class="col-md-12">
-                                                                                        <div class="form-group">
-                                                                                            <label class="control-label mb-10">Galer&iacute;a fotogr&aacute;fica</label>
-                                                                                            <span>
-                                                                                                <br />
-                                                                                                Tamaño preferente: 750 x 420 pixeles
-                                                                                                <br />
-                                                                                                <!--
-                                                                                                Formatos aceptados: .jpg, .jpeg, .png
-                                                                                                <br />
-                                                                                                -->
-                                                                                                <span class="txt-danger">Carga limitada a 100 MB a la vez, aproximadamente 30 imágenes</span>
-                                                                                                <br /><br />
-                                                                                            </span>
-                                                                                            <div>
-                                                                                                <input id="campo_archivo" multiple name="imagenGaleria[]" type="file" />
-                                                                                                <br />
-                                                                                                <div class="row">
-                                                                                                    <div class="col-sm-12">
-                                                                                                        <div class="panel panel-success card-view">
-                                                                                                            <div class="panel-wrapper collapse in">
-                                                                                                                <div class="panel-body">
-                                                                                                                    <ul class="chat-list-wrap">
-                                                                                                                        <li class="chat-list">
-                                                                                                                            <div class="chat-body">
-                                                                                                                                <?php
-                                                                                                                                    if (!estaVacio($id)) {
-                                                                                                                                        try {
-                                                                                                                                            $archivos = scandir($constante_rutaVehiculos . $id . "/galeria");
-                                                                                                                                            $indice = 1;
-
-                                                                                                                                            foreach ($archivos as $archivo) {
-                                                                                                                                                $extension = strtolower(pathinfo($archivo, PATHINFO_EXTENSION));
-
-                                                                                                                                                //if ($extension == "jpg" || $extension == "jpeg" || $extension == "png") {
-                                                                                                                                                if ($extension !== "") {
-                                                                                                                                                    echo "<div class='chat-data' id='contenedor_imagen_" . $indice . "'>";
-                                                                                                                                                    echo "<img class='user-img' src='" . $constante_urlVehiculos . "/" . $id . "/galeria/" . $archivo . "' />";
-
-                                                                                                                                                    echo "<div class='user-data'>";
-                                                                                                                                                    echo "<span class='name block capitalize-font'>" . $archivo . "</span>";
-                                                                                                                                                    echo "<span class='time block txt-grey'>";
-                                                                                                                                                    echo "<a data-lightbox='imagen' href='" . $constante_urlVehiculos . "/" . $id . "/galeria/" . $archivo . "'>Ampliar</a>";
-                                                                                                                                                    echo "&nbsp;&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;&nbsp;";
-                                                                                                                                                    echo "<a download href='" . $constante_urlVehiculos . "/" . $id . "/galeria/" . $archivo . "'>Descargar</a>";
-                                                                                                                                                    echo "&nbsp;&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;&nbsp;";
-                                                                                                                                                    echo "<a href='javascript:eliminaImagenGaleria(" . $id . ", \"" . $archivo . "\", " . $indice . ")'>Eliminar</a>";
-                                                                                                                                                    echo "</span>";
-                                                                                                                                                    echo "</div>";
-                                                                                                                                                    echo "<div class='clearfix'></div>";
-                                                                                                                                                    echo "</div>";
-
-                                                                                                                                                    $indice++;
-                                                                                                                                                }
-                                                                                                                                            }
-                                                                                                                                        } catch (Exception $e) {
-                                                                                                                                        }
-                                                                                                                                    }
-                                                                                                                                ?>
-                                                                                                                            </div>
-                                                                                                                        </li>
-                                                                                                                    </ul>
-
-                                                                                                                    <div class="alert alert-dismissable" id="contenedor_mensaje" style="display: none">
-                                                                                                                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button> <span id="contenedor_mensaje_contenido"></span>
-                                                                                                                    </div>
-                                                                                                                </div>
-                                                                                                            </div>
-                                                                                                        </div>
-                                                                                                    </div>
-                                                                                                </div>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-
-                                                                                <!--div class="row mb-30">
-                                                                                    <div class="col-md-12">
-                                                                                        <h5><strong>Video</strong></h5>
-                                                                                    </div>
-                                                                                </div>
-
-                                                                                <div class="row mb-30">
-                                                                                    <div class="col-md-6">
-                                                                                        <div class="form-group">
-                                                                                            <label class="control-label mb-10">Título</label>
-                                                                                            <input class="form-control" name="video_titulo" type="text" value="<?php echo $video_titulo ?>" />
-                                                                                        </div>
-                                                                                    </div>
-
-                                                                                    <div class="col-md-6">
-                                                                                        <div class="form-group">
-                                                                                            <label class="control-label mb-10">Publicado</label>
-                                                                                            <div>
-                                                                                                <input <?php echo $video_publicado == 1 ? "checked" : "" ?> class="form-control bs-switch" data-off-text="Sin Publicar" data-on-text="Publicado" name="video_publicado" type="checkbox" />
-                                                                                            </div>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-
-                                                                                <div class="row mb-30">
-                                                                                    <div class="col-md-6">
-                                                                                        <div class="form-group">
-                                                                                            <label class="control-label mb-10">Resumen</label>
-                                                                                            <textarea class="form-control" name="video_resumen" rows="3"><?php echo $video_resumen ?></textarea>
-                                                                                        </div>
-                                                                                    </div>
-
-                                                                                    <div class="col-md-6">
-                                                                                        <div class="form-group">
-                                                                                            <label class="control-label mb-10">URL</label>
-                                                                                            <textarea class="form-control" name="video_url" rows="3"><?php echo $video_url ?></textarea>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-
-                                                                                <div class="row mb-30">
-                                                                                    <div class="col-md-12">
-                                                                                        <div class="form-group">
-                                                                                            <label class="control-label mb-10">Descripción</label>
-                                                                                            <div class="form-group">
-                                                                                                <textarea class="tinymce" name="video_detalle"><?php echo $video_detalle ?></textarea>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-
-                                                                                <div class="row">
-                                                                                    <div class="col-md-12">
-                                                                                        <div class="form-group">
-                                                                                            <label class="control-label mb-10">Vista previa</label>
-                                                                                            <span>
-                                                                                                <br />
-                                                                                                Se muestra en:
-                                                                                                <ul>
-                                                                                                    <li>Página inicial</li>
-                                                                                                    <li>Listado de posts</li>
-                                                                                                </ul>
-                                                                                                <br />
-                                                                                                Tamaño preferente: 750 x 420 pixeles
-                                                                                                <br />
-                                                                                                Formatos aceptados: .jpg, .jpeg, .png
-                                                                                                <br /><br />
-                                                                                            </span>
-                                                                                            <div>
-                                                                                                <input name="video_vistaPrevia" type="file" />
-                                                                                                <br />
-                                                                                                <div class="row">
-                                                                                                    <div class="col-sm-12">
-                                                                                                        <div class="panel panel-success card-view">
-                                                                                                            <div class="panel-wrapper collapse in">
-                                                                                                                <div class="panel-body">
-                                                                                                                    <ul class="chat-list-wrap">
-                                                                                                                        <li class="chat-list">
-                                                                                                                            <div class="chat-body">
-                                                                                                                                < ?php
-                                                                                                                                    if (!estaVacio($video_vistaPrevia)) {
-                                                                                                                                        echo "<div class='chat-data'>";
-                                                                                                                                        echo "<img class='user-img' src='" . $constante_urlVehiculos . "/" . $id . "/" . $video_vistaPrevia . "' />";
-
-                                                                                                                                        echo "<div class='user-data'>";
-                                                                                                                                        echo "<span class='name block capitalize-font'>" . $video_vistaPrevia . "</span>";
-                                                                                                                                        echo "<span class='time block txt-grey'>";
-                                                                                                                                        echo "<a data-lightbox='imagen' href='" . $constante_urlVehiculos . "/" . $id . "/" . $video_vistaPrevia . "'>Ampliar</a>";
-                                                                                                                                        echo "&nbsp;&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;&nbsp;";
-                                                                                                                                        echo "<a download href='" . $constante_urlVehiculos . "/" . $id . "/" . $video_vistaPrevia . "'>Descargar</a>";
-                                                                                                                                        echo "</span>";
-                                                                                                                                        echo "</div>";
-                                                                                                                                        echo "<div class='clearfix'></div>";
-                                                                                                                                        echo "</div>";
-                                                                                                                                    }
-                                                                                                                                ?>
-                                                                                                                            </div>
-                                                                                                                        </li>
-                                                                                                                    </ul>
-                                                                                                                </div>
-                                                                                                            </div>
-                                                                                                        </div>
-                                                                                                    </div>
-                                                                                                </div>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div-->
-
-                                                                                <input name="video_titulo" type="hidden" value="<?php echo $video_titulo ?>" />
-                                                                                <input name="video_publicado" type="hidden" value="<?php echo $video_publicado ?>" />
-                                                                                <input name="video_resumen" type="hidden" value="<?php echo $video_resumen ?>" />
-                                                                                <input name="video_url" type="hidden" value="<?php echo $video_url ?>" />
-                                                                                <input name="video_detalle" type="hidden" value="<?php echo $video_detalle ?>" />
-                                                                            </div>
-
-                                                                            <!-- Campos Intelimotor -->
-
-                                                                            <div class="<?php echo $tieneHabilitadoIntelimotor == 1 ? "" : "oculta_campos"; ?>">
-                                                                                <div class="row mb-30">
-                                                                                    <div class="col-md-12">
-                                                                                        <h5><strong>InteliMotor</strong></h5>
-                                                                                    </div>
-                                                                                </div>
-
-                                                                                <div class="row mb-30">
-                                                                                    <div class="col-md-4">
-                                                                                        <div class="form-group">
-                                                                                            <label class="control-label mb-10">id</label>
-                                                                                            <input class="form-control" readonly type="text" value="<?php echo $intelimotor_id ?>" />
-                                                                                        </div>
-                                                                                    </div>
-
-                                                                                    <div class="col-md-4">
-                                                                                        <div class="form-group">
-                                                                                            <label class="control-label mb-10">imported</label>
-                                                                                            <input class="form-control" readonly type="text" value="<?php echo $intelimotor_imported ?>" />
-                                                                                        </div>
-                                                                                    </div>
-
-                                                                                    <div class="col-md-4">
-                                                                                        <div class="form-group">
-                                                                                            <label class="control-label mb-10">kms</label>
-                                                                                            <input class="form-control" readonly type="text" value="<?php echo $intelimotor_kms ?>" />
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-
-                                                                                <div class="row mb-30">
-                                                                                    <div class="col-md-4">
-                                                                                        <div class="form-group">
-                                                                                            <label class="control-label mb-10">listPrice</label>
-                                                                                            <input class="form-control" readonly type="text" value="<?php echo $intelimotor_listPrice ?>" />
-                                                                                        </div>
-                                                                                    </div>
-
-                                                                                    <div class="col-md-4">
-                                                                                        <div class="form-group">
-                                                                                            <label class="control-label mb-10">title</label>
-                                                                                            <input class="form-control" readonly type="text" value="<?php echo $intelimotor_title ?>" />
-                                                                                        </div>
-                                                                                    </div>
-
-                                                                                    <div class="col-md-4">
-                                                                                        <div class="form-group">
-                                                                                            <label class="control-label mb-10">brand</label>
-                                                                                            <input class="form-control" readonly type="text" value="<?php echo $intelimotor_brand ?>" />
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-
-                                                                                <div class="row mb-30">
-                                                                                    <div class="col-md-4">
-                                                                                        <div class="form-group">
-                                                                                            <label class="control-label mb-10">model</label>
-                                                                                            <input class="form-control" readonly type="text" value="<?php echo $intelimotor_model ?>" />
-                                                                                        </div>
-                                                                                    </div>
-
-                                                                                    <div class="col-md-4">
-                                                                                        <div class="form-group">
-                                                                                            <label class="control-label mb-10">year</label>
-                                                                                            <input class="form-control" readonly type="text" value="<?php echo $intelimotor_year ?>" />
-                                                                                        </div>
-                                                                                    </div>
-
-                                                                                    <div class="col-md-4">
-                                                                                        <div class="form-group">
-                                                                                            <label class="control-label mb-10">trim</label>
-                                                                                            <input class="form-control" readonly type="text" value="<?php echo $intelimotor_trim ?>" />
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-
-                                                                                <div class="row mb-30">
-                                                                                    <div class="col-md-4">
-                                                                                        <div class="form-group">
-                                                                                            <label class="control-label mb-10">transmission</label>
-                                                                                            <input class="form-control" readonly type="text" value="<?php echo $intelimotor_transmission ?>" />
-                                                                                        </div>
-                                                                                    </div>
-
-                                                                                    <div class="col-md-4">
-                                                                                        <div class="form-group">
-                                                                                            <label class="control-label mb-10">doors</label>
-                                                                                            <input class="form-control" readonly type="text" value="<?php echo $intelimotor_doors ?>" />
-                                                                                        </div>
-                                                                                    </div>
-
-                                                                                    <div class="col-md-4">
-                                                                                        <div class="form-group">
-                                                                                            <label class="control-label mb-10">fuelType</label>
-                                                                                            <input class="form-control" readonly type="text" value="<?php echo $intelimotor_fuelType ?>" />
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-
-                                                                                <div class="row mb-30">
-                                                                                    <div class="col-md-4">
-                                                                                        <div class="form-group">
-                                                                                            <label class="control-label mb-10">steering</label>
-                                                                                            <input class="form-control" readonly type="text" value="<?php echo $intelimotor_steering ?>" />
-                                                                                        </div>
-                                                                                    </div>
-
-                                                                                    <div class="col-md-4">
-                                                                                        <div class="form-group">
-                                                                                            <label class="control-label mb-10">tractionControl</label>
-                                                                                            <input class="form-control" readonly type="text" value="<?php echo $intelimotor_tractionControl ?>" />
-                                                                                        </div>
-                                                                                    </div>
-
-                                                                                    <div class="col-md-4">
-                                                                                        <div class="form-group">
-                                                                                            <label class="control-label mb-10">vehicleBodyType</label>
-                                                                                            <input class="form-control" readonly type="text" value="<?php echo $intelimotor_vehicleBodyType ?>" />
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-
-                                                                                <div class="row mb-30">
-                                                                                    <div class="col-md-4">
-                                                                                        <div class="form-group">
-                                                                                            <label class="control-label mb-10">engine</label>
-                                                                                            <input class="form-control" readonly type="text" value="<?php echo $intelimotor_engine ?>" />
-                                                                                        </div>
-                                                                                    </div>
-
-                                                                                    <div class="col-md-4">
-                                                                                        <div class="form-group">
-                                                                                            <label class="control-label mb-10">exteriorColor</label>
-                                                                                            <input class="form-control" readonly type="text" value="<?php echo $intelimotor_exteriorColor ?>" />
-                                                                                        </div>
-                                                                                    </div>
-
-                                                                                    <div class="col-md-4">
-                                                                                        <div class="form-group">
-                                                                                            <label class="control-label mb-10">interiorColor</label>
-                                                                                            <input class="form-control" readonly type="text" value="<?php echo $intelimotor_interiorColor ?>" />
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-
-                                                                                <div class="row mb-30">
-                                                                                    <div class="col-md-12">
-                                                                                        <div class="table-wrap">
-                                                                                            <div class="table-responsive">
-                                                                                                <table class="table mb-0">
-                                                                                                    <tbody>
-                                                                                                        <tr>
-                                                                                                            <td>Aire acondicionado <strong>(hasAirConditioning)</strong></td>
-                                                                                                            <td><input class="js-switch" <?php echo $intelimotor_hasAirConditioning == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" readonly type="checkbox" /></td>
-                                                                                                            <td>Alarma <strong>(hasAlarm)</strong></td>
-                                                                                                            <td><input class="js-switch" <?php echo $intelimotor_hasAlarm == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" readonly type="checkbox" /></td>
-                                                                                                            <td>Alfombrilla de llanta de refacción <strong>(hasTrayMat)</strong></td>
-                                                                                                            <td><input class="js-switch" <?php echo $intelimotor_hasTrayMat == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" readonly type="checkbox" /></td>
-                                                                                                            <td>Apertura remota de cajuela <strong>(hasRemoteTrunkRelease)</strong></td>
-                                                                                                            <td><input class="js-switch" <?php echo $intelimotor_hasRemoteTrunkRelease == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" readonly type="checkbox" /></td>
-                                                                                                        </tr>
-                                                                                                        <tr>
-                                                                                                            <td>Asiento de conductor con ajuste de altura <strong>(hasHeightAdjustableDriverSeat)</strong></td>
-                                                                                                            <td><input class="js-switch" <?php echo $intelimotor_hasHeightAdjustableDriverSeat == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" readonly type="checkbox" /></td>
-                                                                                                            <td>Asientos eléctricos <strong>(hasElectricSeats)</strong></td>
-                                                                                                            <td><input class="js-switch" <?php echo $intelimotor_hasElectricSeats == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" readonly type="checkbox" /></td>
-                                                                                                            <td>Asientos traseros abatibles <strong>(hasRearFoldingSeat)</strong></td>
-                                                                                                            <td><input class="js-switch" <?php echo $intelimotor_hasRearFoldingSeat == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" readonly type="checkbox" /></td>
-                                                                                                            <td>Asistente de frenado <strong>(hasElectronicBrakeAssist)</strong></td>
-                                                                                                            <td><input class="js-switch" <?php echo $intelimotor_hasElectronicBrakeAssist == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" readonly type="checkbox" /></td>
-                                                                                                        </tr>
-                                                                                                        <tr>
-                                                                                                            <td>Bandeja de llanta de refacción <strong>(hasTrayCover)</strong></td>
-                                                                                                            <td><input class="js-switch" <?php echo $intelimotor_hasTrayCover == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" readonly type="checkbox" /></td>
-                                                                                                            <td>Barras porta equipaje <strong>(hasRollBar)</strong></td>
-                                                                                                            <td><input class="js-switch" <?php echo $intelimotor_hasRollBar == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" readonly type="checkbox" /></td>
-                                                                                                            <td>Blindado <strong>(armored)</strong></td>
-                                                                                                            <td><input class="js-switch" <?php echo $intelimotor_armored == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" readonly type="checkbox" /></td>
-                                                                                                            <td>Bluetooth <strong>(hasBluetooth)</strong></td>
-                                                                                                            <td><input class="js-switch" <?php echo $intelimotor_hasBluetooth == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" readonly type="checkbox" /></td>
-                                                                                                        </tr>
-                                                                                                        <tr>
-                                                                                                            <td>Bolsa de aire conductor <strong>(hasDriverAirbag)</strong></td>
-                                                                                                            <td><input class="js-switch" <?php echo $intelimotor_hasDriverAirbag == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" readonly type="checkbox" /></td>
-                                                                                                            <td>Bolsa de aire pasajero <strong>(hasPassengerAirbag)</strong></td>
-                                                                                                            <td><input class="js-switch" <?php echo $intelimotor_hasPassengerAirbag == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" readonly type="checkbox" /></td>
-                                                                                                            <td>Bolsas de aire laterales <strong>(hasSideImpactAirbag)</strong></td>
-                                                                                                            <td><input class="js-switch" <?php echo $intelimotor_hasSideImpactAirbag == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" readonly type="checkbox" /></td>
-                                                                                                            <td>Bolsas de aire tipo cortina <strong>(hasCurtainAirbag)</strong></td>
-                                                                                                            <td><input class="js-switch" <?php echo $intelimotor_hasCurtainAirbag == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" readonly type="checkbox" /></td>
-                                                                                                        </tr>
-                                                                                                        <tr>
-                                                                                                            <td>Cabeceras asientos traseros <strong>(hasHeadrestRearSeat)</strong></td>
-                                                                                                            <td><input class="js-switch" <?php echo $intelimotor_hasHeadrestRearSeat == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" readonly type="checkbox" /></td>
-                                                                                                            <td>Computadora de viaje <strong>(hasOnboardComputer)</strong></td>
-                                                                                                            <td><input class="js-switch" <?php echo $intelimotor_hasOnboardComputer == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" readonly type="checkbox" /></td>
-                                                                                                            <td>Control de temperatura <strong>(hasClimateControl)</strong></td>
-                                                                                                            <td><input class="js-switch" <?php echo $intelimotor_hasClimateControl == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" readonly type="checkbox" /></td>
-                                                                                                            <td>Control de estabilidad <strong>(hasStabilityControl)</strong></td>
-                                                                                                            <td><input class="js-switch" <?php echo $intelimotor_hasStabilityControl == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" readonly type="checkbox" /></td>
-                                                                                                        </tr>
-                                                                                                        <tr>
-                                                                                                            <td>Control de luces delanteras <strong>(hasHeadlightControl)</strong></td>
-                                                                                                            <td><input class="js-switch" <?php echo $intelimotor_hasHeadlightControl == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" readonly type="checkbox" /></td>
-                                                                                                            <td>Controles al volante <strong>(hasSteeringWheelControl)</strong></td>
-                                                                                                            <td><input class="js-switch" <?php echo $intelimotor_hasSteeringWheelControl == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" readonly type="checkbox" /></td>
-                                                                                                            <td>Defensas al color de la carrocería <strong>(hasPaintedBumper)</strong></td>
-                                                                                                            <td><input class="js-switch" <?php echo $intelimotor_hasPaintedBumper == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" readonly type="checkbox" /></td>
-                                                                                                            <td>Desempañador trasero <strong>(hasRearWindowDefogger)</strong></td>
-                                                                                                            <td><input class="js-switch" <?php echo $intelimotor_hasRearWindowDefogger == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" readonly type="checkbox" /></td>
-                                                                                                        </tr>
-                                                                                                        <tr>
-                                                                                                            <td>Espejos eléctricos <strong>(hasElectricMirrors)</strong></td>
-                                                                                                            <td><input class="js-switch" <?php echo $intelimotor_hasElectricMirrors == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" readonly type="checkbox" /></td>
-                                                                                                            <td>Faros de niebla <strong>(hasFrontFoglights)</strong></td>
-                                                                                                            <td><input class="js-switch" <?php echo $intelimotor_hasFrontFoglights == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" readonly type="checkbox" /></td>
-                                                                                                            <td>Frenos ABS <strong>(hasAbsBrakes)</strong></td>
-                                                                                                            <td><input class="js-switch" <?php echo $intelimotor_hasAbsBrakes == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" readonly type="checkbox" /></td>
-                                                                                                            <td>GPS <strong>(hasGps)</strong></td>
-                                                                                                            <td><input class="js-switch" <?php echo $intelimotor_hasGps == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" readonly type="checkbox" /></td>
-                                                                                                        </tr>
-                                                                                                        <tr>
-                                                                                                            <td>Inmovilizador de motor <strong>(hasEngineInmovilizer)</strong></td>
-                                                                                                            <td><input class="js-switch" <?php echo $intelimotor_hasEngineInmovilizer == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" readonly type="checkbox" /></td>
-                                                                                                            <td>Limpiaparabrisas <strong>(hasWindscreenWiper)</strong></td>
-                                                                                                            <td><input class="js-switch" <?php echo $intelimotor_hasWindscreenWiper == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" readonly type="checkbox" /></td>
-                                                                                                            <td>Llanta de refacción <strong>(hasSpareTyreSupport)</strong></td>
-                                                                                                            <td><input class="js-switch" <?php echo $intelimotor_hasSpareTyreSupport == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" readonly type="checkbox" /></td>
-                                                                                                            <td>Luces de niebla delanteras <strong>(hasFogLight)</strong></td>
-                                                                                                            <td><input class="js-switch" <?php echo $intelimotor_hasFogLight == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" readonly type="checkbox" /></td>
-                                                                                                        </tr>
-                                                                                                        <tr>
-                                                                                                            <td>Luces de niebla traseras <strong>(hasRearFoglights)</strong></td>
-                                                                                                            <td><input class="js-switch" <?php echo $intelimotor_hasRearFoglights == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" readonly type="checkbox" /></td>
-                                                                                                            <td>Faros de xenón <strong>(hasXenonHeadlights)</strong></td>
-                                                                                                            <td><input class="js-switch" <?php echo $intelimotor_hasXenonHeadlights == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" readonly type="checkbox" /></td>
-                                                                                                            <td>Parachoques <strong>(hasBullBar)</strong></td>
-                                                                                                            <td><input class="js-switch" <?php echo $intelimotor_hasBullBar == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" readonly type="checkbox" /></td>
-                                                                                                            <td>Piloto automático <strong>(hasAutopilot)</strong></td>
-                                                                                                            <td><input class="js-switch" <?php echo $intelimotor_hasAutopilot == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" readonly type="checkbox" /></td>
-                                                                                                        </tr>
-                                                                                                        <tr>
-                                                                                                            <td>Portavasos <strong>(hasCoasters)</strong></td>
-                                                                                                            <td><input class="js-switch" <?php echo $intelimotor_hasCoasters == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" readonly type="checkbox" /></td>
-                                                                                                            <td>Techo corredizo <strong>(hasSlidingRoof)</strong></td>
-                                                                                                            <td><input class="js-switch" <?php echo $intelimotor_hasSlidingRoof == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" readonly type="checkbox" /></td>
-                                                                                                            <td>Radio AM/FM <strong>(hasAmfmRadio)</strong></td>
-                                                                                                            <td><input class="js-switch" <?php echo $intelimotor_hasAmfmRadio == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" readonly type="checkbox" /></td>
-                                                                                                            <td>Recordatorio de luces encendidas <strong>(hasLightOnReminder)</strong></td>
-                                                                                                            <td><input class="js-switch" <?php echo $intelimotor_hasLightOnReminder == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" readonly type="checkbox" /></td>
-                                                                                                        </tr>
-                                                                                                        <tr>
-                                                                                                            <td>Reproductor de CD <strong>(hasCdPlayer)</strong></td>
-                                                                                                            <td><input class="js-switch" <?php echo $intelimotor_hasCdPlayer == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" readonly type="checkbox" /></td>
-                                                                                                            <td>Reproductor de DVD <strong>(hasDvd)</strong></td>
-                                                                                                            <td><input class="js-switch" <?php echo $intelimotor_hasDvd == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" readonly type="checkbox" /></td>
-                                                                                                            <td>Reproductor de MP3 <strong>(hasMp3Player)</strong></td>
-                                                                                                            <td><input class="js-switch" <?php echo $intelimotor_hasMp3Player == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" readonly type="checkbox" /></td>
-                                                                                                            <td>Respaldos traseros <strong>(hasRearBackrest)</strong></td>
-                                                                                                            <td><input class="js-switch" <?php echo $intelimotor_hasRearBackrest == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" readonly type="checkbox" /></td>
-                                                                                                        </tr>
-                                                                                                        <tr>
-                                                                                                            <td>Rines de aluminio <strong>(hasAlloyWheels)</strong></td>
-                                                                                                            <td><input class="js-switch" <?php echo $intelimotor_hasAlloyWheels == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" readonly type="checkbox" /></td>
-                                                                                                            <td>Cerradura de puertas centralizada <strong>(hasCentralPowerDoorLocks)</strong></td>
-                                                                                                            <td><input class="js-switch" <?php echo $intelimotor_hasCentralPowerDoorLocks == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" readonly type="checkbox" /></td>
-                                                                                                            <td>Sensor de lluvia <strong>(hasRainSensor)</strong></td>
-                                                                                                            <td><input class="js-switch" <?php echo $intelimotor_hasRainSensor == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" readonly type="checkbox" /></td>
-                                                                                                            <td>Sensor de luz <strong>(hasLightSensor)</strong></td>
-                                                                                                            <td><input class="js-switch" <?php echo $intelimotor_hasLightSensor == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" readonly type="checkbox" /></td>
-                                                                                                        </tr>
-                                                                                                        <tr>
-                                                                                                            <td>Sensor de reversa <strong>(hasParkingSensor)</strong></td>
-                                                                                                            <td><input class="js-switch" <?php echo $intelimotor_hasParkingSensor == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" readonly type="checkbox" /></td>
-                                                                                                            <td>Tapicería de piel <strong>(hasLeatherUpholstery)</strong></td>
-                                                                                                            <td><input class="js-switch" <?php echo $intelimotor_hasLeatherUpholstery == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" readonly type="checkbox" /></td>
-                                                                                                            <td>Tarjeta SD <strong>(hasSdCard)</strong></td>
-                                                                                                            <td><input class="js-switch" <?php echo $intelimotor_hasSdCard == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" readonly type="checkbox" /></td>
-                                                                                                            <td>Tercera luz de frenado <strong>(hasThirdStop)</strong></td>
-                                                                                                            <td><input class="js-switch" <?php echo $intelimotor_hasThirdStop == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" readonly type="checkbox" /></td>
-                                                                                                        </tr>
-                                                                                                        <tr>
-                                                                                                            <td>Único dueño <strong>(singleOwner)</strong></td>
-                                                                                                            <td><input class="js-switch" <?php echo $intelimotor_singleOwner == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" readonly type="checkbox" /></td>
-                                                                                                            <td>USB <strong>(hasUsb)</strong></td>
-                                                                                                            <td><input class="js-switch" <?php echo $intelimotor_hasUsb == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" readonly type="checkbox" /></td>
-                                                                                                            <td>Vidrios eléctricos <strong>(hasPowerWindows)</strong></td>
-                                                                                                            <td><input class="js-switch" <?php echo $intelimotor_hasPowerWindows == 1 ? "checked" : "" ?> data-color="#FAAB15" data-size="small" readonly type="checkbox" /></td>
-                                                                                                            <td></td>
-                                                                                                            <td></td>
-                                                                                                        </tr>
-                                                                                                    </tbody>
-                                                                                                </table>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-
-                                                                                <div class="row">
-                                                                                    <div class="col-md-12">
-                                                                                        <div class="form-group">
-                                                                                            <label class="control-label mb-10">Video Youtube</label>
-                                                                                            <div>
-                                                                                                <div class="row">
-                                                                                                    <div class="col-sm-12">
-                                                                                                        <div class="panel panel-success card-view">
-                                                                                                            <div class="panel-wrapper collapse in">
-                                                                                                                <div class="panel-body">
-                                                                                                                    <ul class="chat-list-wrap">
-                                                                                                                        <li class="chat-list">
-                                                                                                                            <div class="chat-body">
-                                                                                                                                <?php
-                                                                                                                                    if (!estaVacio($intelimotor_youtubeVideoUrl)) {
-                                                                                                                                        echo "<iframe width='560' height='315' src='" . str_replace("watch?v=", "embed/", $intelimotor_youtubeVideoUrl) . "' frameborder='0' allow='encrypted-media; gyroscope; picture-in-picture; web-share' allowfullscreen></iframe>";
-                                                                                                                                    }
-                                                                                                                                ?>
-                                                                                                                            </div>
-                                                                                                                        </li>
-                                                                                                                    </ul>
-                                                                                                                </div>
-                                                                                                            </div>
-                                                                                                        </div>
-                                                                                                    </div>
-                                                                                                </div>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-
-                                                                                <div class="row">
-                                                                                    <div class="col-md-12">
-                                                                                        <div class="form-group">
-                                                                                            <label class="control-label mb-10">Imágenes</label>
-                                                                                            <div>
-                                                                                                <div class="row">
-                                                                                                    <div class="col-sm-12">
-                                                                                                        <div class="panel panel-success card-view">
-                                                                                                            <div class="panel-wrapper collapse in">
-                                                                                                                <div class="panel-body">
-                                                                                                                    <ul class="chat-list-wrap">
-                                                                                                                        <li class="chat-list">
-                                                                                                                            <div class="chat-body">
-                                                                                                                                <?php
-                                                                                                                                    if (!estaVacio($intelimotor_picture)) {
-                                                                                                                                        echo "<div class='chat-data'>";
-                                                                                                                                        //echo "<img class='user-img' src='" . $intelimotor_picture . "' style='height: 150px; width: 150px' />";
-                                                                                                                                        echo "<img src='" . $intelimotor_picture . "' style='float: left; margin-right: 25px; width: 150px' />";
-
-                                                                                                                                        echo "<div class='user-data'>";
-                                                                                                                                        echo "<span class='name block capitalize-font'>" . $intelimotor_picture . "</span>";
-                                                                                                                                        echo "<span class='time block txt-grey'>";
-                                                                                                                                        echo "<a data-lightbox='imagen' href='" . $intelimotor_picture . "'>Ampliar</a>";
-                                                                                                                                        echo "&nbsp;&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;&nbsp;";
-                                                                                                                                        echo "<a download href='" . $intelimotor_picture . "'>Descargar</a>";
-                                                                                                                                        echo "</span>";
-                                                                                                                                        echo "</div>";
-                                                                                                                                        echo "<div class='clearfix'></div>";
-                                                                                                                                        echo "</div>";
-                                                                                                                                    }
-                                                                                                                                ?>
-                                                                                                                            </div>
-                                                                                                                        </li>
-                                                                                                                    </ul>
-                                                                                                                </div>
-                                                                                                            </div>
-                                                                                                        </div>
-                                                                                                    </div>
-                                                                                                </div>
-
-                                                                                                <?php
-                                                                                                    $imagenes_BD = consulta($conexion, "SELECT * FROM imagen WHERE intelimotor_id = '" . $intelimotor_id . "'");
-
-                                                                                                    while ($imagen = obtenResultado($imagenes_BD)) {
-                                                                                                        ?>
-                                                                                                            <div class="row">
-                                                                                                                <div class="col-sm-12">
-                                                                                                                    <div class="panel panel-success card-view">
-                                                                                                                        <div class="panel-wrapper collapse in">
-                                                                                                                            <div class="panel-body">
-                                                                                                                                <ul class="chat-list-wrap">
-                                                                                                                                    <li class="chat-list">
-                                                                                                                                        <div class="chat-body">
-                                                                                                                                            <?php
-                                                                                                                                                echo "<div class='chat-data'>";
-                                                                                                                                                //echo "<img class='user-img' src='" . $intelimotor_picture . "' style='height: 150px; width: 150px' />";
-                                                                                                                                                echo "<img src='" . $imagen["imagen"] . "' style='float: left; margin-right: 25px; width: 150px' />";
-
-                                                                                                                                                echo "<div class='user-data'>";
-                                                                                                                                                echo "<span class='name block capitalize-font'>" . $imagen["imagen"] . "</span>";
-                                                                                                                                                echo "<span class='time block txt-grey'>";
-                                                                                                                                                echo "<a data-lightbox='imagen' href='" . $imagen["imagen"] . "'>Ampliar</a>";
-                                                                                                                                                echo "&nbsp;&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;&nbsp;";
-                                                                                                                                                echo "<a download href='" . $imagen["imagen"] . "'>Descargar</a>";
-                                                                                                                                                echo "</span>";
-                                                                                                                                                echo "</div>";
-                                                                                                                                                echo "<div class='clearfix'></div>";
-                                                                                                                                                echo "</div>";
-                                                                                                                                            ?>
-                                                                                                                                        </div>
-                                                                                                                                    </li>
-                                                                                                                                </ul>
-                                                                                                                            </div>
-                                                                                                                        </div>
-                                                                                                                    </div>
-                                                                                                                </div>
-                                                                                                            </div>
-                                                                                                        <?php
-                                                                                                    }
-                                                                                                ?>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div><!-- Div para agrupar intelimotor-->
+                                                                <div class="col-12">
+                                                                    <div class="row mb-12">
+                                                                        <label class="form-label col-md-4" for="campo_id">ID</label>
+                                                                        <div class="col-md-8">
+                                                                            <input class="form-control" id="campo_id" name="id" readonly type="text" value="<?php echo $id; ?>" />
                                                                         </div>
-
-                                                                        <div class="form-actions mt-50">
-                                                                            <button class="btn btn-success" id="boton_guardar" type="button">Guardar</button>
-
-                                                                            <?php if (!estaVacio($origen)) { ?>
-                                                                                <a class="btn btn-default ml-10 link_origen" type="button">Volver</a>
-                                                                            <?php } ?>
-
-                                                                            <?php if (!estaVacio($id)) { ?>
-                                                                                <!--a class="btn btn-danger ml-50 link_eliminar" type="button">Eliminar</a-->
-                                                                            <?php } ?>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-4 col-sm-6 col-xs-12">
+                                                            <div class="row">
+                                                                <div class="col-12">
+                                                                    <div class="row mb-12">
+                                                                        <label class="form-label col-md-4" for="campo_habilitado">Publicado</label>
+                                                                        <div class="col-md-8">
+                                                                            <div class="material-switch">
+                                                                                <input <?php echo $publicado == 1 ? "checked" : "" ?> id="campo_publicado" name="publicado" type="checkbox" />
+                                                                                <label class="label-info" for="campo_habilitado"></label>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-4 col-sm-6 col-xs-12">
+                                                            <div class="row">
+                                                                <div class="col-12">
+                                                                    <div class="row mb-12">
+                                                                        <label class="form-label col-md-4" for="campo_idConcesionario">Agencia</label>
+                                                                        <div class="col-md-8">
+                                                                            <select class="form-control select2-show-search form-select" data-placeholder="Seleccione" id="campo_idConcesionario" name="idConcesionario">
+                                                                                <option <?php echo estaVacio($municipio) ? "selected" : "" ?> value="">Seleccione</option>
+                                                                                <?php
+                                                                                    if ($esUsuarioOperador) {
+                                                                                        $concesionarios_BD = consulta($conexion, "SELECT * FROM concesionario WHERE id = " . $usuario_idConcesionario . " ORDER BY nombreComercial");
+                                                                                    } else {
+                                                                                        $concesionarios_BD = consulta($conexion, "SELECT * FROM concesionario ORDER BY nombreComercial");
+                                                                                    }
+                                                                                    while ($concesionario = obtenResultado($concesionarios_BD)) {
+                                                                                        echo "<option " . ($idConcesionario == $concesionario["id"] ? "selected" : "") . " value='" . $concesionario["id"] . "'>" . $concesionario["nombreComercial"] . "</option>";
+                                                                                    }
+                                                                                ?>
+                                                                            </select>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -3777,32 +2633,2797 @@ error_log("\nAdición", 3, $rutaLog);
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="card">
+                                                <div class="card-body">
+
+                                                    <h5><strong>Puntos destacados</strong></h5>
+
+                                                    <hr />
+
+                                                    <div class="col-md-12 col-sm-12 col-xs-12 mb-20">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="row mb-12">
+                                                                    <div class="col-md-12">
+                                                                        <textarea class="form-control" id="campo_puntosDestacados" name="puntosDestacados"><?php echo $puntosDestacados; ?></textarea>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="<?php echo $tieneHabilitadoIntelimotor == 1 ? "oculta_campos" : ""; ?>">
+                                                        <div class="col-md-6 col-sm-6 col-xs-12 mb-20">
+                                                            <div class="row">
+                                                                <div class="col-12">
+                                                                    <div class="row mb-12">
+                                                                        <label class="form-label col-md-4" for="campo_precio">Precio <span class="txt-danger ml-10">*</span></label>
+                                                                        <div class="col-md-8">
+                                                                            <input class="form-control campoNumerico" id="campo_precio" name="precio" type="number" value="<?php echo $precio; ?>" />
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6 col-sm-6 col-xs-12 mb-20">
+                                                            <div class="row">
+                                                                <div class="col-12">
+                                                                    <div class="row mb-12">
+                                                                        <label class="form-label col-md-4" for="campo_enganche">Enganche <span class="txt-danger ml-10">*</span></label>
+                                                                        <div class="col-md-8">
+                                                                            <input class="form-control campoNumerico" id="campo_enganche" name="enganche" type="number" value="<?php echo $enganche; ?>" />
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <input name="idSucursal" type="hidden" value="" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row <?php echo $tieneHabilitadoIntelimotor == 1 ? "oculta_campos" : ""; ?>">
+                                        <div class="col-12">
+                                            <div class="card">
+                                                <div class="card-body">
+
+                                                    <h5><strong>Datos generales</strong></h5>
+
+                                                    <hr />
+
+                                                    <div class="col-md-4 col-sm-6 col-xs-12">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="row mb-12">
+                                                                    <label class="form-label col-md-4" for="campo_tipo">Tipo <span class="txt-danger ml-10">*</span></label>
+                                                                    <div class="col-md-8">
+                                                                        <select class="form-control select2-show-search form-select" data-placeholder="Seleccione" id="campo_tipo" name="tipo">
+                                                                            <option <?php echo estaVacio($tipo) ? "selected" : "" ?> value="">Seleccione</option>
+                                                                            <?php
+                                                                                $tipos_BD = consulta($conexion, "SELECT DISTINCT intelimotor_vehicleBodyType FROM vehiculo ORDER BY intelimotor_vehicleBodyType");
+
+                                                                                while ($tipo_BD = obtenResultado($tipos_BD)) {
+                                                                                    echo "<option " . ($tipo_BD["intelimotor_vehicleBodyType"] == $tipo ? "selected" : "") . " value='" . $tipo_BD["intelimotor_vehicleBodyType"] . "'>" . $tipo_BD["intelimotor_vehicleBodyType"] . "</option>";
+                                                                                }
+                                                                            ?>
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="row mb-12">
+                                                                    <label class="form-label col-md-4" for="campo_marca">Marca <span class="txt-danger ml-10">*</span></label>
+                                                                    <div class="col-md-8">
+                                                                        <select class="form-control select2-show-search form-select" data-placeholder="Seleccione" id="select_marca" name="marca">
+                                                                            
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="row mb-12">
+                                                                    <label class="form-label col-md-4" for="campo_modelo">Modelo <span class="txt-danger ml-10">*</span></label>
+                                                                    <div class="col-md-8">
+                                                                        <select class="form-control select2-show-search form-select" data-placeholder="Seleccione" id="select_modelo" name="modelo">
+                                                                            
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="row mb-12">
+                                                                    <label class="form-label col-md-4" for="campo_ano">Año <span class="txt-danger ml-10">*</span></label>
+                                                                    <div class="col-md-8">
+                                                                        <select class="form-control select2-show-search form-select" data-placeholder="Seleccione" id="select_ano" name="ano">
+                                                                            
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="row mb-12">
+                                                                    <label class="form-label col-md-4" for="campo_version">Versión <span class="txt-danger ml-10">*</span></label>
+                                                                    <div class="col-md-8">
+                                                                        <select class="form-control select2-show-search form-select" data-placeholder="Seleccione" id="select_version" name="version">
+                                                                            
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row <?php echo $tieneHabilitadoIntelimotor == 1 ? "oculta_campos" : ""; ?>">
+                                        <div class="col-12">
+                                            <div class="card">
+                                                <div class="card-body">
+
+                                                    <h5><strong>Características</strong></h5>
+
+                                                    <hr />
+
+                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="row mb-12">
+                                                                    <label class="form-label col-md-4" for="campo_color">Color <span class="txt-danger ml-10">*</span></label>
+                                                                    <div class="col-md-8">
+                                                                        <input class="form-control" id="campo_color" name="color" type="text" value="<?php echo $color; ?>" />
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="row mb-12">
+                                                                    <label class="form-label col-md-4" for="campo_transmision">Transmisión </label>
+                                                                    <div class="col-md-8">
+                                                                        <select class="form-control select2-show-search form-select" data-placeholder="Seleccione" id="campo_transmision" name="transmision">
+                                                                            <option <?php echo estaVacio($transmision) ? "selected" : "" ?> value="">Seleccione</option>
+                                                                            <?php
+                                                                                $transmisiones_BD = consulta($conexion, "SELECT DISTINCT intelimotor_transmission FROM vehiculo ORDER BY intelimotor_transmission");
+
+                                                                                while ($transmision_BD = obtenResultado($transmisiones_BD)) {
+                                                                                    echo "<option " . ($transmision_BD["intelimotor_transmission"] == $transmision ? "selected" : "") . " value='" . $transmision_BD["intelimotor_transmission"] . "'>" . $transmision_BD["intelimotor_transmission"] . "</option>";
+                                                                                }
+                                                                            ?>
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="row mb-12">
+                                                                    <label class="form-label col-md-4" for="campo_colorInterior">Color </label>
+                                                                    <div class="col-md-8">
+                                                                        <input class="form-control" id="campo_colorInterior" name="colorInterior" type="text" value="<?php echo $colorInterior; ?>" />
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="row mb-12">
+                                                                    <label class="form-label col-md-4" for="campo_direccion">Dirección </label>
+                                                                    <div class="col-md-8">
+                                                                        <input class="form-control" id="campo_direccion" name="direccion" type="text" value="<?php echo $direccion; ?>" />
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="row mb-12">
+                                                                    <label class="form-label col-md-4" for="campo_combustible">Combustible </label>
+                                                                    <div class="col-md-8">
+                                                                        <select class="form-control select2-show-search form-select" data-placeholder="Seleccione" id="campo_combustible" name="combustible">
+                                                                            <option <?php echo estaVacio($transmision) ? "selected" : "" ?> value="">Seleccione</option>
+                                                                            <?php
+                                                                                $combustibles_BD = consulta($conexion, "SELECT DISTINCT intelimotor_fuelType FROM vehiculo ORDER BY intelimotor_fuelType");
+
+                                                                                while ($combustible_BD = obtenResultado($combustibles_BD)) {
+                                                                                    echo "<option " . ($combustible_BD["intelimotor_fuelType"] == $combustible ? "selected" : "") . " value='" . $combustible_BD["intelimotor_fuelType"] . "'>" . $combustible_BD["intelimotor_fuelType"] . "</option>";
+                                                                                }
+                                                                            ?>
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="row mb-12">
+                                                                    <label class="form-label col-md-4" for="campo_litros">Litros </label>
+                                                                    <div class="col-md-8">
+                                                                        <input class="form-control" id="campo_litros" name="litros" type="number" value="<?php echo $litros; ?>" />
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="row mb-12">
+                                                                    <label class="form-label col-md-4" for="campo_puertas">Puertas </label>
+                                                                    <div class="col-md-8">
+                                                                        <input class="form-control" id="campo_puertas" name="puertas" type="number" value="<?php echo $puertas; ?>" />
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="row mb-12">
+                                                                    <label class="form-label col-md-4" for="campo_asientos">Asientos </label>
+                                                                    <div class="col-md-8">
+                                                                        <input class="form-control" id="campo_asientos" name="asientos" type="number" value="<?php echo $asientos; ?>" />
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="row mb-12">
+                                                                    <label class="form-label col-md-4" for="campo_bolsasAire">Bolsas de aire </label>
+                                                                    <div class="col-md-8">
+                                                                        <input class="form-control" id="campo_bolsasAire" name="bolsasAire" type="number" value="<?php echo $bolsasAire; ?>" />
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="row mb-12">
+                                                                    <label class="form-label col-md-4" for="campo_kilometraje">Kilometraje </label>
+                                                                    <div class="col-md-8">
+                                                                        <input class="form-control" id="campo_kilometraje" name="kilometraje" type="number" value="<?php echo $kilometraje; ?>" />
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="row mb-12">
+                                                                    <label class="form-label col-md-4" for="campo_tipoFactura">Tipo de factura </label>
+                                                                    <div class="col-md-8">
+                                                                        <input class="form-control" id="campo_tipoFactura" name="tipoFactura" type="text" value="<?php echo $tipoFactura; ?>" />
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="row mb-12">
+                                                                    <label class="form-label col-md-4" for="campo_numeroLlaves">Número de llaves </label>
+                                                                    <div class="col-md-8">
+                                                                        <input class="form-control" id="campo_numeroLlaves" name="numeroLlaves" type="number" value="<?php echo $numeroLlaves; ?>" />
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="row mb-12">
+                                                                    <label class="form-label col-md-4" for="campo_vidaUtilLlantas">Vida útil de las llantas (%) </label>
+                                                                    <div class="col-md-8">
+                                                                        <input class="form-control" id="campo_vidaUtilLlantas" name="vidaUtilLlantas" type="number" value="<?php echo $vidaUtilLlantas; ?>" />
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row <?php echo $tieneHabilitadoIntelimotor == 1 ? "oculta_campos" : ""; ?>">
+                                        <div class="col-12">
+                                            <div class="card">
+                                                <div class="card-body">
+
+                                                    <h5><strong>Destacados</strong></h5>
+
+                                                    <hr />
+
+                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="row mb-12">
+                                                                    <label class="form-label col-md-4" for="campo_tieneAireAcondicionado">Aire acondicionado</label>
+                                                                    <div class="col-md-8">
+                                                                        <div class="material-switch">
+                                                                            <input <?php echo $tieneAireAcondicionado == 1 ? "checked" : "" ?> id="campo_tieneAireAcondicionado" name="tieneAireAcondicionado" type="checkbox" />
+                                                                            <label class="label-info" for="campo_tieneAireAcondicionado"></label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="row mb-12">
+                                                                    <label class="form-label col-md-4" for="campo_tieneAlarma">Alarma</label>
+                                                                    <div class="col-md-8">
+                                                                        <div class="material-switch">
+                                                                            <input <?php echo $tieneAlarma == 1 ? "checked" : "" ?> id="campo_tieneAlarma" name="tieneAlarma" type="checkbox" />
+                                                                            <label class="label-info" for="campo_tieneAlarma"></label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="row mb-12">
+                                                                    <label class="form-label col-md-4" for="campo_tieneAlfombrillaLlantaRefaccion">Alfombrilla de llanta de refacción</label>
+                                                                    <div class="col-md-8">
+                                                                        <div class="material-switch">
+                                                                            <input <?php echo $tieneAlfombrillaLlantaRefaccion == 1 ? "checked" : "" ?> id="campo_tieneAlfombrillaLlantaRefaccion" name="tieneAlfombrillaLlantaRefaccion" type="checkbox" />
+                                                                            <label class="label-info" for="campo_tieneAlfombrillaLlantaRefaccion"></label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="row mb-12">
+                                                                    <label class="form-label col-md-4" for="campo_tieneAperturaRemotaCajuela">Apertura remota de cajuela</label>
+                                                                    <div class="col-md-8">
+                                                                        <div class="material-switch">
+                                                                            <input <?php echo $tieneAperturaRemotaCajuela == 1 ? "checked" : "" ?> id="campo_tieneAperturaRemotaCajuela" name="tieneAperturaRemotaCajuela" type="checkbox" />
+                                                                            <label class="label-info" for="campo_tieneAperturaRemotaCajuela"></label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="row mb-12">
+                                                                    <label class="form-label col-md-4" for="campo_tieneAsientoConductorAjusteAltura">Asiento de conductor con ajuste de altura</label>
+                                                                    <div class="col-md-8">
+                                                                        <div class="material-switch">
+                                                                            <input <?php echo $tieneAsientoConductorAjusteAltura == 1 ? "checked" : "" ?> id="campo_tieneAsientoConductorAjusteAltura" name="tieneAsientoConductorAjusteAltura" type="checkbox" />
+                                                                            <label class="label-info" for="campo_tieneAsientoConductorAjusteAltura"></label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="row mb-12">
+                                                                    <label class="form-label col-md-4" for="campo_tieneAsientosElectricos">Asientos eléctricos</label>
+                                                                    <div class="col-md-8">
+                                                                        <div class="material-switch">
+                                                                            <input <?php echo $tieneAsientosElectricos == 1 ? "checked" : "" ?> id="campo_tieneAsientosElectricos" name="tieneAsientosElectricos" type="checkbox" />
+                                                                            <label class="label-info" for="campo_tieneAsientosElectricos"></label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="row mb-12">
+                                                                    <label class="form-label col-md-4" for="campo_tieneAsientosTraserosAbatibles">Asientos traseros abatibles</label>
+                                                                    <div class="col-md-8">
+                                                                        <div class="material-switch">
+                                                                            <input <?php echo $tieneAsientosTraserosAbatibles == 1 ? "checked" : "" ?> id="campo_tieneAsientosTraserosAbatibles" name="tieneAsientosTraserosAbatibles" type="checkbox" />
+                                                                            <label class="label-info" for="campo_tieneAsientosTraserosAbatibles"></label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="row mb-12">
+                                                                    <label class="form-label col-md-4" for="campo_tieneAsistenciaFrenado">Asistente de frenado</label>
+                                                                    <div class="col-md-8">
+                                                                        <div class="material-switch">
+                                                                            <input <?php echo $tieneAsistenciaFrenado == 1 ? "checked" : "" ?> id="campo_tieneAsistenciaFrenado" name="tieneAsistenciaFrenado" type="checkbox" />
+                                                                            <label class="label-info" for="campo_tieneAsistenciaFrenado"></label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="row mb-12">
+                                                                    <label class="form-label col-md-4" for="campo_tieneBandejaLlantaRefaccion">Bandeja de llanta de refacción</label>
+                                                                    <div class="col-md-8">
+                                                                        <div class="material-switch">
+                                                                            <input <?php echo $tieneBandejaLlantaRefaccion == 1 ? "checked" : "" ?> id="campo_tieneBandejaLlantaRefaccion" name="tieneBandejaLlantaRefaccion" type="checkbox" />
+                                                                            <label class="label-info" for="campo_tieneBandejaLlantaRefaccion"></label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="row mb-12">
+                                                                    <label class="form-label col-md-4" for="campo_tieneBarraAntivuelco">Barras porta equipaje</label>
+                                                                    <div class="col-md-8">
+                                                                        <div class="material-switch">
+                                                                            <input <?php echo $tieneBarraAntivuelco == 1 ? "checked" : "" ?> id="campo_tieneBarraAntivuelco" name="tieneBarraAntivuelco" type="checkbox" />
+                                                                            <label class="label-info" for="campo_tieneBarraAntivuelco"></label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="row mb-12">
+                                                                    <label class="form-label col-md-4" for="campo_esBlindado">Blindado</label>
+                                                                    <div class="col-md-8">
+                                                                        <div class="material-switch">
+                                                                            <input <?php echo $esBlindado == 1 ? "checked" : "" ?> id="campo_esBlindado" name="esBlindado" type="checkbox" />
+                                                                            <label class="label-info" for="campo_esBlindado"></label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="row mb-12">
+                                                                    <label class="form-label col-md-4" for="campo_tieneBluetooth">Bluetooth</label>
+                                                                    <div class="col-md-8">
+                                                                        <div class="material-switch">
+                                                                            <input <?php echo $tieneBluetooth == 1 ? "checked" : "" ?> id="campo_tieneBluetooth" name="tieneBluetooth" type="checkbox" />
+                                                                            <label class="label-info" for="campo_tieneBluetooth"></label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="row mb-12">
+                                                                    <label class="form-label col-md-4" for="campo_tieneBolsaAireConductor">Bolsa de aire conductor</label>
+                                                                    <div class="col-md-8">
+                                                                        <div class="material-switch">
+                                                                            <input <?php echo $tieneBolsaAireConductor == 1 ? "checked" : "" ?> id="campo_tieneBolsaAireConductor" name="tieneBolsaAireConductor" type="checkbox" />
+                                                                            <label class="label-info" for="campo_tieneBolsaAireConductor"></label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="row mb-12">
+                                                                    <label class="form-label col-md-4" for="campo_tieneBolsaAirePasajero">Bolsa de aire pasajero</label>
+                                                                    <div class="col-md-8">
+                                                                        <div class="material-switch">
+                                                                            <input <?php echo $tieneBolsaAirePasajero == 1 ? "checked" : "" ?> id="campo_tieneBolsaAirePasajero" name="tieneBolsaAirePasajero" type="checkbox" />
+                                                                            <label class="label-info" for="campo_tieneBolsaAirePasajero"></label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="row mb-12">
+                                                                    <label class="form-label col-md-4" for="campo_tieneBolsasAireLaterales">Bolsas de aire laterales</label>
+                                                                    <div class="col-md-8">
+                                                                        <div class="material-switch">
+                                                                            <input <?php echo $tieneBolsasAireLaterales == 1 ? "checked" : "" ?> id="campo_tieneBolsasAireLaterales" name="tieneBolsasAireLaterales" type="checkbox" />
+                                                                            <label class="label-info" for="campo_tieneBolsasAireLaterales"></label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="row mb-12">
+                                                                    <label class="form-label col-md-4" for="campo_tieneBolsasAireCortina">Bolsas de aire tipo cortina</label>
+                                                                    <div class="col-md-8">
+                                                                        <div class="material-switch">
+                                                                            <input <?php echo $tieneBolsasAireCortina == 1 ? "checked" : "" ?> id="campo_tieneBolsasAireCortina" name="tieneBolsasAireCortina" type="checkbox" />
+                                                                            <label class="label-info" for="campo_tieneBolsasAireCortina"></label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="row mb-12">
+                                                                    <label class="form-label col-md-4" for="campo_tieneCabecerasAsientosTraseros">Cabeceras asientos traseros</label>
+                                                                    <div class="col-md-8">
+                                                                        <div class="material-switch">
+                                                                            <input <?php echo $tieneCabecerasAsientosTraseros == 1 ? "checked" : "" ?> id="campo_tieneCabecerasAsientosTraseros" name="tieneCabecerasAsientosTraseros" type="checkbox" />
+                                                                            <label class="label-info" for="campo_tieneCabecerasAsientosTraseros"></label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="row mb-12">
+                                                                    <label class="form-label col-md-4" for="campo_tieneComputadoraAbordo">Computadora de viaje</label>
+                                                                    <div class="col-md-8">
+                                                                        <div class="material-switch">
+                                                                            <input <?php echo $tieneComputadoraAbordo == 1 ? "checked" : "" ?> id="campo_tieneComputadoraAbordo" name="tieneComputadoraAbordo" type="checkbox" />
+                                                                            <label class="label-info" for="campo_tieneComputadoraAbordo"></label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="row mb-12">
+                                                                    <label class="form-label col-md-4" for="campo_tieneControlTemperatura">Control de temperatura</label>
+                                                                    <div class="col-md-8">
+                                                                        <div class="material-switch">
+                                                                            <input <?php echo $tieneControlTemperatura == 1 ? "checked" : "" ?> id="campo_tieneControlTemperatura" name="tieneControlTemperatura" type="checkbox" />
+                                                                            <label class="label-info" for="campo_tieneControlTemperatura"></label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="row mb-12">
+                                                                    <label class="form-label col-md-4" for="campo_tieneControlEstabilidad">Control de estabilidad</label>
+                                                                    <div class="col-md-8">
+                                                                        <div class="material-switch">
+                                                                            <input <?php echo $tieneControlEstabilidad == 1 ? "checked" : "" ?> id="campo_tieneControlEstabilidad" name="tieneControlEstabilidad" type="checkbox" />
+                                                                            <label class="label-info" for="campo_tieneControlEstabilidad"></label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="row mb-12">
+                                                                    <label class="form-label col-md-4" for="campo_tieneControlLucesDelanteras">Control de luces delanteras</label>
+                                                                    <div class="col-md-8">
+                                                                        <div class="material-switch">
+                                                                            <input <?php echo $tieneControlLucesDelanteras == 1 ? "checked" : "" ?> id="campo_tieneControlLucesDelanteras" name="tieneControlLucesDelanteras" type="checkbox" />
+                                                                            <label class="label-info" for="campo_tieneControlLucesDelanteras"></label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="row mb-12">
+                                                                    <label class="form-label col-md-4" for="campo_tieneControlVolante">Controles al volante</label>
+                                                                    <div class="col-md-8">
+                                                                        <div class="material-switch">
+                                                                            <input <?php echo $tieneControlVolante == 1 ? "checked" : "" ?> id="campo_tieneControlVolante" name="tieneControlVolante" type="checkbox" />
+                                                                            <label class="label-info" for="campo_tieneControlVolante"></label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="row mb-12">
+                                                                    <label class="form-label col-md-4" for="campo_tieneDefensasColorCarroceria">Defensas al color de la carrocería</label>
+                                                                    <div class="col-md-8">
+                                                                        <div class="material-switch">
+                                                                            <input <?php echo $tieneDefensasColorCarroceria == 1 ? "checked" : "" ?> id="campo_tieneDefensasColorCarroceria" name="tieneDefensasColorCarroceria" type="checkbox" />
+                                                                            <label class="label-info" for="campo_tieneDefensasColorCarroceria"></label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="row mb-12">
+                                                                    <label class="form-label col-md-4" for="campo_tieneDesempanadorTrasero">Desempañador trasero</label>
+                                                                    <div class="col-md-8">
+                                                                        <div class="material-switch">
+                                                                            <input <?php echo $tieneDesempanadorTrasero == 1 ? "checked" : "" ?> id="campo_tieneDesempanadorTrasero" name="tieneDesempanadorTrasero" type="checkbox" />
+                                                                            <label class="label-info" for="campo_tieneDesempanadorTrasero"></label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="row mb-12">
+                                                                    <label class="form-label col-md-4" for="campo_tieneEspejosElectricos">Espejos eléctricos</label>
+                                                                    <div class="col-md-8">
+                                                                        <div class="material-switch">
+                                                                            <input <?php echo $tieneEspejosElectricos == 1 ? "checked" : "" ?> id="campo_tieneEspejosElectricos" name="tieneEspejosElectricos" type="checkbox" />
+                                                                            <label class="label-info" for="campo_tieneEspejosElectricos"></label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="row mb-12">
+                                                                    <label class="form-label col-md-4" for="campo_tieneFarosNiebla">Faros de niebla</label>
+                                                                    <div class="col-md-8">
+                                                                        <div class="material-switch">
+                                                                            <input <?php echo $tieneFarosNiebla == 1 ? "checked" : "" ?> id="campo_tieneFarosNiebla" name="tieneFarosNiebla" type="checkbox" />
+                                                                            <label class="label-info" for="campo_tieneFarosNiebla"></label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="row mb-12">
+                                                                    <label class="form-label col-md-4" for="campo_tieneFrenosABS">Frenos ABS</label>
+                                                                    <div class="col-md-8">
+                                                                        <div class="material-switch">
+                                                                            <input <?php echo $tieneFrenosABS == 1 ? "checked" : "" ?> id="campo_tieneFrenosABS" name="tieneFrenosABS" type="checkbox" />
+                                                                            <label class="label-info" for="campo_tieneFrenosABS"></label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="row mb-12">
+                                                                    <label class="form-label col-md-4" for="campo_tieneGps">GPS</label>
+                                                                    <div class="col-md-8">
+                                                                        <div class="material-switch">
+                                                                            <input <?php echo $tieneGps == 1 ? "checked" : "" ?> id="campo_tieneGps" name="tieneGps" type="checkbox" />
+                                                                            <label class="label-info" for="campo_tieneGps"></label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="row mb-12">
+                                                                    <label class="form-label col-md-4" for="campo_esImportado">Importado</label>
+                                                                    <div class="col-md-8">
+                                                                        <div class="material-switch">
+                                                                            <input <?php echo $esImportado == 1 ? "checked" : "" ?> id="campo_esImportado" name="esImportado" type="checkbox" />
+                                                                            <label class="label-info" for="campo_esImportado"></label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="row mb-12">
+                                                                    <label class="form-label col-md-4" for="campo_tieneInmovilizador">Inmovilizador de motor</label>
+                                                                    <div class="col-md-8">
+                                                                        <div class="material-switch">
+                                                                            <input <?php echo $tieneInmovilizador == 1 ? "checked" : "" ?> id="campo_tieneInmovilizador" name="tieneInmovilizador" type="checkbox" />
+                                                                            <label class="label-info" for="campo_tieneInmovilizador"></label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="row mb-12">
+                                                                    <label class="form-label col-md-4" for="campo_tieneLimpiaparabrisas">Limpiaparabrisas</label>
+                                                                    <div class="col-md-8">
+                                                                        <div class="material-switch">
+                                                                            <input <?php echo $tieneLimpiaparabrisas == 1 ? "checked" : "" ?> id="campo_tieneLimpiaparabrisas" name="tieneLimpiaparabrisas" type="checkbox" />
+                                                                            <label class="label-info" for="campo_tieneLimpiaparabrisas"></label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="row mb-12">
+                                                                    <label class="form-label col-md-4" for="campo_tieneLlantaRefaccion">Llanta de refacción</label>
+                                                                    <div class="col-md-8">
+                                                                        <div class="material-switch">
+                                                                            <input <?php echo $tieneLlantaRefaccion == 1 ? "checked" : "" ?> id="campo_tieneLlantaRefaccion" name="tieneLlantaRefaccion" type="checkbox" />
+                                                                            <label class="label-info" for="campo_tieneLlantaRefaccion"></label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="row mb-12">
+                                                                    <label class="form-label col-md-4" for="campo_tieneLucesNieblaDelanteras">Luces de niebla delanteras</label>
+                                                                    <div class="col-md-8">
+                                                                        <div class="material-switch">
+                                                                            <input <?php echo $tieneLucesNieblaDelanteras == 1 ? "checked" : "" ?> id="campo_tieneLucesNieblaDelanteras" name="tieneLucesNieblaDelanteras" type="checkbox" />
+                                                                            <label class="label-info" for="campo_tieneLucesNieblaDelanteras"></label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="row mb-12">
+                                                                    <label class="form-label col-md-4" for="campo_tieneLucesNieblaTraseras">Luces de niebla traseras</label>
+                                                                    <div class="col-md-8">
+                                                                        <div class="material-switch">
+                                                                            <input <?php echo $tieneLucesNieblaTraseras == 1 ? "checked" : "" ?> id="campo_tieneLucesNieblaTraseras" name="tieneLucesNieblaTraseras" type="checkbox" />
+                                                                            <label class="label-info" for="campo_tieneLucesNieblaTraseras"></label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="row mb-12">
+                                                                    <label class="form-label col-md-4" for="campo_tieneLucesXenon">Faros de xenón</label>
+                                                                    <div class="col-md-8">
+                                                                        <div class="material-switch">
+                                                                            <input <?php echo $tieneLucesXenon == 1 ? "checked" : "" ?> id="campo_tieneLucesXenon" name="tieneLucesXenon" type="checkbox" />
+                                                                            <label class="label-info" for="campo_tieneLucesXenon"></label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="row mb-12">
+                                                                    <label class="form-label col-md-4" for="campo_tieneParachoques">Parachoques</label>
+                                                                    <div class="col-md-8">
+                                                                        <div class="material-switch">
+                                                                            <input <?php echo $tieneParachoques == 1 ? "checked" : "" ?> id="campo_tieneParachoques" name="tieneParachoques" type="checkbox" />
+                                                                            <label class="label-info" for="campo_tieneParachoques"></label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="row mb-12">
+                                                                    <label class="form-label col-md-4" for="campo_tienePilotoAutomatico">Piloto automático</label>
+                                                                    <div class="col-md-8">
+                                                                        <div class="material-switch">
+                                                                            <input <?php echo $tienePilotoAutomatico == 1 ? "checked" : "" ?> id="campo_tienePilotoAutomatico" name="tienePilotoAutomatico" type="checkbox" />
+                                                                            <label class="label-info" for="campo_tienePilotoAutomatico"></label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="row mb-12">
+                                                                    <label class="form-label col-md-4" for="campo_tienePortavasos">Portavasos</label>
+                                                                    <div class="col-md-8">
+                                                                        <div class="material-switch">
+                                                                            <input <?php echo $tienePortavasos == 1 ? "checked" : "" ?> id="campo_tienePortavasos" name="tienePortavasos" type="checkbox" />
+                                                                            <label class="label-info" for="campo_tienePortavasos"></label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="row mb-12">
+                                                                    <label class="form-label col-md-4" for="campo_tieneQuemacocos">Techo corredizo</label>
+                                                                    <div class="col-md-8">
+                                                                        <div class="material-switch">
+                                                                            <input <?php echo $tieneQuemacocos == 1 ? "checked" : "" ?> id="campo_tieneQuemacocos" name="tieneQuemacocos" type="checkbox" />
+                                                                            <label class="label-info" for="campo_tieneQuemacocos"></label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="row mb-12">
+                                                                    <label class="form-label col-md-4" for="campo_tieneRadioAMFM">Radio AM/FM</label>
+                                                                    <div class="col-md-8">
+                                                                        <div class="material-switch">
+                                                                            <input <?php echo $tieneRadioAMFM == 1 ? "checked" : "" ?> id="campo_tieneRadioAMFM" name="tieneRadioAMFM" type="checkbox" />
+                                                                            <label class="label-info" for="campo_tieneRadioAMFM"></label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="row mb-12">
+                                                                    <label class="form-label col-md-4" for="campo_tieneRecordatorioEncendidoLuces">Recordatorio de luces encendidas</label>
+                                                                    <div class="col-md-8">
+                                                                        <div class="material-switch">
+                                                                            <input <?php echo $tieneRecordatorioEncendidoLuces == 1 ? "checked" : "" ?> id="campo_tieneRecordatorioEncendidoLuces" name="tieneRecordatorioEncendidoLuces" type="checkbox" />
+                                                                            <label class="label-info" for="campo_tieneRecordatorioEncendidoLuces"></label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="row mb-12">
+                                                                    <label class="form-label col-md-4" for="campo_tieneReproductorCD">Reproductor de CD</label>
+                                                                    <div class="col-md-8">
+                                                                        <div class="material-switch">
+                                                                            <input <?php echo $tieneReproductorCD == 1 ? "checked" : "" ?> id="campo_tieneReproductorCD" name="tieneReproductorCD" type="checkbox" />
+                                                                            <label class="label-info" for="campo_tieneReproductorCD"></label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="row mb-12">
+                                                                    <label class="form-label col-md-4" for="campo_tieneReproductorDVD">Reproductor de DVD</label>
+                                                                    <div class="col-md-8">
+                                                                        <div class="material-switch">
+                                                                            <input <?php echo $tieneReproductorDVD == 1 ? "checked" : "" ?> id="campo_tieneReproductorDVD" name="tieneReproductorDVD" type="checkbox" />
+                                                                            <label class="label-info" for="campo_tieneReproductorDVD"></label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="row mb-12">
+                                                                    <label class="form-label col-md-4" for="campo_tieneReproductorMP3">Reproductor de MP3</label>
+                                                                    <div class="col-md-8">
+                                                                        <div class="material-switch">
+                                                                            <input <?php echo $tieneReproductorMP3 == 1 ? "checked" : "" ?> id="campo_tieneReproductorMP3" name="tieneReproductorMP3" type="checkbox" />
+                                                                            <label class="label-info" for="campo_tieneReproductorMP3"></label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="row mb-12">
+                                                                    <label class="form-label col-md-4" for="campo_tieneRespadosTraseros">Respaldos traseros</label>
+                                                                    <div class="col-md-8">
+                                                                        <div class="material-switch">
+                                                                            <input <?php echo $tieneRespadosTraseros == 1 ? "checked" : "" ?> id="campo_tieneRespadosTraseros" name="tieneRespadosTraseros" type="checkbox" />
+                                                                            <label class="label-info" for="campo_tieneRespadosTraseros"></label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="row mb-12">
+                                                                    <label class="form-label col-md-4" for="campo_tieneRinesAleacion">Rines de aluminio</label>
+                                                                    <div class="col-md-8">
+                                                                        <div class="material-switch">
+                                                                            <input <?php echo $tieneRinesAleacion == 1 ? "checked" : "" ?> id="campo_tieneRinesAleacion" name="tieneRinesAleacion" type="checkbox" />
+                                                                            <label class="label-info" for="campo_tieneRinesAleacion"></label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="row mb-12">
+                                                                    <label class="form-label col-md-4" for="campo_tieneSegurosElectricosCentralizados">Cerradura de puertas centralizadas</label>
+                                                                    <div class="col-md-8">
+                                                                        <div class="material-switch">
+                                                                            <input <?php echo $tieneSegurosElectricosCentralizados == 1 ? "checked" : "" ?> id="campo_tieneSegurosElectricosCentralizados" name="tieneSegurosElectricosCentralizados" type="checkbox" />
+                                                                            <label class="label-info" for="campo_tieneSegurosElectricosCentralizados"></label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="row mb-12">
+                                                                    <label class="form-label col-md-4" for="campo_tieneSensorLluvia">Sensor de lluvia</label>
+                                                                    <div class="col-md-8">
+                                                                        <div class="material-switch">
+                                                                            <input <?php echo $tieneSensorLluvia == 1 ? "checked" : "" ?> id="campo_tieneSensorLluvia" name="tieneSensorLluvia" type="checkbox" />
+                                                                            <label class="label-info" for="campo_tieneSensorLluvia"></label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="row mb-12">
+                                                                    <label class="form-label col-md-4" for="campo_tieneSensoresLuz">Sensor de luz</label>
+                                                                    <div class="col-md-8">
+                                                                        <div class="material-switch">
+                                                                            <input <?php echo $tieneSensoresLuz == 1 ? "checked" : "" ?> id="campo_tieneSensoresLuz" name="tieneSensoresLuz" type="checkbox" />
+                                                                            <label class="label-info" for="campo_tieneSensoresLuz"></label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="row mb-12">
+                                                                    <label class="form-label col-md-4" for="campo_tieneSensoresReversa">Sensor de reversa</label>
+                                                                    <div class="col-md-8">
+                                                                        <div class="material-switch">
+                                                                            <input <?php echo $tieneSensoresReversa == 1 ? "checked" : "" ?> id="campo_tieneSensoresReversa" name="tieneSensoresReversa" type="checkbox" />
+                                                                            <label class="label-info" for="campo_tieneSensoresReversa"></label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="row mb-12">
+                                                                    <label class="form-label col-md-4" for="campo_tieneTapiceriaPiel">Tapicería de piel</label>
+                                                                    <div class="col-md-8">
+                                                                        <div class="material-switch">
+                                                                            <input <?php echo $tieneTapiceriaPiel == 1 ? "checked" : "" ?> id="campo_tieneTapiceriaPiel" name="tieneTapiceriaPiel" type="checkbox" />
+                                                                            <label class="label-info" for="campo_tieneTapiceriaPiel"></label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="row mb-12">
+                                                                    <label class="form-label col-md-4" for="campo_tieneTarjetaSD">Tarjeta SD</label>
+                                                                    <div class="col-md-8">
+                                                                        <div class="material-switch">
+                                                                            <input <?php echo $tieneTarjetaSD == 1 ? "checked" : "" ?> id="campo_tieneTarjetaSD" name="tieneTarjetaSD" type="checkbox" />
+                                                                            <label class="label-info" for="campo_tieneTarjetaSD"></label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="row mb-12">
+                                                                    <label class="form-label col-md-4" for="campo_tieneTerceraLuzFrenado">Tercera luz de frenado</label>
+                                                                    <div class="col-md-8">
+                                                                        <div class="material-switch">
+                                                                            <input <?php echo $tieneTerceraLuzFrenado == 1 ? "checked" : "" ?> id="campo_tieneTerceraLuzFrenado" name="tieneTerceraLuzFrenado" type="checkbox" />
+                                                                            <label class="label-info" for="campo_tieneTerceraLuzFrenado"></label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="row mb-12">
+                                                                    <label class="form-label col-md-4" for="campo_unicoDueno">Único dueño</label>
+                                                                    <div class="col-md-8">
+                                                                        <div class="material-switch">
+                                                                            <input <?php echo $unicoDueno == 1 ? "checked" : "" ?> id="campo_unicoDueno" name="unicoDueno" type="checkbox" />
+                                                                            <label class="label-info" for="campo_unicoDueno"></label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="row mb-12">
+                                                                    <label class="form-label col-md-4" for="campo_tieneUsb">USB</label>
+                                                                    <div class="col-md-8">
+                                                                        <div class="material-switch">
+                                                                            <input <?php echo $tieneUsb == 1 ? "checked" : "" ?> id="campo_tieneUsb" name="tieneUsb" type="checkbox" />
+                                                                            <label class="label-info" for="campo_tieneUsb"></label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="row mb-12">
+                                                                    <label class="form-label col-md-4" for="campo_tieneVidriosElectricos">Vidrios eléctricos</label>
+                                                                    <div class="col-md-8">
+                                                                        <div class="material-switch">
+                                                                            <input <?php echo $tieneVidriosElectricos == 1 ? "checked" : "" ?> id="campo_tieneVidriosElectricos" name="tieneVidriosElectricos" type="checkbox" />
+                                                                            <label class="label-info" for="campo_tieneVidriosElectricos"></label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="row mb-12">
+                                                                    <label class="form-label col-md-4" for="campo_facturaAgencia">Factura agencia</label>
+                                                                    <div class="col-md-8">
+                                                                        <div class="material-switch">
+                                                                            <input <?php echo $facturaAgencia == 1 ? "checked" : "" ?> id="campo_facturaAgencia" name="facturaAgencia" type="checkbox" />
+                                                                            <label class="label-info" for="campo_facturaAgencia"></label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="row mb-12">
+                                                                    <label class="form-label col-md-4" for="campo_impuestosCorriente">Impuestos al corriente</label>
+                                                                    <div class="col-md-8">
+                                                                        <div class="material-switch">
+                                                                            <input <?php echo $impuestosCorriente == 1 ? "checked" : "" ?> id="campo_impuestosCorriente" name="impuestosCorriente" type="checkbox" />
+                                                                            <label class="label-info" for="campo_impuestosCorriente"></label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="row mb-12">
+                                                                    <label class="form-label col-md-4" for="campo_manosLibres">Manos libres</label>
+                                                                    <div class="col-md-8">
+                                                                        <div class="material-switch">
+                                                                            <input <?php echo $manosLibres == 1 ? "checked" : "" ?> id="campo_manosLibres" name="manosLibres" type="checkbox" />
+                                                                            <label class="label-info" for="campo_manosLibres"></label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="row mb-12">
+                                                                    <label class="form-label col-md-4" for="campo_mantenimientosCorriente">Mantenimientos al corriente</label>
+                                                                    <div class="col-md-8">
+                                                                        <div class="material-switch">
+                                                                            <input <?php echo $mantenimientosCorriente == 1 ? "checked" : "" ?> id="campo_mantenimientosCorriente" name="mantenimientosCorriente" type="checkbox" />
+                                                                            <label class="label-info" for="campo_mantenimientosCorriente"></label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row <?php echo $tieneHabilitadoIntelimotor == 1 ? "oculta_campos" : ""; ?>">
+                                        <div class="col-12">
+                                            <div class="card">
+                                                <div class="card-body">
+
+                                                    <h5><strong>Descripción</strong></h5>
+
+                                                    <hr />
+
+                                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="row mb-12">
+                                                                    <div class="col-md-12">
+                                                                        <textarea class="tinymce" name="descripcion"><?php echo $descripcion ?></textarea>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row <?php echo $tieneHabilitadoIntelimotor == 1 ? "oculta_campos" : ""; ?>">
+                                        <div class="col-12">
+                                            <div class="card">
+                                                <div class="card-body">
+
+                                                    <h5><strong>Multimedia</strong></h5>
+
+                                                    <hr />
+
+                                                    <div class="row">
+                                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label mb-10">Imagen principal</label>
+                                                                        <span>
+                                                                            <!--
+                                                                            <br />
+                                                                            Se muestra en: Menú de la app
+                                                                            -->
+                                                                            <br />
+                                                                            Tamaño preferente: 750 x 420 pixeles
+                                                                            <!--
+                                                                            <br />
+                                                                            Formatos aceptados: .jpg, .jpeg, .png
+                                                                            -->
+                                                                            <br /><br />
+                                                                        </span>
+                                                                        <div>
+                                                                            <input name="imagenPrincipal" type="file" />
+                                                                            <br />
+                                                                            <div class="row">
+                                                                                <div class="col-sm-12">
+                                                                                    <div class="panel panel-success card-view">
+                                                                                        <div class="panel-wrapper in">
+                                                                                            <div class="panel-body">
+                                                                                                <ul class="chat-list-wrap">
+                                                                                                    <li class="chat-list">
+                                                                                                        <div class="chat-body">
+                                                                                                            <?php
+                                                                                                                if (!estaVacio($imagenPrincipal)) {
+                                                                                                                    echo "<div class='chat-data'>";
+                                                                                                                    echo "<img class='user-img' src='" . $constante_urlVehiculos . "/" . $id . "/" . $imagenPrincipal . "' />";
+
+                                                                                                                    echo "<div class='user-data'>";
+                                                                                                                    echo "<span class='name block capitalize-font'>" . $imagenPrincipal . "</span>";
+                                                                                                                    echo "<span class='time block txt-grey'>";
+                                                                                                                    echo "<a data-lightbox='imagen' href='" . $constante_urlVehiculos . "/" . $id . "/" . $imagenPrincipal . "'>Ampliar</a>";
+                                                                                                                    echo "&nbsp;&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;&nbsp;";
+                                                                                                                    echo "<a download href='" . $constante_urlVehiculos . "/" . $id . "/" . $imagenPrincipal . "'>Descargar</a>";
+                                                                                                                    echo "</span>";
+                                                                                                                    echo "</div>";
+                                                                                                                    echo "<div class='clearfix'></div>";
+                                                                                                                    echo "</div>";
+                                                                                                                }
+                                                                                                            ?>
+                                                                                                        </div>
+                                                                                                    </li>
+                                                                                                </ul>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label mb-10">Galer&iacute;a fotogr&aacute;fica</label>
+                                                                        <span>
+                                                                            <br />
+                                                                            Tamaño preferente: 750 x 420 pixeles
+                                                                            <br />
+                                                                            <!--
+                                                                            Formatos aceptados: .jpg, .jpeg, .png
+                                                                            <br />
+                                                                            -->
+                                                                            <span class="txt-danger">Carga limitada a 100 MB a la vez, aproximadamente 30 imágenes</span>
+                                                                            <br /><br />
+                                                                        </span>
+                                                                        <div>
+                                                                            <input id="campo_archivo" multiple name="imagenGaleria[]" type="file" />
+                                                                            <br />
+                                                                            <div class="row">
+                                                                                <div class="col-sm-12">
+                                                                                    <div class="panel panel-success card-view">
+                                                                                        <div class="panel-wrapper in">
+                                                                                            <div class="panel-body">
+                                                                                                <ul class="chat-list-wrap">
+                                                                                                    <li class="chat-list">
+                                                                                                        <div class="chat-body">
+                                                                                                            <?php
+                                                                                                                if (!estaVacio($id)) {
+                                                                                                                    try {
+                                                                                                                        $archivos = scandir($constante_rutaVehiculos . $id . "/galeria");
+                                                                                                                        $indice = 1;
+
+                                                                                                                        foreach ($archivos as $archivo) {
+                                                                                                                            $extension = strtolower(pathinfo($archivo, PATHINFO_EXTENSION));
+
+                                                                                                                            //if ($extension == "jpg" || $extension == "jpeg" || $extension == "png") {
+                                                                                                                            if ($extension !== "") {
+                                                                                                                                echo "<div class='chat-data' id='contenedor_imagen_" . $indice . "'>";
+                                                                                                                                echo "<img class='user-img' src='" . $constante_urlVehiculos . "/" . $id . "/galeria/" . $archivo . "' />";
+
+                                                                                                                                echo "<div class='user-data'>";
+                                                                                                                                echo "<span class='name block capitalize-font'>" . $archivo . "</span>";
+                                                                                                                                echo "<span class='time block txt-grey'>";
+                                                                                                                                echo "<a data-lightbox='imagen' href='" . $constante_urlVehiculos . "/" . $id . "/galeria/" . $archivo . "'>Ampliar</a>";
+                                                                                                                                echo "&nbsp;&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;&nbsp;";
+                                                                                                                                echo "<a download href='" . $constante_urlVehiculos . "/" . $id . "/galeria/" . $archivo . "'>Descargar</a>";
+                                                                                                                                echo "&nbsp;&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;&nbsp;";
+                                                                                                                                echo "<a href='javascript:eliminaImagenGaleria(" . $id . ", \"" . $archivo . "\", " . $indice . ")'>Eliminar</a>";
+                                                                                                                                echo "</span>";
+                                                                                                                                echo "</div>";
+                                                                                                                                echo "<div class='clearfix'></div>";
+                                                                                                                                echo "</div>";
+
+                                                                                                                                $indice++;
+                                                                                                                            }
+                                                                                                                        }
+                                                                                                                    } catch (Exception $e) {
+                                                                                                                    }
+                                                                                                                }
+                                                                                                            ?>
+                                                                                                        </div>
+                                                                                                    </li>
+                                                                                                </ul>
+
+                                                                                                <div class="alert alert-dismissable" id="contenedor_mensaje" style="display: none">
+                                                                                                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button> <span id="contenedor_mensaje_contenido"></span>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <input name="video_titulo" type="hidden" value="<?php echo $video_titulo ?>" />
+                                        <input name="video_publicado" type="hidden" value="<?php echo $video_publicado ?>" />
+                                        <input name="video_resumen" type="hidden" value="<?php echo $video_resumen ?>" />
+                                        <input name="video_url" type="hidden" value="<?php echo $video_url ?>" />
+                                        <input name="video_detalle" type="hidden" value="<?php echo $video_detalle ?>" />
+                                    </div>
+
+                                    <div class="row <?php echo $tieneHabilitadoIntelimotor == 0 ? "oculta_campos" : ""; ?>">
+                                        <div class="col-12">
+                                            <div class="card">
+                                                <div class="card-body intelimotor">
+
+                                                    <h5><strong>Intelimotor</strong></h5>
+
+                                                    <hr />
+
+                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="row mb-12">
+                                                                    <label class="form-label col-md-4" for="campo_intelimotor_id">id</label>
+                                                                    <div class="col-md-8">
+                                                                        <input class="form-control" id="campo_intelimotor_id" readonly type="text" value="<?php echo $intelimotor_id ?>" />
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="row mb-12">
+                                                                    <label class="form-label col-md-4" for="campo_intelimotor_imported">imported</label>
+                                                                    <div class="col-md-8">
+                                                                        <input class="form-control" id="campo_intelimotor_imported" readonly type="text" value="<?php echo $intelimotor_imported ?>" />
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="row mb-12">
+                                                                    <label class="form-label col-md-4" for="campo_intelimotor_kms">kms</label>
+                                                                    <div class="col-md-8">
+                                                                        <input class="form-control" id="campo_intelimotor_kms" readonly type="text" value="<?php echo $intelimotor_kms ?>" />
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="row mb-12">
+                                                                    <label class="form-label col-md-4" for="campo_intelimotor_listPrice">listPrice</label>
+                                                                    <div class="col-md-8">
+                                                                        <input class="form-control" id="campo_intelimotor_listPrice" readonly type="text" value="<?php echo $intelimotor_listPrice ?>" />
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="row mb-12">
+                                                                    <label class="form-label col-md-4" for="campo_intelimotor_title">title</label>
+                                                                    <div class="col-md-8">
+                                                                        <input class="form-control" id="campo_intelimotor_title" readonly type="text" value="<?php echo $intelimotor_title ?>" />
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="row mb-12">
+                                                                    <label class="form-label col-md-4" for="campo_intelimotor_brand">brand</label>
+                                                                    <div class="col-md-8">
+                                                                        <input class="form-control" id="campo_intelimotor_brand" readonly type="text" value="<?php echo $intelimotor_brand ?>" />
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="row mb-12">
+                                                                    <label class="form-label col-md-4" for="campo_intelimotor_model">model</label>
+                                                                    <div class="col-md-8">
+                                                                        <input class="form-control" id="campo_intelimotor_model" readonly type="text" value="<?php echo $intelimotor_model ?>" />
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="row mb-12">
+                                                                    <label class="form-label col-md-4" for="campo_intelimotor_year">year</label>
+                                                                    <div class="col-md-8">
+                                                                        <input class="form-control" id="campo_intelimotor_year" readonly type="text" value="<?php echo $intelimotor_year ?>" />
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="row mb-12">
+                                                                    <label class="form-label col-md-4" for="campo_intelimotor_trim">trim</label>
+                                                                    <div class="col-md-8">
+                                                                        <input class="form-control" id="campo_intelimotor_trim" readonly type="text" value="<?php echo $intelimotor_trim ?>" />
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="row mb-12">
+                                                                    <label class="form-label col-md-4" for="campo_intelimotor_transmission">transmission</label>
+                                                                    <div class="col-md-8">
+                                                                        <input class="form-control" id="campo_intelimotor_transmission" readonly type="text" value="<?php echo $intelimotor_transmission ?>" />
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="row mb-12">
+                                                                    <label class="form-label col-md-4" for="campo_intelimotor_doors">doors</label>
+                                                                    <div class="col-md-8">
+                                                                        <input class="form-control" id="campo_intelimotor_doors" readonly type="text" value="<?php echo $intelimotor_doors ?>" />
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="row mb-12">
+                                                                    <label class="form-label col-md-4" for="campo_intelimotor_fuelType">fuelType</label>
+                                                                    <div class="col-md-8">
+                                                                        <input class="form-control" id="campo_intelimotor_fuelType" readonly type="text" value="<?php echo $intelimotor_fuelType ?>" />
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="row mb-12">
+                                                                    <label class="form-label col-md-4" for="campo_intelimotor_steering">steering</label>
+                                                                    <div class="col-md-8">
+                                                                        <input class="form-control" id="campo_intelimotor_steering" readonly type="text" value="<?php echo $intelimotor_steering ?>" />
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="row mb-12">
+                                                                    <label class="form-label col-md-4" for="campo_intelimotor_tractionControl">tractionControl</label>
+                                                                    <div class="col-md-8">
+                                                                        <input class="form-control" id="campo_intelimotor_tractionControl" readonly type="text" value="<?php echo $intelimotor_tractionControl ?>" />
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="row mb-12">
+                                                                    <label class="form-label col-md-4" for="campo_intelimotor_vehicleBodyType">vehicleBodyType</label>
+                                                                    <div class="col-md-8">
+                                                                        <input class="form-control" id="campo_intelimotor_vehicleBodyType" readonly type="text" value="<?php echo $intelimotor_vehicleBodyType ?>" />
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="row mb-12">
+                                                                    <label class="form-label col-md-4" for="campo_intelimotor_engine">engine</label>
+                                                                    <div class="col-md-8">
+                                                                        <input class="form-control" id="campo_intelimotor_engine" readonly type="text" value="<?php echo $intelimotor_engine ?>" />
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="row mb-12">
+                                                                    <label class="form-label col-md-4" for="campo_intelimotor_exteriorColor">exteriorColor</label>
+                                                                    <div class="col-md-8">
+                                                                        <input class="form-control" id="campo_intelimotor_exteriorColor" readonly type="text" value="<?php echo $intelimotor_exteriorColor ?>" />
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="row mb-12">
+                                                                    <label class="form-label col-md-4" for="campo_intelimotor_interiorColor">interiorColor</label>
+                                                                    <div class="col-md-8">
+                                                                        <input class="form-control" id="campo_intelimotor_interiorColor" readonly type="text" value="<?php echo $intelimotor_interiorColor ?>" />
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="row mb-12">
+                                                                    <label class="form-label col-md-4" for="campo_intelimotor_hasAirConditioning">Aire acondicionado <strong>(hasAirConditioning)</strong></label>
+                                                                    <div class="col-md-8">
+                                                                        <div class="material-switch">
+                                                                            <input disabled <?php echo $intelimotor_hasAirConditioning == 1 ? "checked" : "" ?> id="campo_intelimotor_hasAirConditioning" name="intelimotor_hasAirConditioning" type="checkbox" />
+                                                                            <label class="label-info" for="campo_intelimotor_hasAirConditioning"></label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="row mb-12">
+                                                                    <label class="form-label col-md-4" for="campo_intelimotor_hasAlarm">Alarma <strong>(hasAlarm)</strong></label>
+                                                                    <div class="col-md-8">
+                                                                        <div class="material-switch">
+                                                                            <input disabled <?php echo $intelimotor_hasAlarm == 1 ? "checked" : "" ?> id="campo_intelimotor_hasAlarm" name="intelimotor_hasAlarm" type="checkbox" />
+                                                                            <label class="label-info" for="campo_intelimotor_hasAlarm"></label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="row mb-12">
+                                                                    <label class="form-label col-md-4" for="campo_intelimotor_hasTrayMat">Alfombrilla de llanta de refacción <strong>(hasTrayMat)</strong></label>
+                                                                    <div class="col-md-8">
+                                                                        <div class="material-switch">
+                                                                            <input disabled <?php echo $intelimotor_hasTrayMat == 1 ? "checked" : "" ?> id="campo_intelimotor_hasTrayMat" name="intelimotor_hasTrayMat" type="checkbox" />
+                                                                            <label class="label-info" for="campo_intelimotor_hasTrayMat"></label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="row mb-12">
+                                                                    <label class="form-label col-md-4" for="campo_intelimotor_hasRemoteTrunkRelease">Apertura remota de cajuela <strong>(hasRemoteTrunkRelease)</strong></label>
+                                                                    <div class="col-md-8">
+                                                                        <div class="material-switch">
+                                                                            <input disabled <?php echo $intelimotor_hasRemoteTrunkRelease == 1 ? "checked" : "" ?> id="campo_intelimotor_hasRemoteTrunkRelease" name="intelimotor_hasRemoteTrunkRelease" type="checkbox" />
+                                                                            <label class="label-info" for="campo_intelimotor_hasRemoteTrunkRelease"></label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="row mb-12">
+                                                                    <label class="form-label col-md-4" for="campo_intelimotor_hasHeightAdjustableDriverSeat">Asiento de conductor con ajuste de altura <strong>(hasHeightAdjustableDriverSeat)</strong></label>
+                                                                    <div class="col-md-8">
+                                                                        <div class="material-switch">
+                                                                            <input disabled <?php echo $intelimotor_hasHeightAdjustableDriverSeat == 1 ? "checked" : "" ?> id="campo_intelimotor_hasHeightAdjustableDriverSeat" name="intelimotor_hasHeightAdjustableDriverSeat" type="checkbox" />
+                                                                            <label class="label-info" for="campo_intelimotor_hasHeightAdjustableDriverSeat"></label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="row mb-12">
+                                                                    <label class="form-label col-md-4" for="campo_intelimotor_hasElectricSeats">Asientos eléctricos <strong>(hasElectricSeats)</strong></label>
+                                                                    <div class="col-md-8">
+                                                                        <div class="material-switch">
+                                                                            <input disabled <?php echo $intelimotor_hasElectricSeats == 1 ? "checked" : "" ?> id="campo_intelimotor_hasElectricSeats" name="intelimotor_hasElectricSeats" type="checkbox" />
+                                                                            <label class="label-info" for="campo_intelimotor_hasElectricSeats"></label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="row mb-12">
+                                                                    <label class="form-label col-md-4" for="campo_intelimotor_hasRearFoldingSeat">Asientos traseros abatibles <strong>(hasRearFoldingSeat)</strong></label>
+                                                                    <div class="col-md-8">
+                                                                        <div class="material-switch">
+                                                                            <input disabled <?php echo $intelimotor_hasRearFoldingSeat == 1 ? "checked" : "" ?> id="campo_intelimotor_hasRearFoldingSeat" name="intelimotor_hasRearFoldingSeat" type="checkbox" />
+                                                                            <label class="label-info" for="campo_intelimotor_hasRearFoldingSeat"></label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="row mb-12">
+                                                                    <label class="form-label col-md-4" for="campo_intelimotor_hasElectronicBrakeAssist">Asistente de frenado <strong>(hasElectronicBrakeAssist)</strong></label>
+                                                                    <div class="col-md-8">
+                                                                        <div class="material-switch">
+                                                                            <input disabled <?php echo $intelimotor_hasElectronicBrakeAssist == 1 ? "checked" : "" ?> id="campo_intelimotor_hasElectronicBrakeAssist" name="intelimotor_hasElectronicBrakeAssist" type="checkbox" />
+                                                                            <label class="label-info" for="campo_intelimotor_hasElectronicBrakeAssist"></label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="row mb-12">
+                                                                    <label class="form-label col-md-4" for="campo_intelimotor_hasTrayCover">Bandeja de llanta de refacción <strong>(hasTrayCover)</strong></label>
+                                                                    <div class="col-md-8">
+                                                                        <div class="material-switch">
+                                                                            <input disabled <?php echo $intelimotor_hasTrayCover == 1 ? "checked" : "" ?> id="campo_intelimotor_hasTrayCover" name="intelimotor_hasTrayCover" type="checkbox" />
+                                                                            <label class="label-info" for="campo_intelimotor_hasTrayCover"></label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="row mb-12">
+                                                                    <label class="form-label col-md-4" for="campo_intelimotor_hasRollBar">Barras porta equipaje <strong>(hasRollBar)</strong></label>
+                                                                    <div class="col-md-8">
+                                                                        <div class="material-switch">
+                                                                            <input disabled <?php echo $intelimotor_hasRollBar == 1 ? "checked" : "" ?> id="campo_intelimotor_hasRollBar" name="intelimotor_hasRollBar" type="checkbox" />
+                                                                            <label class="label-info" for="campo_intelimotor_hasRollBar"></label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="row mb-12">
+                                                                    <label class="form-label col-md-4" for="campo_intelimotor_armored">Blindado <strong>(armored)</strong></label>
+                                                                    <div class="col-md-8">
+                                                                        <div class="material-switch">
+                                                                            <input disabled <?php echo $intelimotor_armored == 1 ? "checked" : "" ?> id="campo_intelimotor_armored" name="intelimotor_armored" type="checkbox" />
+                                                                            <label class="label-info" for="campo_intelimotor_armored"></label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="row mb-12">
+                                                                    <label class="form-label col-md-4" for="campo_intelimotor_hasBluetooth">Bluetooth <strong>(hasBluetooth)</strong></label>
+                                                                    <div class="col-md-8">
+                                                                        <div class="material-switch">
+                                                                            <input disabled <?php echo $intelimotor_hasBluetooth == 1 ? "checked" : "" ?> id="campo_intelimotor_hasBluetooth" name="intelimotor_hasBluetooth" type="checkbox" />
+                                                                            <label class="label-info" for="campo_intelimotor_hasBluetooth"></label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="row mb-12">
+                                                                    <label class="form-label col-md-4" for="campo_intelimotor_hasDriverAirbag">Bolsa de aire conductor <strong>(hasDriverAirbag)</strong></label>
+                                                                    <div class="col-md-8">
+                                                                        <div class="material-switch">
+                                                                            <input disabled <?php echo $intelimotor_hasDriverAirbag == 1 ? "checked" : "" ?> id="campo_intelimotor_hasDriverAirbag" name="intelimotor_hasDriverAirbag" type="checkbox" />
+                                                                            <label class="label-info" for="campo_intelimotor_hasDriverAirbag"></label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="row mb-12">
+                                                                    <label class="form-label col-md-4" for="campo_intelimotor_hasPassengerAirbag">Bolsa de aire pasajero <strong>(hasPassengerAirbag)</strong></label>
+                                                                    <div class="col-md-8">
+                                                                        <div class="material-switch">
+                                                                            <input disabled <?php echo $intelimotor_hasPassengerAirbag == 1 ? "checked" : "" ?> id="campo_intelimotor_hasPassengerAirbag" name="intelimotor_hasPassengerAirbag" type="checkbox" />
+                                                                            <label class="label-info" for="campo_intelimotor_hasPassengerAirbag"></label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="row mb-12">
+                                                                    <label class="form-label col-md-4" for="campo_intelimotor_hasSideImpactAirbag">Bolsas de aire laterales <strong>(hasSideImpactAirbag)</strong></label>
+                                                                    <div class="col-md-8">
+                                                                        <div class="material-switch">
+                                                                            <input disabled <?php echo $intelimotor_hasSideImpactAirbag == 1 ? "checked" : "" ?> id="campo_intelimotor_hasSideImpactAirbag" name="intelimotor_hasSideImpactAirbag" type="checkbox" />
+                                                                            <label class="label-info" for="campo_intelimotor_hasSideImpactAirbag"></label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="row mb-12">
+                                                                    <label class="form-label col-md-4" for="campo_intelimotor_hasCurtainAirbag">Bolsas de aire tipo cortina <strong>(hasCurtainAirbag)</strong></label>
+                                                                    <div class="col-md-8">
+                                                                        <div class="material-switch">
+                                                                            <input disabled <?php echo $intelimotor_hasCurtainAirbag == 1 ? "checked" : "" ?> id="campo_intelimotor_hasCurtainAirbag" name="intelimotor_hasCurtainAirbag" type="checkbox" />
+                                                                            <label class="label-info" for="campo_intelimotor_hasCurtainAirbag"></label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="row mb-12">
+                                                                    <label class="form-label col-md-4" for="campo_intelimotor_hasHeadrestRearSeat">Cabeceras asientos traseros <strong>(hasHeadrestRearSeat)</strong></label>
+                                                                    <div class="col-md-8">
+                                                                        <div class="material-switch">
+                                                                            <input disabled <?php echo $intelimotor_hasHeadrestRearSeat == 1 ? "checked" : "" ?> id="campo_intelimotor_hasHeadrestRearSeat" name="intelimotor_hasHeadrestRearSeat" type="checkbox" />
+                                                                            <label class="label-info" for="campo_intelimotor_hasHeadrestRearSeat"></label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="row mb-12">
+                                                                    <label class="form-label col-md-4" for="campo_intelimotor_hasOnboardComputer">Computadora de viaje <strong>(hasOnboardComputer)</strong></label>
+                                                                    <div class="col-md-8">
+                                                                        <div class="material-switch">
+                                                                            <input disabled <?php echo $intelimotor_hasOnboardComputer == 1 ? "checked" : "" ?> id="campo_intelimotor_hasOnboardComputer" name="intelimotor_hasOnboardComputer" type="checkbox" />
+                                                                            <label class="label-info" for="campo_intelimotor_hasOnboardComputer"></label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="row mb-12">
+                                                                    <label class="form-label col-md-4" for="campo_intelimotor_hasClimateControl">Control de temperatura <strong>(hasClimateControl)</strong></label>
+                                                                    <div class="col-md-8">
+                                                                        <div class="material-switch">
+                                                                            <input disabled <?php echo $intelimotor_hasClimateControl == 1 ? "checked" : "" ?> id="campo_intelimotor_hasClimateControl" name="intelimotor_hasClimateControl" type="checkbox" />
+                                                                            <label class="label-info" for="campo_intelimotor_hasClimateControl"></label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="row mb-12">
+                                                                    <label class="form-label col-md-4" for="campo_intelimotor_hasStabilityControl">Control de estabilidad <strong>(hasStabilityControl)</strong></label>
+                                                                    <div class="col-md-8">
+                                                                        <div class="material-switch">
+                                                                            <input disabled <?php echo $intelimotor_hasStabilityControl == 1 ? "checked" : "" ?> id="campo_intelimotor_hasStabilityControl" name="intelimotor_hasStabilityControl" type="checkbox" />
+                                                                            <label class="label-info" for="campo_intelimotor_hasStabilityControl"></label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="row mb-12">
+                                                                    <label class="form-label col-md-4" for="campo_intelimotor_hasHeadlightControl">Control de luces delanteras <strong>(hasHeadlightControl)</strong></label>
+                                                                    <div class="col-md-8">
+                                                                        <div class="material-switch">
+                                                                            <input disabled <?php echo $intelimotor_hasHeadlightControl == 1 ? "checked" : "" ?> id="campo_intelimotor_hasHeadlightControl" name="intelimotor_hasHeadlightControl" type="checkbox" />
+                                                                            <label class="label-info" for="campo_intelimotor_hasHeadlightControl"></label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="row mb-12">
+                                                                    <label class="form-label col-md-4" for="campo_intelimotor_hasSteeringWheelControl">Controles al volante <strong>(hasSteeringWheelControl)</strong></label>
+                                                                    <div class="col-md-8">
+                                                                        <div class="material-switch">
+                                                                            <input disabled <?php echo $intelimotor_hasSteeringWheelControl == 1 ? "checked" : "" ?> id="campo_intelimotor_hasSteeringWheelControl" name="intelimotor_hasSteeringWheelControl" type="checkbox" />
+                                                                            <label class="label-info" for="campo_intelimotor_hasSteeringWheelControl"></label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="row mb-12">
+                                                                    <label class="form-label col-md-4" for="campo_intelimotor_hasPaintedBumper">Defensas al color de la carrocería <strong>(hasPaintedBumper)</strong></label>
+                                                                    <div class="col-md-8">
+                                                                        <div class="material-switch">
+                                                                            <input disabled <?php echo $intelimotor_hasPaintedBumper == 1 ? "checked" : "" ?> id="campo_intelimotor_hasPaintedBumper" name="intelimotor_hasPaintedBumper" type="checkbox" />
+                                                                            <label class="label-info" for="campo_intelimotor_hasPaintedBumper"></label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="row mb-12">
+                                                                    <label class="form-label col-md-4" for="campo_intelimotor_hasRearWindowDefogger">Desempañador trasero <strong>(hasRearWindowDefogger)</strong></label>
+                                                                    <div class="col-md-8">
+                                                                        <div class="material-switch">
+                                                                            <input disabled <?php echo $intelimotor_hasRearWindowDefogger == 1 ? "checked" : "" ?> id="campo_intelimotor_hasRearWindowDefogger" name="intelimotor_hasRearWindowDefogger" type="checkbox" />
+                                                                            <label class="label-info" for="campo_intelimotor_hasRearWindowDefogger"></label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="row mb-12">
+                                                                    <label class="form-label col-md-4" for="campo_intelimotor_hasElectricMirrors">Espejos eléctricos <strong>(hasElectricMirrors)</strong></label>
+                                                                    <div class="col-md-8">
+                                                                        <div class="material-switch">
+                                                                            <input disabled <?php echo $intelimotor_hasElectricMirrors == 1 ? "checked" : "" ?> id="campo_intelimotor_hasElectricMirrors" name="intelimotor_hasElectricMirrors" type="checkbox" />
+                                                                            <label class="label-info" for="campo_intelimotor_hasElectricMirrors"></label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="row mb-12">
+                                                                    <label class="form-label col-md-4" for="campo_intelimotor_hasFrontFoglights">Faros de niebla <strong>(hasFrontFoglights)</strong></label>
+                                                                    <div class="col-md-8">
+                                                                        <div class="material-switch">
+                                                                            <input disabled <?php echo $intelimotor_hasFrontFoglights == 1 ? "checked" : "" ?> id="campo_intelimotor_hasFrontFoglights" name="intelimotor_hasFrontFoglights" type="checkbox" />
+                                                                            <label class="label-info" for="campo_intelimotor_hasFrontFoglights"></label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="row mb-12">
+                                                                    <label class="form-label col-md-4" for="campo_intelimotor_hasAbsBrakes">Frenos ABS <strong>(hasAbsBrakes)</strong></label>
+                                                                    <div class="col-md-8">
+                                                                        <div class="material-switch">
+                                                                            <input disabled <?php echo $intelimotor_hasAbsBrakes == 1 ? "checked" : "" ?> id="campo_intelimotor_hasAbsBrakes" name="intelimotor_hasAbsBrakes" type="checkbox" />
+                                                                            <label class="label-info" for="campo_intelimotor_hasAbsBrakes"></label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="row mb-12">
+                                                                    <label class="form-label col-md-4" for="campo_intelimotor_hasGps">GPS <strong>(hasGps)</strong></label>
+                                                                    <div class="col-md-8">
+                                                                        <div class="material-switch">
+                                                                            <input disabled <?php echo $intelimotor_hasGps == 1 ? "checked" : "" ?> id="campo_intelimotor_hasGps" name="intelimotor_hasGps" type="checkbox" />
+                                                                            <label class="label-info" for="campo_intelimotor_hasGps"></label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="row mb-12">
+                                                                    <label class="form-label col-md-4" for="campo_intelimotor_hasEngineInmovilizer">Inmovilizador de motor <strong>(hasEngineInmovilizer)</strong></label>
+                                                                    <div class="col-md-8">
+                                                                        <div class="material-switch">
+                                                                            <input disabled <?php echo $intelimotor_hasEngineInmovilizer == 1 ? "checked" : "" ?> id="campo_intelimotor_hasEngineInmovilizer" name="intelimotor_hasEngineInmovilizer" type="checkbox" />
+                                                                            <label class="label-info" for="campo_intelimotor_hasEngineInmovilizer"></label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="row mb-12">
+                                                                    <label class="form-label col-md-4" for="campo_intelimotor_hasWindscreenWiper">Limpiaparabrisas <strong>(hasWindscreenWiper)</strong></label>
+                                                                    <div class="col-md-8">
+                                                                        <div class="material-switch">
+                                                                            <input disabled <?php echo $intelimotor_hasWindscreenWiper == 1 ? "checked" : "" ?> id="campo_intelimotor_hasWindscreenWiper" name="intelimotor_hasWindscreenWiper" type="checkbox" />
+                                                                            <label class="label-info" for="campo_intelimotor_hasWindscreenWiper"></label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="row mb-12">
+                                                                    <label class="form-label col-md-4" for="campo_intelimotor_hasSpareTyreSupport">Llanta de refacción <strong>(hasSpareTyreSupport)</strong></label>
+                                                                    <div class="col-md-8">
+                                                                        <div class="material-switch">
+                                                                            <input disabled <?php echo $intelimotor_hasSpareTyreSupport == 1 ? "checked" : "" ?> id="campo_intelimotor_hasSpareTyreSupport" name="intelimotor_hasSpareTyreSupport" type="checkbox" />
+                                                                            <label class="label-info" for="campo_intelimotor_hasSpareTyreSupport"></label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="row mb-12">
+                                                                    <label class="form-label col-md-4" for="campo_intelimotor_hasFogLight">Luces de niebla delanteras <strong>(hasFogLight)</strong></label>
+                                                                    <div class="col-md-8">
+                                                                        <div class="material-switch">
+                                                                            <input disabled <?php echo $intelimotor_hasFogLight == 1 ? "checked" : "" ?> id="campo_intelimotor_hasFogLight" name="intelimotor_hasFogLight" type="checkbox" />
+                                                                            <label class="label-info" for="campo_intelimotor_hasFogLight"></label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="row mb-12">
+                                                                    <label class="form-label col-md-4" for="campo_intelimotor_hasRearFoglights">Luces de niebla traseras <strong>(hasRearFoglights)</strong></label>
+                                                                    <div class="col-md-8">
+                                                                        <div class="material-switch">
+                                                                            <input disabled <?php echo $intelimotor_hasRearFoglights == 1 ? "checked" : "" ?> id="campo_intelimotor_hasRearFoglights" name="intelimotor_hasRearFoglights" type="checkbox" />
+                                                                            <label class="label-info" for="campo_intelimotor_hasRearFoglights"></label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="row mb-12">
+                                                                    <label class="form-label col-md-4" for="campo_intelimotor_hasXenonHeadlights">Faros de xenón <strong>(hasXenonHeadlights)</strong></label>
+                                                                    <div class="col-md-8">
+                                                                        <div class="material-switch">
+                                                                            <input disabled <?php echo $intelimotor_hasXenonHeadlights == 1 ? "checked" : "" ?> id="campo_intelimotor_hasXenonHeadlights" name="intelimotor_hasXenonHeadlights" type="checkbox" />
+                                                                            <label class="label-info" for="campo_intelimotor_hasXenonHeadlights"></label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="row mb-12">
+                                                                    <label class="form-label col-md-4" for="campo_intelimotor_hasBullBar">Parachoques <strong>(hasBullBar)</strong></label>
+                                                                    <div class="col-md-8">
+                                                                        <div class="material-switch">
+                                                                            <input disabled <?php echo $intelimotor_hasBullBar == 1 ? "checked" : "" ?> id="campo_intelimotor_hasBullBar" name="intelimotor_hasBullBar" type="checkbox" />
+                                                                            <label class="label-info" for="campo_intelimotor_hasBullBar"></label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="row mb-12">
+                                                                    <label class="form-label col-md-4" for="campo_intelimotor_hasAutopilot">Piloto automático <strong>(hasAutopilot)</strong></label>
+                                                                    <div class="col-md-8">
+                                                                        <div class="material-switch">
+                                                                            <input disabled <?php echo $intelimotor_hasAutopilot == 1 ? "checked" : "" ?> id="campo_intelimotor_hasAutopilot" name="intelimotor_hasAutopilot" type="checkbox" />
+                                                                            <label class="label-info" for="campo_intelimotor_hasAutopilot"></label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="row mb-12">
+                                                                    <label class="form-label col-md-4" for="campo_intelimotor_hasCoasters">Portavasos <strong>(hasCoasters)</strong></label>
+                                                                    <div class="col-md-8">
+                                                                        <div class="material-switch">
+                                                                            <input disabled <?php echo $intelimotor_hasCoasters == 1 ? "checked" : "" ?> id="campo_intelimotor_hasCoasters" name="intelimotor_hasCoasters" type="checkbox" />
+                                                                            <label class="label-info" for="campo_intelimotor_hasCoasters"></label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="row mb-12">
+                                                                    <label class="form-label col-md-4" for="campo_intelimotor_hasSlidingRoof">Techo corredizo <strong>(hasSlidingRoof)</strong></label>
+                                                                    <div class="col-md-8">
+                                                                        <div class="material-switch">
+                                                                            <input disabled <?php echo $intelimotor_hasSlidingRoof == 1 ? "checked" : "" ?> id="campo_intelimotor_hasSlidingRoof" name="intelimotor_hasSlidingRoof" type="checkbox" />
+                                                                            <label class="label-info" for="campo_intelimotor_hasSlidingRoof"></label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="row mb-12">
+                                                                    <label class="form-label col-md-4" for="campo_intelimotor_hasAmfmRadio">Radio AM/FM <strong>(hasAmfmRadio)</strong></label>
+                                                                    <div class="col-md-8">
+                                                                        <div class="material-switch">
+                                                                            <input disabled <?php echo $intelimotor_hasAmfmRadio == 1 ? "checked" : "" ?> id="campo_intelimotor_hasAmfmRadio" name="intelimotor_hasAmfmRadio" type="checkbox" />
+                                                                            <label class="label-info" for="campo_intelimotor_hasAmfmRadio"></label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="row mb-12">
+                                                                    <label class="form-label col-md-4" for="campo_intelimotor_hasLightOnReminder">Recordatorio de luces encendidas <strong>(hasLightOnReminder)</strong></label>
+                                                                    <div class="col-md-8">
+                                                                        <div class="material-switch">
+                                                                            <input disabled <?php echo $intelimotor_hasLightOnReminder == 1 ? "checked" : "" ?> id="campo_intelimotor_hasLightOnReminder" name="intelimotor_hasLightOnReminder" type="checkbox" />
+                                                                            <label class="label-info" for="campo_intelimotor_hasLightOnReminder"></label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="row mb-12">
+                                                                    <label class="form-label col-md-4" for="campo_intelimotor_hasCdPlayer">Reproductor de CD <strong>(hasCdPlayer)</strong></label>
+                                                                    <div class="col-md-8">
+                                                                        <div class="material-switch">
+                                                                            <input disabled <?php echo $intelimotor_hasCdPlayer == 1 ? "checked" : "" ?> id="campo_intelimotor_hasCdPlayer" name="intelimotor_hasCdPlayer" type="checkbox" />
+                                                                            <label class="label-info" for="campo_intelimotor_hasCdPlayer"></label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="row mb-12">
+                                                                    <label class="form-label col-md-4" for="campo_intelimotor_hasDvd">Reproductor de DVD <strong>(hasDvd)</strong></label>
+                                                                    <div class="col-md-8">
+                                                                        <div class="material-switch">
+                                                                            <input disabled <?php echo $intelimotor_hasDvd == 1 ? "checked" : "" ?> id="campo_intelimotor_hasDvd" name="intelimotor_hasDvd" type="checkbox" />
+                                                                            <label class="label-info" for="campo_intelimotor_hasDvd"></label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="row mb-12">
+                                                                    <label class="form-label col-md-4" for="campo_intelimotor_hasMp3Player">Reproductor de MP3 <strong>(hasMp3Player)</strong></label>
+                                                                    <div class="col-md-8">
+                                                                        <div class="material-switch">
+                                                                            <input disabled <?php echo $intelimotor_hasMp3Player == 1 ? "checked" : "" ?> id="campo_intelimotor_hasMp3Player" name="intelimotor_hasMp3Player" type="checkbox" />
+                                                                            <label class="label-info" for="campo_intelimotor_hasMp3Player"></label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="row mb-12">
+                                                                    <label class="form-label col-md-4" for="campo_intelimotor_hasRearBackrest">Respaldos traseros <strong>(hasRearBackrest)</strong></label>
+                                                                    <div class="col-md-8">
+                                                                        <div class="material-switch">
+                                                                            <input disabled <?php echo $intelimotor_hasRearBackrest == 1 ? "checked" : "" ?> id="campo_intelimotor_hasRearBackrest" name="intelimotor_hasRearBackrest" type="checkbox" />
+                                                                            <label class="label-info" for="campo_intelimotor_hasRearBackrest"></label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="row mb-12">
+                                                                    <label class="form-label col-md-4" for="campo_intelimotor_hasAlloyWheels">Rines de aluminio <strong>(hasAlloyWheels)</strong></label>
+                                                                    <div class="col-md-8">
+                                                                        <div class="material-switch">
+                                                                            <input disabled <?php echo $intelimotor_hasAlloyWheels == 1 ? "checked" : "" ?> id="campo_intelimotor_hasAlloyWheels" name="intelimotor_hasAlloyWheels" type="checkbox" />
+                                                                            <label class="label-info" for="campo_intelimotor_hasAlloyWheels"></label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="row mb-12">
+                                                                    <label class="form-label col-md-4" for="campo_intelimotor_hasCentralPowerDoorLocks">Cerradura de puertas centralizada <strong>(hasCentralPowerDoorLocks)</strong></label>
+                                                                    <div class="col-md-8">
+                                                                        <div class="material-switch">
+                                                                            <input disabled <?php echo $intelimotor_hasCentralPowerDoorLocks == 1 ? "checked" : "" ?> id="campo_intelimotor_hasCentralPowerDoorLocks" name="intelimotor_hasCentralPowerDoorLocks" type="checkbox" />
+                                                                            <label class="label-info" for="campo_intelimotor_hasCentralPowerDoorLocks"></label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="row mb-12">
+                                                                    <label class="form-label col-md-4" for="campo_intelimotor_hasRainSensor">Sensor de lluvia <strong>(hasRainSensor)</strong></label>
+                                                                    <div class="col-md-8">
+                                                                        <div class="material-switch">
+                                                                            <input disabled <?php echo $intelimotor_hasRainSensor == 1 ? "checked" : "" ?> id="campo_intelimotor_hasRainSensor" name="intelimotor_hasRainSensor" type="checkbox" />
+                                                                            <label class="label-info" for="campo_intelimotor_hasRainSensor"></label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="row mb-12">
+                                                                    <label class="form-label col-md-4" for="campo_intelimotor_hasLightSensor">Sensor de luz <strong>(hasLightSensor)</strong></label>
+                                                                    <div class="col-md-8">
+                                                                        <div class="material-switch">
+                                                                            <input disabled <?php echo $intelimotor_hasLightSensor == 1 ? "checked" : "" ?> id="campo_intelimotor_hasLightSensor" name="intelimotor_hasLightSensor" type="checkbox" />
+                                                                            <label class="label-info" for="campo_intelimotor_hasLightSensor"></label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="row mb-12">
+                                                                    <label class="form-label col-md-4" for="campo_intelimotor_hasParkingSensor">Sensor de reversa <strong>(hasParkingSensor)</strong></label>
+                                                                    <div class="col-md-8">
+                                                                        <div class="material-switch">
+                                                                            <input disabled <?php echo $intelimotor_hasParkingSensor == 1 ? "checked" : "" ?> id="campo_intelimotor_hasParkingSensor" name="intelimotor_hasParkingSensor" type="checkbox" />
+                                                                            <label class="label-info" for="campo_intelimotor_hasParkingSensor"></label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="row mb-12">
+                                                                    <label class="form-label col-md-4" for="campo_intelimotor_hasLeatherUpholstery">Tapicería de piel <strong>(hasLeatherUpholstery)</strong></label>
+                                                                    <div class="col-md-8">
+                                                                        <div class="material-switch">
+                                                                            <input disabled <?php echo $intelimotor_hasLeatherUpholstery == 1 ? "checked" : "" ?> id="campo_intelimotor_hasLeatherUpholstery" name="intelimotor_hasLeatherUpholstery" type="checkbox" />
+                                                                            <label class="label-info" for="campo_intelimotor_hasLeatherUpholstery"></label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="row mb-12">
+                                                                    <label class="form-label col-md-4" for="campo_intelimotor_hasSdCard">Tarjeta SD <strong>(hasSdCard)</strong></label>
+                                                                    <div class="col-md-8">
+                                                                        <div class="material-switch">
+                                                                            <input disabled <?php echo $intelimotor_hasSdCard == 1 ? "checked" : "" ?> id="campo_intelimotor_hasSdCard" name="intelimotor_hasSdCard" type="checkbox" />
+                                                                            <label class="label-info" for="campo_intelimotor_hasSdCard"></label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="row mb-12">
+                                                                    <label class="form-label col-md-4" for="campo_intelimotor_hasThirdStop">Tercera luz de frenado <strong>(hasThirdStop)</strong></label>
+                                                                    <div class="col-md-8">
+                                                                        <div class="material-switch">
+                                                                            <input disabled <?php echo $intelimotor_hasThirdStop == 1 ? "checked" : "" ?> id="campo_intelimotor_hasThirdStop" name="intelimotor_hasThirdStop" type="checkbox" />
+                                                                            <label class="label-info" for="campo_intelimotor_hasThirdStop"></label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="row mb-12">
+                                                                    <label class="form-label col-md-4" for="campo_intelimotor_singleOwner">Único dueño <strong>(singleOwner)</strong></label>
+                                                                    <div class="col-md-8">
+                                                                        <div class="material-switch">
+                                                                            <input disabled <?php echo $intelimotor_singleOwner == 1 ? "checked" : "" ?> id="campo_intelimotor_singleOwner" name="intelimotor_singleOwner" type="checkbox" />
+                                                                            <label class="label-info" for="campo_intelimotor_singleOwner"></label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="row mb-12">
+                                                                    <label class="form-label col-md-4" for="campo_intelimotor_hasUsb">USB <strong>(hasUsb)</strong></label>
+                                                                    <div class="col-md-8">
+                                                                        <div class="material-switch">
+                                                                            <input disabled <?php echo $intelimotor_hasUsb == 1 ? "checked" : "" ?> id="campo_intelimotor_hasUsb" name="intelimotor_hasUsb" type="checkbox" />
+                                                                            <label class="label-info" for="campo_intelimotor_hasUsb"></label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="row mb-12">
+                                                                    <label class="form-label col-md-4" for="campo_intelimotor_hasPowerWindows">Vidrios eléctricos <strong>(hasPowerWindows)</strong></label>
+                                                                    <div class="col-md-8">
+                                                                        <div class="material-switch">
+                                                                            <input disabled <?php echo $intelimotor_hasPowerWindows == 1 ? "checked" : "" ?> id="campo_intelimotor_hasPowerWindows" name="intelimotor_hasPowerWindows" type="checkbox" />
+                                                                            <label class="label-info" for="campo_intelimotor_hasPowerWindows"></label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row col-12">
+                                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label mb-10">Video Youtube</label>
+                                                                        <div>
+                                                                            <div class="row">
+                                                                                <div class="col-sm-12">
+                                                                                    <div class="panel panel-success card-view">
+                                                                                        <div class="panel-wrapper collapse in">
+                                                                                            <div class="panel-body">
+                                                                                                <ul class="chat-list-wrap">
+                                                                                                    <li class="chat-list">
+                                                                                                        <div class="chat-body">
+                                                                                                            <?php
+                                                                                                                if (!estaVacio($intelimotor_youtubeVideoUrl)) {
+                                                                                                                    echo "<iframe width='560' height='315' src='" . str_replace("watch?v=", "embed/", $intelimotor_youtubeVideoUrl) . "' frameborder='0' allow='encrypted-media; gyroscope; picture-in-picture; web-share' allowfullscreen></iframe>";
+                                                                                                                }
+                                                                                                            ?>
+                                                                                                        </div>
+                                                                                                    </li>
+                                                                                                </ul>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label mb-10">Imágenes</label>
+                                                                        <div>
+                                                                            <div class="row">
+                                                                                <div class="col-sm-12">
+                                                                                    <div class="panel panel-success card-view">
+                                                                                        <div class="panel-wrapper collapse in">
+                                                                                            <div class="panel-body">
+                                                                                                <ul class="chat-list-wrap">
+                                                                                                    <li class="chat-list">
+                                                                                                        <div class="chat-body">
+                                                                                                            <?php
+                                                                                                                if (!estaVacio($intelimotor_picture)) {
+                                                                                                                    echo "<div class='chat-data'>";
+                                                                                                                    //echo "<img class='user-img' src='" . $intelimotor_picture . "' style='height: 150px; width: 150px' />";
+                                                                                                                    echo "<img src='" . $intelimotor_picture . "' style='float: left; margin-right: 25px; width: 150px' />";
+
+                                                                                                                    echo "<div class='user-data'>";
+                                                                                                                    echo "<span class='name block capitalize-font'>" . $intelimotor_picture . "</span>";
+                                                                                                                    echo "<span class='time block txt-grey'>";
+                                                                                                                    echo "<a data-lightbox='imagen' href='" . $intelimotor_picture . "'>Ampliar</a>";
+                                                                                                                    echo "&nbsp;&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;&nbsp;";
+                                                                                                                    echo "<a download href='" . $intelimotor_picture . "'>Descargar</a>";
+                                                                                                                    echo "</span>";
+                                                                                                                    echo "</div>";
+                                                                                                                    echo "<div class='clearfix'></div>";
+                                                                                                                    echo "</div>";
+                                                                                                                }
+                                                                                                            ?>
+                                                                                                        </div>
+                                                                                                    </li>
+                                                                                                </ul>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+
+                                                                            <?php
+                                                                                $imagenes_BD = consulta($conexion, "SELECT * FROM imagen WHERE intelimotor_id = '" . $intelimotor_id . "'");
+
+                                                                                while ($imagen = obtenResultado($imagenes_BD)) {
+                                                                                    ?>
+                                                                                        <div class="row">
+                                                                                            <div class="col-sm-12">
+                                                                                                <div class="panel panel-success card-view">
+                                                                                                    <div class="panel-wrapper in">
+                                                                                                        <div class="panel-body">
+                                                                                                            <ul class="chat-list-wrap">
+                                                                                                                <li class="chat-list">
+                                                                                                                    <div class="chat-body">
+                                                                                                                        <?php
+                                                                                                                            echo "<div class='chat-data'>";
+                                                                                                                            //echo "<img class='user-img' src='" . $intelimotor_picture . "' style='height: 150px; width: 150px' />";
+                                                                                                                            echo "<img src='" . $imagen["imagen"] . "' style='float: left; margin-right: 25px; width: 150px' />";
+
+                                                                                                                            echo "<div class='user-data'>";
+                                                                                                                            echo "<span class='name block capitalize-font'>" . $imagen["imagen"] . "</span>";
+                                                                                                                            echo "<span class='time block txt-grey'>";
+                                                                                                                            echo "<a data-lightbox='imagen' href='" . $imagen["imagen"] . "'>Ampliar</a>";
+                                                                                                                            echo "&nbsp;&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;&nbsp;";
+                                                                                                                            echo "<a download href='" . $imagen["imagen"] . "'>Descargar</a>";
+                                                                                                                            echo "</span>";
+                                                                                                                            echo "</div>";
+                                                                                                                            echo "<div class='clearfix'></div>";
+                                                                                                                            echo "</div>";
+                                                                                                                        ?>
+                                                                                                                    </div>
+                                                                                                                </li>
+                                                                                                            </ul>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    <?php
+                                                                                }
+                                                                            ?>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="row mt-6">
+                                        <div class="col-md-8 col-sm-6" id="contenedor_botonesIzquierdos">
+                                            <div class="form-group">
+                                                <!--a class="btn btn-danger mb-3" href="javascript:void(0)" id="boton_eliminar">Eliminar</a-->
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-4 col-sm-6" id="contenedor_botonesDerechos">
+                                            <div class="form-group">
+                                                <?php if ($esUsuarioMaster || $esUsuarioAdministrador) { ?>
+                                                    <button class="btn btn-success mb-3" type="submit" id="boton_guardar">Guardar</button>
+                                                <?php } ?>
+                                                <a class="btn btn-default mb-3" href="javascript:void(0)" id="boton_cerrar">Cerrar</a>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </form>
                             </div>
-                        </form>
+                        </div>
+                    </div>
+                <?php
+                    } else {
+                        registraEvento("CMS : Consulta de vehículo bloqueada | id = " . $id);
+                        muestraBloqueo();
+                    }
+                ?>
 
-                        <!-- Formulario de retorno a pagina origen -->
-
-                        <form action="<?php echo $origen ?>" id="formulario_origen" method="post">
-                            <input name="esSubmit" type="hidden" value="1" />
-
-                            <input name="marca" type="hidden" value="<?php echo $origen_marca ?>" />
-                            <input name="ano" type="hidden" value="<?php echo $origen_ano ?>" />
-                            <input name="tipo" type="hidden" value="<?php echo $origen_tipo ?>" />
-                            <input name="transmision" type="hidden" value="<?php echo $origen_transmision ?>" />
-                            <input name="publicado" type="hidden" value="<?php echo $origen_publicado ?>" />
-                        </form>
-                    <?php
-                        } else {
-                            registraEvento("CMS : Consulta de vehículo bloqueada | id = " . $id);
-                            muestraBloqueo();
-                        }
-                    ?>
-
-                    <?php include("socialware/php/estructura/pieDePagina.php"); ?>
-                </div>
             </div>
         </div>
+
 
         <?php include("socialware/php/estructura/plugins.php"); ?>
 
