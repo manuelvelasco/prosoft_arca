@@ -82,6 +82,7 @@ div.dt-button-collection .dt-button{
     padding: 8px;
 }
 
+
 /* Elimina spinner de inputs de tipo number */
 
 input::-webkit-outer-spin-button,
@@ -93,4 +94,22 @@ input::-webkit-inner-spin-button {
 
 input[type=number] {
     -moz-appearance: textfield; /* Firefox */
+}
+
+@media only screen and (max-width: 1024px) {
+    .zonaCaracteristicas label.form-label{
+        font-size: 12px;
+    }
+    .zonaDestacados .card-body div.mb-20{
+        height: 55px;
+    }
+    .zonaDestacados label.form-label{
+        font-size: 12px;
+    }
+}
+
+@media only screen and (max-width: 425px) {
+     .mb-20{
+        margin-top: 15px;
+    }
 }

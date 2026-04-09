@@ -2577,7 +2577,7 @@ error_log("\nAdición", 3, $rutaLog);
                                                     <hr />
 
                                                     <div class="row">
-                                                        <div class="col-md-4 col-sm-6 col-xs-12">
+                                                        <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
                                                             <div class="row">
                                                                 <div class="col-12">
                                                                     <div class="row mb-12">
@@ -2589,7 +2589,7 @@ error_log("\nAdición", 3, $rutaLog);
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="col-md-4 col-sm-6 col-xs-12">
+                                                        <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
                                                             <div class="row">
                                                                 <div class="col-12">
                                                                     <div class="row mb-12">
@@ -2604,7 +2604,7 @@ error_log("\nAdición", 3, $rutaLog);
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="col-md-4 col-sm-6 col-xs-12">
+                                                        <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
                                                             <div class="row">
                                                                 <div class="col-12">
                                                                     <div class="row mb-12">
@@ -2694,7 +2694,7 @@ error_log("\nAdición", 3, $rutaLog);
 
                                                     <hr />
 
-                                                    <div class="col-md-4 col-sm-6 col-xs-12">
+                                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
                                                         <div class="row">
                                                             <div class="col-12">
                                                                 <div class="row mb-12">
@@ -2716,7 +2716,7 @@ error_log("\nAdición", 3, $rutaLog);
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-20">
                                                         <div class="row">
                                                             <div class="col-12">
                                                                 <div class="row mb-12">
@@ -2731,7 +2731,7 @@ error_log("\nAdición", 3, $rutaLog);
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-20">
                                                         <div class="row">
                                                             <div class="col-12">
                                                                 <div class="row mb-12">
@@ -2746,7 +2746,7 @@ error_log("\nAdición", 3, $rutaLog);
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-20">
                                                         <div class="row">
                                                             <div class="col-12">
                                                                 <div class="row mb-12">
@@ -2761,7 +2761,7 @@ error_log("\nAdición", 3, $rutaLog);
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-20">
                                                         <div class="row">
                                                             <div class="col-12">
                                                                 <div class="row mb-12">
@@ -2780,7 +2780,7 @@ error_log("\nAdición", 3, $rutaLog);
                                         </div>
                                     </div>
 
-                                    <div class="row <?php echo $tieneHabilitadoIntelimotor == 1 ? "oculta_campos" : ""; ?>">
+                                    <div class="zonaCaracteristicas row <?php echo $tieneHabilitadoIntelimotor == 1 ? "oculta_campos" : ""; ?>">
                                         <div class="col-12">
                                             <div class="card">
                                                 <div class="card-body">
@@ -2789,7 +2789,7 @@ error_log("\nAdición", 3, $rutaLog);
 
                                                     <hr />
 
-                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-20">
                                                         <div class="row">
                                                             <div class="col-12">
                                                                 <div class="row mb-12">
@@ -2802,7 +2802,7 @@ error_log("\nAdición", 3, $rutaLog);
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-20">
                                                         <div class="row">
                                                             <div class="col-12">
                                                                 <div class="row mb-12">
@@ -2824,7 +2824,7 @@ error_log("\nAdición", 3, $rutaLog);
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-20">
                                                         <div class="row">
                                                             <div class="col-12">
                                                                 <div class="row mb-12">
@@ -2837,7 +2837,7 @@ error_log("\nAdición", 3, $rutaLog);
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-20">
                                                         <div class="row">
                                                             <div class="col-12">
                                                                 <div class="row mb-12">
@@ -2850,7 +2850,7 @@ error_log("\nAdición", 3, $rutaLog);
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-20">
                                                         <div class="row">
                                                             <div class="col-12">
                                                                 <div class="row mb-12">
@@ -2872,7 +2872,7 @@ error_log("\nAdición", 3, $rutaLog);
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-20">
                                                         <div class="row">
                                                             <div class="col-12">
                                                                 <div class="row mb-12">
@@ -2885,7 +2885,7 @@ error_log("\nAdición", 3, $rutaLog);
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-20">
                                                         <div class="row">
                                                             <div class="col-12">
                                                                 <div class="row mb-12">
@@ -2898,7 +2898,7 @@ error_log("\nAdición", 3, $rutaLog);
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-20">
                                                         <div class="row">
                                                             <div class="col-12">
                                                                 <div class="row mb-12">
@@ -2911,7 +2911,7 @@ error_log("\nAdición", 3, $rutaLog);
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-20">
                                                         <div class="row">
                                                             <div class="col-12">
                                                                 <div class="row mb-12">
@@ -2924,7 +2924,7 @@ error_log("\nAdición", 3, $rutaLog);
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-20">
                                                         <div class="row">
                                                             <div class="col-12">
                                                                 <div class="row mb-12">
@@ -2937,7 +2937,7 @@ error_log("\nAdición", 3, $rutaLog);
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-20">
                                                         <div class="row">
                                                             <div class="col-12">
                                                                 <div class="row mb-12">
@@ -2950,7 +2950,7 @@ error_log("\nAdición", 3, $rutaLog);
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-20">
                                                         <div class="row">
                                                             <div class="col-12">
                                                                 <div class="row mb-12">
@@ -2963,7 +2963,7 @@ error_log("\nAdición", 3, $rutaLog);
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-20">
                                                         <div class="row">
                                                             <div class="col-12">
                                                                 <div class="row mb-12">
@@ -2981,7 +2981,7 @@ error_log("\nAdición", 3, $rutaLog);
                                         </div>
                                     </div>
 
-                                    <div class="row <?php echo $tieneHabilitadoIntelimotor == 1 ? "oculta_campos" : ""; ?>">
+                                    <div class="row zonaDestacados <?php echo $tieneHabilitadoIntelimotor == 1 ? "oculta_campos" : ""; ?>">
                                         <div class="col-12">
                                             <div class="card">
                                                 <div class="card-body">
@@ -2990,7 +2990,7 @@ error_log("\nAdición", 3, $rutaLog);
 
                                                     <hr />
 
-                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-20">
                                                         <div class="row">
                                                             <div class="col-12">
                                                                 <div class="row mb-12">
@@ -3006,7 +3006,7 @@ error_log("\nAdición", 3, $rutaLog);
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-20">
                                                         <div class="row">
                                                             <div class="col-12">
                                                                 <div class="row mb-12">
@@ -3022,7 +3022,7 @@ error_log("\nAdición", 3, $rutaLog);
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-20">
                                                         <div class="row">
                                                             <div class="col-12">
                                                                 <div class="row mb-12">
@@ -3038,7 +3038,7 @@ error_log("\nAdición", 3, $rutaLog);
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-20">
                                                         <div class="row">
                                                             <div class="col-12">
                                                                 <div class="row mb-12">
@@ -3054,7 +3054,7 @@ error_log("\nAdición", 3, $rutaLog);
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-20">
                                                         <div class="row">
                                                             <div class="col-12">
                                                                 <div class="row mb-12">
@@ -3070,7 +3070,7 @@ error_log("\nAdición", 3, $rutaLog);
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-20">
                                                         <div class="row">
                                                             <div class="col-12">
                                                                 <div class="row mb-12">
@@ -3086,7 +3086,7 @@ error_log("\nAdición", 3, $rutaLog);
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-20">
                                                         <div class="row">
                                                             <div class="col-12">
                                                                 <div class="row mb-12">
@@ -3102,7 +3102,7 @@ error_log("\nAdición", 3, $rutaLog);
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-20">
                                                         <div class="row">
                                                             <div class="col-12">
                                                                 <div class="row mb-12">
@@ -3118,7 +3118,7 @@ error_log("\nAdición", 3, $rutaLog);
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-20">
                                                         <div class="row">
                                                             <div class="col-12">
                                                                 <div class="row mb-12">
@@ -3134,7 +3134,7 @@ error_log("\nAdición", 3, $rutaLog);
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-20">
                                                         <div class="row">
                                                             <div class="col-12">
                                                                 <div class="row mb-12">
@@ -3150,7 +3150,7 @@ error_log("\nAdición", 3, $rutaLog);
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-20">
                                                         <div class="row">
                                                             <div class="col-12">
                                                                 <div class="row mb-12">
@@ -3166,7 +3166,7 @@ error_log("\nAdición", 3, $rutaLog);
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-20">
                                                         <div class="row">
                                                             <div class="col-12">
                                                                 <div class="row mb-12">
@@ -3182,7 +3182,7 @@ error_log("\nAdición", 3, $rutaLog);
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-20">
                                                         <div class="row">
                                                             <div class="col-12">
                                                                 <div class="row mb-12">
@@ -3198,7 +3198,7 @@ error_log("\nAdición", 3, $rutaLog);
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-20">
                                                         <div class="row">
                                                             <div class="col-12">
                                                                 <div class="row mb-12">
@@ -3214,7 +3214,7 @@ error_log("\nAdición", 3, $rutaLog);
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-20">
                                                         <div class="row">
                                                             <div class="col-12">
                                                                 <div class="row mb-12">
@@ -3230,7 +3230,7 @@ error_log("\nAdición", 3, $rutaLog);
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-20">
                                                         <div class="row">
                                                             <div class="col-12">
                                                                 <div class="row mb-12">
@@ -3246,7 +3246,7 @@ error_log("\nAdición", 3, $rutaLog);
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-20">
                                                         <div class="row">
                                                             <div class="col-12">
                                                                 <div class="row mb-12">
@@ -3262,7 +3262,7 @@ error_log("\nAdición", 3, $rutaLog);
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-20">
                                                         <div class="row">
                                                             <div class="col-12">
                                                                 <div class="row mb-12">
@@ -3278,7 +3278,7 @@ error_log("\nAdición", 3, $rutaLog);
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-20">
                                                         <div class="row">
                                                             <div class="col-12">
                                                                 <div class="row mb-12">
@@ -3294,7 +3294,7 @@ error_log("\nAdición", 3, $rutaLog);
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-20">
                                                         <div class="row">
                                                             <div class="col-12">
                                                                 <div class="row mb-12">
@@ -3310,7 +3310,7 @@ error_log("\nAdición", 3, $rutaLog);
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-20">
                                                         <div class="row">
                                                             <div class="col-12">
                                                                 <div class="row mb-12">
@@ -3326,7 +3326,7 @@ error_log("\nAdición", 3, $rutaLog);
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-20">
                                                         <div class="row">
                                                             <div class="col-12">
                                                                 <div class="row mb-12">
@@ -3342,7 +3342,7 @@ error_log("\nAdición", 3, $rutaLog);
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-20">
                                                         <div class="row">
                                                             <div class="col-12">
                                                                 <div class="row mb-12">
@@ -3358,7 +3358,7 @@ error_log("\nAdición", 3, $rutaLog);
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-20">
                                                         <div class="row">
                                                             <div class="col-12">
                                                                 <div class="row mb-12">
@@ -3374,7 +3374,7 @@ error_log("\nAdición", 3, $rutaLog);
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-20">
                                                         <div class="row">
                                                             <div class="col-12">
                                                                 <div class="row mb-12">
@@ -3390,7 +3390,7 @@ error_log("\nAdición", 3, $rutaLog);
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-20">
                                                         <div class="row">
                                                             <div class="col-12">
                                                                 <div class="row mb-12">
@@ -3406,7 +3406,7 @@ error_log("\nAdición", 3, $rutaLog);
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-20">
                                                         <div class="row">
                                                             <div class="col-12">
                                                                 <div class="row mb-12">
@@ -3422,7 +3422,7 @@ error_log("\nAdición", 3, $rutaLog);
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-20">
                                                         <div class="row">
                                                             <div class="col-12">
                                                                 <div class="row mb-12">
@@ -3438,7 +3438,7 @@ error_log("\nAdición", 3, $rutaLog);
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-20">
                                                         <div class="row">
                                                             <div class="col-12">
                                                                 <div class="row mb-12">
@@ -3454,7 +3454,7 @@ error_log("\nAdición", 3, $rutaLog);
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-20">
                                                         <div class="row">
                                                             <div class="col-12">
                                                                 <div class="row mb-12">
@@ -3470,7 +3470,7 @@ error_log("\nAdición", 3, $rutaLog);
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-20">
                                                         <div class="row">
                                                             <div class="col-12">
                                                                 <div class="row mb-12">
@@ -3486,7 +3486,7 @@ error_log("\nAdición", 3, $rutaLog);
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-20">
                                                         <div class="row">
                                                             <div class="col-12">
                                                                 <div class="row mb-12">
@@ -3502,7 +3502,7 @@ error_log("\nAdición", 3, $rutaLog);
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-20">
                                                         <div class="row">
                                                             <div class="col-12">
                                                                 <div class="row mb-12">
@@ -3518,7 +3518,7 @@ error_log("\nAdición", 3, $rutaLog);
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-20">
                                                         <div class="row">
                                                             <div class="col-12">
                                                                 <div class="row mb-12">
@@ -3534,7 +3534,7 @@ error_log("\nAdición", 3, $rutaLog);
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-20">
                                                         <div class="row">
                                                             <div class="col-12">
                                                                 <div class="row mb-12">
@@ -3550,7 +3550,7 @@ error_log("\nAdición", 3, $rutaLog);
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-20">
                                                         <div class="row">
                                                             <div class="col-12">
                                                                 <div class="row mb-12">
@@ -3566,7 +3566,7 @@ error_log("\nAdición", 3, $rutaLog);
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-20">
                                                         <div class="row">
                                                             <div class="col-12">
                                                                 <div class="row mb-12">
@@ -3582,7 +3582,7 @@ error_log("\nAdición", 3, $rutaLog);
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-20">
                                                         <div class="row">
                                                             <div class="col-12">
                                                                 <div class="row mb-12">
@@ -3598,7 +3598,7 @@ error_log("\nAdición", 3, $rutaLog);
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-20">
                                                         <div class="row">
                                                             <div class="col-12">
                                                                 <div class="row mb-12">
@@ -3614,7 +3614,7 @@ error_log("\nAdición", 3, $rutaLog);
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-20">
                                                         <div class="row">
                                                             <div class="col-12">
                                                                 <div class="row mb-12">
@@ -3630,7 +3630,7 @@ error_log("\nAdición", 3, $rutaLog);
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-20">
                                                         <div class="row">
                                                             <div class="col-12">
                                                                 <div class="row mb-12">
@@ -3646,7 +3646,7 @@ error_log("\nAdición", 3, $rutaLog);
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-20">
                                                         <div class="row">
                                                             <div class="col-12">
                                                                 <div class="row mb-12">
@@ -3662,7 +3662,7 @@ error_log("\nAdición", 3, $rutaLog);
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-20">
                                                         <div class="row">
                                                             <div class="col-12">
                                                                 <div class="row mb-12">
@@ -3678,7 +3678,7 @@ error_log("\nAdición", 3, $rutaLog);
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-20">
                                                         <div class="row">
                                                             <div class="col-12">
                                                                 <div class="row mb-12">
@@ -3694,7 +3694,7 @@ error_log("\nAdición", 3, $rutaLog);
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-20">
                                                         <div class="row">
                                                             <div class="col-12">
                                                                 <div class="row mb-12">
@@ -3710,7 +3710,7 @@ error_log("\nAdición", 3, $rutaLog);
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-20">
                                                         <div class="row">
                                                             <div class="col-12">
                                                                 <div class="row mb-12">
@@ -3726,7 +3726,7 @@ error_log("\nAdición", 3, $rutaLog);
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-20">
                                                         <div class="row">
                                                             <div class="col-12">
                                                                 <div class="row mb-12">
@@ -3742,7 +3742,7 @@ error_log("\nAdición", 3, $rutaLog);
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-20">
                                                         <div class="row">
                                                             <div class="col-12">
                                                                 <div class="row mb-12">
@@ -3758,7 +3758,7 @@ error_log("\nAdición", 3, $rutaLog);
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-20">
                                                         <div class="row">
                                                             <div class="col-12">
                                                                 <div class="row mb-12">
@@ -3774,7 +3774,7 @@ error_log("\nAdición", 3, $rutaLog);
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-20">
                                                         <div class="row">
                                                             <div class="col-12">
                                                                 <div class="row mb-12">
@@ -3790,7 +3790,7 @@ error_log("\nAdición", 3, $rutaLog);
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-20">
                                                         <div class="row">
                                                             <div class="col-12">
                                                                 <div class="row mb-12">
@@ -3806,7 +3806,7 @@ error_log("\nAdición", 3, $rutaLog);
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-20">
                                                         <div class="row">
                                                             <div class="col-12">
                                                                 <div class="row mb-12">
@@ -3822,7 +3822,7 @@ error_log("\nAdición", 3, $rutaLog);
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-20">
                                                         <div class="row">
                                                             <div class="col-12">
                                                                 <div class="row mb-12">
@@ -3838,7 +3838,7 @@ error_log("\nAdición", 3, $rutaLog);
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-20">
                                                         <div class="row">
                                                             <div class="col-12">
                                                                 <div class="row mb-12">
@@ -3854,7 +3854,7 @@ error_log("\nAdición", 3, $rutaLog);
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-20">
                                                         <div class="row">
                                                             <div class="col-12">
                                                                 <div class="row mb-12">
@@ -3870,7 +3870,7 @@ error_log("\nAdición", 3, $rutaLog);
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-20">
                                                         <div class="row">
                                                             <div class="col-12">
                                                                 <div class="row mb-12">
@@ -3886,7 +3886,7 @@ error_log("\nAdición", 3, $rutaLog);
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-20">
                                                         <div class="row">
                                                             <div class="col-12">
                                                                 <div class="row mb-12">
@@ -3902,7 +3902,7 @@ error_log("\nAdición", 3, $rutaLog);
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-20">
                                                         <div class="row">
                                                             <div class="col-12">
                                                                 <div class="row mb-12">
@@ -3918,7 +3918,7 @@ error_log("\nAdición", 3, $rutaLog);
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-20">
                                                         <div class="row">
                                                             <div class="col-12">
                                                                 <div class="row mb-12">
@@ -3934,7 +3934,7 @@ error_log("\nAdición", 3, $rutaLog);
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-20">
                                                         <div class="row">
                                                             <div class="col-12">
                                                                 <div class="row mb-12">
@@ -4151,7 +4151,7 @@ error_log("\nAdición", 3, $rutaLog);
 
                                                     <hr />
 
-                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-20">
                                                         <div class="row">
                                                             <div class="col-12">
                                                                 <div class="row mb-12">
@@ -4164,7 +4164,7 @@ error_log("\nAdición", 3, $rutaLog);
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-20">
                                                         <div class="row">
                                                             <div class="col-12">
                                                                 <div class="row mb-12">
@@ -4177,7 +4177,7 @@ error_log("\nAdición", 3, $rutaLog);
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-20">
                                                         <div class="row">
                                                             <div class="col-12">
                                                                 <div class="row mb-12">
@@ -4190,7 +4190,7 @@ error_log("\nAdición", 3, $rutaLog);
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-20">
                                                         <div class="row">
                                                             <div class="col-12">
                                                                 <div class="row mb-12">
@@ -4203,7 +4203,7 @@ error_log("\nAdición", 3, $rutaLog);
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-20">
                                                         <div class="row">
                                                             <div class="col-12">
                                                                 <div class="row mb-12">
@@ -4216,7 +4216,7 @@ error_log("\nAdición", 3, $rutaLog);
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-20">
                                                         <div class="row">
                                                             <div class="col-12">
                                                                 <div class="row mb-12">
@@ -4229,7 +4229,7 @@ error_log("\nAdición", 3, $rutaLog);
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-20">
                                                         <div class="row">
                                                             <div class="col-12">
                                                                 <div class="row mb-12">
@@ -4242,7 +4242,7 @@ error_log("\nAdición", 3, $rutaLog);
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-20">
                                                         <div class="row">
                                                             <div class="col-12">
                                                                 <div class="row mb-12">
@@ -4255,7 +4255,7 @@ error_log("\nAdición", 3, $rutaLog);
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-20">
                                                         <div class="row">
                                                             <div class="col-12">
                                                                 <div class="row mb-12">
@@ -4268,7 +4268,7 @@ error_log("\nAdición", 3, $rutaLog);
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-20">
                                                         <div class="row">
                                                             <div class="col-12">
                                                                 <div class="row mb-12">
@@ -4281,7 +4281,7 @@ error_log("\nAdición", 3, $rutaLog);
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-20">
                                                         <div class="row">
                                                             <div class="col-12">
                                                                 <div class="row mb-12">
@@ -4294,7 +4294,7 @@ error_log("\nAdición", 3, $rutaLog);
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-20">
                                                         <div class="row">
                                                             <div class="col-12">
                                                                 <div class="row mb-12">
@@ -4307,7 +4307,7 @@ error_log("\nAdición", 3, $rutaLog);
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-20">
                                                         <div class="row">
                                                             <div class="col-12">
                                                                 <div class="row mb-12">
@@ -4320,7 +4320,7 @@ error_log("\nAdición", 3, $rutaLog);
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-20">
                                                         <div class="row">
                                                             <div class="col-12">
                                                                 <div class="row mb-12">
@@ -4333,7 +4333,7 @@ error_log("\nAdición", 3, $rutaLog);
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-20">
                                                         <div class="row">
                                                             <div class="col-12">
                                                                 <div class="row mb-12">
@@ -4346,7 +4346,7 @@ error_log("\nAdición", 3, $rutaLog);
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-20">
                                                         <div class="row">
                                                             <div class="col-12">
                                                                 <div class="row mb-12">
@@ -4359,7 +4359,7 @@ error_log("\nAdición", 3, $rutaLog);
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-20">
                                                         <div class="row">
                                                             <div class="col-12">
                                                                 <div class="row mb-12">
@@ -4372,7 +4372,7 @@ error_log("\nAdición", 3, $rutaLog);
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-20">
                                                         <div class="row">
                                                             <div class="col-12">
                                                                 <div class="row mb-12">
@@ -4385,7 +4385,7 @@ error_log("\nAdición", 3, $rutaLog);
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-20">
                                                         <div class="row">
                                                             <div class="col-12">
                                                                 <div class="row mb-12">
@@ -4401,7 +4401,7 @@ error_log("\nAdición", 3, $rutaLog);
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-20">
                                                         <div class="row">
                                                             <div class="col-12">
                                                                 <div class="row mb-12">
@@ -4417,7 +4417,7 @@ error_log("\nAdición", 3, $rutaLog);
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-20">
                                                         <div class="row">
                                                             <div class="col-12">
                                                                 <div class="row mb-12">
@@ -4433,7 +4433,7 @@ error_log("\nAdición", 3, $rutaLog);
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-20">
                                                         <div class="row">
                                                             <div class="col-12">
                                                                 <div class="row mb-12">
@@ -4449,7 +4449,7 @@ error_log("\nAdición", 3, $rutaLog);
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-20">
                                                         <div class="row">
                                                             <div class="col-12">
                                                                 <div class="row mb-12">
@@ -4465,7 +4465,7 @@ error_log("\nAdición", 3, $rutaLog);
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-20">
                                                         <div class="row">
                                                             <div class="col-12">
                                                                 <div class="row mb-12">
@@ -4481,7 +4481,7 @@ error_log("\nAdición", 3, $rutaLog);
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-20">
                                                         <div class="row">
                                                             <div class="col-12">
                                                                 <div class="row mb-12">
@@ -4497,7 +4497,7 @@ error_log("\nAdición", 3, $rutaLog);
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-20">
                                                         <div class="row">
                                                             <div class="col-12">
                                                                 <div class="row mb-12">
@@ -4513,7 +4513,7 @@ error_log("\nAdición", 3, $rutaLog);
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-20">
                                                         <div class="row">
                                                             <div class="col-12">
                                                                 <div class="row mb-12">
@@ -4529,7 +4529,7 @@ error_log("\nAdición", 3, $rutaLog);
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-20">
                                                         <div class="row">
                                                             <div class="col-12">
                                                                 <div class="row mb-12">
@@ -4545,7 +4545,7 @@ error_log("\nAdición", 3, $rutaLog);
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-20">
                                                         <div class="row">
                                                             <div class="col-12">
                                                                 <div class="row mb-12">
@@ -4561,7 +4561,7 @@ error_log("\nAdición", 3, $rutaLog);
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-20">
                                                         <div class="row">
                                                             <div class="col-12">
                                                                 <div class="row mb-12">
@@ -4577,7 +4577,7 @@ error_log("\nAdición", 3, $rutaLog);
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-20">
                                                         <div class="row">
                                                             <div class="col-12">
                                                                 <div class="row mb-12">
@@ -4593,7 +4593,7 @@ error_log("\nAdición", 3, $rutaLog);
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-20">
                                                         <div class="row">
                                                             <div class="col-12">
                                                                 <div class="row mb-12">
@@ -4609,7 +4609,7 @@ error_log("\nAdición", 3, $rutaLog);
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-20">
                                                         <div class="row">
                                                             <div class="col-12">
                                                                 <div class="row mb-12">
@@ -4625,7 +4625,7 @@ error_log("\nAdición", 3, $rutaLog);
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-20">
                                                         <div class="row">
                                                             <div class="col-12">
                                                                 <div class="row mb-12">
@@ -4641,7 +4641,7 @@ error_log("\nAdición", 3, $rutaLog);
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-20">
                                                         <div class="row">
                                                             <div class="col-12">
                                                                 <div class="row mb-12">
@@ -4657,7 +4657,7 @@ error_log("\nAdición", 3, $rutaLog);
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-20">
                                                         <div class="row">
                                                             <div class="col-12">
                                                                 <div class="row mb-12">
@@ -4673,7 +4673,7 @@ error_log("\nAdición", 3, $rutaLog);
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-20">
                                                         <div class="row">
                                                             <div class="col-12">
                                                                 <div class="row mb-12">
@@ -4689,7 +4689,7 @@ error_log("\nAdición", 3, $rutaLog);
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-20">
                                                         <div class="row">
                                                             <div class="col-12">
                                                                 <div class="row mb-12">
@@ -4705,7 +4705,7 @@ error_log("\nAdición", 3, $rutaLog);
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-20">
                                                         <div class="row">
                                                             <div class="col-12">
                                                                 <div class="row mb-12">
@@ -4721,7 +4721,7 @@ error_log("\nAdición", 3, $rutaLog);
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-20">
                                                         <div class="row">
                                                             <div class="col-12">
                                                                 <div class="row mb-12">
@@ -4737,7 +4737,7 @@ error_log("\nAdición", 3, $rutaLog);
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-20">
                                                         <div class="row">
                                                             <div class="col-12">
                                                                 <div class="row mb-12">
@@ -4753,7 +4753,7 @@ error_log("\nAdición", 3, $rutaLog);
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-20">
                                                         <div class="row">
                                                             <div class="col-12">
                                                                 <div class="row mb-12">
@@ -4769,7 +4769,7 @@ error_log("\nAdición", 3, $rutaLog);
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-20">
                                                         <div class="row">
                                                             <div class="col-12">
                                                                 <div class="row mb-12">
@@ -4785,7 +4785,7 @@ error_log("\nAdición", 3, $rutaLog);
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-20">
                                                         <div class="row">
                                                             <div class="col-12">
                                                                 <div class="row mb-12">
@@ -4801,7 +4801,7 @@ error_log("\nAdición", 3, $rutaLog);
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-20">
                                                         <div class="row">
                                                             <div class="col-12">
                                                                 <div class="row mb-12">
@@ -4817,7 +4817,7 @@ error_log("\nAdición", 3, $rutaLog);
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-20">
                                                         <div class="row">
                                                             <div class="col-12">
                                                                 <div class="row mb-12">
@@ -4833,7 +4833,7 @@ error_log("\nAdición", 3, $rutaLog);
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-20">
                                                         <div class="row">
                                                             <div class="col-12">
                                                                 <div class="row mb-12">
@@ -4849,7 +4849,7 @@ error_log("\nAdición", 3, $rutaLog);
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-20">
                                                         <div class="row">
                                                             <div class="col-12">
                                                                 <div class="row mb-12">
@@ -4865,7 +4865,7 @@ error_log("\nAdición", 3, $rutaLog);
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-20">
                                                         <div class="row">
                                                             <div class="col-12">
                                                                 <div class="row mb-12">
@@ -4881,7 +4881,7 @@ error_log("\nAdición", 3, $rutaLog);
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-20">
                                                         <div class="row">
                                                             <div class="col-12">
                                                                 <div class="row mb-12">
@@ -4897,7 +4897,7 @@ error_log("\nAdición", 3, $rutaLog);
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-20">
                                                         <div class="row">
                                                             <div class="col-12">
                                                                 <div class="row mb-12">
@@ -4913,7 +4913,7 @@ error_log("\nAdición", 3, $rutaLog);
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-20">
                                                         <div class="row">
                                                             <div class="col-12">
                                                                 <div class="row mb-12">
@@ -4929,7 +4929,7 @@ error_log("\nAdición", 3, $rutaLog);
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-20">
                                                         <div class="row">
                                                             <div class="col-12">
                                                                 <div class="row mb-12">
@@ -4945,7 +4945,7 @@ error_log("\nAdición", 3, $rutaLog);
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-20">
                                                         <div class="row">
                                                             <div class="col-12">
                                                                 <div class="row mb-12">
@@ -4961,7 +4961,7 @@ error_log("\nAdición", 3, $rutaLog);
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-20">
                                                         <div class="row">
                                                             <div class="col-12">
                                                                 <div class="row mb-12">
@@ -4977,7 +4977,7 @@ error_log("\nAdición", 3, $rutaLog);
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-20">
                                                         <div class="row">
                                                             <div class="col-12">
                                                                 <div class="row mb-12">
@@ -4993,7 +4993,7 @@ error_log("\nAdición", 3, $rutaLog);
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-20">
                                                         <div class="row">
                                                             <div class="col-12">
                                                                 <div class="row mb-12">
@@ -5009,7 +5009,7 @@ error_log("\nAdición", 3, $rutaLog);
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-20">
                                                         <div class="row">
                                                             <div class="col-12">
                                                                 <div class="row mb-12">
@@ -5025,7 +5025,7 @@ error_log("\nAdición", 3, $rutaLog);
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-20">
                                                         <div class="row">
                                                             <div class="col-12">
                                                                 <div class="row mb-12">
@@ -5041,7 +5041,7 @@ error_log("\nAdición", 3, $rutaLog);
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-20">
                                                         <div class="row">
                                                             <div class="col-12">
                                                                 <div class="row mb-12">
@@ -5057,7 +5057,7 @@ error_log("\nAdición", 3, $rutaLog);
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-20">
                                                         <div class="row">
                                                             <div class="col-12">
                                                                 <div class="row mb-12">
@@ -5073,7 +5073,7 @@ error_log("\nAdición", 3, $rutaLog);
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-20">
                                                         <div class="row">
                                                             <div class="col-12">
                                                                 <div class="row mb-12">
@@ -5089,7 +5089,7 @@ error_log("\nAdición", 3, $rutaLog);
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-20">
                                                         <div class="row">
                                                             <div class="col-12">
                                                                 <div class="row mb-12">
@@ -5105,7 +5105,7 @@ error_log("\nAdición", 3, $rutaLog);
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-20">
                                                         <div class="row">
                                                             <div class="col-12">
                                                                 <div class="row mb-12">
@@ -5121,7 +5121,7 @@ error_log("\nAdición", 3, $rutaLog);
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-20">
                                                         <div class="row">
                                                             <div class="col-12">
                                                                 <div class="row mb-12">
@@ -5137,7 +5137,7 @@ error_log("\nAdición", 3, $rutaLog);
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-20">
                                                         <div class="row">
                                                             <div class="col-12">
                                                                 <div class="row mb-12">
@@ -5153,7 +5153,7 @@ error_log("\nAdición", 3, $rutaLog);
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-20">
                                                         <div class="row">
                                                             <div class="col-12">
                                                                 <div class="row mb-12">
@@ -5169,7 +5169,7 @@ error_log("\nAdición", 3, $rutaLog);
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-20">
                                                         <div class="row">
                                                             <div class="col-12">
                                                                 <div class="row mb-12">
@@ -5185,7 +5185,7 @@ error_log("\nAdición", 3, $rutaLog);
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-20">
                                                         <div class="row">
                                                             <div class="col-12">
                                                                 <div class="row mb-12">
@@ -5201,7 +5201,7 @@ error_log("\nAdición", 3, $rutaLog);
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-20">
                                                         <div class="row">
                                                             <div class="col-12">
                                                                 <div class="row mb-12">
@@ -5217,7 +5217,7 @@ error_log("\nAdición", 3, $rutaLog);
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-20">
                                                         <div class="row">
                                                             <div class="col-12">
                                                                 <div class="row mb-12">
@@ -5233,7 +5233,7 @@ error_log("\nAdición", 3, $rutaLog);
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-20">
                                                         <div class="row">
                                                             <div class="col-12">
                                                                 <div class="row mb-12">
@@ -5249,7 +5249,7 @@ error_log("\nAdición", 3, $rutaLog);
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-20">
+                                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-20">
                                                         <div class="row">
                                                             <div class="col-12">
                                                                 <div class="row mb-12">
