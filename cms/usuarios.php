@@ -11,6 +11,15 @@
         <?php include("socialware/php/comunes/funciones.php"); ?>
 
         <?php include("socialware/php/estructura/head.php"); ?>
+
+        <?php
+
+            // Obtiene parametros de request
+
+            $esSubmit = "1";
+            $idConcesionario = sanitiza($conexion, filter_input(INPUT_POST, "idConcesionario"));
+            $rol = sanitiza($conexion, filter_input(INPUT_POST, "rol"));
+        ?>
     </head>
 
 
@@ -67,6 +76,95 @@
                                     </div>
                                 </div>
 
+                                <!-- Filtros -->
+
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <h5><strong>Utilice los filtros para detallar su búsqueda</strong></h5>
+
+                                                <hr />
+
+                                                <form action="usuarios.php" method="post">
+                                                    <input name="esSubmit" type="hidden" value="1" />
+
+                                                    <div class="row">
+                                                        <div class="col-md-4 col-sm-6 col-xs-12">
+                                                            <div class="row">
+                                                                <div class="col-12">
+                                                                    <div class="row mb-12">
+                                                                        <label class="form-label col-md-3" for="campo_idConcesionario">Agencia</label>
+                                                                        <div class="col-md-9">
+                                                                            <select class="form-control select2-show-search form-select" data-placeholder="Ver todo" id="campo_idConcesionario" name="idConcesionario">
+                                                                                <option <?php echo estaVacio($idConcesionario) ? "selected" : "" ?> value="">Ver todo</option>
+
+                                                                                <?php
+                                                                                        
+                                                                                    if ($esUsuarioMaster || $esUsuarioAdministrador) {
+                                                                                        
+                                                                                        $concesionarios_BD = consulta($conexion, "SELECT * FROM concesionario ORDER BY nombreComercial");
+
+                                                                                    }else{
+
+                                                                                        $concesionarios_BD = consulta($conexion, "SELECT * FROM concesionario c WHERE c.id = " . $usuario_idConcesionario. " ORDER BY nombreComercial");
+                                                                                        $concesionario = $usuario_idConcesionario;
+
+                                                                                    }
+
+                                                                                    while ($concesionario_BD = obtenResultado($concesionarios_BD)) {
+                                                                                        echo "<option " . ($concesionario_BD["id"] == $idConcesionario ? "selected" : "") . " value='" . $concesionario_BD["id"] . "'>" . $concesionario_BD["nombreComercial"] . "</option>";
+                                                                                    }
+                                                                                ?>
+                                                                            </select>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-4 col-sm-6 col-xs-12">
+                                                            <div class="row">
+                                                                <div class="col-12">
+                                                                    <div class="row mb-12">
+                                                                        <label class="form-label col-md-4" for="campo_rol">Rol</label>
+                                                                        <div class="col-md-8">
+                                                                            <select class="form-control select2-show-search form-select" data-placeholder="Ver todo" id="campo_rol" name="rol">
+                                                                                <option <?php echo estaVacio($rol) ? "selected" : "" ?> value="">Ver todo</option>
+
+                                                                                <?php
+                                                                                    $roles_BD = consulta($conexion, "SELECT DISTINCT rol FROM usuario u WHERE u.rol != 'Master' ORDER BY rol");
+
+                                                                                    while ($rol_BD = obtenResultado($roles_BD)) {
+                                                                                        echo "<option " . ($rol_BD["rol"] == $rol ? "selected" : "") . " value='" . $rol_BD["rol"] . "'>" . $rol_BD["rol"] . "</option>";
+                                                                                    }
+                                                                                ?>
+                                                                            </select>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-4 col-sm-6 col-xs-12">
+                                                            <div class="row">
+                                                                <div class="col-12">
+                                                                    <div class="row mb-12">
+                                                                        <div class="col-md-3">
+                                                                            <button class="btn btn-success mb-3" type="submit" id="boton_consultar">Consultar</button>
+                                                                        </div>
+                                                                        <div class="col-md-3">
+                                                                            <button class="btn btn-info mb-3" type="button" id="boton_limpiarFiltros">Limpiar filtros</button>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
                                 <div class="row row-sm">
                                     <div class="col-lg-12">
                                         <div class="card">
@@ -95,6 +193,14 @@
                                                                     // Arma restricciones
 
                                                                     $restricciones = "";
+
+                                                                    if (!estaVacio($rol)) {
+                                                                        $restricciones .= " AND u.rol = '" . $rol ."'";
+                                                                    }
+
+                                                                    if (!estaVacio($idConcesionario)) {
+                                                                        $restricciones .= " AND u.idConcesionario = '" . $idConcesionario ."'";
+                                                                    }
 
                                                                     // Consulta base de datos
 
@@ -252,6 +358,11 @@
                 } else {
                     habilitaUsuario(id, "1");
                 }
+            });
+
+            $("#boton_limpiarFiltros").click(function(){
+                $("#campo_idConcesionario").val('').trigger('change');
+                $("#campo_rol").val('').trigger('change');
             });
 
 
