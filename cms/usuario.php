@@ -71,9 +71,13 @@
             $nombre = sanitiza($conexion, filter_input(INPUT_POST, "nombre"));
             $correoElectronico = sanitiza($conexion, filter_input(INPUT_POST, "correoElectronico"));
             $contrasena = sanitiza($conexion, filter_input(INPUT_POST, "contrasena"));
+            $idConcesionario = sanitiza($conexion, filter_input(INPUT_POST, "idConcesionario"));
             $permisoConsultarVehiculos = sanitiza($conexion, filter_input(INPUT_POST, "permisoConsultarVehiculos"));
             $permisoEditarVehiculos = sanitiza($conexion, filter_input(INPUT_POST, "permisoEditarVehiculos"));
-            $idConcesionario = sanitiza($conexion, filter_input(INPUT_POST, "idConcesionario"));
+            $permisoConsultarConcesionarios = sanitiza($conexion, filter_input(INPUT_POST, "permisoConsultarConcesionarios"));
+            $permisoEditarConcesionarios = sanitiza($conexion, filter_input(INPUT_POST, "permisoEditarConcesionarios"));
+            $permisoConsultarDelegacionVirtual = sanitiza($conexion, filter_input(INPUT_POST, "permisoConsultarDelegacionVirtual"));
+            $permisoEditarDelegacionVirtual = sanitiza($conexion, filter_input(INPUT_POST, "permisoEditarDelegacionVirtual"));
 
             // Parametros enviados por origen
 
@@ -86,6 +90,10 @@
             $habilitado = estaVacio($habilitado) ? 0 : 1;
             $permisoConsultarVehiculos = estaVacio($permisoConsultarVehiculos) ? 0 : 1;
             $permisoEditarVehiculos = estaVacio($permisoEditarVehiculos) ? 0 : 1;
+            $permisoConsultarConcesionarios = estaVacio($permisoConsultarConcesionarios) ? 0 : 1;
+            $permisoEditarConcesionarios = estaVacio($permisoEditarConcesionarios) ? 0 : 1;
+            $permisoConsultarDelegacionVirtual = estaVacio($permisoConsultarDelegacionVirtual) ? 0 : 1;
+            $permisoEditarDelegacionVirtual = estaVacio($permisoEditarDelegacionVirtual) ? 0 : 1;
 
             // Procesa el request
 
@@ -146,6 +154,10 @@
                                         . ", contrasena"
                                         . ", permisoConsultarVehiculos"
                                         . ", permisoEditarVehiculos"
+                                        . ", permisoConsultarConcesionarios"
+                                        . ", permisoEditarConcesionarios"
+                                        . ", permisoConsultarDelegacionVirtual"
+                                        . ", permisoEditarDelegacionVirtual"
                                         . ", idConcesionario"
                                     . ") VALUES ("
                                         . "1"
@@ -155,6 +167,10 @@
                                         . ", '" . md5($contrasena) . "'"
                                         . ", " . $permisoConsultarVehiculos
                                         . ", " . $permisoEditarVehiculos
+                                        . ", " . $permisoConsultarConcesionarios
+                                        . ", " . $permisoEditarConcesionarios
+                                        . ", " . $permisoConsultarDelegacionVirtual
+                                        . ", " . $permisoEditarDelegacionVirtual
                                         . ", " . (estaVacio($idConcesionario) ? "NULL" : $idConcesionario)
                                     . ")");
 
@@ -169,6 +185,10 @@
                                 $contrasena = "";
                                 $permisoConsultarVehiculos = $usuario["permisoConsultarVehiculos"];
                                 $permisoEditarVehiculos = $usuario["permisoEditarVehiculos"];
+                                $permisoConsultarConcesionarios = $usuario["permisoConsultarConcesionarios"];
+                                $permisoEditarConcesionarios = $usuario["permisoEditarConcesionarios"];
+                                $permisoConsultarDelegacionVirtual = $usuario["permisoConsultarDelegacionVirtual"];
+                                $permisoEditarDelegacionVirtual = $usuario["permisoEditarDelegacionVirtual"];
                                 $idConcesionario = $usuario["idConcesionario"];
 
                                 $mensaje = "ok - El usuario ha sido registrado";
@@ -187,6 +207,10 @@
                             . ", correoElectronico = '" . $correoElectronico . "'"
                             . ", permisoConsultarVehiculos = " . $permisoConsultarVehiculos
                             . ", permisoEditarVehiculos = " . $permisoEditarVehiculos
+                            . ", permisoConsultarConcesionarios = " . $permisoConsultarConcesionarios
+                            . ", permisoEditarConcesionarios = " . $permisoEditarConcesionarios
+                            . ", permisoConsultarDelegacionVirtual = " . $permisoConsultarDelegacionVirtual
+                            . ", permisoEditarDelegacionVirtual = " . $permisoEditarDelegacionVirtual
                             . ", idConcesionario = " . (estaVacio($idConcesionario) ? "NULL" : $idConcesionario)
                             . " WHERE id = " . $id);
 
@@ -207,6 +231,10 @@
                         $contrasena = "";
                         $permisoConsultarVehiculos = $usuario["permisoConsultarVehiculos"];
                         $permisoEditarVehiculos = $usuario["permisoEditarVehiculos"];
+                        $permisoConsultarConcesionarios = $usuario["permisoConsultarConcesionarios"];
+                        $permisoEditarConcesionarios = $usuario["permisoEditarConcesionarios"];
+                        $permisoConsultarDelegacionVirtual = $usuario["permisoConsultarDelegacionVirtual"];
+                        $permisoEditarDelegacionVirtual = $usuario["permisoEditarDelegacionVirtual"];
                         $idConcesionario = $usuario["idConcesionario"];
 
                         $mensaje = "ok - Los cambios han sido guardados";
@@ -230,6 +258,10 @@
                     $contrasena = "";
                     $permisoConsultarVehiculos = $usuario["permisoConsultarVehiculos"];
                     $permisoEditarVehiculos = $usuario["permisoEditarVehiculos"];
+                    $permisoConsultarConcesionarios = $usuario["permisoConsultarConcesionarios"];
+                    $permisoEditarConcesionarios = $usuario["permisoEditarConcesionarios"];
+                    $permisoConsultarDelegacionVirtual = $usuario["permisoConsultarDelegacionVirtual"];
+                    $permisoEditarDelegacionVirtual = $usuario["permisoEditarDelegacionVirtual"];
                     $idConcesionario = $usuario["idConcesionario"];
 
                     registraEvento("CMS : Consulta de usuario | id = " . $id);
@@ -241,6 +273,10 @@
                     $contrasena = "";
                     $permisoConsultarVehiculos = 0;
                     $permisoEditarVehiculos = 0;
+                    $permisoConsultarConcesionarios = 0;
+                    $permisoEditarConcesionarios = 0;
+                    $permisoConsultarDelegacionVirtual = 0;
+                    $permisoEditarDelegacionVirtual = 0;
                     $idConcesionario = 0;
                 }
             }
@@ -429,6 +465,104 @@
                                     </div>
                                 </div>
 
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <h5><strong>Permisos</strong></h5>
+
+                                                <hr />
+
+                                                <div class="row">
+                                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="row mb-12">
+                                                                    <label class="form-label col-md-6">Interfaz</label>
+                                                                    <label class="form-label col-md-3">Acceso</label>
+                                                                    <label class="form-label col-md-3">Edición</label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="row mb-12">
+                                                                    <label class="form-label col-md-6" >Agencias</label>
+                                                                    <div class="col-md-3">
+                                                                        <div class="material-switch">
+                                                                            <input <?php echo $permisoConsultarConcesionarios == 1 ? "checked" : "" ?> id="campo_permisoConsultarConcesionarios" name="permisoConsultarConcesionarios" type="checkbox" />
+                                                                            <label class="label-info" for="campo_permisoConsultarConcesionarios"></label>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-3">
+                                                                        <div class="material-switch">
+                                                                            <input <?php echo $permisoEditarConcesionarios == 1 ? "checked" : "" ?> id="campo_permisoEditarConcesionarios" name="permisoEditarConcesionarios" type="checkbox" />
+                                                                            <label class="label-info" for="campo_permisoEditarConcesionarios"></label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="row mb-12">
+                                                                    <label class="form-label col-md-6" >Vehículos</label>
+                                                                    <div class="col-md-3">
+                                                                        <div class="material-switch">
+                                                                            <input <?php echo $permisoConsultarVehiculos == 1 ? "checked" : "" ?> id="campo_permisoConsultarVehiculos" name="permisoConsultarVehiculos" type="checkbox" />
+                                                                            <label class="label-info" for="campo_permisoConsultarVehiculos"></label>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-3">
+                                                                        <div class="material-switch">
+                                                                            <input <?php echo $permisoEditarVehiculos == 1 ? "checked" : "" ?> id="campo_permisoEditarVehiculos" name="permisoEditarVehiculos" type="checkbox" />
+                                                                            <label class="label-info" for="campo_permisoEditarVehiculos"></label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="row mb-12">
+                                                                    <label class="form-label col-md-6" >Delegación virtual</label>
+                                                                    <div class="col-md-3">
+                                                                        <div class="material-switch">
+                                                                            <input <?php echo $permisoConsultarDelegacionVirtual == 1 ? "checked" : "" ?> id="campo_permisoConsultarDelegacionVirtual" name="permisoConsultarDelegacionVirtual" type="checkbox" />
+                                                                            <label class="label-info" for="campo_permisoConsultarDelegacionVirtual"></label>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-3">
+                                                                        <div class="material-switch">
+                                                                            <input <?php echo $permisoEditarDelegacionVirtual == 1 ? "checked" : "" ?> id="campo_permisoEditarDelegacionVirtual" name="permisoEditarDelegacionVirtual" type="checkbox" />
+                                                                            <label class="label-info" for="campo_permisoEditarDelegacionVirtual"></label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
                                 <div class="row mt-6">
                                     <div class="col-md-8 col-sm-6" id="contenedor_botonesIzquierdos">
                                         <div class="form-group">
@@ -499,6 +633,24 @@
 
             $(".link_origen").click(function() {
                 $("#formulario_origen").submit();
+            });
+
+            $("#campo_permisoEditarConcesionarios").click(function(){
+                if($("#campo_permisoEditarConcesionarios").is(":checked")){
+                    $("#campo_permisoConsultarConcesionarios").prop("checked",true);
+                }
+            });
+
+            $("#campo_permisoEditarVehiculos").click(function(){
+                if($("#campo_permisoEditarVehiculos").is(":checked")){
+                    $("#campo_permisoConsultarVehiculos").prop("checked",true);
+                }
+            });
+
+            $("#campo_permisoEditarDelegacionVirtual").click(function(){
+                if($("#campo_permisoEditarDelegacionVirtual").is(":checked")){
+                    $("#campo_permisoConsultarDelegacionVirtual").prop("checked",true);
+                }
             });
         </script>
     </body>
