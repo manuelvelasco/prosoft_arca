@@ -34,6 +34,14 @@
                 <?php if ($esUsuarioMaster || $esUsuarioAdministrador) { ?>
                     <li><a class="side-menu__item" href="contacto.php"><i class="side-menu__icon fa fa-youtube"></i><span class="side-menu__label">Contacto</span></a></li>
                 <?php } ?>
+                 <?php if ($esUsuarioMaster || $esUsuarioAdministrador) { ?>
+                    <li class="slide">
+                            <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0)"><i class="side-menu__icon fa fa-tasks"></i><span class="side-menu__label">Delegación virtual</span><i class="angle fe fe-chevron-right"></i></a>
+                            <ul class="slide-menu open" style="display: block;">
+                                <li><a class="sub-slide-item enlace_cron" href="mensajeros.php">Mensajeros</a></li>
+                            </ul>
+                    </li>
+                <?php } ?>
             </ul>
 
             <div class="slide-right" id="slide-right"><svg fill="#7b8191" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M10.707 17.707 16.414 12l-5.707-5.707-1.414 1.414L13.586 12l-4.293 4.293z"/></svg></div>
