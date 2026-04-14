@@ -159,9 +159,9 @@
                                                                                     if ($esUsuarioMaster || $esUsuarioAdministrador) {
 
                                                                                         if(estaVacio($idConcesionario)){
-                                                                                            $usuarios_BD = consulta($conexion, "SELECT * FROM usuario s WHERE s.rol != 'Master' ORDER BY rol");
+                                                                                            $usuarios_BD = consulta($conexion, "SELECT * FROM usuario s WHERE s.rol != 'Master' ORDER BY nombre");
                                                                                         }else{
-                                                                                            $usuarios_BD = consulta($conexion, "SELECT * FROM usuario s WHERE s.rol != 'Master' AND s.idConcesionario = " . $idConcesionario . " ORDER BY rol");
+                                                                                            $usuarios_BD = consulta($conexion, "SELECT * FROM usuario s WHERE s.rol != 'Master' AND s.idConcesionario = " . $idConcesionario . " ORDER BY nombre");
                                                                                         }
                                                                                         
 
