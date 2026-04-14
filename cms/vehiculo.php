@@ -4145,7 +4145,7 @@ error_log("\nAdición", 3, $rutaLog);
                                     <div class="row <?php echo $tieneHabilitadoIntelimotor == 0 ? "oculta_campos" : ""; ?>">
                                         <div class="col-12">
                                             <div class="card">
-                                                <div class="card-body intelimotor">
+                                                <div class="card-body intelimotor zonaCaracteristicas">
 
                                                     <h5><strong>Intelimotor</strong></h5>
 
