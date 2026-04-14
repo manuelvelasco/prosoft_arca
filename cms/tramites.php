@@ -157,12 +157,17 @@
                                                                                 <?php
                                                                                         
                                                                                     if ($esUsuarioMaster || $esUsuarioAdministrador) {
+
+                                                                                        if(estaVacio($idConcesionario)){
+                                                                                            $usuarios_BD = consulta($conexion, "SELECT * FROM usuario s WHERE s.rol != 'Master' ORDER BY rol");
+                                                                                        }else{
+                                                                                            $usuarios_BD = consulta($conexion, "SELECT * FROM usuario s WHERE s.rol != 'Master' AND s.idConcesionario = " . $idConcesionario . " ORDER BY rol");
+                                                                                        }
                                                                                         
-                                                                                        $usuarios_BD = consulta($conexion, "SELECT * FROM usuario s WHERE s.rol != 'Master' ORDER BY rol");
 
                                                                                     }else{
 
-                                                                                        $usuarios_BD = consulta($conexion, "SELECT * FROM usuario c WHERE c.idConcesionario = " . $usuario_idConcesionario. " ORDER BY rol");
+                                                                                        $usuarios_BD = consulta($conexion, "SELECT * FROM usuario c WHERE s.rol != 'Master' AND c.idConcesionario = " . $usuario_idConcesionario. " ORDER BY rol");
 
                                                                                     }
 
@@ -316,7 +321,7 @@
 
                                                                                 <?php
                                                                                         
-                                                                                    for($ano = 1900; $ano < 2027; $ano++){
+                                                                                    for($ano = 1900; $ano <= 2027; $ano++){
                                                                                         echo "<option " . ($ano == $vehiculo_ano ? "selected" : "") . " value='" . $ano . "'>" . $ano . "</option>";
                                                                                     }
                                                                                 ?>
@@ -635,6 +640,30 @@
                 $("#campo_vehiculo_ano").val('').trigger('change');
                 $("#campo_cliente_nombre").val('');
 
+            });
+
+            $("#campo_idConcesionario").on("change",function(){
+                var idConcesionario = $("#campo_idConcesionario").val();
+
+                $("#campo_idUsuario").html("");
+
+                $.ajax({
+                    url: "socialware/php/ajax/cargaUsuariosConcesionario.php",
+                    type: "post",
+                    data: { idConcesionario: idConcesionario }
+                }).done(function (resultado, textStatus, jqXHR) {
+                    $("#campo_idUsuario").append("<option value=''>Ver todo</option>");
+                    $(resultado).find("usuario").each(function (index) {
+
+                        var id = $(this).find("id").text();
+                        var nombre = $(this).find("nombre").text();
+
+                        $("#campo_idUsuario").append("<option value='" + id + "'>" + nombre + "</option>");
+                    });
+                    $("#campo_idUsuario").select2("destroy");
+                    $("#campo_idUsuario").select2();
+
+                });
             });
 
 
