@@ -103,7 +103,7 @@ input[type=number] {
     -moz-appearance: textfield; /* Firefox */
 }
 
-@media only screen and (max-width: 1024px) {
+@media only screen and (max-width: 1025px) {
     .zonaCaracteristicas label.form-label{
         font-size: 12px;
     }
