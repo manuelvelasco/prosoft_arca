@@ -652,6 +652,24 @@
                     $("#campo_permisoConsultarDelegacionVirtual").prop("checked",true);
                 }
             });
+
+            $("#campo_permisoConsultarConcesionarios").click(function(){
+                if(!$("#campo_permisoConsultarConcesionarios").is(":checked")){
+                    $("#campo_permisoEditarConcesionarios").prop("checked",false);
+                }
+            });
+
+            $("#campo_permisoConsultarVehiculos").click(function(){
+                if(!$("#campo_permisoConsultarVehiculos").is(":checked")){
+                    $("#campo_permisoEditarVehiculos").prop("checked",false);
+                }
+            });
+
+            $("#campo_permisoConsultarDelegacionVirtual").click(function(){
+                if(!$("#campo_permisoConsultarDelegacionVirtual").is(":checked")){
+                    $("#campo_permisoEditarDelegacionVirtual").prop("checked",false);
+                }
+            });
         </script>
     </body>
 </html>
