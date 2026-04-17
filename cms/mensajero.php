@@ -281,6 +281,7 @@
                         $colonia = $mensajero["colonia"];
                         $estado = $mensajero["estado"];
                         $municipio = $mensajero["municipio"];
+                        $archivo_ine = $mensajero["archivo_ine"];
 
                         consulta($conexion, "DELETE FROM mensajero_concesionario WHERE idMensajero = " . $id);
 
