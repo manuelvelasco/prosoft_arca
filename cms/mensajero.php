@@ -121,7 +121,7 @@
 
                 if (estaVacio($curp)) {
                     $mensaje .= "* CURP<br />";
-                } else if (strlen($curp) != 16) {
+                } else if (strlen($curp) != 18) {
                     $mensaje .= "* CURP con tamaño correcto<br />";
                 }
 
@@ -539,7 +539,7 @@
                                                                 <div class="row mb-4">
                                                                     <label class="form-label col-md-4" for="campo_curp">CURP <span class="text-danger">*</span></label>
                                                                     <div class="col-md-8">
-                                                                        <input class="form-control" id="campo_curp" maxlength="16" name="curp" type="text" value="<?php echo $curp; ?>" />
+                                                                        <input class="form-control" id="campo_curp" maxlength="18" name="curp" type="text" value="<?php echo $curp; ?>" />
                                                                     </div>
                                                                 </div>
                                                             </div>
