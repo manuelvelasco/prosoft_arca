@@ -35,8 +35,8 @@
 
         while ($usuario = obtenResultado($usuarios_BD)) {
             $resultado .= "<usuario>";
-            $resultado .= "<id>" . trim($usuario["id"]) . "</nombre>";
-            $resultado .= "<nombre>" . trim($usuario["nombre"]) . "</modelo>";
+            $resultado .= "<id>" . trim($usuario["id"]) . "</id>";
+            $resultado .= "<nombre>" . trim($usuario["nombre"]) . "</nombre>";
             $resultado .= "</usuario>";
         }
 

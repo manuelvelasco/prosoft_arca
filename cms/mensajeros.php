@@ -192,7 +192,7 @@
                                                                                                         FROM mensajero_concesionario mc 
                                                                                                         INNER JOIN mensajero m ON mc.idMensajero = m.id
                                                                                                         INNER JOIN concesionario c ON mc.idConcesionario = c.id
-                                                                                                        WHERE 1=1" . $restricciones . " ORDER BY m.nombre, m.apellidoPaterno, m.apellidoMaterno");
+                                                                                                        WHERE m.eliminado = 0 " . $restricciones . " ORDER BY m.nombre, m.apellidoPaterno, m.apellidoMaterno");
 
                                                                     while ($mensajero = obtenResultado($mensajeros_BD)) {
                                                                         echo "<tr>";
