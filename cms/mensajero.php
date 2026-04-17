@@ -65,7 +65,9 @@
 
             $esSubmit = sanitiza($conexion, filter_input(INPUT_POST, "esSubmit"));
             $id = sanitiza($conexion, filter_input(INPUT_GET, "id"));
-            $campo_id = sanitiza($conexion, filter_input(INPUT_POST, "campo_id"));
+            if($esSubmit == 1){
+                $id = sanitiza($conexion, filter_input(INPUT_POST, "id"));
+            }
             $habilitado = sanitiza($conexion, filter_input(INPUT_POST, "habilitado"));
             $eliminado = sanitiza($conexion, filter_input(INPUT_POST, "eliminado"));
             $nombre = sanitiza($conexion, filter_input(INPUT_POST, "nombre"));
@@ -84,6 +86,8 @@
                 $idConcesionarioArray = $_POST["idConcesionario"];
                 $idConcesionarioLista = implode(",",$_POST["idConcesionario"]);
             }
+
+            
 
             // Parametros enviados por origen
 
