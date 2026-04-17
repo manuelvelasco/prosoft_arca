@@ -87,7 +87,7 @@
                 $idConcesionarioLista = implode(",",$_POST["idConcesionario"]);
             }
 
-            
+
 
             // Parametros enviados por origen
 
@@ -171,7 +171,7 @@
                         if (!estaVacio($mensaje)) {
                             $mensaje = "Proporcione los siguientes datos:<br /><br />" . $mensaje;
                         } else {
-                            $usuario_BD = consulta($conexion, "SELECT id FROM mensajero WHERE correoElectronico = '" . $correoElectronico . "'");
+                            $usuario_BD = consulta($conexion, "SELECT id FROM mensajero WHERE curp = '" . $curp . "'");
 
                             if (cuentaResultados($usuario_BD) > 0) {
                                 $mensaje = "El mensajero ya se encuentra registrado en la base de datos";
