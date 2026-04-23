@@ -1487,7 +1487,7 @@ error_reporting(E_ALL & ~E_DEPRECATED & ~E_USER_DEPRECATED);
                 }
             }
 
-            var id = <?php echo $id; ?>;
+            var id = <?php echo estaVacio($id) ? 0 : $id; ?>;
             if(id > 0){
                 $("#boton_guardar").hide();
             }
