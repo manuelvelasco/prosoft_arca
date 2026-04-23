@@ -409,311 +409,313 @@
 
                 <!-- Contenido -->
 
+                <?php if ($esUsuarioMaster || $usuario_permisoConsultarDelegacionVirtual ) { ?>
 
-                <div class="main-content app-content mt-0">
-                    <div class="side-app">
-                        <div class="main-container container-fluid">
-                            <!-- Titulo -->
+                    <div class="main-content app-content mt-0">
+                        <div class="side-app">
+                            <div class="main-container container-fluid">
+                                <!-- Titulo -->
 
 
-                            <div class="page-header">
-                                <h1 class="page-title">Edición de mensajero</h1>
+                                <div class="page-header">
+                                    <h1 class="page-title">Edición de mensajero</h1>
 
-                                <div>
-                                    <!--
-                                    <ol class="breadcrumb">
-                                        <li class="breadcrumb-item"><a href="dashboard.html">Inicio</a></li>
-                                        <li class="breadcrumb-item"><a href="javascript:void(0)">Catálogos</a></li>
-                                        <li class="breadcrumb-item"><a href="javascript:void(0)">Usuarios</a></li>
-                                        <li aria-current="page" class="breadcrumb-item active">Detalle de usuario</li>
-                                    </ol>
-                                    -->
+                                    <div>
+                                        <!--
+                                        <ol class="breadcrumb">
+                                            <li class="breadcrumb-item"><a href="dashboard.html">Inicio</a></li>
+                                            <li class="breadcrumb-item"><a href="javascript:void(0)">Catálogos</a></li>
+                                            <li class="breadcrumb-item"><a href="javascript:void(0)">Usuarios</a></li>
+                                            <li aria-current="page" class="breadcrumb-item active">Detalle de usuario</li>
+                                        </ol>
+                                        -->
+                                    </div>
                                 </div>
-                            </div>
-                            <form autocomplete="off" enctype="multipart/form-data" id="formulario" method="post">
+                                <form autocomplete="off" enctype="multipart/form-data" id="formulario" method="post">
 
-                                <input id="campo_esSubmit" name="esSubmit" type="hidden" value="1" />
+                                    <input id="campo_esSubmit" name="esSubmit" type="hidden" value="1" />
 
-                                <div class="alert" id="contenedor_mensaje">
-                                    <span></span>
-                                </div>
+                                    <div class="alert" id="contenedor_mensaje">
+                                        <span></span>
+                                    </div>
 
-                                <div class="row">
-                                    <div class="col-12">
-                                        <div class="card">
-                                            <div class="card-body">
-                                                <h5><strong>Información de control</strong></h5>
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <h5><strong>Información de control</strong></h5>
 
-                                                <hr />
+                                                    <hr />
 
-                                                <div class="row">
-                                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
-                                                        <div class="row">
-                                                            <div class="col-12">
-                                                                <div class="row mb-12">
-                                                                    <label class="form-label col-md-4" for="campo_id">ID</label>
-                                                                    <div class="col-md-8">
-                                                                        <input class="form-control" id="campo_id" name="id" readonly type="text" value="<?php echo $id; ?>" />
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
-                                                        <div class="row">
-                                                            <div class="col-12">
-                                                                <div class="row mb-12">
-                                                                    <label class="form-label col-md-4" for="campo_habilitado">Habilitado</label>
-                                                                    <div class="col-md-8">
-                                                                        <div class="material-switch">
-                                                                            <input <?php echo $habilitado == 1 ? "checked" : "" ?> id="campo_habilitado" name="habilitado" type="checkbox" />
-                                                                            <label class="label-info" for="campo_habilitado"></label>
+                                                    <div class="row">
+                                                        <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+                                                            <div class="row">
+                                                                <div class="col-12">
+                                                                    <div class="row mb-12">
+                                                                        <label class="form-label col-md-4" for="campo_id">ID</label>
+                                                                        <div class="col-md-8">
+                                                                            <input class="form-control" id="campo_id" name="id" readonly type="text" value="<?php echo $id; ?>" />
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                    </div>
-
-                                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
-                                                        <div class="row">
-                                                            <div class="col-12">
-                                                                <div class="row mb-4">
-                                                                    <label class="form-label col-md-4" for="campo_idConcesionario">Agencia <span class="txt-danger ml-10">*</span></label>
-                                                                    <div class="col-md-8">
-                                                                        <select class="form-control select2-show-search form-select" data-placeholder="Elige" id="campo_idConcesionario" multiple="multiple" name="idConcesionario[]">
-                                                                            <?php
-                                                                                $concesionarios_BD = consulta($conexion, "SELECT * FROM concesionario WHERE habilitado = 1 and eliminado = 0 ORDER BY nombreComercial");
-
-                                                                                while ($concesionarioBD = obtenResultado($concesionarios_BD)) {
-                                                                                    $arrayIdConcesionario = explode(",", $idConcesionarioLista);
-                                                                                    if(in_array($concesionarioBD["id"], $arrayIdConcesionario)){
-                                                                                        echo "<option selected value='" . $concesionarioBD["id"] . "'>" . $concesionarioBD["nombreComercial"] . "</option>";
-
-                                                                                    }else{
-                                                                                        echo "<option value='" . $concesionarioBD["id"] . "'>" . $concesionarioBD["nombreComercial"] . "</option>";
-                                                                                    }
-                                                                                }
-                                                                            ?>
-                                                                        </select>
+                                                        <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+                                                            <div class="row">
+                                                                <div class="col-12">
+                                                                    <div class="row mb-12">
+                                                                        <label class="form-label col-md-4" for="campo_habilitado">Habilitado</label>
+                                                                        <div class="col-md-8">
+                                                                            <div class="material-switch">
+                                                                                <input <?php echo $habilitado == 1 ? "checked" : "" ?> id="campo_habilitado" name="habilitado" type="checkbox" />
+                                                                                <label class="label-info" for="campo_habilitado"></label>
+                                                                            </div>
+                                                                        </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
-                                                        <div class="row">
-                                                            <div class="col-12">
-                                                                <div class="row mb-4">
-                                                                    <label class="form-label col-md-4" for="campo_nombre">Nombre <span class="text-danger">*</span></label>
-                                                                    <div class="col-md-8">
-                                                                        <input class="form-control" id="campo_nombre" name="nombre" type="text" value="<?php echo $nombre; ?>" />
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
-                                                        <div class="row">
-                                                            <div class="col-12">
-                                                                <div class="row mb-4">
-                                                                    <label class="form-label col-md-4" for="campo_apellidoPaterno">Apellido paterno <span class="text-danger">*</span></label>
-                                                                    <div class="col-md-8">
-                                                                        <input class="form-control" id="campo_apellidoPaterno" name="apellidoPaterno" type="text" value="<?php echo $apellidoPaterno; ?>" />
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
-                                                        <div class="row">
-                                                            <div class="col-12">
-                                                                <div class="row mb-4">
-                                                                    <label class="form-label col-md-4" for="campo_apellidoMaterno">Apellido materno <span class="text-danger">*</span></label>
-                                                                    <div class="col-md-8">
-                                                                        <input class="form-control" id="campo_apellidoMaterno" name="apellidoMaterno" type="text" value="<?php echo $apellidoMaterno; ?>" />
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
-                                                        <div class="row">
-                                                            <div class="col-12">
-                                                                <div class="row mb-4">
-                                                                    <label class="form-label col-md-4" for="campo_curp">CURP <span class="text-danger">*</span></label>
-                                                                    <div class="col-md-8">
-                                                                        <input class="form-control" id="campo_curp" maxlength="18" name="curp" type="text" value="<?php echo $curp; ?>" />
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
-                                                        <div class="row">
-                                                            <div class="col-12">
-                                                                <div class="row mb-4">
-                                                                    <label class="form-label col-md-4" for="campo_telefono">Teléfono <span class="text-danger">*</span></label>
-                                                                    <div class="col-md-8">
-                                                                        <input class="form-control" id="campo_telefono" maxlength="10" name="telefono" onkeypress='return event.charCode >= 48 && event.charCode <= 57' type="tel" value="<?php echo $telefono; ?>" />
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
-                                                        <div class="row">
-                                                            <div class="col-12">
-                                                                <div class="row mb-4">
-                                                                    <label class="form-label col-md-4" for="campo_correoElectronico">Correo electrónico<span class="text-danger">*</span></label>
-                                                                    <div class="col-md-8">
-                                                                        <input class="form-control" id="campo_correoElectronico" name="correoElectronico" type="email" value="<?php echo $correoElectronico; ?>" />
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
-                                                        <div class="row">
-                                                            <div class="col-12">
-                                                                <div class="row mb-4">
-                                                                    <label class="form-label col-md-4" for="campo_calle">Calle<span class="text-danger">*</span></label>
-                                                                    <div class="col-md-8">
-                                                                        <input class="form-control" id="campo_calle" name="calle" type="text" value="<?php echo $calle; ?>" />
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
-                                                        <div class="row">
-                                                            <div class="col-12">
-                                                                <div class="row mb-4">
-                                                                    <label class="form-label col-md-4" for="campo_numeroExterior">Número exterior<span class="text-danger">*</span></label>
-                                                                    <div class="col-md-8">
-                                                                        <input class="form-control" id="campo_numeroExterior" name="numeroExterior" type="text" value="<?php echo $numeroExterior; ?>" />
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
-                                                        <div class="row">
-                                                            <div class="col-12">
-                                                                <div class="row mb-4">
-                                                                    <label class="form-label col-md-4" for="campo_numeroInterior">Número interior</label>
-                                                                    <div class="col-md-8">
-                                                                        <input class="form-control" id="campo_numeroInterior" name="numeroInterior" type="text" value="<?php echo $numeroInterior; ?>" />
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
-                                                        <div class="row">
-                                                            <div class="col-12">
-                                                                <div class="row mb-4">
-                                                                    <label class="form-label col-md-4" for="campo_colonia">Colonia<span class="text-danger">*</span></label>
-                                                                    <div class="col-md-8">
-                                                                        <input class="form-control" id="campo_colonia" name="colonia" type="text" value="<?php echo $colonia; ?>" />
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
-                                                        <div class="row">
-                                                            <div class="col-12">
-                                                                <div class="row mb-4">
-                                                                    <label class="form-label col-md-4" for="campo_estado">Estado <span class="txt-danger ml-10">*</span></label>
-                                                                    <div class="col-md-8">
-                                                                        <select class="form-control select2-show-search form-select" data-placeholder="Elige" id="campo_estado" name="estado">
-                                                                            <option <?php echo estaVacio($estado) ? "selected" : "" ?> value="">Seleccione</option>
-                                                                            <?php
-                                                                                $estados_BD = consulta($conexion, "SELECT DISTINCT estado FROM sepomex ORDER BY estado");
-
-                                                                                while ($estadoBD = obtenResultado($estados_BD)) {
-                                                                                    echo "<option " . (!estaVacio($estado) && $estado == $estadoBD["estado"] ? "selected" : "") . " value='" . $estadoBD["estado"] . "'>" . $estadoBD["estado"] . "</option>";
-                                                                                }
-                                                                            ?>
-                                                                        </select>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
-                                                        <div class="row">
-                                                            <div class="col-12">
-                                                                <div class="row mb-4">
-                                                                    <label class="form-label col-md-4" for="campo_municipio">Municipio <span class="txt-danger ml-10">*</span></label>
-                                                                    <div class="col-md-8">
-                                                                        <select class="form-control select2-show-search form-select" data-placeholder="Elige" id="campo_municipio" name="municipio">
-                                                                            <option <?php echo estaVacio($municipio) ? "selected" : "" ?> value="">Seleccione</option>
-                                                                            <?php
-                                                                                if(!estaVacio($estado)){
-                                                                                    $municipios_BD = consulta($conexion, "SELECT DISTINCT municipio FROM sepomex WHERE estado = '" . $estado . "' ORDER BY municipio");
-
-                                                                                    while ($municipioBD = obtenResultado($municipios_BD)) {
-                                                                                        echo "<option " . (!estaVacio($municipio) && $municipio == $municipioBD["municipio"] ? "selected" : "") . " value='" . $municipioBD["municipio"] . "'>" . $municipioBD["municipio"] . "</option>";
-                                                                                    }
-                                                                                }
-                                                                            ?>
-                                                                        </select>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-                                                    <?php if(!estaVacio($id)) { ?>
 
                                                         <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
                                                             <div class="row">
                                                                 <div class="col-12">
-                                                                    <div class="form-group">
-                                                                        <label class="control-label mb-10">PDF con INE por ambos lados</label>
+                                                                    <div class="row mb-4">
+                                                                        <label class="form-label col-md-4" for="campo_idConcesionario">Agencia <span class="txt-danger ml-10">*</span></label>
+                                                                        <div class="col-md-8">
+                                                                            <select class="form-control select2-show-search form-select" data-placeholder="Elige" id="campo_idConcesionario" multiple="multiple" name="idConcesionario[]">
+                                                                                <?php
+                                                                                    $concesionarios_BD = consulta($conexion, "SELECT * FROM concesionario WHERE habilitado = 1 and eliminado = 0 ORDER BY nombreComercial");
 
-                                                                        <div>
-                                                                            <input name="archivo_ine" type="file" />
-                                                                            <br />
-                                                                            <div class="row">
-                                                                                <div class="col-sm-12">
-                                                                                    <div class="panel panel-success card-view">
-                                                                                        <div class="panel-wrapper in">
-                                                                                            <div class="panel-body">
-                                                                                                <ul class="chat-list-wrap">
-                                                                                                    <li class="chat-list">
-                                                                                                        <div class="chat-body">
-                                                                                                        <?php
-                                                                                                            if (!estaVacio($archivo_ine)) {
-                                                                                                                echo "<div class='chat-data' id='contenedor_archivo_ine'>";
-                                                                                                                echo "<img class='user-img' src='" . $constante_urlMensajeros . "/" . $id . "/" . $archivo_ine . "' />";
+                                                                                    while ($concesionarioBD = obtenResultado($concesionarios_BD)) {
+                                                                                        $arrayIdConcesionario = explode(",", $idConcesionarioLista);
+                                                                                        if(in_array($concesionarioBD["id"], $arrayIdConcesionario)){
+                                                                                            echo "<option selected value='" . $concesionarioBD["id"] . "'>" . $concesionarioBD["nombreComercial"] . "</option>";
 
-                                                                                                                echo "<div class='user-data'>";
-                                                                                                                echo "<span class='name block'>" . $archivo_ine . "</span>";
-                                                                                                                echo "<span class='time block txt-grey'>";
-                                                                                                                echo "<a download href='" . $constante_urlMensajeros . "/" . $id . "/" . $archivo_ine . "'>Descargar</a>";
-                                                                                                                echo "&nbsp;&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;&nbsp;";
-                                                                                                                echo "<a href='javascript:eliminaArchivoIne(" . $id . ")'>Eliminar</a>";
-                                                                                                                echo "</span>";
-                                                                                                                echo "</div>";
-                                                                                                                echo "<div class='clearfix'></div>";
-                                                                                                                echo "</div>";
-                                                                                                            }
-                                                                                                        ?>
-                                                                                                        </div>
-                                                                                                    </li>
-                                                                                                </ul>
+                                                                                        }else{
+                                                                                            echo "<option value='" . $concesionarioBD["id"] . "'>" . $concesionarioBD["nombreComercial"] . "</option>";
+                                                                                        }
+                                                                                    }
+                                                                                ?>
+                                                                            </select>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+                                                            <div class="row">
+                                                                <div class="col-12">
+                                                                    <div class="row mb-4">
+                                                                        <label class="form-label col-md-4" for="campo_nombre">Nombre <span class="text-danger">*</span></label>
+                                                                        <div class="col-md-8">
+                                                                            <input class="form-control" id="campo_nombre" name="nombre" type="text" value="<?php echo $nombre; ?>" />
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+                                                            <div class="row">
+                                                                <div class="col-12">
+                                                                    <div class="row mb-4">
+                                                                        <label class="form-label col-md-4" for="campo_apellidoPaterno">Apellido paterno <span class="text-danger">*</span></label>
+                                                                        <div class="col-md-8">
+                                                                            <input class="form-control" id="campo_apellidoPaterno" name="apellidoPaterno" type="text" value="<?php echo $apellidoPaterno; ?>" />
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+                                                            <div class="row">
+                                                                <div class="col-12">
+                                                                    <div class="row mb-4">
+                                                                        <label class="form-label col-md-4" for="campo_apellidoMaterno">Apellido materno <span class="text-danger">*</span></label>
+                                                                        <div class="col-md-8">
+                                                                            <input class="form-control" id="campo_apellidoMaterno" name="apellidoMaterno" type="text" value="<?php echo $apellidoMaterno; ?>" />
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+                                                            <div class="row">
+                                                                <div class="col-12">
+                                                                    <div class="row mb-4">
+                                                                        <label class="form-label col-md-4" for="campo_curp">CURP <span class="text-danger">*</span></label>
+                                                                        <div class="col-md-8">
+                                                                            <input class="form-control" id="campo_curp" maxlength="18" name="curp" type="text" value="<?php echo $curp; ?>" />
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+                                                            <div class="row">
+                                                                <div class="col-12">
+                                                                    <div class="row mb-4">
+                                                                        <label class="form-label col-md-4" for="campo_telefono">Teléfono <span class="text-danger">*</span></label>
+                                                                        <div class="col-md-8">
+                                                                            <input class="form-control" id="campo_telefono" maxlength="10" name="telefono" onkeypress='return event.charCode >= 48 && event.charCode <= 57' type="tel" value="<?php echo $telefono; ?>" />
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+                                                            <div class="row">
+                                                                <div class="col-12">
+                                                                    <div class="row mb-4">
+                                                                        <label class="form-label col-md-4" for="campo_correoElectronico">Correo electrónico<span class="text-danger">*</span></label>
+                                                                        <div class="col-md-8">
+                                                                            <input class="form-control" id="campo_correoElectronico" name="correoElectronico" type="email" value="<?php echo $correoElectronico; ?>" />
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+                                                            <div class="row">
+                                                                <div class="col-12">
+                                                                    <div class="row mb-4">
+                                                                        <label class="form-label col-md-4" for="campo_calle">Calle<span class="text-danger">*</span></label>
+                                                                        <div class="col-md-8">
+                                                                            <input class="form-control" id="campo_calle" name="calle" type="text" value="<?php echo $calle; ?>" />
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+                                                            <div class="row">
+                                                                <div class="col-12">
+                                                                    <div class="row mb-4">
+                                                                        <label class="form-label col-md-4" for="campo_numeroExterior">Número exterior<span class="text-danger">*</span></label>
+                                                                        <div class="col-md-8">
+                                                                            <input class="form-control" id="campo_numeroExterior" name="numeroExterior" type="text" value="<?php echo $numeroExterior; ?>" />
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+                                                            <div class="row">
+                                                                <div class="col-12">
+                                                                    <div class="row mb-4">
+                                                                        <label class="form-label col-md-4" for="campo_numeroInterior">Número interior</label>
+                                                                        <div class="col-md-8">
+                                                                            <input class="form-control" id="campo_numeroInterior" name="numeroInterior" type="text" value="<?php echo $numeroInterior; ?>" />
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+                                                            <div class="row">
+                                                                <div class="col-12">
+                                                                    <div class="row mb-4">
+                                                                        <label class="form-label col-md-4" for="campo_colonia">Colonia<span class="text-danger">*</span></label>
+                                                                        <div class="col-md-8">
+                                                                            <input class="form-control" id="campo_colonia" name="colonia" type="text" value="<?php echo $colonia; ?>" />
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+                                                            <div class="row">
+                                                                <div class="col-12">
+                                                                    <div class="row mb-4">
+                                                                        <label class="form-label col-md-4" for="campo_estado">Estado <span class="txt-danger ml-10">*</span></label>
+                                                                        <div class="col-md-8">
+                                                                            <select class="form-control select2-show-search form-select" data-placeholder="Elige" id="campo_estado" name="estado">
+                                                                                <option <?php echo estaVacio($estado) ? "selected" : "" ?> value="">Seleccione</option>
+                                                                                <?php
+                                                                                    $estados_BD = consulta($conexion, "SELECT DISTINCT estado FROM sepomex ORDER BY estado");
+
+                                                                                    while ($estadoBD = obtenResultado($estados_BD)) {
+                                                                                        echo "<option " . (!estaVacio($estado) && $estado == $estadoBD["estado"] ? "selected" : "") . " value='" . $estadoBD["estado"] . "'>" . $estadoBD["estado"] . "</option>";
+                                                                                    }
+                                                                                ?>
+                                                                            </select>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+                                                            <div class="row">
+                                                                <div class="col-12">
+                                                                    <div class="row mb-4">
+                                                                        <label class="form-label col-md-4" for="campo_municipio">Municipio <span class="txt-danger ml-10">*</span></label>
+                                                                        <div class="col-md-8">
+                                                                            <select class="form-control select2-show-search form-select" data-placeholder="Elige" id="campo_municipio" name="municipio">
+                                                                                <option <?php echo estaVacio($municipio) ? "selected" : "" ?> value="">Seleccione</option>
+                                                                                <?php
+                                                                                    if(!estaVacio($estado)){
+                                                                                        $municipios_BD = consulta($conexion, "SELECT DISTINCT municipio FROM sepomex WHERE estado = '" . $estado . "' ORDER BY municipio");
+
+                                                                                        while ($municipioBD = obtenResultado($municipios_BD)) {
+                                                                                            echo "<option " . (!estaVacio($municipio) && $municipio == $municipioBD["municipio"] ? "selected" : "") . " value='" . $municipioBD["municipio"] . "'>" . $municipioBD["municipio"] . "</option>";
+                                                                                        }
+                                                                                    }
+                                                                                ?>
+                                                                            </select>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <?php if(!estaVacio($id)) { ?>
+
+                                                            <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+                                                                <div class="row">
+                                                                    <div class="col-12">
+                                                                        <div class="form-group">
+                                                                            <label class="control-label mb-10">PDF con INE por ambos lados</label>
+
+                                                                            <div>
+                                                                                <input name="archivo_ine" type="file" />
+                                                                                <br />
+                                                                                <div class="row">
+                                                                                    <div class="col-sm-12">
+                                                                                        <div class="panel panel-success card-view">
+                                                                                            <div class="panel-wrapper in">
+                                                                                                <div class="panel-body">
+                                                                                                    <ul class="chat-list-wrap">
+                                                                                                        <li class="chat-list">
+                                                                                                            <div class="chat-body">
+                                                                                                            <?php
+                                                                                                                if (!estaVacio($archivo_ine)) {
+                                                                                                                    echo "<div class='chat-data' id='contenedor_archivo_ine'>";
+                                                                                                                    echo "<img class='user-img' src='" . $constante_urlMensajeros . "/" . $id . "/" . $archivo_ine . "' />";
+
+                                                                                                                    echo "<div class='user-data'>";
+                                                                                                                    echo "<span class='name block'>" . $archivo_ine . "</span>";
+                                                                                                                    echo "<span class='time block txt-grey'>";
+                                                                                                                    echo "<a download href='" . $constante_urlMensajeros . "/" . $id . "/" . $archivo_ine . "'>Descargar</a>";
+                                                                                                                    echo "&nbsp;&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;&nbsp;";
+                                                                                                                    echo "<a href='javascript:eliminaArchivoIne(" . $id . ")'>Eliminar</a>";
+                                                                                                                    echo "</span>";
+                                                                                                                    echo "</div>";
+                                                                                                                    echo "<div class='clearfix'></div>";
+                                                                                                                    echo "</div>";
+                                                                                                                }
+                                                                                                            ?>
+                                                                                                            </div>
+                                                                                                        </li>
+                                                                                                    </ul>
+                                                                                                </div>
                                                                                             </div>
                                                                                         </div>
                                                                                     </div>
@@ -723,37 +725,45 @@
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                        </div>
 
-                                                    <?php } ?>
+                                                        <?php } ?>
 
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
 
-                                <div class="row mt-6">
-                                    <div class="col-md-8 col-sm-6" id="contenedor_botonesIzquierdos">
-                                        <?php if((!estaVacio($id)) && $eliminado == 0){?>
-                                            <div class="form-group">
-                                                <a class="btn btn-danger mb-3" href="javascript:eliminaMensajero(<?php echo  $id ?>)" id="boton_eliminar">Eliminar</a>
+                                    <div class="row mt-6">
+                                        <?php if ($esUsuarioMaster || $usuario_permisoEditarDelegacionVirtual ) { ?>
+                                            <div class="col-md-8 col-sm-6" id="contenedor_botonesIzquierdos">
+                                                <?php if((!estaVacio($id)) && $eliminado == 0){?>
+                                                    <div class="form-group">
+                                                        <a class="btn btn-danger mb-3" href="javascript:eliminaMensajero(<?php echo  $id ?>)" id="boton_eliminar">Eliminar</a>
+                                                    </div>
+                                                <?php } ?>
+                                            </div>
+
+                                            <div class="col-md-4 col-sm-6" id="contenedor_botonesDerechos">
+                                                <div class="form-group">
+                                                    <button class="btn btn-success mb-3" type="submit" id="boton_guardar">Guardar</button>
+                                                    <a class="btn btn-default mb-3" href="javascript:void(0)" id="boton_cerrar">Cerrar</a>
+                                                </div>
                                             </div>
                                         <?php } ?>
                                     </div>
 
-                                    <div class="col-md-4 col-sm-6" id="contenedor_botonesDerechos">
-                                        <div class="form-group">
-                                            <button class="btn btn-success mb-3" type="submit" id="boton_guardar">Guardar</button>
-                                            <a class="btn btn-default mb-3" href="javascript:void(0)" id="boton_cerrar">Cerrar</a>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </form>
+                                </form>
+                            </div>
                         </div>
                     </div>
-                </div>
+
+                <?php
+                    } else {
+                        registraEvento("CMS : Consulta de mensajero bloqueada | id = " . $id);
+                        muestraBloqueo();
+                    }
+                ?>
             </div>
         </div>
 

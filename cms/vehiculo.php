@@ -2538,7 +2538,7 @@ error_log("\nAdición", 3, $rutaLog);
 
                 <!-- Contenido -->
 
-                <?php if ($esUsuarioMaster || $esUsuarioAdministrador || $esUsuarioOperador ) { ?>
+                <?php if ($esUsuarioMaster || $usuario_permisoConsultarVehiculos ) { ?>
 
                     <div class="main-content app-content mt-0">
                         <div class="side-app">
@@ -5402,7 +5402,7 @@ error_log("\nAdición", 3, $rutaLog);
 
                                         <div class="col-md-4 col-sm-6" id="contenedor_botonesDerechos">
                                             <div class="form-group">
-                                                <?php if ($esUsuarioMaster || $esUsuarioAdministrador) { ?>
+                                                <?php if ($esUsuarioMaster || $usuario_permisoEditarVehiculos) { ?>
                                                     <button class="btn btn-success mb-3" type="submit" id="boton_guardar">Guardar</button>
                                                 <?php } ?>
                                                 <a class="btn btn-default mb-3" href="javascript:void(0)" id="boton_cerrar">Cerrar</a>

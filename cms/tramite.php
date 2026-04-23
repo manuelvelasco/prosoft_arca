@@ -630,425 +630,152 @@ error_reporting(E_ALL & ~E_DEPRECATED & ~E_USER_DEPRECATED);
 
                 <!-- Contenido -->
 
+                <?php if ($esUsuarioMaster || $usuario_permisoConsultarDelegacionVirtual ) { ?>
 
-                <div class="main-content app-content mt-0">
-                    <div class="side-app">
-                        <div class="main-container container-fluid">
-                            <!-- Titulo -->
+                    <div class="main-content app-content mt-0">
+                        <div class="side-app">
+                            <div class="main-container container-fluid">
+                                <!-- Titulo -->
 
 
-                            <div class="page-header">
-                                <h1 class="page-title">Detalle de trámite</h1>
+                                <div class="page-header">
+                                    <h1 class="page-title">Detalle de trámite</h1>
 
-                                <div>
-                                    <!--
-                                    <ol class="breadcrumb">
-                                        <li class="breadcrumb-item"><a href="dashboard.html">Inicio</a></li>
-                                        <li class="breadcrumb-item"><a href="javascript:void(0)">Catálogos</a></li>
-                                        <li class="breadcrumb-item"><a href="javascript:void(0)">Usuarios</a></li>
-                                        <li aria-current="page" class="breadcrumb-item active">Detalle de usuario</li>
-                                    </ol>
-                                    -->
-                                </div>
-                            </div>
-                            <form autocomplete="off" enctype="multipart/form-data" id="formulario" method="post">
-
-                                <input id="campo_esSubmit" name="esSubmit" type="hidden" value="1" />
-
-                                <div class="alert" id="contenedor_mensaje">
-                                    <span></span>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-12">
-                                        <div class="card">
-                                            <div class="card-body">
-                                                <h5><strong>Información de control</strong></h5>
-
-                                                <hr />
-
-                                                <div class="row">
-                                                    <?php if(!estaVacio($id)){ ?>
-                                                        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 mb-10 mb-10 hideClonacion">
-                                                            <div class="row">
-                                                                <div class="col-12">
-                                                                    <div class="row mb-12">
-                                                                        <label class="form-label col-md-4" for="campo_id">ID</label>
-                                                                        <div class="col-md-8">
-                                                                            <input class="form-control" id="campo_id" name="id" type="text" value="<?php echo $id; ?>" readonly/>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 mb-10 hideClonacion">
-                                                            <div class="row">
-                                                                <div class="col-12">
-                                                                    <div class="row mb-12">
-                                                                        <label class="form-label col-md-4" for="campo_fechaAlta">Fecha y hora de alta</label>
-                                                                        <div class="col-md-8">
-                                                                            <input class="form-control" id="campo_fechaAlta" name="fechaAlta" type="text" value="<?php echo $fechaAlta; ?>" readonly/>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 mb-10 hideClonacion">
-                                                            <div class="row">
-                                                                <div class="col-12">
-                                                                    <div class="row mb-12">
-                                                                        <label class="form-label col-md-4" for="campo_status">Estatus</label>
-                                                                        <div class="col-md-8">
-                                                                            <input class="form-control" id="campo_status" name="status" type="text" value="<?php echo $status; ?>" readonly/>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 mb-10 hideClonacion">
-                                                            <div class="row">
-                                                                <div class="col-12">
-                                                                    <div class="row mb-12">
-                                                                        <label class="form-label col-md-4" for="campo_folioARCA">Folio ARCA</label>
-                                                                        <div class="col-md-8">
-                                                                            <input class="form-control" id="campo_folioARCA" name="folioARCA" type="text" value="<?php echo $folioARCA; ?>" <?php echo $esUsuarioOperador ? "readonly" : "";?>/>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    <?php } ?>
-
-                                                    <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 mb-10">
-                                                        <div class="row">
-                                                            <div class="col-12">
-                                                                <div class="row mb-12">
-                                                                    <label class="form-label col-md-4" for="campo_idConcesionario">Agencia <span class="text-danger">*</span></label>
-                                                                    <div class="col-md-8">
-                                                                        <select class="form-control select2-show-search form-select" data-placeholder="Elige" id="campo_idConcesionario" name="idConcesionario">
-                                                                            <option <?php echo estaVacio($idConcesionario) ? "selected" : "" ?> value="">Seleccione</option>
-                                                                            <?php
-                                                                                $concesionarios_BD = consulta($conexion, "SELECT * FROM concesionario WHERE habilitado = 1 and eliminado = 0 ORDER BY nombreComercial");
-
-                                                                                while ($concesionarioBD = obtenResultado($concesionarios_BD)) {
-                                                                                    echo "<option " . (!estaVacio($idConcesionario) && $idConcesionario == $concesionarioBD["id"] ? "selected" : "") . " value='" . $concesionarioBD["id"] . "'>" . $concesionarioBD["nombreComercial"] . "</option>";
-                                                                                }
-                                                                            ?>
-                                                                        </select>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-                                                    <?php if(!estaVacio($id)){ ?>
-                                                        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 mb-10 hideClonacion">
-                                                            <div class="row">
-                                                                <div class="col-12">
-                                                                    <div class="row mb-12">
-                                                                        <label class="form-label col-md-4" for="campo_idUsuario">Usuario capturó <span class="text-danger">*</span></label>
-                                                                        <div class="col-md-8">
-                                                                            <input class="form-control" id="campo_idUsuario" name="idUsuario" type="text" value="<?php echo $usuarioCapturo["nombre"]; ?>" readonly/>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    <?php }?>
-
-                                                    <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 mb-10">
-                                                        <div class="row">
-                                                            <div class="col-12">
-                                                                <div class="row mb-12">
-                                                                    <label class="form-label col-md-4" for="campo_idMensajero">Mensajero <span class="text-danger">*</span></label>
-                                                                    <div class="col-md-8">
-                                                                        <select class="form-control select2-show-search form-select" data-placeholder="Elige" id="campo_idMensajero" name="idMensajero">
-                                                                            <option <?php echo estaVacio($idMensajero) ? "selected" : "" ?> value="">Seleccione</option>
-                                                                            <?php
-                                                                                $mensajeros_BD = consulta($conexion, "SELECT * FROM mensajero WHERE habilitado = 1 and eliminado = 0 ORDER BY nombre, apellidoPaterno, apellidoMaterno");
-
-                                                                                while ($mensajeroBD = obtenResultado($mensajeros_BD)) {
-                                                                                    echo "<option " . (!estaVacio($idMensajero) && $idMensajero == $mensajeroBD["id"] ? "selected" : "") . " value='" . $mensajeroBD["id"] . "'>" . $mensajeroBD["nombre"] . " " . $mensajero["apellidoPaterno"] . " " . $mensajero["apellidoMaterno"] . "</option>";
-                                                                                }
-                                                                            ?>
-                                                                        </select>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="col-md-12 col-sm-12 col-xs-12 mb-10">
-                                                        <div class="row">
-                                                            <div class="col-12">
-                                                                <div class="row mb-20">
-                                                                    <label class="form-label col-md-1" for="campo_comentariosConcesionario">Comentarios Agencia </label>
-                                                                    <div class="col-md-11">
-                                                                        <textarea class="form-control" id="campo_comentariosConcesionario" name="comentariosConcesionario" rows="2"><?php echo $comentariosConcesionario ?></textarea>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <?php if(!estaVacio($id)){ ?>
-                                                        <div class="col-md-12 col-sm-12 col-xs-12 mb-10 hideClonacion">
-                                                            <div class="row">
-                                                                <div class="col-12">
-                                                                    <div class="row mb-20">
-                                                                        <label class="form-label col-md-1" for="campo_comentariosARCA">Comentarios ARCA </label>
-                                                                        <div class="col-md-11">
-                                                                            <textarea class="form-control" id="campo_comentariosARCA" name="comentariosARCA" rows="2" <?php echo $esUsuarioOperador ? "readonly" : "";?>><?php echo $comentariosARCA ?></textarea>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    <?php } ?>
-
-                                                </div>
-                                            </div>
-                                        </div>
+                                    <div>
+                                        <!--
+                                        <ol class="breadcrumb">
+                                            <li class="breadcrumb-item"><a href="dashboard.html">Inicio</a></li>
+                                            <li class="breadcrumb-item"><a href="javascript:void(0)">Catálogos</a></li>
+                                            <li class="breadcrumb-item"><a href="javascript:void(0)">Usuarios</a></li>
+                                            <li aria-current="page" class="breadcrumb-item active">Detalle de usuario</li>
+                                        </ol>
+                                        -->
                                     </div>
                                 </div>
+                                <form autocomplete="off" enctype="multipart/form-data" id="formulario" method="post">
 
-                                <div class="row">
-                                    <div class="col-12">
-                                        <div class="card">
-                                            <div class="card-body">
-                                                <h5><strong>Información de control</strong></h5>
+                                    <input id="campo_esSubmit" name="esSubmit" type="hidden" value="1" />
 
-                                                <hr />
+                                    <div class="alert" id="contenedor_mensaje">
+                                        <span></span>
+                                    </div>
 
-                                                <div class="row">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <h5><strong>Información de control</strong></h5>
 
-                                                    <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 mb-20">
-                                                        <div class="row">
-                                                            <div class="col-12">
-                                                                <div class="row mb-12">
-                                                                    <label class="form-label col-md-4" for="campo_vehiculo_marca">Marca <span class="txt-danger ml-10">*</span></label>
-                                                                    <div class="col-md-8">
-                                                                        <select class="form-control select2-show-search form-select" data-placeholder="Seleccione" id="select_vehiculo_marca" name="vehiculo_marca">
-                                                                            
-                                                                        </select>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
+                                                    <hr />
 
-                                                    <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 mb-20">
-                                                        <div class="row">
-                                                            <div class="col-12">
-                                                                <div class="row mb-12">
-                                                                    <label class="form-label col-md-4" for="campo_vehiculo_modelo">Modelo <span class="txt-danger ml-10">*</span></label>
-                                                                    <div class="col-md-8">
-                                                                        <select class="form-control select2-show-search form-select" data-placeholder="Seleccione" id="select_vehiculo_modelo" name="vehiculo_modelo">
-                                                                            
-                                                                        </select>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 mb-20">
-                                                        <div class="row">
-                                                            <div class="col-12">
-                                                                <div class="row mb-12">
-                                                                    <label class="form-label col-md-4" for="campo_vehiculo_ano">Año <span class="txt-danger ml-10">*</span></label>
-                                                                    <div class="col-md-8">
-                                                                        <select class="form-control select2-show-search form-select" data-placeholder="Seleccione" id="select_vehiculo_ano" name="vehiculo_ano">
-                                                                            
-                                                                        </select>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    
-
-                                                    <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 mb-10">
-                                                        <div class="row">
-                                                            <div class="col-12">
-                                                                <div class="row mb-12">
-                                                                    <label class="form-label col-md-4" for="campo_vehiculo_color">Color <span class="text-danger">*</span></label>
-                                                                    <div class="col-md-8">
-                                                                        <input class="form-control" id="campo_vehiculo_color" name="vehiculo_color" type="text" value="<?php echo $vehiculo_color; ?>" />
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 mb-10">
-                                                        <div class="row">
-                                                            <div class="col-12">
-                                                                <div class="row mb-12">
-                                                                    <label class="form-label col-md-4" for="campo_vehiculo_vin">VIN <span class="text-danger">*</span></label>
-                                                                    <div class="col-md-8">
-                                                                        <input class="form-control" id="campo_vehiculo_vin" name="vehiculo_vin" type="text" value="<?php echo $vehiculo_vin; ?>" />
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 mb-10">
-                                                        <div class="row">
-                                                            <div class="col-12">
-                                                                <div class="row mb-12">
-                                                                    <label class="form-label col-md-4" for="campo_cliente_nombre">Nombre(s) <span class="text-danger">*</span></label>
-                                                                    <div class="col-md-8">
-                                                                        <input class="form-control" id="campo_cliente_nombre" name="cliente_nombre" type="text" value="<?php echo $cliente_nombre; ?>" />
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 mb-10">
-                                                        <div class="row">
-                                                            <div class="col-12">
-                                                                <div class="row mb-12">
-                                                                    <label class="form-label col-md-4" for="campo_cliente_apellidoPaterno">Apellido Paterno <span class="text-danger">*</span></label>
-                                                                    <div class="col-md-8">
-                                                                        <input class="form-control" id="campo_cliente_apellidoPaterno" name="cliente_apellidoPaterno" type="text" value="<?php echo $cliente_apellidoPaterno; ?>" />
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 mb-10">
-                                                        <div class="row">
-                                                            <div class="col-12">
-                                                                <div class="row mb-12">
-                                                                    <label class="form-label col-md-4" for="campo_cliente_apellidoMaterno">Apellido Materno <span class="text-danger">*</span></label>
-                                                                    <div class="col-md-8">
-                                                                        <input class="form-control" id="campo_cliente_apellidoMaterno" name="cliente_apellidoMaterno" type="text" value="<?php echo $cliente_apellidoMaterno; ?>" />
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 mb-10">
-                                                        <div class="row">
-                                                            <div class="col-12">
-                                                                <div class="row mb-12">
-                                                                    <label class="form-label col-md-4" for="campo_cliente_correoElectronico">Correo electrónico del cliente <span class="text-danger">*</span></label>
-                                                                    <div class="col-md-8">
-                                                                        <input class="form-control" id="campo_cliente_correoElectronico" name="cliente_correoElectronico" type="text" value="<?php echo $cliente_correoElectronico; ?>" />
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="row">
-
-                                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
-                                                        <div class="row">
-                                                            <div class="col-12">
-                                                                <div class="form-group">
-                                                                    <label class="control-label mb-10">PDF de expediente <span class="text-danger">*</span></label>
-
-                                                                    <div>
-                                                                        <input name="archivo_expediente" type="file" />
-                                                                        <br />
-                                                                        <div class="row">
-                                                                            <div class="col-sm-12">
-                                                                                <div class="panel panel-success card-view">
-                                                                                    <div class="panel-wrapper in">
-                                                                                        <div class="panel-body">
-                                                                                            <ul class="chat-list-wrap">
-                                                                                                <li class="chat-list">
-                                                                                                    <div class="chat-body">
-                                                                                                    <?php
-                                                                                                        if (!estaVacio($archivo_expediente)) {
-                                                                                                            echo "<div class='chat-data' id='contenedor_archivo_expediente'>";
-                                                                                                            echo "<img class='user-img' src='" . $constante_urlTramites . "/" . $id . "/" . $archivo_expediente . "' />";
-
-                                                                                                            echo "<div class='user-data'>";
-                                                                                                            echo "<span class='name block'>" . $archivo_expediente . "</span>";
-                                                                                                            echo "<span class='time block txt-grey'>";
-                                                                                                            echo "<a download href='" . $constante_urlTramites . "/" . $id . "/" . $archivo_expediente . "'>Descargar</a>";
-                                                                                                            echo "&nbsp;&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;&nbsp;";
-                                                                                                            echo "<a href='javascript:eliminaPdfExpediente(" . $id . ")'>Eliminar</a>";
-                                                                                                            echo "</span>";
-                                                                                                            echo "</div>";
-                                                                                                            echo "<div class='clearfix'></div>";
-                                                                                                            echo "</div>";
-                                                                                                        }
-                                                                                                    ?>
-                                                                                                    </div>
-                                                                                                </li>
-                                                                                            </ul>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
+                                                    <div class="row">
+                                                        <?php if(!estaVacio($id)){ ?>
+                                                            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 mb-10 mb-10 hideClonacion">
+                                                                <div class="row">
+                                                                    <div class="col-12">
+                                                                        <div class="row mb-12">
+                                                                            <label class="form-label col-md-4" for="campo_id">ID</label>
+                                                                            <div class="col-md-8">
+                                                                                <input class="form-control" id="campo_id" name="id" type="text" value="<?php echo $id; ?>" readonly/>
                                                                             </div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                        </div>
-                                                    </div>
 
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                                            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 mb-10 hideClonacion">
+                                                                <div class="row">
+                                                                    <div class="col-12">
+                                                                        <div class="row mb-12">
+                                                                            <label class="form-label col-md-4" for="campo_fechaAlta">Fecha y hora de alta</label>
+                                                                            <div class="col-md-8">
+                                                                                <input class="form-control" id="campo_fechaAlta" name="fechaAlta" type="text" value="<?php echo $fechaAlta; ?>" readonly/>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
 
-                                <?php if(!estaVacio($id)){ ?>
-                                    <div class="row" id="seccionICV">
-                                        <div class="col-12">
-                                            <div class="card">
-                                                <div class="card-body">
-                                                    <h5><strong>Datos ICV</strong></h5>
+                                                            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 mb-10 hideClonacion">
+                                                                <div class="row">
+                                                                    <div class="col-12">
+                                                                        <div class="row mb-12">
+                                                                            <label class="form-label col-md-4" for="campo_status">Estatus</label>
+                                                                            <div class="col-md-8">
+                                                                                <input class="form-control" id="campo_status" name="status" type="text" value="<?php echo $status; ?>" readonly/>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
 
-                                                    <hr />
+                                                            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 mb-10 hideClonacion">
+                                                                <div class="row">
+                                                                    <div class="col-12">
+                                                                        <div class="row mb-12">
+                                                                            <label class="form-label col-md-4" for="campo_folioARCA">Folio ARCA</label>
+                                                                            <div class="col-md-8">
+                                                                                <input class="form-control" id="campo_folioARCA" name="folioARCA" type="text" value="<?php echo $folioARCA; ?>" <?php echo $esUsuarioOperador ? "readonly" : "";?>/>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        <?php } ?>
 
-                                                    <div class="row">
-
-                                                        <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-20">
+                                                        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 mb-10">
                                                             <div class="row">
                                                                 <div class="col-12">
                                                                     <div class="row mb-12">
-                                                                        <label class="form-label col-md-4" for="campo_folioICV">Folio asignado por el ICV</label>
+                                                                        <label class="form-label col-md-4" for="campo_idConcesionario">Agencia <span class="text-danger">*</span></label>
                                                                         <div class="col-md-8">
-                                                                            <input class="form-control" id="campo_folioICV" name="folioICV" type="text" value="<?php echo $folioICV; ?>" <?php echo $esUsuarioOperador ? "readonly" : "";?>/>
+                                                                            <select class="form-control select2-show-search form-select" data-placeholder="Elige" id="campo_idConcesionario" name="idConcesionario">
+                                                                                <option <?php echo estaVacio($idConcesionario) ? "selected" : "" ?> value="">Seleccione</option>
+                                                                                <?php
+                                                                                    $concesionarios_BD = consulta($conexion, "SELECT * FROM concesionario WHERE habilitado = 1 and eliminado = 0 ORDER BY nombreComercial");
+
+                                                                                    while ($concesionarioBD = obtenResultado($concesionarios_BD)) {
+                                                                                        echo "<option " . (!estaVacio($idConcesionario) && $idConcesionario == $concesionarioBD["id"] ? "selected" : "") . " value='" . $concesionarioBD["id"] . "'>" . $concesionarioBD["nombreComercial"] . "</option>";
+                                                                                    }
+                                                                                ?>
+                                                                            </select>
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                         </div>
 
-                                                        <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-20">
-                                                            <div class="row">
-                                                                <div class="col-12">
-                                                                    <div class="row mb-12">
-                                                                        <label class="form-label col-md-4" for="campo_fechaRecepcionCorreoICV">Fecha y hora en la que se recibió correo de ICV</label>
-                                                                        <div class="col-md-8">
-                                                                            <input class="form-control" id="campo_fechaRecepcionCorreoICV" name="fechaRecepcionCorreoICV" type="datetime-local" value="<?php echo $fechaRecepcionCorreoICV; ?>" <?php echo $esUsuarioOperador ? "readonly" : "";?>/>
+                                                        <?php if(!estaVacio($id)){ ?>
+                                                            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 mb-10 hideClonacion">
+                                                                <div class="row">
+                                                                    <div class="col-12">
+                                                                        <div class="row mb-12">
+                                                                            <label class="form-label col-md-4" for="campo_idUsuario">Usuario capturó <span class="text-danger">*</span></label>
+                                                                            <div class="col-md-8">
+                                                                                <input class="form-control" id="campo_idUsuario" name="idUsuario" type="text" value="<?php echo $usuarioCapturo["nombre"]; ?>" readonly/>
+                                                                            </div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                        </div>
+                                                        <?php }?>
 
-                                                        <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-10">
+                                                        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 mb-10">
                                                             <div class="row">
                                                                 <div class="col-12">
                                                                     <div class="row mb-12">
-                                                                        <label class="form-label col-md-4" for="campo_ejecutivoICV">Ejecutivo ICV <span class="text-danger">*</span></label>
+                                                                        <label class="form-label col-md-4" for="campo_idMensajero">Mensajero <span class="text-danger">*</span></label>
                                                                         <div class="col-md-8">
-                                                                            <input class="form-control" id="campo_ejecutivoICV" name="ejecutivoICV" type="text" value="<?php echo $ejecutivoICV; ?>" <?php echo $esUsuarioOperador ? "readonly" : "";?>/>
+                                                                            <select class="form-control select2-show-search form-select" data-placeholder="Elige" id="campo_idMensajero" name="idMensajero">
+                                                                                <option <?php echo estaVacio($idMensajero) ? "selected" : "" ?> value="">Seleccione</option>
+                                                                                <?php
+                                                                                    $mensajeros_BD = consulta($conexion, "SELECT * FROM mensajero WHERE habilitado = 1 and eliminado = 0 ORDER BY nombre, apellidoPaterno, apellidoMaterno");
+
+                                                                                    while ($mensajeroBD = obtenResultado($mensajeros_BD)) {
+                                                                                        echo "<option " . (!estaVacio($idMensajero) && $idMensajero == $mensajeroBD["id"] ? "selected" : "") . " value='" . $mensajeroBD["id"] . "'>" . $mensajeroBD["nombre"] . " " . $mensajero["apellidoPaterno"] . " " . $mensajero["apellidoMaterno"] . "</option>";
+                                                                                    }
+                                                                                ?>
+                                                                            </select>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -1059,25 +786,180 @@ error_reporting(E_ALL & ~E_DEPRECATED & ~E_USER_DEPRECATED);
                                                             <div class="row">
                                                                 <div class="col-12">
                                                                     <div class="row mb-20">
-                                                                        <label class="form-label col-md-1" for="campo_comentariosICV">Comentarios ICV </label>
+                                                                        <label class="form-label col-md-1" for="campo_comentariosConcesionario">Comentarios Agencia </label>
                                                                         <div class="col-md-11">
-                                                                            <textarea class="form-control" id="campo_comentariosICV" name="comentariosICV" rows="2" <?php echo $esUsuarioOperador ? "readonly" : "";?>><?php echo $comentariosICV ?></textarea>
+                                                                            <textarea class="form-control" id="campo_comentariosConcesionario" name="comentariosConcesionario" rows="2"><?php echo $comentariosConcesionario ?></textarea>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <?php if(!estaVacio($id)){ ?>
+                                                            <div class="col-md-12 col-sm-12 col-xs-12 mb-10 hideClonacion">
+                                                                <div class="row">
+                                                                    <div class="col-12">
+                                                                        <div class="row mb-20">
+                                                                            <label class="form-label col-md-1" for="campo_comentariosARCA">Comentarios ARCA </label>
+                                                                            <div class="col-md-11">
+                                                                                <textarea class="form-control" id="campo_comentariosARCA" name="comentariosARCA" rows="2" <?php echo $esUsuarioOperador ? "readonly" : "";?>><?php echo $comentariosARCA ?></textarea>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        <?php } ?>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <h5><strong>Información de control</strong></h5>
+
+                                                    <hr />
+
+                                                    <div class="row">
+
+                                                        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 mb-20">
+                                                            <div class="row">
+                                                                <div class="col-12">
+                                                                    <div class="row mb-12">
+                                                                        <label class="form-label col-md-4" for="campo_vehiculo_marca">Marca <span class="txt-danger ml-10">*</span></label>
+                                                                        <div class="col-md-8">
+                                                                            <select class="form-control select2-show-search form-select" data-placeholder="Seleccione" id="select_vehiculo_marca" name="vehiculo_marca">
+                                                                                
+                                                                            </select>
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                         </div>
 
+                                                        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 mb-20">
+                                                            <div class="row">
+                                                                <div class="col-12">
+                                                                    <div class="row mb-12">
+                                                                        <label class="form-label col-md-4" for="campo_vehiculo_modelo">Modelo <span class="txt-danger ml-10">*</span></label>
+                                                                        <div class="col-md-8">
+                                                                            <select class="form-control select2-show-search form-select" data-placeholder="Seleccione" id="select_vehiculo_modelo" name="vehiculo_modelo">
+                                                                                
+                                                                            </select>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 mb-20">
+                                                            <div class="row">
+                                                                <div class="col-12">
+                                                                    <div class="row mb-12">
+                                                                        <label class="form-label col-md-4" for="campo_vehiculo_ano">Año <span class="txt-danger ml-10">*</span></label>
+                                                                        <div class="col-md-8">
+                                                                            <select class="form-control select2-show-search form-select" data-placeholder="Seleccione" id="select_vehiculo_ano" name="vehiculo_ano">
+                                                                                
+                                                                            </select>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
                                                         
+
+                                                        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 mb-10">
+                                                            <div class="row">
+                                                                <div class="col-12">
+                                                                    <div class="row mb-12">
+                                                                        <label class="form-label col-md-4" for="campo_vehiculo_color">Color <span class="text-danger">*</span></label>
+                                                                        <div class="col-md-8">
+                                                                            <input class="form-control" id="campo_vehiculo_color" name="vehiculo_color" type="text" value="<?php echo $vehiculo_color; ?>" />
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 mb-10">
+                                                            <div class="row">
+                                                                <div class="col-12">
+                                                                    <div class="row mb-12">
+                                                                        <label class="form-label col-md-4" for="campo_vehiculo_vin">VIN <span class="text-danger">*</span></label>
+                                                                        <div class="col-md-8">
+                                                                            <input class="form-control" id="campo_vehiculo_vin" name="vehiculo_vin" type="text" value="<?php echo $vehiculo_vin; ?>" />
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 mb-10">
+                                                            <div class="row">
+                                                                <div class="col-12">
+                                                                    <div class="row mb-12">
+                                                                        <label class="form-label col-md-4" for="campo_cliente_nombre">Nombre(s) <span class="text-danger">*</span></label>
+                                                                        <div class="col-md-8">
+                                                                            <input class="form-control" id="campo_cliente_nombre" name="cliente_nombre" type="text" value="<?php echo $cliente_nombre; ?>" />
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 mb-10">
+                                                            <div class="row">
+                                                                <div class="col-12">
+                                                                    <div class="row mb-12">
+                                                                        <label class="form-label col-md-4" for="campo_cliente_apellidoPaterno">Apellido Paterno <span class="text-danger">*</span></label>
+                                                                        <div class="col-md-8">
+                                                                            <input class="form-control" id="campo_cliente_apellidoPaterno" name="cliente_apellidoPaterno" type="text" value="<?php echo $cliente_apellidoPaterno; ?>" />
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 mb-10">
+                                                            <div class="row">
+                                                                <div class="col-12">
+                                                                    <div class="row mb-12">
+                                                                        <label class="form-label col-md-4" for="campo_cliente_apellidoMaterno">Apellido Materno <span class="text-danger">*</span></label>
+                                                                        <div class="col-md-8">
+                                                                            <input class="form-control" id="campo_cliente_apellidoMaterno" name="cliente_apellidoMaterno" type="text" value="<?php echo $cliente_apellidoMaterno; ?>" />
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 mb-10">
+                                                            <div class="row">
+                                                                <div class="col-12">
+                                                                    <div class="row mb-12">
+                                                                        <label class="form-label col-md-4" for="campo_cliente_correoElectronico">Correo electrónico del cliente <span class="text-danger">*</span></label>
+                                                                        <div class="col-md-8">
+                                                                            <input class="form-control" id="campo_cliente_correoElectronico" name="cliente_correoElectronico" type="text" value="<?php echo $cliente_correoElectronico; ?>" />
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row">
 
                                                         <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
                                                             <div class="row">
                                                                 <div class="col-12">
                                                                     <div class="form-group">
-                                                                        <label class="control-label mb-10">PDF de la solicitud de ICV</label>
+                                                                        <label class="control-label mb-10">PDF de expediente <span class="text-danger">*</span></label>
 
                                                                         <div>
-                                                                            <input name="archivo_solicitudICV" type="file" <?php echo $esUsuarioOperador ? "disabled" : "";?>/>
+                                                                            <input name="archivo_expediente" type="file" />
                                                                             <br />
                                                                             <div class="row">
                                                                                 <div class="col-sm-12">
@@ -1088,16 +970,16 @@ error_reporting(E_ALL & ~E_DEPRECATED & ~E_USER_DEPRECATED);
                                                                                                     <li class="chat-list">
                                                                                                         <div class="chat-body">
                                                                                                         <?php
-                                                                                                            if (!estaVacio($archivo_solicitudICV)) {
-                                                                                                                echo "<div class='chat-data' id='contenedor_archivo_solicitudICV'>";
-                                                                                                                echo "<img class='user-img' src='" . $constante_urlTramites . "/" . $id . "/" . $archivo_solicitudICV . "' />";
+                                                                                                            if (!estaVacio($archivo_expediente)) {
+                                                                                                                echo "<div class='chat-data' id='contenedor_archivo_expediente'>";
+                                                                                                                echo "<img class='user-img' src='" . $constante_urlTramites . "/" . $id . "/" . $archivo_expediente . "' />";
 
                                                                                                                 echo "<div class='user-data'>";
-                                                                                                                echo "<span class='name block'>" . $archivo_solicitudICV . "</span>";
+                                                                                                                echo "<span class='name block'>" . $archivo_expediente . "</span>";
                                                                                                                 echo "<span class='time block txt-grey'>";
-                                                                                                                echo "<a download href='" . $constante_urlTramites . "/" . $id . "/" . $archivo_solicitudICV . "'>Descargar</a>";
+                                                                                                                echo "<a download href='" . $constante_urlTramites . "/" . $id . "/" . $archivo_expediente . "'>Descargar</a>";
                                                                                                                 echo "&nbsp;&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;&nbsp;";
-                                                                                                                echo "<a href='javascript:eliminaArchivoIne(" . $id . ")'>Eliminar</a>";
+                                                                                                                echo "<a href='javascript:eliminaPdfExpediente(" . $id . ")'>Eliminar</a>";
                                                                                                                 echo "</span>";
                                                                                                                 echo "</div>";
                                                                                                                 echo "<div class='clearfix'></div>";
@@ -1123,105 +1005,230 @@ error_reporting(E_ALL & ~E_DEPRECATED & ~E_USER_DEPRECATED);
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="row" id="seccionBitacora">
-                                        <div class="col-12">
-                                            <div class="card">
-                                                <div class="card-body">
-                                                    <h5><strong>Bitácora</strong></h5>
 
-                                                    <hr />
+                                    <?php if(!estaVacio($id)){ ?>
+                                        <div class="row" id="seccionICV">
+                                            <div class="col-12">
+                                                <div class="card">
+                                                    <div class="card-body">
+                                                        <h5><strong>Datos ICV</strong></h5>
 
-                                                    <div class="row row-sm">
-                                                        <div class="col-lg-12">
-                                                            <div class="table-responsive">
-                                                                <table class="table table-bordered text-nowrap key-buttons border-bottom" id="tabla_resultados">
-                                                                    <thead>
-                                                                        <tr>
-                                                                            <th class="border-bottom-0">Fecha y hora</th>
-                                                                            <th class="border-bottom-0">Estatus</th>
-                                                                            <th class="border-bottom-0">Tiempo transcurrido</th>
-                                                                        </tr>
-                                                                    </thead>
+                                                        <hr />
 
-                                                                    <tbody id="contenedor_resultados">
-                                                                        <?php
-                                                                                
-                                                                                // Consulta base de datos
+                                                        <div class="row">
 
-                                                                                $bitacora_BD = consulta($conexion, "SELECT * FROM tramite_bitacora u WHERE u.idTramite = " . $id . " ORDER BY id");
+                                                            <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-20">
+                                                                <div class="row">
+                                                                    <div class="col-12">
+                                                                        <div class="row mb-12">
+                                                                            <label class="form-label col-md-4" for="campo_folioICV">Folio asignado por el ICV</label>
+                                                                            <div class="col-md-8">
+                                                                                <input class="form-control" id="campo_folioICV" name="folioICV" type="text" value="<?php echo $folioICV; ?>" <?php echo $esUsuarioOperador ? "readonly" : "";?>/>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
 
-                                                                                while ($bitacora = obtenResultado($bitacora_BD)) {
-                                                                                    $init = $bitacora["tiempoTranscurrido"];
-                                                                                    $hours = floor($init / 3600);
-                                                                                    $minutes = floor(($init / 60) % 60);
-                                                                                    $seconds = $init % 60;
-                                                                                    echo "<tr>";
-                                                                                    echo "<td>" . $bitacora["fechaRegistro"] . "</td>";
-                                                                                    echo "<td>" . $bitacora["status"] . "</td>";
-                                                                                    echo "<td>" . $hours . " horas, " . $minutes . " minutos, " . $seconds . " segundos</td>";
-                                                                                    echo "</tr>";
-                                                                                }
-                                                                            ?>
-                                                                    </tbody>
-                                                                </table>
+                                                            <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-20">
+                                                                <div class="row">
+                                                                    <div class="col-12">
+                                                                        <div class="row mb-12">
+                                                                            <label class="form-label col-md-4" for="campo_fechaRecepcionCorreoICV">Fecha y hora en la que se recibió correo de ICV</label>
+                                                                            <div class="col-md-8">
+                                                                                <input class="form-control" id="campo_fechaRecepcionCorreoICV" name="fechaRecepcionCorreoICV" type="datetime-local" value="<?php echo $fechaRecepcionCorreoICV; ?>" <?php echo $esUsuarioOperador ? "readonly" : "";?>/>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-10">
+                                                                <div class="row">
+                                                                    <div class="col-12">
+                                                                        <div class="row mb-12">
+                                                                            <label class="form-label col-md-4" for="campo_ejecutivoICV">Ejecutivo ICV <span class="text-danger">*</span></label>
+                                                                            <div class="col-md-8">
+                                                                                <input class="form-control" id="campo_ejecutivoICV" name="ejecutivoICV" type="text" value="<?php echo $ejecutivoICV; ?>" <?php echo $esUsuarioOperador ? "readonly" : "";?>/>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="col-md-12 col-sm-12 col-xs-12 mb-10">
+                                                                <div class="row">
+                                                                    <div class="col-12">
+                                                                        <div class="row mb-20">
+                                                                            <label class="form-label col-md-1" for="campo_comentariosICV">Comentarios ICV </label>
+                                                                            <div class="col-md-11">
+                                                                                <textarea class="form-control" id="campo_comentariosICV" name="comentariosICV" rows="2" <?php echo $esUsuarioOperador ? "readonly" : "";?>><?php echo $comentariosICV ?></textarea>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                            
+
+                                                            <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+                                                                <div class="row">
+                                                                    <div class="col-12">
+                                                                        <div class="form-group">
+                                                                            <label class="control-label mb-10">PDF de la solicitud de ICV</label>
+
+                                                                            <div>
+                                                                                <input name="archivo_solicitudICV" type="file" <?php echo $esUsuarioOperador ? "disabled" : "";?>/>
+                                                                                <br />
+                                                                                <div class="row">
+                                                                                    <div class="col-sm-12">
+                                                                                        <div class="panel panel-success card-view">
+                                                                                            <div class="panel-wrapper in">
+                                                                                                <div class="panel-body">
+                                                                                                    <ul class="chat-list-wrap">
+                                                                                                        <li class="chat-list">
+                                                                                                            <div class="chat-body">
+                                                                                                            <?php
+                                                                                                                if (!estaVacio($archivo_solicitudICV)) {
+                                                                                                                    echo "<div class='chat-data' id='contenedor_archivo_solicitudICV'>";
+                                                                                                                    echo "<img class='user-img' src='" . $constante_urlTramites . "/" . $id . "/" . $archivo_solicitudICV . "' />";
+
+                                                                                                                    echo "<div class='user-data'>";
+                                                                                                                    echo "<span class='name block'>" . $archivo_solicitudICV . "</span>";
+                                                                                                                    echo "<span class='time block txt-grey'>";
+                                                                                                                    echo "<a download href='" . $constante_urlTramites . "/" . $id . "/" . $archivo_solicitudICV . "'>Descargar</a>";
+                                                                                                                    echo "&nbsp;&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;&nbsp;";
+                                                                                                                    echo "<a href='javascript:eliminaArchivoIne(" . $id . ")'>Eliminar</a>";
+                                                                                                                    echo "</span>";
+                                                                                                                    echo "</div>";
+                                                                                                                    echo "<div class='clearfix'></div>";
+                                                                                                                    echo "</div>";
+                                                                                                                }
+                                                                                                            ?>
+                                                                                                            </div>
+                                                                                                        </li>
+                                                                                                    </ul>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row" id="seccionBitacora">
+                                            <div class="col-12">
+                                                <div class="card">
+                                                    <div class="card-body">
+                                                        <h5><strong>Bitácora</strong></h5>
+
+                                                        <hr />
+
+                                                        <div class="row row-sm">
+                                                            <div class="col-lg-12">
+                                                                <div class="table-responsive">
+                                                                    <table class="table table-bordered text-nowrap key-buttons border-bottom" id="tabla_resultados">
+                                                                        <thead>
+                                                                            <tr>
+                                                                                <th class="border-bottom-0">Fecha y hora</th>
+                                                                                <th class="border-bottom-0">Estatus</th>
+                                                                                <th class="border-bottom-0">Tiempo transcurrido</th>
+                                                                            </tr>
+                                                                        </thead>
+
+                                                                        <tbody id="contenedor_resultados">
+                                                                            <?php
+                                                                                    
+                                                                                    // Consulta base de datos
+
+                                                                                    $bitacora_BD = consulta($conexion, "SELECT * FROM tramite_bitacora u WHERE u.idTramite = " . $id . " ORDER BY id");
+
+                                                                                    while ($bitacora = obtenResultado($bitacora_BD)) {
+                                                                                        $init = $bitacora["tiempoTranscurrido"];
+                                                                                        $hours = floor($init / 3600);
+                                                                                        $minutes = floor(($init / 60) % 60);
+                                                                                        $seconds = $init % 60;
+                                                                                        echo "<tr>";
+                                                                                        echo "<td>" . $bitacora["fechaRegistro"] . "</td>";
+                                                                                        echo "<td>" . $bitacora["status"] . "</td>";
+                                                                                        echo "<td>" . $hours . " horas, " . $minutes . " minutos, " . $seconds . " segundos</td>";
+                                                                                        echo "</tr>";
+                                                                                    }
+                                                                                ?>
+                                                                        </tbody>
+                                                                    </table>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                <?php } ?> 
+                                    <?php } ?> 
 
-                                <div class="row mt-6">
-                                    <div class="col-md-8 col-sm-6" id="contenedor_botonesIzquierdos">
-                                        <?php if((!estaVacio($id)) && $eliminado == 0){?>
-                                            <div class="form-group">
-                                                <a class="btn btn-danger mb-3" href="javascript:eliminaTramite(<?php echo  $id ?>)" id="boton_eliminar">Eliminar</a>
-                                            </div>
-                                        <?php } ?>
-                                    </div>
-
-                                    <div class="col-md-4 col-sm-6" id="contenedor_botonesDerechos">
-                                        <div class="form-group">
-                                            <input id="campo_accion" name="accion" type="hidden" value="<?php echo $accion; ?>" />
-                                            <a class="btn btn-default mb-3" href="javascript:void(0)" id="boton_cerrar">Cerrar</a>
-
-                                            <?php if(!estaVacio($id)){?>
-
-                                                <?php if($status == "Rechazado"){?> 
-                                                    <button class="btn btn-default mb-3" id="boton_clonar_tramite" onclick="clonar()" type="submit" >Clonar trámite</button>
-                                                <?php }?>
-
-                                                <?php if($status == "A la espera de respuesta de ICV"){?> 
-                                                    <button class="btn btn-default mb-3" id="boton_clonar_tramite" onclick="clonar()" type="submit" >Clonar trámite</button>
-                                                    <button class="btn btn-default mb-3" id="boton_rechazado" onclick="rechazado()" type="submit" >Rechazado</button>
-                                                    <button class="btn btn-default mb-3" id="boton_aprobado" onclick="aprobado()" type="submit" >Aprobado</button>
-                                                <?php }?>
-
-                                                <?php if(($status == 'Enviado a ARCA') || ($status == "Reenviado a ARCA")){?> 
-                                                    <button class="btn btn-default mb-3" id="boton_enviar_icv" onclick="enviarICV()" type="submit" >Enviar a ICV</button>
-                                                <?php }?>
-
-                                                <?php if($status == "Devuelto a la agencia"){?> 
-                                                    <button class="btn btn-default mb-3" id="boton_reenviar_arca" onclick="reenviarArca()" type="submit" >Reenviar a ARCA</button>
-                                                <?php }?>
-
-                                                <?php if(($status == 'Enviado a ARCA') || ($status == "Reenviado a ARCA")){?> 
-                                                    <button class="btn btn-default mb-3" id="boton_regresar_agencia" onclick="regresarAAgencia()" type="submit" >Regresar a Agencia</button>
-                                                <?php }?>
-
+                                    <div class="row mt-6">
+                                        <div class="col-md-8 col-sm-6" id="contenedor_botonesIzquierdos">
+                                            <?php if((!estaVacio($id)) && $eliminado == 0){?>
+                                                <div class="form-group">
+                                                    <a class="btn btn-danger mb-3" href="javascript:eliminaTramite(<?php echo  $id ?>)" id="boton_eliminar">Eliminar</a>
+                                                </div>
                                             <?php } ?>
-                                            <button class="btn btn-success mb-3" id="boton_guardar" onclick="return confirm('¿Desea dar de alta este trámite?');" type="submit" >Generar trámite</button>
-                                            
+                                        </div>
+
+                                        <div class="col-md-4 col-sm-6" id="contenedor_botonesDerechos">
+                                            <div class="form-group">
+                                                <input id="campo_accion" name="accion" type="hidden" value="<?php echo $accion; ?>" />
+                                                <a class="btn btn-default mb-3" href="javascript:void(0)" id="boton_cerrar">Cerrar</a>
+
+                                                <?php if((!estaVacio($id)) && ($esUsuarioMaster || $usuario_permisoEditarDelegacionVirtual)){?>
+
+                                                    <?php if($status == "Rechazado"){?> 
+                                                        <button class="btn btn-default mb-3" id="boton_clonar_tramite" onclick="clonar()" type="submit" >Clonar trámite</button>
+                                                    <?php }?>
+
+                                                    <?php if($status == "A la espera de respuesta de ICV"){?> 
+                                                        <button class="btn btn-default mb-3" id="boton_clonar_tramite" onclick="clonar()" type="submit" >Clonar trámite</button>
+                                                        <button class="btn btn-default mb-3" id="boton_rechazado" onclick="rechazado()" type="submit" >Rechazado</button>
+                                                        <button class="btn btn-default mb-3" id="boton_aprobado" onclick="aprobado()" type="submit" >Aprobado</button>
+                                                    <?php }?>
+
+                                                    <?php if(($status == 'Enviado a ARCA') || ($status == "Reenviado a ARCA")){?> 
+                                                        <button class="btn btn-default mb-3" id="boton_enviar_icv" onclick="enviarICV()" type="submit" >Enviar a ICV</button>
+                                                    <?php }?>
+
+                                                    <?php if($status == "Devuelto a la agencia"){?> 
+                                                        <button class="btn btn-default mb-3" id="boton_reenviar_arca" onclick="reenviarArca()" type="submit" >Reenviar a ARCA</button>
+                                                    <?php }?>
+
+                                                    <?php if(($status == 'Enviado a ARCA') || ($status == "Reenviado a ARCA")){?> 
+                                                        <button class="btn btn-default mb-3" id="boton_regresar_agencia" onclick="regresarAAgencia()" type="submit" >Regresar a Agencia</button>
+                                                    <?php }?>
+
+                                                <?php } ?>
+                                                <button class="btn btn-success mb-3" id="boton_guardar" onclick="return confirm('¿Desea dar de alta este trámite?');" type="submit" >Generar trámite</button>
+                                                
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
 
-                            </form>
+                                </form>
+                            </div>
                         </div>
                     </div>
-                </div>
+                <?php
+                    } else {
+                        registraEvento("CMS : Consulta de trámite bloqueada | id = " . $id);
+                        muestraBloqueo();
+                    }
+                ?>
             </div>
         </div>
 

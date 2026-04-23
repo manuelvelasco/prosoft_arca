@@ -561,7 +561,7 @@
 
                 <!-- Contenido -->
 
-                <?php if ($esUsuarioMaster || $esUsuarioAdministrador || $esUsuarioOperador ) { ?>
+                <?php if ($esUsuarioMaster || $usuario_permisoConsultarConcesionarios ) { ?>
 
                     <div class="main-content app-content mt-0">
                         <div class="side-app">
@@ -1102,7 +1102,7 @@
                                     <div class="row mt-6">
                                         <div class="col-md-8 col-sm-6" id="contenedor_botonesIzquierdos">
                                             <div class="form-group">
-                                                <?php if ((!estaVacio($intelimotor_apiSecret)) && (!estaVacio($intelimotor_apiKey))) {?>
+                                                <?php if ((!estaVacio($intelimotor_apiSecret)) && (!estaVacio($intelimotor_apiKey)) && ($usuario_permisoEditarConcesionarios)) {?>
                                                     <a class="btn btn-warning mb-3 link_sincronizar" href="javascript:void(0)">Sincronizar inventario InteliMotor de la agencia</a>
                                                 <?php } ?>
                                             </div>
@@ -1110,7 +1110,7 @@
 
                                         <div class="col-md-4 col-sm-6" id="contenedor_botonesDerechos">
                                             <div class="form-group">
-                                                <?php if ($esUsuarioMaster || $esUsuarioAdministrador || $usuario_permisoEditarConcesionarios == 1 ) { ?>
+                                                <?php if ($esUsuarioMaster || $usuario_permisoEditarConcesionarios == 1 ) { ?>
                                                     <button class="btn btn-success mb-3" type="submit" id="boton_guardar">Guardar</button>
                                                 <?php } ?>
                                                 <a class="btn btn-default mb-3" href="javascript:void(0)" id="boton_cerrar">Cerrar</a>

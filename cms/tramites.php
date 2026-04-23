@@ -54,7 +54,7 @@
 
                 <div class="main-content app-content mt-0">
                     <div class="side-app">
-                        <?php if ($esUsuarioMaster || $esUsuarioAdministrador) { ?>
+                        <?php if ($esUsuarioMaster || $usuario_permisoConsultarDelegacionVirtual) { ?>
                             <div class="main-container container-fluid">
 
 
@@ -77,8 +77,10 @@
                                                     <div class="d-flex">
                                                         <div class="input-group wd-150" id="contenedor_botones">
                                                             <input class="form-control br-0" id="campo_llaveResultado" placeholder="Buscar..." type="text" />
-                                                            <a class="btn btn-primary" data-fancybox data-type="iframe" data-preload="false" data-height="900" href="tramite.php" id="boton_agregar">Agregar trámite</a>
-                                                            &nbsp;&nbsp;&nbsp;
+                                                            <?php if ($esUsuarioMaster || $usuario_permisoEditarDelegacionVirtual) { ?>
+                                                                <a class="btn btn-primary" data-fancybox data-type="iframe" data-preload="false" data-height="900" href="tramite.php" id="boton_agregar">Agregar trámite</a>
+                                                                &nbsp;&nbsp;&nbsp;
+                                                            <?php } ?>
                                                         </div>
                                                     </div>
                                                 </div>

@@ -48,7 +48,7 @@
 
                 <div class="main-content app-content mt-0">
                     <div class="side-app">
-                        <?php if ($esUsuarioMaster || $esUsuarioAdministrador || $esUsuarioOperador ) { ?>
+                        <?php if ($esUsuarioMaster || $usuario_permisoConsultarVehiculos ) { ?>
                             <div class="main-container container-fluid">
 
 
@@ -262,12 +262,12 @@
                                                                 }
                                                             ?>
 
-                                                            <?php if ($puedeAgregarVehiculo) { ?>
+                                                            <?php if ($puedeAgregarVehiculo && $usuario_permisoEditarVehiculos) { ?>
                                                                 <a class="btn btn-primary" data-fancybox data-type="iframe" data-preload="false" data-height="900" href="vehiculo.php" id="boton_agregar">Agregar Vehículo</a>
                                                                 &nbsp;&nbsp;&nbsp;
                                                             <?php } ?>
 
-                                                            <?php if ($puedeSincronizarVehiculo) { ?>
+                                                            <?php if ($puedeSincronizarVehiculo && $usuario_permisoEditarVehiculos) { ?>
                                                                 <a class="btn btn-warning link_sincronizar" href="javascript:;">Sincronizar inventario InteliMotor</a>
                                                                 &nbsp;&nbsp;&nbsp;
                                                             <?php } ?>
