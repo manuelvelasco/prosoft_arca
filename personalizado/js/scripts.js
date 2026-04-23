@@ -272,11 +272,13 @@ function obtenParametroDeUrl(nombre) {
 
 
 $(document).on("click", ".enlace_vehiculo", function() {
-    window.location = "vehiculo.html?id=" + $(this).data("id");
+    //window.location = "vehiculo.html?id=" + $(this).data("id");
+    window.open(rutaAplicacion + "vehiculo.html?id=" + $(this).data("id"), "_blank");
 });
 
 $(document).on("click", ".enlace_concesionario", function() {
-    window.location = "concesionario.html?id=" + $(this).data("id");
+    //window.location = "concesionario.html?id=" + $(this).data("id");
+    window.open(rutaAplicacion + "concesionario.html?id=" + $(this).data("id"), "_blank");
 });
 
 
