@@ -480,7 +480,7 @@
                                                                                                             INNER JOIN concesionario c ON t.idConcesionario = c.id
                                                                                                             INNER JOIN usuario u ON t.idUsuario = u.id
                                                                                                             INNER JOIN mensajero m ON t.idMensajero = m.id
-                                                                                                            WHERE 1 = 1" . $restricciones . " ORDER BY t.id");
+                                                                                                            WHERE t.eliminado = 0 " . $restricciones . " ORDER BY t.id");
 
 
                                                                     while ($tramite = obtenResultado($tramites_BD)) {
