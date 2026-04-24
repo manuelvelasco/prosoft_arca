@@ -44,6 +44,9 @@
             $_SESSION["usuario_permisoEditarVehiculos"] = $usuario["permisoEditarVehiculos"];
             $_SESSION["usuario_permisoConsultarConcesionarios"] = $usuario["permisoConsultarConcesionarios"];
             $_SESSION["usuario_permisoEditarConcesionarios"] = $usuario["permisoEditarConcesionarios"];
+            $_SESSION["usuario_permisoConsultarDelegacionVirtual"] = $usuario["permisoConsultarDelegacionVirtual"];
+            $_SESSION["usuario_permisoEditarDelegacionVirtual"] = $usuario["permisoEditarDelegacionVirtual"];
+
 
             $_SESSION["usuario_idConcesionario"] = $usuario["idConcesionario"];
 

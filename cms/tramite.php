@@ -1409,9 +1409,6 @@ error_reporting(E_ALL & ~E_DEPRECATED & ~E_USER_DEPRECATED);
                 cargaAnos();
             });
 
-            $("#select_vehiculo_ano").on("change", function(){
-                cargaVersiones();
-            });
 
 
              // Borra PDF expediente
