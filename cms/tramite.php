@@ -166,6 +166,12 @@ error_reporting(E_ALL & ~E_DEPRECATED & ~E_USER_DEPRECATED);
                     $mensaje .= "* Correo electrónico<br />";
                 }
 
+                if((!estaVacio($id)) && ($accion == "Devuelto a la agencia")) {
+                    if(estaVacio($comentariosARCA)){
+                        $mensaje .= "* Comentarios ARCA<br />";
+                    }
+                }
+
                 if((!estaVacio($id)) && (($accion == "Aprobado") || ($accion == "Rechazado"))) {
                     if(estaVacio($ejecutivoICV)){
                         $mensaje .= "* Ejecutivo ICV<br />";
@@ -220,6 +226,7 @@ error_reporting(E_ALL & ~E_DEPRECATED & ~E_USER_DEPRECATED);
                                     . ", fechaAlta"
                                     . ", status"
                                     . ", idUsuario"
+                                    . ", comentariosConcesionario"
                                 . ") VALUES ("
                                     . $idConcesionario
                                     .", " . $idMensajero
@@ -235,6 +242,7 @@ error_reporting(E_ALL & ~E_DEPRECATED & ~E_USER_DEPRECATED);
                                     . ", '" . $fechaActual . "'"
                                     . ", 'Enviado a ARCA'"
                                     .", " . $usuario_id
+                                    . ", '" . $comentariosConcesionario . "'"
                                 . ")");
 
                             $tramite_BD = consulta($conexion, "SELECT * FROM tramite WHERE id = (SELECT MAX(id) FROM tramite)");
@@ -819,7 +827,7 @@ error_reporting(E_ALL & ~E_DEPRECATED & ~E_USER_DEPRECATED);
                                         <div class="col-12">
                                             <div class="card">
                                                 <div class="card-body">
-                                                    <h5><strong>Información de control</strong></h5>
+                                                    <h5><strong>Datos del vehículo y cliente</strong></h5>
 
                                                     <hr />
 
@@ -1392,6 +1400,18 @@ error_reporting(E_ALL & ~E_DEPRECATED & ~E_USER_DEPRECATED);
                     $("#select_vehiculo_ano").append(contenido);
                 });
             }
+
+            $("#select_vehiculo_marca").on("change", function(){
+                cargaModelos();
+            });
+
+            $("#select_vehiculo_modelo").on("change", function(){
+                cargaAnos();
+            });
+
+            $("#select_vehiculo_ano").on("change", function(){
+                cargaVersiones();
+            });
 
 
              // Borra PDF expediente
