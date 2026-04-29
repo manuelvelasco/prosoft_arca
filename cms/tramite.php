@@ -198,6 +198,20 @@ error_reporting(E_ALL & ~E_DEPRECATED & ~E_USER_DEPRECATED);
 
                 if (!estaVacio($mensaje)) {
                     $mensaje = "Proporcione los siguientes datos:<br /><br />" . $mensaje;
+
+                    if(!estaVacio($id)){
+
+                        $tramite_BD = consulta($conexion, "SELECT * FROM tramite WHERE id = " . $id);
+                        $tramite = obtenResultado($tramite_BD);
+
+                        $archivo_expediente = $tramite["archivo_expediente"];
+                        $archivo_solicitudICV = $tramite["archivo_solicitudICV"];
+
+                        $idUsuarioCapturo = $tramite["idUsuario"];
+                        $usuarioCapturo_BD = consulta($conexion, "SELECT * FROM usuario WHERE id = " . $idUsuarioCapturo);
+                        $usuarioCapturo = obtenResultado($usuarioCapturo_BD);
+
+                    }
                 } else {
                     if (estaVacio($id)) {
 
