@@ -1217,7 +1217,6 @@ error_reporting(E_ALL & ~E_DEPRECATED & ~E_USER_DEPRECATED);
                                                     <?php }?>
 
                                                     <?php if($status == "A la espera de respuesta de ICV"){?> 
-                                                        <button class="btn btn-default mb-3" id="boton_clonar_tramite" onclick="clonar()" type="submit" >Clonar trámite</button>
                                                         <button class="btn btn-default mb-3" id="boton_rechazado" onclick="rechazado()" type="submit" >Rechazado</button>
                                                         <button class="btn btn-default mb-3" id="boton_aprobado" onclick="aprobado()" type="submit" >Aprobado</button>
                                                     <?php }?>
@@ -1511,6 +1510,7 @@ error_reporting(E_ALL & ~E_DEPRECATED & ~E_USER_DEPRECATED);
                 if(confirm("¿Desea clonar este trámite?")){
                     $("#campo_accion").val("Clonar");
                     $("#campo_id").val("");
+                    $("#campo_comentariosConcesionario").val("");
                     $(".hideClonacion").hide();
                     $("#contenedor_archivo_expediente").hide();
 
@@ -1521,6 +1521,7 @@ error_reporting(E_ALL & ~E_DEPRECATED & ~E_USER_DEPRECATED);
                     $("#boton_aprobado").hide();
                     $("#seccionBitacora").hide();
                     $("#seccionICV").hide();
+
 
                 }
             }
