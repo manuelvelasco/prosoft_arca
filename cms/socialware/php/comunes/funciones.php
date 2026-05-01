@@ -241,7 +241,7 @@
                 . "<div class='table-cell vertical-align-middle'>"
                     . "<div class='auth-form  ml-auto mr-auto no-float'>"
                         . "<div class='panel panel-default card-view mb-0'>"
-                            . "<div class='panel-wrapper collapse in'>"
+                            . "<div class='panel-wrapper in'>"
                                 . "<div class='panel-body'>"
                                     . "<div class='row'>"
                                         . "<div class='col-sm-12 col-xs-12 text-center'>"
@@ -1089,7 +1089,6 @@ error_log("\nconcesionario " . $indiceConcesionario . " de " . $cantidadConcesio
 
             //var_dump($respuesta->getData());
         } catch (Exception $e) {
-            var_dump($e); die();
         }
     }
 
