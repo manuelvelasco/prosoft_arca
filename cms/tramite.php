@@ -172,6 +172,12 @@ error_reporting(E_ALL & ~E_DEPRECATED & ~E_USER_DEPRECATED);
                     }
                 }
 
+                if((!estaVacio($id)) && ($accion == "A la espera de respuesta de ICV")) {
+                    if(estaVacio($folioARCA)){
+                        $mensaje .= "* Folio ARCA<br />";
+                    }
+                }
+
                 if((!estaVacio($id)) && (($accion == "Aprobado") || ($accion == "Rechazado"))) {
                     if(estaVacio($ejecutivoICV)){
                         $mensaje .= "* Ejecutivo ICV<br />";
