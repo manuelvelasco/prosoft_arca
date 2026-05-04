@@ -760,7 +760,17 @@ error_reporting(E_ALL & ~E_DEPRECATED & ~E_USER_DEPRECATED);
                                                                             <select class="form-control select2-show-search form-select" data-placeholder="Elige" id="campo_idConcesionario" name="idConcesionario">
                                                                                 <option <?php echo estaVacio($idConcesionario) ? "selected" : "" ?> value="">Seleccione</option>
                                                                                 <?php
-                                                                                    $concesionarios_BD = consulta($conexion, "SELECT * FROM concesionario WHERE habilitado = 1 and eliminado = 0 ORDER BY nombreComercial");
+
+                                                                                    if ($esUsuarioMaster || $esUsuarioAdministrador) {
+                                                                                        
+                                                                                        $concesionarios_BD = consulta($conexion, "SELECT * FROM concesionario WHERE habilitado = 1 and eliminado = 0 ORDER BY nombreComercial");
+
+                                                                                    }else{
+
+                                                                                        $concesionarios_BD = consulta($conexion, "SELECT * FROM concesionario c WHERE c.id = " . $usuario_idConcesionario. " ORDER BY nombreComercial");
+                                                                                        $concesionario = $usuario_idConcesionario;
+
+                                                                                    }
 
                                                                                     while ($concesionarioBD = obtenResultado($concesionarios_BD)) {
                                                                                         echo "<option " . (!estaVacio($idConcesionario) && $idConcesionario == $concesionarioBD["id"] ? "selected" : "") . " value='" . $concesionarioBD["id"] . "'>" . $concesionarioBD["nombreComercial"] . "</option>";
