@@ -336,6 +336,8 @@ error_reporting(E_ALL & ~E_DEPRECATED & ~E_USER_DEPRECATED);
                                 }
                             }
 
+
+
                             //Proceso enviar correo
 
                             $concesionario_BD = consulta($conexion, "SELECT * FROM concesionario WHERE id = " . $idConcesionario);
@@ -398,6 +400,34 @@ error_reporting(E_ALL & ~E_DEPRECATED & ~E_USER_DEPRECATED);
                             . ", comentariosICV = '" . $comentariosICV . "'"
                             . ", ejecutivoICV = '" . $ejecutivoICV . "'"
                             . " WHERE id = " . $id);
+
+                        if($accion == 'A la espera de respuesta de ICV'){
+                            consulta($conexion, "UPDATE tramite SET "
+                            . "fechaRecepcionCorreoICV = '" . $fechaActual . "'"
+                            . " WHERE id = " . $id);
+                        }
+
+                        if (isset($_FILES["archivo_solicitudICV"])) {
+                            try {
+                                $archivo = $_FILES["archivo_solicitudICV"];
+
+                                if ($archivo["size"] > 0) {
+                                    $nombreEstandarizado = $id . "_expediente_" . date("YmdHis") . "_" . rand(100, 999) . "." . pathinfo($archivo["name"], PATHINFO_EXTENSION);
+                                    $archivoDestino = $constante_rutaTramites . "/" . $id . "/" . $nombreEstandarizado;
+
+                                    if (!file_exists($constante_rutaTramites . "/" . $id)) {
+                                        mkdir($constante_rutaTramites . "/" . $id, 0755, true);
+                                    }
+
+                                    move_uploaded_file($archivo["tmp_name"], $archivoDestino);
+
+                                    consulta($conexion, "UPDATE tramite SET archivo_solicitudICV = " . (estaVacio($nombreEstandarizado) ? "NULL" : "'" . $nombreEstandarizado . "'") . " WHERE id = " . $id);
+                                    $archivo_solicitudICV = $nombreEstandarizado;
+                                }
+                            } catch (Exception $e) {
+
+                            }
+                        }
 
                         $tramite_BD = consulta($conexion, "SELECT * FROM tramite WHERE id = " . $id);
                         $tramite = obtenResultado($tramite_BD);
@@ -580,9 +610,9 @@ error_reporting(E_ALL & ~E_DEPRECATED & ~E_USER_DEPRECATED);
                         $archivoCorreo = $constante_rutaTramites . "/" . $id . "/" . $archivo_expediente;
 
                         if($accion == 'Rechazado' || $accion == 'Aprobado'){
-                            $enviaCorreo = enviaCorreoMailjet($correoNotificar,"", $titulo, $mensajeCorreo, "");
+                            //$enviaCorreo = enviaCorreoMailjet($correoNotificar,"", $titulo, $mensajeCorreo, "");
                         }else{
-                            $enviaCorreo = enviaCorreoMailjet($correoNotificar,"", $titulo, $mensajeCorreo, $archivoCorreo);
+                            //$enviaCorreo = enviaCorreoMailjet($correoNotificar,"", $titulo, $mensajeCorreo, $archivoCorreo);
                         }
 
 
