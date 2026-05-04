@@ -543,7 +543,7 @@ error_reporting(E_ALL & ~E_DEPRECATED & ~E_USER_DEPRECATED);
                                      //. "<br/>Usuario capturó: " . $usuario_nombre
                                      //. "<br/> Mensajero: " . $mensajero["nombre"] . " " . $mensajero["apellidoPaterno"] . " " . $mensajero["apellidoMaterno"]
                                      //. "<br/> Comentarios agencia: ". $comentariosConcesionario
-                                     . "<br/> Comentarios ARCA: ". $comentariosARCA
+                                     //. "<br/> Comentarios ARCA: ". $comentariosARCA
                                      . "<br/> Marca: ". $vehiculo_marca
                                      . "<br/> Modelo: ". $vehiculo_modelo
                                      . "<br/> Año: ". $vehiculo_ano
@@ -564,7 +564,7 @@ error_reporting(E_ALL & ~E_DEPRECATED & ~E_USER_DEPRECATED);
                                      //. "<br/>Usuario capturó: " . $usuario_nombre
                                      //. "<br/> Mensajero: " . $mensajero["nombre"] . " " . $mensajero["apellidoPaterno"] . " " . $mensajero["apellidoMaterno"]
                                      //. "<br/> Comentarios agencia: ". $comentariosConcesionario
-                                     . "<br/> Comentarios ARCA: ". $comentariosARCA
+                                     //. "<br/> Comentarios ARCA: ". $comentariosARCA
                                      . "<br/> Comentarios ICV: ". $comentariosICV
                                      . "<br/> Marca: ". $vehiculo_marca
                                      . "<br/> Modelo: ". $vehiculo_modelo
@@ -579,7 +579,12 @@ error_reporting(E_ALL & ~E_DEPRECATED & ~E_USER_DEPRECATED);
 
                         $archivoCorreo = $constante_rutaTramites . "/" . $id . "/" . $archivo_expediente;
 
-                        $enviaCorreo = enviaCorreoMailjet($correoNotificar,"", $titulo, $mensajeCorreo, $archivoCorreo);
+                        if($accion == 'Rechazado' || $accion == 'Aprobado'){
+                            $enviaCorreo = enviaCorreoMailjet($correoNotificar,"", $titulo, $mensajeCorreo, "");
+                        }else{
+                            $enviaCorreo = enviaCorreoMailjet($correoNotificar,"", $titulo, $mensajeCorreo, $archivoCorreo);
+                        }
+
 
                         $mensaje = "ok - Los cambios han sido guardados";
 
