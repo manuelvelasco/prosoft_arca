@@ -399,13 +399,8 @@ error_reporting(E_ALL & ~E_DEPRECATED & ~E_USER_DEPRECATED);
                             . ", comentariosARCA = '" . $comentariosARCA . "'"
                             . ", comentariosICV = '" . $comentariosICV . "'"
                             . ", ejecutivoICV = '" . $ejecutivoICV . "'"
+                            . ", fechaRecepcionCorreoICV = '" . $fechaRecepcionCorreoICV . "'"
                             . " WHERE id = " . $id);
-
-                        if($accion == 'A la espera de respuesta de ICV'){
-                            consulta($conexion, "UPDATE tramite SET "
-                            . "fechaRecepcionCorreoICV = '" . $fechaActual . "'"
-                            . " WHERE id = " . $id);
-                        }
 
                         if (isset($_FILES["archivo_solicitudICV"])) {
                             try {
