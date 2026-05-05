@@ -605,9 +605,9 @@ error_reporting(E_ALL & ~E_DEPRECATED & ~E_USER_DEPRECATED);
                         $archivoCorreo = $constante_rutaTramites . "/" . $id . "/" . $archivo_expediente;
 
                         if($accion == 'Rechazado' || $accion == 'Aprobado'){
-                            //$enviaCorreo = enviaCorreoMailjet($correoNotificar,"", $titulo, $mensajeCorreo, "");
+                            $enviaCorreo = enviaCorreoMailjet($correoNotificar,"", $titulo, $mensajeCorreo, "");
                         }else{
-                            //$enviaCorreo = enviaCorreoMailjet($correoNotificar,"", $titulo, $mensajeCorreo, $archivoCorreo);
+                            $enviaCorreo = enviaCorreoMailjet($correoNotificar,"", $titulo, $mensajeCorreo, $archivoCorreo);
                         }
 
 
