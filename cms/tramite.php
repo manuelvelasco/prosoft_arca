@@ -1265,32 +1265,32 @@ error_reporting(E_ALL & ~E_DEPRECATED & ~E_USER_DEPRECATED);
                                                 <input id="campo_accion" name="accion" type="hidden" value="<?php echo $accion; ?>" />
                                                 <a class="btn btn-default mb-3" href="javascript:void(0)" id="boton_cerrar">Cerrar</a>
 
-                                                <?php if((!estaVacio($id)) && ($esUsuarioMaster || $usuario_permisoEditarDelegacionVirtual)){?>
-
-                                                    <?php if($status == "Rechazado"){?> 
+                                                <?php if (!estaVacio($id) && ($esUsuarioMaster || $usuario_permisoEditarDelegacionVirtual)) { ?>
+                                                    <?php if ($status == "Rechazado" && ($esUsuarioMaster || $esUsuarioOperador)) { ?>
                                                         <button class="btn btn-default mb-3" id="boton_clonar_tramite" onclick="clonar()" type="submit" >Clonar trámite</button>
                                                     <?php }?>
 
-                                                    <?php if($status == "A la espera de respuesta de ICV"){?> 
+                                                    <?php if ($status == "A la espera de respuesta de ICV" && ($esUsuarioMaster || $esUsuarioAdministrador)) { ?>
                                                         <button class="btn btn-default mb-3" id="boton_rechazado" onclick="rechazado()" type="submit" >Rechazado</button>
                                                         <button class="btn btn-default mb-3" id="boton_aprobado" onclick="aprobado()" type="submit" >Aprobado</button>
                                                     <?php }?>
 
-                                                    <?php if(($status == 'Enviado a ARCA') || ($status == "Reenviado a ARCA")){?> 
+                                                    <?php if (($status == "Enviado a ARCA" || $status == "Reenviado a ARCA") && ($esUsuarioMaster || $esUsuarioAdministrador)) { ?>
                                                         <button class="btn btn-default mb-3" id="boton_enviar_icv" onclick="enviarICV()" type="submit" >Enviar a ICV</button>
                                                     <?php }?>
 
-                                                    <?php if($status == "Devuelto a la agencia"){?> 
+                                                    <?php if ($status == "Devuelto a la agencia" && ($esUsuarioMaster || $esUsuarioOperador)) { ?>
                                                         <button class="btn btn-default mb-3" id="boton_reenviar_arca" onclick="reenviarArca()" type="submit" >Reenviar a ARCA</button>
                                                     <?php }?>
 
-                                                    <?php if(($status == 'Enviado a ARCA') || ($status == "Reenviado a ARCA")){?> 
+                                                    <?php if (($status == "Enviado a ARCA" || $status == "Reenviado a ARCA") && ($esUsuarioMaster || $esUsuarioAdministrador)) { ?>
                                                         <button class="btn btn-default mb-3" id="boton_regresar_agencia" onclick="regresarAAgencia()" type="submit" >Regresar a Agencia</button>
-                                                    <?php }?>
-
+                                                    <?php } ?>
                                                 <?php } ?>
-                                                <button class="btn btn-success mb-3" id="boton_guardar" onclick="return confirm('¿Desea dar de alta este trámite?');" type="submit" >Generar trámite</button>
-                                                
+
+                                                <?php if ($esUsuarioMaster) { ?>
+                                                    <button class="btn btn-success mb-3" id="boton_guardar" onclick="return confirm('¿Desea dar de alta este trámite?');" type="submit" >Generar trámite</button>
+                                                <?php } ?>
                                             </div>
                                         </div>
                                     </div>
