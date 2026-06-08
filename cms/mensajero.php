@@ -703,7 +703,7 @@
                                                                                                                     echo "<div class='user-data'>";
                                                                                                                     echo "<span class='name block'>" . $archivo_ine . "</span>";
                                                                                                                     echo "<span class='time block txt-grey'>";
-                                                                                                                    echo "<a download href='" . $constante_urlMensajeros . "/" . $id . "/" . $archivo_ine . "'>Descargar</a>";
+                                                                                                                    echo "<a download href='" . $constante_urlMensajeros . "/" . $id . "/" . $archivo_ine . "' target='_blank'>Descargar</a>";
                                                                                                                     echo "&nbsp;&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;&nbsp;";
                                                                                                                     echo "<a href='javascript:eliminaArchivoIne(" . $id . ")'>Eliminar</a>";
                                                                                                                     echo "</span>";
