@@ -35,7 +35,7 @@
                 <?php } ?>
 
                 <?php if ($esUsuarioMaster || $esUsuarioAdministrador) { ?>
-                    <li><a class="side-menu__item" href="blogs.php"><i class="side-menu__icon fa fa-comments"></i><span class="side-menu__label">Blogs</span></a></li>
+                    <li><a class="side-menu__item" href="blogs.php"><i class="side-menu__icon fa fa-comments"></i><span class="side-menu__label">Blog</span></a></li>
                 <?php } ?>
 
                 <?php if ($esUsuarioMaster || $esUsuarioAdministrador) { ?>

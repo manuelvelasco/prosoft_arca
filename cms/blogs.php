@@ -42,7 +42,7 @@
 
 
                                 <div class="page-header">
-                                    <h1 class="page-title">Blogs</h1>
+                                    <h1 class="page-title">Blog</h1>
                                 </div>
 
 
