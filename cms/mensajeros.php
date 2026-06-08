@@ -183,7 +183,7 @@
 
                                                                     $mensajeros_BD = consulta($conexion, "SELECT 
                                                                             m.id,
-                                                                            (SELECT GROUP_CONCAT(nombreComercial ORDER BY nombreComercial SEPARATOR '<br /> ') FROM concesionario WHERE id IN (SELECT idConcesionario FROM mensajero_concesionario WHERE idMensajero = m.id) " . $restricciones . ") AS concesionarios,
+                                                                            (SELECT GROUP_CONCAT(nombreComercial ORDER BY nombreComercial SEPARATOR '<br /><br />') FROM concesionario WHERE id IN (SELECT idConcesionario FROM mensajero_concesionario WHERE idMensajero = m.id) " . $restricciones . ") AS concesionarios,
                                                                             m.nombre,
                                                                             m.apellidoPaterno,
                                                                             m.apellidoMaterno,
