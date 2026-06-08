@@ -607,7 +607,12 @@
                     tablaResultados.search($(this).val()).draw();
                 });
 
-                $('#campo_rangoFechaAlta').daterangepicker();
+                $('#campo_rangoFechaAlta').daterangepicker({
+                    locale: {
+                        format: "DD/MM/YYYY",
+                        separator: " a "
+                    }
+                });
             });
 
 
