@@ -5317,7 +5317,7 @@ error_log("\nAdición", 3, $rutaLog);
                                                                                                                 if (!estaVacio($intelimotor_picture)) {
                                                                                                                     echo "<div class='chat-data'>";
                                                                                                                     //echo "<img class='user-img' src='" . $intelimotor_picture . "' style='height: 150px; width: 150px' />";
-                                                                                                                    echo "<img src='" . $intelimotor_picture . "' />";
+                                                                                                                    echo "<img class='user-img' src='" . $intelimotor_picture . "' />";
 
                                                                                                                     echo "<div class='user-data'>";
                                                                                                                     echo "<span class='name block capitalize-font'>" . $intelimotor_picture . "</span>";
@@ -5356,7 +5356,7 @@ error_log("\nAdición", 3, $rutaLog);
                                                                                                                         <?php
                                                                                                                             echo "<div class='chat-data'>";
                                                                                                                             //echo "<img class='user-img' src='" . $intelimotor_picture . "' style='height: 150px; width: 150px' />";
-                                                                                                                            echo "<img src='" . $imagen["imagen"] . "' />";
+                                                                                                                            echo "<img class='user-img' src='" . $imagen["imagen"] . "' />";
 
                                                                                                                             echo "<div class='user-data'>";
                                                                                                                             echo "<span class='name block capitalize-font'>" . $imagen["imagen"] . "</span>";
