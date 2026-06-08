@@ -479,7 +479,7 @@
                                                         <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
                                                             <div class="row">
                                                                 <div class="col-12">
-                                                                    <div class="row mb-4">
+                                                                    <div class="row">
                                                                         <label class="form-label col-md-4" for="campo_idConcesionario">Agencia <span class="txt-danger ml-10">*</span></label>
                                                                         <div class="col-md-8">
                                                                             <select class="select2-show-search form-select" data-placeholder="Elige" id="campo_idConcesionario" multiple="multiple" name="idConcesionario[]">
