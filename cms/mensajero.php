@@ -482,7 +482,7 @@
                                                                     <div class="row mb-4">
                                                                         <label class="form-label col-md-4" for="campo_idConcesionario">Agencia <span class="txt-danger ml-10">*</span></label>
                                                                         <div class="col-md-8">
-                                                                            <select class="form-control select2-show-search form-select" data-placeholder="Elige" id="campo_idConcesionario" multiple="multiple" name="idConcesionario[]">
+                                                                            <select class="select2-show-search form-select" data-placeholder="Elige" id="campo_idConcesionario" multiple="multiple" name="idConcesionario[]">
                                                                                 <?php
                                                                                     $concesionarios_BD = consulta($conexion, "SELECT * FROM concesionario WHERE habilitado = 1 and eliminado = 0 ORDER BY nombreComercial");
 
