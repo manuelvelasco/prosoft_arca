@@ -226,7 +226,7 @@
                                                                     while ($mensajero = obtenResultado($mensajeros_BD)) {
                                                                         echo "<tr>";
                                                                         echo "<td>" . $mensajero["id"] . "</td>";
-                                                                        echo "<td>" . $mensajero["nombreComercial"] . "</td>";
+                                                                        echo "<td>" . $mensajero["concesionarios"] . "</td>";
                                                                         echo "<td>" . $mensajero["nombre"] . " " . $mensajero["apellidoPaterno"] . " " . $mensajero["apellidoMaterno"] . "</td>";
                                                                         echo "<td>" . $mensajero["curp"] . "</td>";
                                                                         echo "<td>" . $mensajero["correoElectronico"] . "</td>";
