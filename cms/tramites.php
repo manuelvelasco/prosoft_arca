@@ -462,6 +462,32 @@
 
                                                                     // Consulta base de datos
 
+echo "SELECT 
+                                                                                                                t.id,
+                                                                                                                t.fechaAlta,
+                                                                                                                t.folioARCA,
+                                                                                                                t.folioICV,
+                                                                                                                c.nombreComercial,
+                                                                                                                u.nombre AS nombreUsuario,
+                                                                                                                t.cliente_nombre,
+                                                                                                                t.cliente_apellidoPaterno,
+                                                                                                                t.cliente_apellidoMaterno,
+                                                                                                                m.nombre,
+                                                                                                                m.apellidoPaterno,
+                                                                                                                m.apellidoMaterno,
+                                                                                                                t.status,
+                                                                                                                t.ejecutivoICV,
+                                                                                                                t.vehiculo_vin,
+                                                                                                                t.vehiculo_marca,
+                                                                                                                t.vehiculo_modelo,
+                                                                                                                t.vehiculo_ano
+                                                                                                            FROM 
+                                                                                                                tramite t
+                                                                                                            INNER JOIN concesionario c ON t.idConcesionario = c.id
+                                                                                                            INNER JOIN usuario u ON t.idUsuario = u.id
+                                                                                                            INNER JOIN mensajero m ON t.idMensajero = m.id
+                                                                                                            WHERE t.eliminado = 0 " . $restricciones . " ORDER BY t.id";
+
                                                                     $tramites_BD = consulta($conexion, "SELECT 
                                                                                                                 t.id,
                                                                                                                 t.fechaAlta,
