@@ -206,7 +206,7 @@
 
                                                                     $mensajeros_BD = consulta($conexion, "SELECT 
                                                                             m.id,
-                                                                            (SELECT GROUP_CONCAT(nombreComercial ORDER BY nombreComercial SEPARATOR ',') FROM concesionario WHERE id IN (SELECT idConcesionario FROM mensajero_concesionario WHERE idMensajero = m.id) " . $restricciones . ") AS concesionarios,
+                                                                            (SELECT GROUP_CONCAT(nombreComercial ORDER BY nombreComercial SEPARATOR '<br />* ') FROM concesionario WHERE id IN (SELECT idConcesionario FROM mensajero_concesionario WHERE idMensajero = m.id) " . $restricciones . ") AS concesionarios,
                                                                             m.nombre,
                                                                             m.apellidoPaterno,
                                                                             m.apellidoMaterno,
@@ -222,14 +222,7 @@
                                                                             m.nombre,
                                                                             m.apellidoPaterno,
                                                                             m.apellidoMaterno");
-                                                                    
-                                                                    
-/*
- (SELECT GROUP_CONCAT(role_name ORDER BY role_name ASC SEPARATOR ', ') 
-     FROM user_roles ur 
-     WHERE ur.user_id = u.id) AS roles_list                                                                    
-*/
-                                                                    
+
                                                                     while ($mensajero = obtenResultado($mensajeros_BD)) {
                                                                         echo "<tr>";
                                                                         echo "<td>" . $mensajero["id"] . "</td>";
