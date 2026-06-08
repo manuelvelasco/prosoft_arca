@@ -407,21 +407,25 @@
 
                                                                     $restricciones = "";
 
+                                                                    if (!estaVacio($usuario_idConcesionario)) {
+                                                                        $restricciones .= " AND t.idConcesionario = " . $usuario_idConcesionario;
+                                                                    }
+
                                                                     if (!estaVacio($rangoFechaAlta)) {
                                                                         $fechaAlta = explode("-", $rangoFechaAlta);
                                                                         $restricciones .= " AND t.fechaAlta >= STR_TO_DATE('" . $fechaAlta[0] . "','%m/%d/%Y') AND t.fechaAlta <= STR_TO_DATE('" . $fechaAlta[1] . "','%m/%d/%Y')";
                                                                     }
 
                                                                     if (!estaVacio($idConcesionario)) {
-                                                                        $restricciones .= " AND t.idConcesionario = '" . $idConcesionario ."'";
+                                                                        $restricciones .= " AND t.idConcesionario = " . $idConcesionario;
                                                                     }
 
                                                                     if (!estaVacio($idUsuario)) {
-                                                                        $restricciones .= " AND t.idUsuario = '" . $idUsuario ."'";
+                                                                        $restricciones .= " AND t.idUsuario = " . $idUsuario;
                                                                     }
 
                                                                     if (!estaVacio($idMensajero)) {
-                                                                        $restricciones .= " AND t.idMensajero = '" . $idMensajero ."'";
+                                                                        $restricciones .= " AND t.idMensajero = " . $idMensajero;
                                                                     }
 
                                                                     if (!estaVacio($status)) {
