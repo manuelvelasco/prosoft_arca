@@ -180,33 +180,10 @@
                                                                     }
 
                                                                     // Consulta base de datos
-/*
-                                                                    $mensajeros_BD = consulta($conexion, "SELECT 
-                                                                            m.id,
-                                                                            c.nombreComercial,
-                                                                            m.nombre,
-                                                                            m.apellidoPaterno,
-                                                                            m.apellidoMaterno,
-                                                                            m.curp,
-                                                                            m.correoElectronico,
-                                                                            m.telefono,
-                                                                            m.habilitado
-                                                                        FROM
-                                                                            mensajero_concesionario mc 
-                                                                            INNER JOIN mensajero m ON mc.idMensajero = m.id
-                                                                            INNER JOIN concesionario c ON mc.idConcesionario = c.id
-                                                                        WHERE
-                                                                            m.eliminado = 0 "
-                                                                            . $restricciones . "
-                                                                        ORDER BY
-                                                                            m.nombre,
-                                                                            m.apellidoPaterno,
-                                                                            m.apellidoMaterno");
-*/
 
                                                                     $mensajeros_BD = consulta($conexion, "SELECT 
                                                                             m.id,
-                                                                            (SELECT GROUP_CONCAT(nombreComercial ORDER BY nombreComercial SEPARATOR '<br />* ') FROM concesionario WHERE id IN (SELECT idConcesionario FROM mensajero_concesionario WHERE idMensajero = m.id) " . $restricciones . ") AS concesionarios,
+                                                                            (SELECT GROUP_CONCAT(nombreComercial ORDER BY nombreComercial SEPARATOR '<br /> ') FROM concesionario WHERE id IN (SELECT idConcesionario FROM mensajero_concesionario WHERE idMensajero = m.id) " . $restricciones . ") AS concesionarios,
                                                                             m.nombre,
                                                                             m.apellidoPaterno,
                                                                             m.apellidoMaterno,
