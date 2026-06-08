@@ -1033,7 +1033,7 @@ error_reporting(E_ALL & ~E_DEPRECATED & ~E_USER_DEPRECATED);
                                                             <div class="row">
                                                                 <div class="col-12">
                                                                     <div class="form-group">
-                                                                        <label class="control-label mb-10">PDF de expediente <span class="text-danger">*</span></label>
+                                                                        <label class="form-label mb-10">PDF de expediente <span class="text-danger">*</span></label>
 
                                                                         <div>
                                                                             <input name="archivo_expediente" type="file" />
@@ -1152,7 +1152,7 @@ error_reporting(E_ALL & ~E_DEPRECATED & ~E_USER_DEPRECATED);
                                                                 <div class="row">
                                                                     <div class="col-12">
                                                                         <div class="form-group">
-                                                                            <label class="control-label mb-10">PDF de la solicitud de ICV</label>
+                                                                            <label class="form-label mb-10">PDF de la solicitud de ICV</label>
 
                                                                             <div>
                                                                                 <input name="archivo_solicitudICV" type="file" <?php echo $esUsuarioOperador ? "disabled" : "";?>/>
