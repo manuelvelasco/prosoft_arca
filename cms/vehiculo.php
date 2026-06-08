@@ -5340,46 +5340,42 @@ error_log("\nAdición", 3, $rutaLog);
                                                                                 </div>
                                                                             </div>
 
-                                                                            <?php
-                                                                                $imagenes_BD = consulta($conexion, "SELECT * FROM imagen WHERE intelimotor_id = '" . $intelimotor_id . "'");
+                                                                            <div class="row">
+                                                                                <div class="col-sm-12">
+                                                                                    <div class="panel panel-success card-view">
+                                                                                        <div class="panel-wrapper in">
+                                                                                            <div class="panel-body">
+                                                                                                <ul class="chat-list-wrap">
+                                                                                                    <li class="chat-list">
+                                                                                                        <div class="chat-body">
+                                                                                                            <?php
+                                                                                                                $imagenes_BD = consulta($conexion, "SELECT * FROM imagen WHERE intelimotor_id = '" . $intelimotor_id . "'");
 
-                                                                                while ($imagen = obtenResultado($imagenes_BD)) {
-                                                                                    ?>
-                                                                                        <div class="row">
-                                                                                            <div class="col-sm-12">
-                                                                                                <div class="panel panel-success card-view">
-                                                                                                    <div class="panel-wrapper in">
-                                                                                                        <div class="panel-body">
-                                                                                                            <ul class="chat-list-wrap">
-                                                                                                                <li class="chat-list">
-                                                                                                                    <div class="chat-body">
-                                                                                                                        <?php
-                                                                                                                            echo "<div class='chat-data'>";
-                                                                                                                            //echo "<img class='user-img' src='" . $intelimotor_picture . "' style='height: 150px; width: 150px' />";
-                                                                                                                            echo "<img class='user-img' src='" . $imagen["imagen"] . "' />";
+                                                                                                                while ($imagen = obtenResultado($imagenes_BD)) {
+                                                                                                                    echo "<div class='chat-data'>";
+                                                                                                                    //echo "<img class='user-img' src='" . $intelimotor_picture . "' style='height: 150px; width: 150px' />";
+                                                                                                                    echo "<img class='user-img' src='" . $imagen["imagen"] . "' />";
 
-                                                                                                                            echo "<div class='user-data'>";
-                                                                                                                            echo "<span class='name block capitalize-font'>" . $imagen["imagen"] . "</span>";
-                                                                                                                            echo "<span class='time block txt-grey'>";
-                                                                                                                            echo "<a data-lightbox='imagen' href='" . $imagen["imagen"] . "'>Ampliar</a>";
-                                                                                                                            echo "&nbsp;&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;&nbsp;";
-                                                                                                                            echo "<a download href='" . $imagen["imagen"] . "'>Descargar</a>";
-                                                                                                                            echo "</span>";
-                                                                                                                            echo "</div>";
-                                                                                                                            echo "<div class='clearfix'></div>";
-                                                                                                                            echo "</div>";
-                                                                                                                        ?>
-                                                                                                                    </div>
-                                                                                                                </li>
-                                                                                                            </ul>
+                                                                                                                    echo "<div class='user-data'>";
+                                                                                                                    echo "<span class='name block capitalize-font'>" . $imagen["imagen"] . "</span>";
+                                                                                                                    echo "<span class='time block txt-grey'>";
+                                                                                                                    echo "<a data-lightbox='imagen' href='" . $imagen["imagen"] . "'>Ampliar</a>";
+                                                                                                                    echo "&nbsp;&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;&nbsp;";
+                                                                                                                    echo "<a download href='" . $imagen["imagen"] . "'>Descargar</a>";
+                                                                                                                    echo "</span>";
+                                                                                                                    echo "</div>";
+                                                                                                                    echo "<div class='clearfix'></div>";
+                                                                                                                    echo "</div>";
+                                                                                                                }
+                                                                                                            ?>
                                                                                                         </div>
-                                                                                                    </div>
-                                                                                                </div>
+                                                                                                    </li>
+                                                                                                </ul>
                                                                                             </div>
                                                                                         </div>
-                                                                                    <?php
-                                                                                }
-                                                                            ?>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
