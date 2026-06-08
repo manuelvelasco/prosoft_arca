@@ -54,6 +54,12 @@
             hr {
                 border-color: #888;
             }
+
+            /* Multi select */
+
+            .form-control, .select2-container--default .select2-selection--single .select2-selection__rendered, .select2-container--default .select2-selection--single, .select2-selection.select2-selection--multiple, .mce-floatpanel .mce-textbox, .mce-floatpanel .mce-btn, .dataTables_wrapper .dataTables_filter input, .dataTables_wrapper .dataTables_length select, .jsgrid-cell input, .jsgrid-cell select, .tablesaw-bar .btn-select select, .dd-handle, .dd3-content, .app-search .form-control:focus, .app-search .select2-container--default .select2-selection--single:focus, .select2-container--default .app-search .select2-selection--single:focus, .app-search .select2-selection.select2-selection--multiple:focus, .app-search .mce-floatpanel .mce-textbox:focus, .mce-floatpanel .app-search .mce-textbox:focus, .app-search .mce-floatpanel .mce-btn:focus, .mce-floatpanel .app-search .mce-btn:focus, .app-search .dataTables_wrapper .dataTables_filter input:focus, .dataTables_wrapper .dataTables_filter .app-search input:focus, .app-search .dataTables_wrapper .dataTables_length select:focus, .dataTables_wrapper .dataTables_length .app-search select:focus, .app-search .jsgrid-cell input:focus, .jsgrid-cell .app-search input:focus, .app-search .jsgrid-cell select:focus, .jsgrid-cell .app-search select:focus, .app-search .tablesaw-bar .btn-select select:focus, .tablesaw-bar .btn-select .app-search select:focus, .app-search .dd-handle:focus, .app-search .dd3-content:focus {
+                height: auto;
+            }
         </style>
     </head>
 
