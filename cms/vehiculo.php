@@ -2828,7 +2828,7 @@ error_log("\nAdición", 3, $rutaLog);
                                                         <div class="row">
                                                             <div class="col-12">
                                                                 <div class="row mb-12">
-                                                                    <label class="form-label col-md-4" for="campo_colorInterior">Color </label>
+                                                                    <label class="form-label col-md-4" for="campo_colorInterior">Color interior</label>
                                                                     <div class="col-md-8">
                                                                         <input class="form-control" id="campo_colorInterior" name="colorInterior" type="text" value="<?php echo $colorInterior; ?>" />
                                                                     </div>
