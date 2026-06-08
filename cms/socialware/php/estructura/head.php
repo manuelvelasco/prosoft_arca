@@ -275,7 +275,7 @@
 
             th, td {
                 color: #2f2c2c !important;
-                font-size: 10px;
+                font-size: 12px;
             }
 
             /* Nuevo Diseño */
