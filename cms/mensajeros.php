@@ -217,8 +217,7 @@
                                                                         FROM
                                                                             mensajero m
                                                                         WHERE
-                                                                            m.eliminado = 0 "
-                                                                            . $restricciones . "
+                                                                            m.eliminado = 0
                                                                         ORDER BY
                                                                             m.nombre,
                                                                             m.apellidoPaterno,
