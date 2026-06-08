@@ -405,7 +405,10 @@
                                                                     <label class="form-label col-md-4" for="campo_rol">Rol <span class="text-danger">*</span></label>
                                                                     <div class="col-md-8">
                                                                         <select class="form-control select2-show-search form-select" data-placeholder="Elige" id="campo_rol" name="rol">
-                                                                            <option value="Master" <?php echo ($rol == "Master") ? "selected" : "" ?>>Master</option>
+                                                                            <?php if ($esUsuarioMaster) { ?>
+                                                                                <option value="Master" <?php echo ($rol == "Master") ? "selected" : "" ?>>Master</option>
+                                                                            <?php } ?>
+
                                                                             <option value="Administrador" <?php echo ($rol == "Administrador") ? "selected" : "" ?>>Administrador</option>
                                                                             <option value="Operador" <?php echo ($rol == "Operador") ? "selected" : "" ?>>Operador</option>
                                                                         </select>
