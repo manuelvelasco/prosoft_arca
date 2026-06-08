@@ -31,11 +31,11 @@
                 <?php } ?>
 
                 <?php if($esUsuarioMaster || $usuario_permisoConsultarVehiculos){ ?>
-                    <li><a class="side-menu__item" href="vehiculos.php"><i class="side-menu__icon fa fa-automobile"></i><span class="side-menu__label">Veh&iacute;culos</span></a></li>
+                    <li><a class="side-menu__item" href="vehiculos.php"><i class="side-menu__icon fa fa-car"></i><span class="side-menu__label">Veh&iacute;culos</span></a></li>
                 <?php } ?>
 
                 <?php if ($esUsuarioMaster || $esUsuarioAdministrador) { ?>
-                    <li><a class="side-menu__item" href="blogs.php"><i class="side-menu__icon fa fa-blog"></i><span class="side-menu__label">Blogs</span></a></li>
+                    <li><a class="side-menu__item" href="blogs.php"><i class="side-menu__icon fa fa-comments"></i><span class="side-menu__label">Blogs</span></a></li>
                 <?php } ?>
 
                 <?php if ($esUsuarioMaster || $esUsuarioAdministrador) { ?>
@@ -44,7 +44,7 @@
 
                  <?php if ($esUsuarioMaster || $usuario_permisoConsultarDelegacionVirtual) { ?>
                     <li class="slide">
-                            <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0)"><i class="side-menu__icon fa fa-address-book"></i><span class="side-menu__label">Delegación virtual</span><i class="angle fe fe-chevron-right"></i></a>
+                            <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0)"><i class="side-menu__icon fa fa-file-contract"></i><span class="side-menu__label">Delegación virtual</span><i class="angle fe fe-chevron-right"></i></a>
                             <ul class="slide-menu open" style="display: block;">
                                 <li><a class="sub-slide-item enlace_cron" href="mensajeros.php">Mensajeros</a></li>
                             </ul>
