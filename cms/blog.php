@@ -462,7 +462,7 @@
                                                         <div class="col-md-12 col-sm-12 col-xs-12">
                                                             <div class="row">
                                                                 <div class="col-12">
-                                                                    <div class="row mb-20">
+                                                                    <div class="row">
                                                                         <label class="form-label col-md-1" for="campo_detalle">Detalle</label>
                                                                         <div class="col-md-11">
                                                                             <textarea class="tinymce" id="campo_detalle" name="detalle"><?php echo $detalle ?></textarea>
