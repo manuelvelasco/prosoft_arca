@@ -837,10 +837,19 @@ error_reporting(E_ALL & ~E_DEPRECATED & ~E_USER_DEPRECATED);
                                                                             <select class="form-control select2-show-search form-select" data-placeholder="Elige" id="campo_idMensajero" name="idMensajero">
                                                                                 <option <?php echo estaVacio($idMensajero) ? "selected" : "" ?> value="">Seleccione</option>
                                                                                 <?php
-                                                                                    $mensajeros_BD = consulta($conexion, "SELECT * FROM mensajero WHERE habilitado = 1 and eliminado = 0 ORDER BY nombre, apellidoPaterno, apellidoMaterno");
+
+                                                                                    // Arma restricciones
+
+                                                                                    $restricciones = "";
+
+                                                                                    if (!estaVacio($usuario_idConcesionario)) {
+                                                                                        $restricciones .= " AND id IN (SELECT idMensajero FROM mensajero_concesionario WHERE idConcesionario = " . $usuario_idConcesionario . ")";
+                                                                                    }
+
+                                                                                    $mensajeros_BD = consulta($conexion, "SELECT * FROM mensajero WHERE habilitado = 1 AND eliminado = 0 " . $restricciones . " ORDER BY nombre, apellidoPaterno, apellidoMaterno");
 
                                                                                     while ($mensajeroBD = obtenResultado($mensajeros_BD)) {
-                                                                                        echo "<option " . (!estaVacio($idMensajero) && $idMensajero == $mensajeroBD["id"] ? "selected" : "") . " value='" . $mensajeroBD["id"] . "'>" . $mensajeroBD["nombre"] . " " . $mensajero["apellidoPaterno"] . " " . $mensajero["apellidoMaterno"] . "</option>";
+                                                                                        echo "<option " . (!estaVacio($idMensajero) && $idMensajero == $mensajeroBD["id"] ? "selected" : "") . " value='" . $mensajeroBD["id"] . "'>" . $mensajeroBD["nombre"] . " " . $mensajeroBD["apellidoPaterno"] . " " . $mensajeroBD["apellidoMaterno"] . "</option>";
                                                                                     }
                                                                                 ?>
                                                                             </select>
