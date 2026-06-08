@@ -176,26 +176,61 @@
                                                                     $restricciones = "";
 
                                                                     if (!estaVacio($idConcesionario)) {
-                                                                        $restricciones .= " AND mc.idConcesionario = '" . $idConcesionario ."'";
+                                                                        $restricciones .= " AND id = '" . $idConcesionario ."'";
                                                                     }
 
                                                                     // Consulta base de datos
+/*
+                                                                    $mensajeros_BD = consulta($conexion, "SELECT 
+                                                                            m.id,
+                                                                            c.nombreComercial,
+                                                                            m.nombre,
+                                                                            m.apellidoPaterno,
+                                                                            m.apellidoMaterno,
+                                                                            m.curp,
+                                                                            m.correoElectronico,
+                                                                            m.telefono,
+                                                                            m.habilitado
+                                                                        FROM
+                                                                            mensajero_concesionario mc 
+                                                                            INNER JOIN mensajero m ON mc.idMensajero = m.id
+                                                                            INNER JOIN concesionario c ON mc.idConcesionario = c.id
+                                                                        WHERE
+                                                                            m.eliminado = 0 "
+                                                                            . $restricciones . "
+                                                                        ORDER BY
+                                                                            m.nombre,
+                                                                            m.apellidoPaterno,
+                                                                            m.apellidoMaterno");
+*/
 
                                                                     $mensajeros_BD = consulta($conexion, "SELECT 
-                                                                                                            m.id,
-                                                                                                            c.nombreComercial,
-                                                                                                            m.nombre,
-                                                                                                            m.apellidoPaterno,
-                                                                                                            m.apellidoMaterno,
-                                                                                                            m.curp,
-                                                                                                            m.correoElectronico,
-                                                                                                            m.telefono,
-                                                                                                            m.habilitado
-                                                                                                        FROM mensajero_concesionario mc 
-                                                                                                        INNER JOIN mensajero m ON mc.idMensajero = m.id
-                                                                                                        INNER JOIN concesionario c ON mc.idConcesionario = c.id
-                                                                                                        WHERE m.eliminado = 0 " . $restricciones . " ORDER BY m.nombre, m.apellidoPaterno, m.apellidoMaterno");
-
+                                                                            m.id,
+                                                                            (SELECT GROUP_CONCAT(nombreComercial ORDER BY nombreComercial SEPARATOR ',') FROM concesionario WHERE id IN (SELECT idConcesionario FROM mensajero_concesionario WHERE idMensajero = m.id) " . $restricciones . ") AS concesionarios,
+                                                                            m.nombre,
+                                                                            m.apellidoPaterno,
+                                                                            m.apellidoMaterno,
+                                                                            m.curp,
+                                                                            m.correoElectronico,
+                                                                            m.telefono,
+                                                                            m.habilitado
+                                                                        FROM
+                                                                            mensajero m
+                                                                        WHERE
+                                                                            m.eliminado = 0 "
+                                                                            . $restricciones . "
+                                                                        ORDER BY
+                                                                            m.nombre,
+                                                                            m.apellidoPaterno,
+                                                                            m.apellidoMaterno");
+                                                                    
+                                                                    
+/*
+ (SELECT GROUP_CONCAT(role_name ORDER BY role_name ASC SEPARATOR ', ') 
+     FROM user_roles ur 
+     WHERE ur.user_id = u.id) AS roles_list                                                                    
+*/
+                                                                    
                                                                     while ($mensajero = obtenResultado($mensajeros_BD)) {
                                                                         echo "<tr>";
                                                                         echo "<td>" . $mensajero["id"] . "</td>";
