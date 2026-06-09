@@ -109,7 +109,7 @@
                                                                     <div class="row mb-12">
                                                                         <label class="form-label col-md-4" for="campo_idConcesionario">Rango de fechas de alta</label>
                                                                         <div class="col-md-8">
-                                                                            <input class="form-control" id="campo_rangoFechaAlta" name="rangoFechaAlta" type="text" value="<?php echo $rangoFechaAlta; ?>" />
+                                                                            <input autocomplete="off" class="form-control" id="campo_rangoFechaAlta" name="rangoFechaAlta" type="text" value="<?php echo $rangoFechaAlta; ?>" />
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -462,32 +462,6 @@
 
                                                                     // Consulta base de datos
 
-echo "SELECT 
-                                                                                                                t.id,
-                                                                                                                t.fechaAlta,
-                                                                                                                t.folioARCA,
-                                                                                                                t.folioICV,
-                                                                                                                c.nombreComercial,
-                                                                                                                u.nombre AS nombreUsuario,
-                                                                                                                t.cliente_nombre,
-                                                                                                                t.cliente_apellidoPaterno,
-                                                                                                                t.cliente_apellidoMaterno,
-                                                                                                                m.nombre,
-                                                                                                                m.apellidoPaterno,
-                                                                                                                m.apellidoMaterno,
-                                                                                                                t.status,
-                                                                                                                t.ejecutivoICV,
-                                                                                                                t.vehiculo_vin,
-                                                                                                                t.vehiculo_marca,
-                                                                                                                t.vehiculo_modelo,
-                                                                                                                t.vehiculo_ano
-                                                                                                            FROM 
-                                                                                                                tramite t
-                                                                                                            INNER JOIN concesionario c ON t.idConcesionario = c.id
-                                                                                                            INNER JOIN usuario u ON t.idUsuario = u.id
-                                                                                                            INNER JOIN mensajero m ON t.idMensajero = m.id
-                                                                                                            WHERE t.eliminado = 0 " . $restricciones . " ORDER BY t.id";
-
                                                                     $tramites_BD = consulta($conexion, "SELECT 
                                                                                                                 t.id,
                                                                                                                 t.fechaAlta,
@@ -637,11 +611,25 @@ echo "SELECT
                     tablaResultados.search($(this).val()).draw();
                 });
 
-                $('#campo_rangoFechaAlta').daterangepicker({
+                // Selector de rango de fecha de alta
+
+                $("#campo_rangoFechaAlta").daterangepicker({
+                    autoUpdateInput: false,
                     locale: {
+                        cancelLabel: "Borrar",
                         format: "DD/MM/YYYY",
                         separator: " a "
                     }
+                });
+
+
+                $("#campo_rangoFechaAlta").on("apply.daterangepicker", function(ev, picker) {
+                    $(this).val(picker.startDate.format("DD/MM/YYYY") + " a " + picker.endDate.format("DD/MM/YYYY"));
+                });
+
+
+                $("#campo_rangoFechaAlta").on("cancel.daterangepicker", function(ev, picker) {
+                    $(this).val("");
                 });
             });
 
