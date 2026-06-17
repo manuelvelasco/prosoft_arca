@@ -1253,7 +1253,7 @@ error_reporting(E_ALL & ~E_DEPRECATED & ~E_USER_DEPRECATED);
 
                                     <div class="row mt-6">
                                         <div class="col-md-8 col-sm-6" id="contenedor_botonesIzquierdos">
-                                            <?php if ((!estaVacio($id)) && $eliminado == 0 && $usuario_permisoEditarDelegacionVirtual) { ?>
+                                            <?php if ($esUsuarioMaster && !estaVacio($id) && $eliminado == 0) { ?>
                                                 <div class="form-group">
                                                     <a class="btn btn-danger mb-3" href="javascript:eliminaTramite(<?php echo  $id ?>)" id="boton_eliminar">Eliminar</a>
                                                 </div>
