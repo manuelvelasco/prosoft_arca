@@ -901,15 +901,13 @@ error_reporting(E_ALL & ~E_DEPRECATED & ~E_USER_DEPRECATED);
                                                     <hr />
 
                                                     <div class="row">
-
                                                         <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 mb-20">
                                                             <div class="row">
                                                                 <div class="col-12">
                                                                     <div class="row mb-12">
                                                                         <label class="form-label col-md-4" for="campo_vehiculo_marca">Marca <span class="txt-danger ml-10">*</span></label>
                                                                         <div class="col-md-8">
-                                                                            <select class="form-control select2-show-search form-select" data-placeholder="Seleccione" id="select_vehiculo_marca" name="vehiculo_marca">
-                                                                                
+                                                                            <select class="form-control select2-show-search form-select" data-placeholder="Seleccione" id="campo_vehiculo_marca" name="vehiculo_marca">
                                                                             </select>
                                                                         </div>
                                                                     </div>
@@ -923,8 +921,7 @@ error_reporting(E_ALL & ~E_DEPRECATED & ~E_USER_DEPRECATED);
                                                                     <div class="row mb-12">
                                                                         <label class="form-label col-md-4" for="campo_vehiculo_modelo">Modelo <span class="txt-danger ml-10">*</span></label>
                                                                         <div class="col-md-8">
-                                                                            <select class="form-control select2-show-search form-select" data-placeholder="Seleccione" id="select_vehiculo_modelo" name="vehiculo_modelo">
-                                                                                
+                                                                            <select class="form-control select2-show-search form-select" data-placeholder="Seleccione" id="campo_vehiculo_modelo" name="vehiculo_modelo">
                                                                             </select>
                                                                         </div>
                                                                     </div>
@@ -938,15 +935,13 @@ error_reporting(E_ALL & ~E_DEPRECATED & ~E_USER_DEPRECATED);
                                                                     <div class="row mb-12">
                                                                         <label class="form-label col-md-4" for="campo_vehiculo_ano">Año <span class="txt-danger ml-10">*</span></label>
                                                                         <div class="col-md-8">
-                                                                            <select class="form-control select2-show-search form-select" data-placeholder="Seleccione" id="select_vehiculo_ano" name="vehiculo_ano">
-                                                                                
+                                                                            <select class="form-control select2-show-search form-select" data-placeholder="Seleccione" id="campo_vehiculo_ano" name="vehiculo_ano">
                                                                             </select>
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        
 
                                                         <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 mb-10">
                                                             <div class="row">
@@ -1392,6 +1387,8 @@ error_reporting(E_ALL & ~E_DEPRECATED & ~E_USER_DEPRECATED);
 
 
             function cargaMarcas(){
+                $.LoadingOverlay("show", { minSize: 30, maxSize: 30 });
+
                 $.ajax({
                     url: "socialware/php/ajax/cargaMarcas.php",
                     type: "post"
@@ -1410,7 +1407,7 @@ error_reporting(E_ALL & ~E_DEPRECATED & ~E_USER_DEPRECATED);
                         }
                     });
 
-                    $("#select_vehiculo_marca").append(contenido);
+                    $("#campo_vehiculo_marca").append(contenido);
 
                     cargaModelos();
                 });
@@ -1418,7 +1415,7 @@ error_reporting(E_ALL & ~E_DEPRECATED & ~E_USER_DEPRECATED);
 
 
             function cargaModelos() {
-                var idMarca = $("#select_vehiculo_marca option:selected").attr("data-id");
+                var idMarca = $("#campo_vehiculo_marca option:selected").attr("data-id");
 
                 $.ajax({
                     url: "socialware/php/ajax/cargaModelos.php?marca=" + idMarca,
@@ -1438,9 +1435,10 @@ error_reporting(E_ALL & ~E_DEPRECATED & ~E_USER_DEPRECATED);
                         }
                     });
 
-                    $("#select_vehiculo_ano").html("");
-                    $("#select_vehiculo_modelo").html("");
-                    $("#select_vehiculo_modelo").append(contenido);
+                    $("#campo_vehiculo_modelo").html("");
+                    $("#campo_vehiculo_modelo").append(contenido);
+
+                    $("#campo_vehiculo_ano").html("");
 
                     cargaAnos();
                 });
@@ -1448,8 +1446,8 @@ error_reporting(E_ALL & ~E_DEPRECATED & ~E_USER_DEPRECATED);
 
 
             function cargaAnos(){
-                var idMarca = $("#select_vehiculo_marca option:selected").attr("data-id");
-                var idModelo = $("#select_vehiculo_modelo option:selected").attr("data-id");
+                var idMarca = $("#campo_vehiculo_marca option:selected").attr("data-id");
+                var idModelo = $("#campo_vehiculo_modelo option:selected").attr("data-id");
 
                 $.ajax({
                     url: "socialware/php/ajax/cargaAnos.php?marca=" + idMarca + "&modelo=" + idModelo,
@@ -1469,18 +1467,20 @@ error_reporting(E_ALL & ~E_DEPRECATED & ~E_USER_DEPRECATED);
                         }
                     });
 
-                    $("#select_vehiculo_ano").html("");
-                    $("#select_vehiculo_ano").append(contenido);
+                    $("#campo_vehiculo_ano").html("");
+                    $("#campo_vehiculo_ano").append(contenido);
+
+                    $.LoadingOverlay("hide");
                 });
             }
 
 
-            $("#select_vehiculo_marca").on("change", function(){
+            $("#campo_vehiculo_marca").on("change", function(){
                 cargaModelos();
             });
 
 
-            $("#select_vehiculo_modelo").on("change", function(){
+            $("#campo_vehiculo_modelo").on("change", function(){
                 cargaAnos();
             });
 
