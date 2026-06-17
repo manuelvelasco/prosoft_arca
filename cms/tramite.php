@@ -1036,7 +1036,7 @@ error_reporting(E_ALL & ~E_DEPRECATED & ~E_USER_DEPRECATED);
                                                                         <label class="form-label mb-10">PDF de expediente <span class="text-danger">*</span></label>
 
                                                                         <div>
-                                                                            <input name="archivo_expediente" type="file" />
+                                                                            <input id="archivo_expediente" name="archivo_expediente" type="file" />
                                                                             <br />
                                                                             <div class="row">
                                                                                 <div class="col-sm-12">
@@ -1343,6 +1343,7 @@ error_reporting(E_ALL & ~E_DEPRECATED & ~E_USER_DEPRECATED);
                     handleWidth: 110,
                     labelWidth: 110
                 });
+
 /*
                 $(".js-switch").each(function() {
                     new Switchery($(this)[0], $(this).data());
@@ -1350,7 +1351,6 @@ error_reporting(E_ALL & ~E_DEPRECATED & ~E_USER_DEPRECATED);
 
 */
                 cargaMarcas();
-
 
                 // Inicializa tabla de resultados
 
@@ -1380,7 +1380,6 @@ error_reporting(E_ALL & ~E_DEPRECATED & ~E_USER_DEPRECATED);
                     },
                     retrieve: true
                 });
-
             });
 
 
@@ -1402,21 +1401,25 @@ error_reporting(E_ALL & ~E_DEPRECATED & ~E_USER_DEPRECATED);
                     var marca = '<?php echo $vehiculo_marca; ?>' ;
 
                     var json = jQuery.parseJSON(resultado);
+
                     $.each(json.data,function(i,nodo){
-                        if(marca == nodo.name){
+                        if (marca == nodo.name) {
                             contenido += "<option value='" + nodo.name + "' data-id='" + nodo.id + "' selected>" + nodo.name + "</option>";
-                        }else{
+                        } else {
                             contenido += "<option value='" + nodo.name + "' data-id='" + nodo.id + "'>" + nodo.name + "</option>";
                         }
                     });
 
                     $("#select_vehiculo_marca").append(contenido);
+
                     cargaModelos();
                 });
             }
 
-            function cargaModelos(){
+
+            function cargaModelos() {
                 var idMarca = $("#select_vehiculo_marca option:selected").attr("data-id");
+
                 $.ajax({
                     url: "socialware/php/ajax/cargaModelos.php?marca=" + idMarca,
                     type: "post"
@@ -1426,21 +1429,23 @@ error_reporting(E_ALL & ~E_DEPRECATED & ~E_USER_DEPRECATED);
                     var modelo = '<?php echo $vehiculo_modelo; ?>' ;
 
                     var json = jQuery.parseJSON(resultado);
+
                     $.each(json.data,function(i,nodo){
-                        if(modelo == nodo.name){
+                        if (modelo == nodo.name) {
                             contenido += "<option value='" + nodo.name + "' data-id='" + nodo.id + "' selected>" + nodo.name + "</option>";
-                        }else{
+                        } else {
                             contenido += "<option value='" + nodo.name + "' data-id='" + nodo.id + "'>" + nodo.name + "</option>";
                         }
                     });
 
-                    $("#select_vehiculo_modelo").html("");
                     $("#select_vehiculo_ano").html("");
-
+                    $("#select_vehiculo_modelo").html("");
                     $("#select_vehiculo_modelo").append(contenido);
+
                     cargaAnos();
                 });
             }
+
 
             function cargaAnos(){
                 var idMarca = $("#select_vehiculo_marca option:selected").attr("data-id");
@@ -1455,32 +1460,34 @@ error_reporting(E_ALL & ~E_DEPRECATED & ~E_USER_DEPRECATED);
                     var ano = '<?php echo $vehiculo_ano; ?>' ;
 
                     var json = jQuery.parseJSON(resultado);
+
                     $.each(json.data,function(i,nodo){
-                        if(ano == nodo.name){
+                        if (ano == nodo.name) {
                             contenido += "<option value='" + nodo.name + "' data-id='" + nodo.id + "' selected>" + nodo.name + "</option>";
-                        }else{
+                        } else {
                             contenido += "<option value='" + nodo.name + "' data-id='" + nodo.id + "'>" + nodo.name + "</option>";
                         }
                     });
 
                     $("#select_vehiculo_ano").html("");
-
                     $("#select_vehiculo_ano").append(contenido);
                 });
             }
 
+
             $("#select_vehiculo_marca").on("change", function(){
                 cargaModelos();
             });
+
 
             $("#select_vehiculo_modelo").on("change", function(){
                 cargaAnos();
             });
 
 
-
              // Borra PDF expediente
-            
+
+
             function eliminaPdfExpediente(idTramite) {
                 if (confirm("Al continuar se eliminará el archivo, ¿desea proceder?")) {
                     $.ajax({
@@ -1498,8 +1505,10 @@ error_reporting(E_ALL & ~E_DEPRECATED & ~E_USER_DEPRECATED);
                 }
             }
 
+
             // Elimina tramite
-            
+
+
             function eliminaTramite(idTramite) {
                 if (confirm("Al continuar se eliminará el trámite, ¿desea proceder?")) {
                     $.ajax({
@@ -1518,57 +1527,76 @@ error_reporting(E_ALL & ~E_DEPRECATED & ~E_USER_DEPRECATED);
                 }
             }
 
-            //Funciones por estatus
 
-            function regresarAAgencia(){
+            // Funciones por estatus
+
+
+            function regresarAAgencia() {
                 event.preventDefault();
-                if(confirm("¿Desea reenviar a la agencia este trámite?")){
+
+                if (confirm("¿Desea reenviar a la agencia este trámite?")) {
                     $("#campo_accion").val("Devuelto a la agencia");
                     $('#formulario').submit();
                 }
             }
 
-            function reenviarArca(){
+
+            function reenviarArca() {
                 event.preventDefault();
-                if(confirm("¿Desea reenviar a ARCA este trámite?")){
-                    $("#campo_accion").val("Reenviado a ARCA");
-                    $('#formulario').submit();
+
+                let cuentaConArchivoExpediente = "<?php echo estaVacio($archivo_expediente) ? 0 : 1 ?>";
+                let archivoExpedienteAdjunto = $("#archivo_expediente").val();
+
+                if (cuentaConArchivoExpediente == 0 && !archivoExpedienteAdjunto) {
+                    alert("Para continuar debe adjuntar un archivo PDF de expediente");
+                } else {
+                    if (confirm("¿Desea reenviar a ARCA este trámite?")) {
+                        $("#campo_accion").val("Reenviado a ARCA");
+                        $('#formulario').submit();
+                    }
                 }
             }
 
-            function enviarICV(){
+
+            function enviarICV() {
                 event.preventDefault();
-                if(confirm("¿Desea enviar a ICV este trámite?")){
+
+                if (confirm("¿Desea enviar a ICV este trámite?")) {
                     $("#campo_accion").val("A la espera de respuesta de ICV");
                     $('#formulario').submit();
                 }
             }
 
-            function aprobado(){
+
+            function aprobado() {
                 event.preventDefault();
-                if(confirm("¿Desea aprobar este trámite?")){
+
+                if (confirm("¿Desea aprobar este trámite?")) {
                     $("#campo_accion").val("Aprobado");
                     $('#formulario').submit();
                 }
             }
 
-            function rechazado(){
+
+            function rechazado() {
                 event.preventDefault();
-                if(confirm("¿Desea rechazar este trámite?")){
+
+                if (confirm("¿Desea rechazar este trámite?")) {
                     $("#campo_accion").val("Rechazado");
                     $('#formulario').submit();
                 }
             }
 
-            function clonar(){
+
+            function clonar() {
                 event.preventDefault();
-                if(confirm("¿Desea clonar este trámite?")){
+
+                if (confirm("¿Desea clonar este trámite?")) {
                     $("#campo_accion").val("Clonar");
                     $("#campo_id").val("");
                     $("#campo_comentariosConcesionario").val("");
                     $(".hideClonacion").hide();
                     $("#contenedor_archivo_expediente").hide();
-
 
                     $("#boton_guardar").show();
                     $("#boton_clonar_tramite").hide();
@@ -1576,17 +1604,20 @@ error_reporting(E_ALL & ~E_DEPRECATED & ~E_USER_DEPRECATED);
                     $("#boton_aprobado").hide();
                     $("#seccionBitacora").hide();
                     $("#seccionICV").hide();
-
-
                 }
             }
 
+
+/*
             var id = <?php echo estaVacio($id) ? 0 : $id; ?>;
-            if(id > 0){
+
+            if (id > 0) {
                 $("#boton_guardar").hide();
             }
-
-
+*/
+            <?php if (!estaVacio($id)) { ?>
+                $("#boton_guardar").hide();
+            <?php } ?>
         </script>
     </body>
 </html>
