@@ -473,11 +473,12 @@
 
 
             $(".link_sincronizar").click(function() {
+/*
                 $.LoadingOverlay("show", { minSize: 30, maxSize: 30 });
 
                 $.ajax({
                     data: {
-                        idConcesionario: <?php echo $esUsuarioOperador? $usuario_idConcesionario : "0" ; ?>
+                        idConcesionario: <?php echo $esUsuarioOperador ? $usuario_idConcesionario : "0" ; ?>
                     },
                     type: "post",
                     url: "socialware/php/ajax/sincronizaInventarioInteliMotor.php",
@@ -494,7 +495,25 @@
                         //setTimeout(function() { location.reload(); }, 5000);
                     }
                 });
+*/
+
+                if (confirm("El proceso de sincronización puede tardar un tiempo considerable.  Al finalizar recibirás un correo electrónico de confirmación. ¿Deseas continuar?")) {
+                    $.ajax({
+                        data: {
+                            idConcesionario: <?php echo $esUsuarioOperador ? $usuario_idConcesionario : "0" ; ?>
+                        },
+                        type: "post",
+                        url: "socialware/php/ajax/sincronizaInventarioInteliMotor.php"
+                    });
+
+                    $("#contenedor_mensaje span").html("El proceso de sincronización ha comenzado, al finalizar recibirás un correo electrónico de confirmación.");
+                    $("#contenedor_mensaje").addClass("alert-success");
+                    $("#contenedor_mensaje").show();
+
+                    $("html, body").animate({ scrollTop: 0 }, "slow");
+                }
             });
+
 
             // Publica / Oculta un vehiculo
 

@@ -46,8 +46,8 @@
     function obtenConexion() {
         //return new mysqli("localhost", "root", "", "arca");
         //return new mysqli("stagedb-2.c7vpephv5j2g.us-east-1.rds.amazonaws.com", "app_respaldos_dbuser", "2brv7b24rV,8sdu8c", "arca");
-        return new mysqli("stagedb-2.c7vpephv5j2g.us-east-1.rds.amazonaws.com", "app_respaldos_dbuser", "n28r75vRNcaSN91BCta_wuxbvAj", "arca");
-        //return new mysqli("production.c7vpephv5j2g.us-east-1.rds.amazonaws.com", "app_respaldos_dbuser", "2brv7b24rV,8sdu8c", "arca");
+        //return new mysqli("stagedb-2.c7vpephv5j2g.us-east-1.rds.amazonaws.com", "app_respaldos_dbuser", "n28r75vRNcaSN91BCta_wuxbvAj", "arca");
+        return new mysqli("production.c7vpephv5j2g.us-east-1.rds.amazonaws.com", "app_respaldos_dbuser", "2brv7b24rV,8sdu8c", "arca");
     }
 
 
@@ -294,7 +294,7 @@
     }
 
 
-    function sincronizaInventarioInteliMotor($idConcesionario = null) {
+    function sincronizaInventarioInteliMotor($usuario_correoElectronico = null, $idConcesionario = null) {
         try {
 //$rutaLog = "/Users/mvelasco/Socialware/error.log";
 $rutaLog = "/var/www/html/arca/error.log";
@@ -870,7 +870,16 @@ $indiceConcesionario = 0;
 
 $indiceConcesionario++;
 error_log("\nconcesionario " . $indiceConcesionario . " de " . $cantidadConcesionarios, 3, $rutaLog);
+            }
 
+            if (!estaVacio($usuario_correoElectronico)) {
+
+                // Envia correo de confirmacion
+
+                $titulo = "Seminuevos ARCA | Sincronización de inventario";
+                $mensaje = "Hola,<br /><br />te informamos que el proceso de sincronización con Intelimotors que has solicitado se ha concretado con éxito.";
+
+                enviaCorreo($usuario_correoElectronico, $titulo, $mensaje);
             }
 
             // Cierra la conexion con base de datos y libera recursos
