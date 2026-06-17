@@ -332,11 +332,8 @@ error_reporting(E_ALL & ~E_DEPRECATED & ~E_USER_DEPRECATED);
                                         $archivo_expediente = $nombreEstandarizado;
                                     }
                                 } catch (Exception $e) {
-
                                 }
                             }
-
-
 
                             //Proceso enviar correo
 
@@ -367,7 +364,7 @@ error_reporting(E_ALL & ~E_DEPRECATED & ~E_USER_DEPRECATED);
                                      ;
 
 
-                            $enviaCorreo = enviaCorreoMailjet($correoNotificacion["valor"],"", $titulo, $mensajeCorreo, $archivoDestino);
+                            //$enviaCorreo = enviaCorreoMailjet($correoNotificacion["valor"],"", $titulo, $mensajeCorreo, $archivoDestino);
 
                             $mensaje = "ok - El tramite ha sido registrado";
 
@@ -402,6 +399,27 @@ error_reporting(E_ALL & ~E_DEPRECATED & ~E_USER_DEPRECATED);
                             . ", fechaRecepcionCorreoICV = '" . $fechaRecepcionCorreoICV . "'"
                             . " WHERE id = " . $id);
 
+                        if (isset($_FILES["archivo_expediente"])) {
+                            try {
+                                $archivo = $_FILES["archivo_expediente"];
+
+                                if ($archivo["size"] > 0) {
+                                    $nombreEstandarizado = $id . "_expediente_" . date("YmdHis") . "_" . rand(100, 999) . "." . pathinfo($archivo["name"], PATHINFO_EXTENSION);
+                                    $archivoDestino = $constante_rutaTramites . "/" . $id . "/" . $nombreEstandarizado;
+
+                                    if (!file_exists($constante_rutaTramites . "/" . $id)) {
+                                        mkdir($constante_rutaTramites . "/" . $id, 0755, true);
+                                    }
+
+                                    move_uploaded_file($archivo["tmp_name"], $archivoDestino);
+
+                                    consulta($conexion, "UPDATE tramite SET archivo_expediente = " . (estaVacio($nombreEstandarizado) ? "NULL" : "'" . $nombreEstandarizado . "'") . " WHERE id = " . $id);
+                                    $archivo_expediente = $nombreEstandarizado;
+                                }
+                            } catch (Exception $e) {
+                            }
+                        }
+
                         if (isset($_FILES["archivo_solicitudICV"])) {
                             try {
                                 $archivo = $_FILES["archivo_solicitudICV"];
@@ -420,7 +438,6 @@ error_reporting(E_ALL & ~E_DEPRECATED & ~E_USER_DEPRECATED);
                                     $archivo_solicitudICV = $nombreEstandarizado;
                                 }
                             } catch (Exception $e) {
-
                             }
                         }
 
@@ -605,9 +622,9 @@ error_reporting(E_ALL & ~E_DEPRECATED & ~E_USER_DEPRECATED);
                         $archivoCorreo = $constante_rutaTramites . "/" . $id . "/" . $archivo_expediente;
 
                         if($accion == 'Rechazado' || $accion == 'Aprobado'){
-                            $enviaCorreo = enviaCorreoMailjet($correoNotificar,"", $titulo, $mensajeCorreo, "");
+                            //$enviaCorreo = enviaCorreoMailjet($correoNotificar,"", $titulo, $mensajeCorreo, "");
                         }else{
-                            $enviaCorreo = enviaCorreoMailjet($correoNotificar,"", $titulo, $mensajeCorreo, $archivoCorreo);
+                            //$enviaCorreo = enviaCorreoMailjet($correoNotificar,"", $titulo, $mensajeCorreo, $archivoCorreo);
                         }
 
 
