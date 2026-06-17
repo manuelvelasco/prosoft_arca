@@ -1288,7 +1288,7 @@ error_reporting(E_ALL & ~E_DEPRECATED & ~E_USER_DEPRECATED);
                                                     <?php } ?>
                                                 <?php } ?>
 
-                                                <?php if ($esUsuarioMaster) { ?>
+                                                <?php if ($esUsuarioMaster || $usuario_permisoEditarDelegacionVirtual) { ?>
                                                     <button class="btn btn-success mb-3" id="boton_guardar" onclick="return confirm('¿Desea dar de alta este trámite?');" type="submit" >Generar trámite</button>
                                                 <?php } ?>
                                             </div>
