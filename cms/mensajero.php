@@ -741,9 +741,9 @@
                                     </div>
 
                                     <div class="row mt-6">
-                                        <?php if ($esUsuarioMaster || $usuario_permisoEditarDelegacionVirtual ) { ?>
+                                        <?php if ($esUsuarioMaster || $usuario_permisoEditarDelegacionVirtual) { ?>
                                             <div class="col-md-8 col-sm-6" id="contenedor_botonesIzquierdos">
-                                                <?php if((!estaVacio($id)) && $eliminado == 0){?>
+                                                <?php if (!$esUsuarioOperador && !estaVacio($id) && $eliminado == 0) { ?>
                                                     <div class="form-group">
                                                         <a class="btn btn-danger mb-3" href="javascript:eliminaMensajero(<?php echo  $id ?>)" id="boton_eliminar">Eliminar</a>
                                                     </div>
@@ -752,7 +752,10 @@
 
                                             <div class="col-md-4 col-sm-6" id="contenedor_botonesDerechos">
                                                 <div class="form-group">
-                                                    <button class="btn btn-success mb-3" type="submit" id="boton_guardar">Guardar</button>
+                                                    <?php if (!$esUsuarioOperador) { ?>
+                                                        <button class="btn btn-success mb-3" type="submit" id="boton_guardar">Guardar</button>
+                                                    <?php } ?>
+
                                                     <a class="btn btn-default mb-3" href="javascript:void(0)" id="boton_cerrar">Cerrar</a>
                                                 </div>
                                             </div>
