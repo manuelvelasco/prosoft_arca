@@ -46,8 +46,8 @@
     function obtenConexion() {
         //return new mysqli("localhost", "root", "", "arca");
         //return new mysqli("stagedb-2.c7vpephv5j2g.us-east-1.rds.amazonaws.com", "app_respaldos_dbuser", "2brv7b24rV,8sdu8c", "arca");
-        //return new mysqli("stagedb-2.c7vpephv5j2g.us-east-1.rds.amazonaws.com", "app_respaldos_dbuser", "n28r75vRNcaSN91BCta_wuxbvAj", "arca");
-        return new mysqli("production.c7vpephv5j2g.us-east-1.rds.amazonaws.com", "app_respaldos_dbuser", "2brv7b24rV,8sdu8c", "arca");
+        return new mysqli("stagedb-2.c7vpephv5j2g.us-east-1.rds.amazonaws.com", "app_respaldos_dbuser", "n28r75vRNcaSN91BCta_wuxbvAj", "arca");
+        //return new mysqli("production.c7vpephv5j2g.us-east-1.rds.amazonaws.com", "app_respaldos_dbuser", "2brv7b24rV,8sdu8c", "arca");
     }
 
 
