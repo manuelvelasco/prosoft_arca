@@ -370,7 +370,7 @@
                 }
             }//end of class|
 
-$rutaLog = "/var/www/html/arca/error.log";
+//$rutaLog = "/var/www/html/arca/error.log";
 /*error_log("\n\n[" . date("Y-m-d H:i:s") . "]", 3, $rutaLog);
 error_log("\nidUsuario = " . $usuario_id, 3, $rutaLog);*/
 
@@ -378,9 +378,11 @@ error_log("\nidUsuario = " . $usuario_id, 3, $rutaLog);*/
 
             $esSubmit = sanitiza($conexion, filter_input(INPUT_POST, "esSubmit"));
             $id = sanitiza($conexion, filter_input(INPUT_GET, "id"));
-            if($esSubmit == 1){
+
+            if ($esSubmit == 1) {
                 $id = sanitiza($conexion, filter_input(INPUT_POST, "id"));
             }
+
             $publicado = sanitiza($conexion, filter_input(INPUT_POST, "publicado"));
             $destacado = sanitiza($conexion, filter_input(INPUT_POST, "destacado"));
             $certificado = sanitiza($conexion, filter_input(INPUT_POST, "certificado"));
@@ -548,206 +550,6 @@ error_log("\nidUsuario = " . $usuario_id, 3, $rutaLog);*/
                     if (estaVacio($id)) {
 
                         // Es insercion
-
-error_log("\nInserción", 3, $rutaLog);
-
-error_log("\n" . "INSERT INTO vehiculo ("
-                                . "fechaRegistro"
-                                . ", publicado"
-                                . ", destacado"
-                                . ", certificado"
-                                . ", descuentoEspecial"
-                                . ", tipo"
-                                . ", marca"
-                                . ", modelo"
-                                . ", version"
-                                . ", ano"
-                                . ", color"
-                                . ", precio"
-                                . ", enganche"
-                                . ", litros"
-                                . ", combustible"
-                                . ", transmision"
-                                . ", puertas"
-                                . ", asientos"
-                                . ", bolsasAire"
-                                . ", kilometraje"
-                                . ", tipoFactura"
-                                . ", numeroLlaves"
-                                . ", vidaUtilLlantas"
-                                . ", facturaAgencia"
-                                . ", mantenimientosAgencia"
-                                . ", impuestosCorriente"
-                                . ", mantenimientosCorriente"
-                                . ", manosLibres"
-                                . ", descripcion"
-                                . ", puntosDestacados"
-                                . ", video_titulo"
-                                . ", video_resumen"
-                                . ", video_detalle"
-                                . ", video_url"
-                                . ", video_fechaPublicacion"
-                                . ", video_publicado"
-                                . ", idSucursal"
-                                . ", idConcesionario"
-
-                                . ", colorInterior"
-                                . ", direccion"
-                                . ", tieneAireAcondicionado"
-                                . ", tieneAlarma"
-                                . ", tieneAlfombrillaLlantaRefaccion"
-                                . ", tieneAperturaRemotaCajuela"
-                                . ", tieneAsientoConductorAjusteAltura"
-                                . ", tieneAsientosElectricos"
-                                . ", tieneAsientosTraserosAbatibles"
-                                . ", tieneAsistenciaFrenado"
-                                . ", tieneBandejaLlantaRefaccion"
-                                . ", tieneBarraAntivuelco"
-                                . ", esBlindado"
-                                . ", tieneBluetooth"
-                                . ", tieneBolsaAireConductor"
-                                . ", tieneBolsaAirePasajero"
-                                . ", tieneBolsasAireLaterales"
-                                . ", tieneBolsasAireCortina"
-                                . ", tieneCabecerasAsientosTraseros"
-                                . ", tieneComputadoraAbordo"
-                                . ", tieneControlTemperatura"
-                                . ", tieneControlEstabilidad"
-                                . ", tieneControlLucesDelanteras"
-                                . ", tieneControlVolante"
-                                . ", tieneDefensasColorCarroceria"
-                                . ", tieneDesempanadorTrasero"
-                                . ", tieneEspejosElectricos"
-                                . ", tieneFarosNiebla"
-                                . ", tieneFrenosABS"
-                                . ", tieneGps"
-                                . ", esImportado"
-                                . ", tieneInmovilizador"
-                                . ", tieneLimpiaparabrisas"
-                                . ", tieneLlantaRefaccion"
-                                . ", tieneLucesNieblaDelanteras"
-                                . ", tieneLucesNieblaTraseras"
-                                . ", tieneLucesXenon"
-                                . ", tieneParachoques"
-                                . ", tienePilotoAutomatico"
-                                . ", tienePortavasos"
-                                . ", tieneQuemacocos"
-                                . ", tieneRadioAMFM"
-                                . ", tieneRecordatorioEncendidoLuces"
-                                . ", tieneReproductorCD"
-                                . ", tieneReproductorDVD"
-                                . ", tieneReproductorMP3"
-                                . ", tieneRespadosTraseros"
-                                . ", tieneRinesAleacion"
-                                . ", tieneSegurosElectricosCentralizados"
-                                . ", tieneSensorLluvia"
-                                . ", tieneSensoresLuz"
-                                . ", tieneSensoresReversa"
-                                . ", tieneTapiceriaPiel"
-                                . ", tieneTarjetaSD"
-                                . ", tieneTerceraLuzFrenado"
-                                . ", unicoDueno"
-                                . ", tieneUsb"
-                                . ", tieneVidriosElectricos"
-                            . ") VALUES ("
-                                . "'" . $fechaActual . "'"
-                                . ", " . $publicado
-                                . ", " . $destacado
-                                . ", " . $certificado
-                                . ", " . $descuentoEspecial
-                                . ", '" . $tipo ."'"
-                                . ", '" . $marca ."'"
-                                . ", '" . $modelo ."'"
-                                . ", '" . $version ."'"
-                                . ", " . $ano
-                                . ", '" . $color ."'"
-                                . ", " . $precio
-                                . ", " . (estaVacio($enganche) ? "NULL" : $enganche)
-                                . ", " . (estaVacio($litros) ? "NULL" : $litros)
-                                . ", " . (estaVacio($combustible) ? "NULL" : "'" . $combustible . "'")
-                                . ", " . (estaVacio($transmision) ? "NULL" : "'" . $transmision . "'")
-                                . ", " . (estaVacio($puertas) ? "NULL" : $puertas)
-                                . ", " . (estaVacio($asientos) ? "NULL" : $asientos)
-                                . ", " . (estaVacio($bolsasAire) ? "NULL" : $bolsasAire)
-                                . ", " . (estaVacio($kilometraje) ? "NULL" : $kilometraje)
-                                . ", " . (estaVacio($tipoFactura) ? "NULL" : "'" . $tipoFactura . "'")
-                                . ", " . $numeroLlaves
-                                . ", " . (estaVacio($vidaUtilLlantas) ? "NULL" : $vidaUtilLlantas)
-                                . ", " . (estaVacio($facturaAgencia) ? "NULL" : $facturaAgencia)
-                                . ", " . (estaVacio($mantenimientosAgencia) ? "NULL" : $mantenimientosAgencia)
-                                . ", " . (estaVacio($impuestosCorriente) ? "NULL" : $impuestosCorriente)
-                                . ", " . (estaVacio($mantenimientosCorriente) ? "NULL" : $mantenimientosCorriente)
-                                . ", " . (estaVacio($manosLibres) ? "NULL" : $manosLibres)
-                                . ", " . (estaVacio($descripcion) ? "NULL" : "'" . mysqli_real_escape_string($conexion, $descripcion) . "'")
-                                . ", " . (estaVacio($puntosDestacados) ? "NULL" : "'" . mysqli_real_escape_string($conexion, $puntosDestacados) . "'")
-                                . ", " . (estaVacio($video_titulo) ? "NULL" : "'" . $video_titulo . "'")
-                                . ", " . (estaVacio($video_resumen) ? "NULL" : "'" . $video_resumen . "'")
-                                . ", " . (estaVacio($video_detalle) ? "NULL" : "'" . mysqli_real_escape_string($conexion, $video_detalle) . "'")
-                                . ", " . (estaVacio($video_url) ? "NULL" : "'" . mysqli_real_escape_string($conexion, $video_url) . "'")
-                                . ", " . (!estaVacio($video_titulo) && !estaVacio($video_resumen) ? "'" . $fechaActual . "'" : "NULL")
-                                . ", " . $video_publicado
-                                . ", " . (estaVacio($idSucursal) ? "NULL" : $idSucursal)
-                                . ", " . $idConcesionario
-
-                                . ", " . (estaVacio($colorInterior) ? "NULL" : "'" . $colorInterior . "'")
-                                . ", " . (estaVacio($direccion) ? "NULL" : "'" . $direccion . "'")
-                                . ", " . $tieneAireAcondicionado
-                                . ", " . $tieneAlarma
-                                . ", " . $tieneAlfombrillaLlantaRefaccion
-                                . ", " . $tieneAperturaRemotaCajuela
-                                . ", " . $tieneAsientoConductorAjusteAltura
-                                . ", " . $tieneAsientosElectricos
-                                . ", " . $tieneAsientosTraserosAbatibles
-                                . ", " . $tieneAsistenciaFrenado
-                                . ", " . $tieneBandejaLlantaRefaccion
-                                . ", " . $tieneBarraAntivuelco
-                                . ", " . $esBlindado
-                                . ", " . $tieneBluetooth
-                                . ", " . $tieneBolsaAireConductor
-                                . ", " . $tieneBolsaAirePasajero
-                                . ", " . $tieneBolsasAireLaterales
-                                . ", " . $tieneBolsasAireCortina
-                                . ", " . $tieneCabecerasAsientosTraseros
-                                . ", " . $tieneComputadoraAbordo
-                                . ", " . $tieneControlTemperatura
-                                . ", " . $tieneControlEstabilidad
-                                . ", " . $tieneControlLucesDelanteras
-                                . ", " . $tieneControlVolante
-                                . ", " . $tieneDefensasColorCarroceria
-                                . ", " . $tieneDesempanadorTrasero
-                                . ", " . $tieneEspejosElectricos
-                                . ", " . $tieneFarosNiebla
-                                . ", " . $tieneFrenosABS
-                                . ", " . $tieneGps
-                                . ", " . $esImportado
-                                . ", " . $tieneInmovilizador
-                                . ", " . $tieneLimpiaparabrisas
-                                . ", " . $tieneLlantaRefaccion
-                                . ", " . $tieneLucesNieblaDelanteras
-                                . ", " . $tieneLucesNieblaTraseras
-                                . ", " . $tieneLucesXenon
-                                . ", " . $tieneParachoques
-                                . ", " . $tienePilotoAutomatico
-                                . ", " . $tienePortavasos
-                                . ", " . $tieneQuemacocos
-                                . ", " . $tieneRadioAMFM
-                                . ", " . $tieneRecordatorioEncendidoLuces
-                                . ", " . $tieneReproductorCD
-                                . ", " . $tieneReproductorDVD
-                                . ", " . $tieneReproductorMP3
-                                . ", " . $tieneRespadosTraseros
-                                . ", " . $tieneRinesAleacion
-                                . ", " . $tieneSegurosElectricosCentralizados
-                                . ", " . $tieneSensorLluvia
-                                . ", " . $tieneSensoresLuz
-                                . ", " . $tieneSensoresReversa
-                                . ", " . $tieneTapiceriaPiel
-                                . ", " . $tieneTarjetaSD
-                                . ", " . $tieneTerceraLuzFrenado
-                                . ", " . $unicoDueno
-                                . ", " . $tieneUsb
-                                . ", " . $tieneVidriosElectricos
-                            . ")", 3, $rutaLog);
 
                         consulta($conexion, "INSERT INTO vehiculo ("
                                 . "fechaRegistro"
@@ -946,21 +748,6 @@ error_log("\n" . "INSERT INTO vehiculo ("
                                 . ", " . $tieneUsb
                                 . ", " . $tieneVidriosElectricos
                             . ")");
-
-error_log("\n" . "SELECT"
-                                . " *"
-                            . " FROM"
-                                . " vehiculo"
-                            . " WHERE"
-                                . " fechaRegistro = '" . $fechaActual . "'"
-                                . " AND idConcesionario = " . $idConcesionario
-                                . " AND tipo = '" . $tipo ."'"
-                                . " AND marca = '" . $marca ."'"
-                                . " AND modelo = '" . $modelo ."'"
-                                . " AND version = '" . $version ."'"
-                                . " AND ano = " . $ano
-                                . " AND color = '" . $color ."'"
-                                . " AND precio = " . $precio, 3, $rutaLog);
 
                         $vehiculo_BD = consulta($conexion, "SELECT"
                                 . " *"
@@ -1165,107 +952,6 @@ error_log("\n" . "SELECT"
                         
                         // Es actualizacion
 
-error_log("\nActualización", 3, $rutaLog);
-
-error_log("\n" . "UPDATE vehiculo SET"
-                                . " publicado = " . $publicado
-                                . ", destacado = " . $destacado
-                                . ", certificado = " . $certificado
-                                . ", descuentoEspecial = " . $descuentoEspecial
-                                . ", tipo = '" . $tipo ."'"
-                                . ", marca = '" . $marca ."'"
-                                . ", modelo = '" . $modelo ."'"
-                                . ", version = '" . $version ."'"
-                                . ", ano = " . $ano
-                                . ", color = '" . $color ."'"
-                                . ", precio = " . $precio
-                                . ", enganche = " . (estaVacio($enganche) ? "NULL" : $enganche)
-                                . ", litros = " . (estaVacio($litros) ? "NULL" : $litros)
-                                . ", combustible = " . (estaVacio($combustible) ? "NULL" : "'" . $combustible . "'")
-                                . ", transmision = " . (estaVacio($transmision) ? "NULL" : "'" . $transmision . "'")
-                                . ", puertas = " . (estaVacio($puertas) ? "NULL" : $puertas)
-                                . ", asientos = " . (estaVacio($asientos) ? "NULL" : $asientos)
-                                . ", bolsasAire = " . (estaVacio($bolsasAire) ? "NULL" : $bolsasAire)
-                                . ", kilometraje = " . (estaVacio($kilometraje) ? "NULL" : $kilometraje)
-                                . ", tipoFactura = " . (estaVacio($tipoFactura) ? "NULL" : "'" . $tipoFactura . "'")
-                                . ", numeroLlaves = " . $numeroLlaves
-                                . ", vidaUtilLlantas = " . (estaVacio($vidaUtilLlantas) ? "NULL" : $vidaUtilLlantas)
-                                . ", facturaAgencia = " . (estaVacio($facturaAgencia) ? "NULL" : $facturaAgencia)
-                                . ", mantenimientosAgencia = " . (estaVacio($mantenimientosAgencia) ? "NULL" : $mantenimientosAgencia)
-                                . ", impuestosCorriente = " . (estaVacio($impuestosCorriente) ? "NULL" : $impuestosCorriente)
-                                . ", mantenimientosCorriente = " . (estaVacio($mantenimientosCorriente) ? "NULL" : $mantenimientosCorriente)
-                                . ", manosLibres = " . (estaVacio($manosLibres) ? "NULL" : $manosLibres)
-                                . ", descripcion = " . (estaVacio($descripcion) ? "NULL" : "'" . mysqli_real_escape_string($conexion, $descripcion) . "'")
-                                . ", puntosDestacados = " . (estaVacio($puntosDestacados) ? "NULL" : "'" . mysqli_real_escape_string($conexion, $puntosDestacados) . "'")
-                                . ", video_titulo = " . (estaVacio($video_titulo) ? "NULL" : "'" . $video_titulo . "'")
-                                . ", video_resumen = " . (estaVacio($video_resumen) ? "NULL" : "'" . $video_resumen . "'")
-                                . ", video_detalle = " . (estaVacio($video_detalle) ? "NULL" : "'" . mysqli_real_escape_string($conexion, $video_detalle) . "'")
-                                . ", video_url = " . (estaVacio($video_url) ? "NULL" : "'" . mysqli_real_escape_string($conexion, $video_url) . "'")
-                                . ", video_fechaPublicacion = " . (!estaVacio($video_titulo) && !estaVacio($video_resumen) ? "'" . $fechaActual . "'" : "NULL")
-                                . ", video_publicado = " . $video_publicado
-                                . ", idSucursal = " . (estaVacio($idSucursal) ? "NULL" : $idSucursal)
-                                . ", idConcesionario = " . $idConcesionario
-
-                                . ", colorInterior = " . (estaVacio($colorInterior) ? "NULL" : "'" . $colorInterior . "'")
-                                . ", direccion = " . (estaVacio($direccion) ? "NULL" : "'" . $direccion . "'")
-                                . ", tieneAireAcondicionado = " . $tieneAireAcondicionado
-                                . ", tieneAlarma = " . $tieneAlarma
-                                . ", tieneAlfombrillaLlantaRefaccion = " . $tieneAlfombrillaLlantaRefaccion
-                                . ", tieneAperturaRemotaCajuela = " . $tieneAperturaRemotaCajuela
-                                . ", tieneAsientoConductorAjusteAltura = " . $tieneAsientoConductorAjusteAltura
-                                . ", tieneAsientosElectricos = " . $tieneAsientosElectricos
-                                . ", tieneAsientosTraserosAbatibles = " . $tieneAsientosTraserosAbatibles
-                                . ", tieneAsistenciaFrenado = " . $tieneAsistenciaFrenado
-                                . ", tieneBandejaLlantaRefaccion = " . $tieneBandejaLlantaRefaccion
-                                . ", tieneBarraAntivuelco = " . $tieneBarraAntivuelco
-                                . ", esBlindado = " . $esBlindado
-                                . ", tieneBluetooth = " . $tieneBluetooth
-                                . ", tieneBolsaAireConductor = " . $tieneBolsaAireConductor
-                                . ", tieneBolsaAirePasajero = " . $tieneBolsaAirePasajero
-                                . ", tieneBolsasAireLaterales = " . $tieneBolsasAireLaterales
-                                . ", tieneBolsasAireCortina = " . $tieneBolsasAireCortina
-                                . ", tieneCabecerasAsientosTraseros = " . $tieneCabecerasAsientosTraseros
-                                . ", tieneComputadoraAbordo = " . $tieneComputadoraAbordo
-                                . ", tieneControlTemperatura = " . $tieneControlTemperatura
-                                . ", tieneControlEstabilidad = " . $tieneControlEstabilidad
-                                . ", tieneControlLucesDelanteras = " . $tieneControlLucesDelanteras
-                                . ", tieneControlVolante = " . $tieneControlVolante
-                                . ", tieneDefensasColorCarroceria = " . $tieneDefensasColorCarroceria
-                                . ", tieneDesempanadorTrasero = " . $tieneDesempanadorTrasero
-                                . ", tieneEspejosElectricos = " . $tieneEspejosElectricos
-                                . ", tieneFarosNiebla = " . $tieneFarosNiebla
-                                . ", tieneFrenosABS = " . $tieneFrenosABS
-                                . ", tieneGps = " . $tieneGps
-                                . ", esImportado = " . $esImportado
-                                . ", tieneInmovilizador = " . $tieneInmovilizador
-                                . ", tieneLimpiaparabrisas = " . $tieneLimpiaparabrisas
-                                . ", tieneLlantaRefaccion = " . $tieneLlantaRefaccion
-                                . ", tieneLucesNieblaDelanteras = " . $tieneLucesNieblaDelanteras
-                                . ", tieneLucesNieblaTraseras = " . $tieneLucesNieblaTraseras
-                                . ", tieneLucesXenon = " . $tieneLucesXenon
-                                . ", tieneParachoques = " . $tieneParachoques
-                                . ", tienePilotoAutomatico = " . $tienePilotoAutomatico
-                                . ", tienePortavasos = " . $tienePortavasos
-                                . ", tieneQuemacocos = " . $tieneQuemacocos
-                                . ", tieneRadioAMFM = " . $tieneRadioAMFM
-                                . ", tieneRecordatorioEncendidoLuces = " . $tieneRecordatorioEncendidoLuces
-                                . ", tieneReproductorCD = " . $tieneReproductorCD
-                                . ", tieneReproductorDVD = " . $tieneReproductorDVD
-                                . ", tieneReproductorMP3 = " . $tieneReproductorMP3
-                                . ", tieneRespadosTraseros = " . $tieneRespadosTraseros
-                                . ", tieneRinesAleacion = " . $tieneRinesAleacion
-                                . ", tieneSegurosElectricosCentralizados = " . $tieneSegurosElectricosCentralizados
-                                . ", tieneSensorLluvia = " . $tieneSensorLluvia
-                                . ", tieneSensoresLuz = " . $tieneSensoresLuz
-                                . ", tieneSensoresReversa = " . $tieneSensoresReversa
-                                . ", tieneTapiceriaPiel = " . $tieneTapiceriaPiel
-                                . ", tieneTarjetaSD = " . $tieneTarjetaSD
-                                . ", tieneTerceraLuzFrenado = " . $tieneTerceraLuzFrenado
-                                . ", unicoDueno = " . $unicoDueno
-                                . ", tieneUsb = " . $tieneUsb
-                                . ", tieneVidriosElectricos = " . $tieneVidriosElectricos
-                            . " WHERE id = " . $id, 3, $rutaLog);
-
                         consulta($conexion, "UPDATE vehiculo SET"
                                 . " publicado = " . $publicado
                                 . ", destacado = " . $destacado
@@ -1364,8 +1050,6 @@ error_log("\n" . "UPDATE vehiculo SET"
                                 . ", tieneUsb = " . $tieneUsb
                                 . ", tieneVidriosElectricos = " . $tieneVidriosElectricos
                             . " WHERE id = " . $id);
-
-error_log("\n" . "SELECT * FROM vehiculo WHERE id = " . $id, 3, $rutaLog);
 
                         $vehiculo_BD = consulta($conexion, "SELECT * FROM vehiculo WHERE id = " . $id);
                         $vehiculo = obtenResultado($vehiculo_BD);
@@ -2119,8 +1803,6 @@ error_log("\n" . "SELECT * FROM vehiculo WHERE id = " . $id, 3, $rutaLog);
 
                     // Es consulta
 
-//error_log("\nConsulta", 3, $rutaLog);
-
                     $vehiculo_BD = consulta($conexion, "SELECT * FROM vehiculo WHERE id = " . $id);
                     $vehiculo = obtenResultado($vehiculo_BD);
 
@@ -2301,8 +1983,6 @@ error_log("\n" . "SELECT * FROM vehiculo WHERE id = " . $id, 3, $rutaLog);
 
                     registraEvento("CMS : Consulta de vehículo | id = " . $id);
                 } else {
-
-error_log("\nAdición", 3, $rutaLog);
 
                     $publicado = 0;
                     $destacado = 0;
@@ -2593,11 +2273,11 @@ error_log("\nAdición", 3, $rutaLog);
                                                             <div class="row">
                                                                 <div class="col-12">
                                                                     <div class="row mb-12">
-                                                                        <label class="form-label col-md-4" for="campo_habilitado">Publicado</label>
+                                                                        <label class="form-label col-md-4" for="campo_publicado">Publicado</label>
                                                                         <div class="col-md-8">
                                                                             <div class="material-switch">
                                                                                 <input <?php echo $publicado == 1 ? "checked" : "" ?> id="campo_publicado" name="publicado" type="checkbox" />
-                                                                                <label class="label-info" for="campo_habilitado"></label>
+                                                                                <label class="label-info" for="campo_publicado"></label>
                                                                             </div>
                                                                         </div>
                                                                     </div>
