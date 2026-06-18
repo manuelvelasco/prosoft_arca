@@ -16,16 +16,18 @@
 
             <ul class="side-menu" id="contenedor_menu">
                 <li><a class="side-menu__item" href="inicio.php"><span class="side-menu__label">Inicio</span></a></li>
+
                 <?php if ($esUsuarioMaster || $esUsuarioAdministrador) { ?>
                     <li class="slide">
                             <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0)"><i class="side-menu__icon fa fa-users"></i><span class="side-menu__label">Usuarios y permisos</span><i class="angle fe fe-chevron-right"></i></a>
-                            <ul class="slide-menu open" style="display: block;">
-                                <li class="side-menu-label1"><a href="javascript:void(0)">Crones</a></li>
-                                <li><a class="sub-slide-item enlace_cron" href="usuarios.php">Consultar</a></li>
-                                <li><a class="sub-slide-item enlace_cron" data-fancybox data-type="iframe" data-preload="false" data-height="900" href="usuario.php">Agregar</a></li>
+                            <ul class="slide-menu open">
+                                <!--li class="side-menu-label1"><a href="javascript:void(0)">Crones</a></li-->
+                                <li><a class="sub-slide-item" href="usuarios.php">Consultar</a></li>
+                                <li><a class="sub-slide-item" data-fancybox data-type="iframe" data-preload="false" data-height="900" href="usuario.php">Agregar</a></li>
                             </ul>
                     </li>
                 <?php } ?>
+
                 <?php if($esUsuarioMaster || $usuario_permisoConsultarConcesionarios){ ?>
                     <li><a class="side-menu__item" href="concesionarios.php"><i class="side-menu__icon fa fa-building"></i><span class="side-menu__label">Agencias</span></a></li>
                 <?php } ?>
@@ -42,15 +44,15 @@
                     <li><a class="side-menu__item" href="contacto.php"><i class="side-menu__icon fa fa-envelope"></i><span class="side-menu__label">Contacto</span></a></li>
                 <?php } ?>
 
-                 <?php if ($esUsuarioMaster || $usuario_permisoConsultarDelegacionVirtual) { ?>
+                <?php if ($esUsuarioMaster || $usuario_permisoConsultarDelegacionVirtual) { ?>
                     <li class="slide">
-                            <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0)"><i class="side-menu__icon fa fa-address-book"></i><span class="side-menu__label">Delegación virtual</span><i class="angle fe fe-chevron-right"></i></a>
-                            <ul class="slide-menu open" style="display: block;">
-                                <li><a class="sub-slide-item enlace_cron" href="mensajeros.php">Mensajeros</a></li>
-                            </ul>
-                            <ul class="slide-menu open" style="display: block;">
-                                <li><a class="sub-slide-item enlace_cron" href="tramites.php">Trámites</a></li>
-                            </ul>
+                        <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0)"><i class="side-menu__icon fa fa-address-book"></i><span class="side-menu__label">Delegación virtual</span><i class="angle fe fe-chevron-right"></i></a>
+                        <ul class="slide-menu open">
+                            <li><a class="sub-slide-item" href="mensajeros.php">Mensajeros</a></li>
+                        </ul>
+                        <ul class="slide-menu open">
+                            <li><a class="sub-slide-item" href="tramites.php">Trámites</a></li>
+                        </ul>
                     </li>
                 <?php } ?>
             </ul>
