@@ -675,8 +675,335 @@ error_reporting(E_ALL & ~E_DEPRECATED & ~E_USER_DEPRECATED);
                 } else {
                     $habilitado = 1;
                     $eliminado = 1;
+                }
+            }
 
 
+            // Campos de texto a habilitar
+
+            $habilitar_campo_folioARCA = false;
+            $habilitar_campo_comentariosConcesionario = false;
+            $habilitar_campo_comentariosARCA = false;
+            $habilitar_campo_vehiculo_color = false;
+            $habilitar_campo_vehiculo_vin = false;
+            $habilitar_campo_cliente_nombre = false;
+            $habilitar_campo_cliente_apellidoPaterno = false;
+            $habilitar_campo_cliente_apellidoMaterno = false;
+            $habilitar_campo_cliente_correoElectronico = false;
+            $habilitar_campo_folioICV = false;
+            $habilitar_campo_fechaRecepcionCorreoICV = false;
+            $habilitar_campo_ejecutivoICV = false;
+            $habilitar_campo_comentariosICV = false;
+            $habilitar_campo_archivo_expediente = false;
+            $habilitar_campo_archivo_solicitudICV = false;
+
+            // Selects a habilitar
+
+            $habilitar_campo_idConcesionario = false;
+            $habilitar_campo_idMensajero = false;
+            $habilitar_campo_vehiculo_marca = false;
+            $habilitar_campo_vehiculo_modelo = false;
+            $habilitar_campo_vehiculo_ano = false;
+
+            // Botones a habilitar
+
+            $habilitar_boton_eliminar = false;
+            $habilitar_boton_clonar_tramite = false;
+            $habilitar_boton_rechazado = false;
+            $habilitar_boton_aprobado = false;
+            $habilitar_boton_enviar_icv = false;
+            $habilitar_boton_reenviar_arca = false;
+            $habilitar_boton_regresar_agencia = false;
+            $habilitar_boton_guardar = false;
+            $habilitar_boton_eliminarArchivoExpediente = false;
+            $habilitar_boton_eliminarArchivoSolicitudICV = false;
+
+            if (!estaVacio($id)) {
+                $statusTramite = obtenResultado(consulta($conexion, "SELECT status FROM tramite WHERE id = " . $id))["status"];
+
+                switch ($statusTramite) {
+                    case  "Enviado a ARCA":
+                        if ($esUsuarioOperador && $usuario_permisoEditarDelegacionVirtual) {
+                            $habilitar_boton_eliminar = true;
+                            $habilitar_boton_enviar_icv = true;
+                            $habilitar_boton_regresar_agencia = true;
+                            $habilitar_boton_guardar = true;
+                            $habilitar_boton_eliminarArchivoSolicitudICV = true;
+                        } else if ($esUsuarioAdministrador && $usuario_permisoEditarDelegacionVirtual) {
+                            $habilitar_campo_folioARCA = true;
+                            $habilitar_campo_comentariosARCA = true;
+
+                            $habilitar_boton_eliminar = true;
+                            $habilitar_boton_enviar_icv = true;
+                            $habilitar_boton_regresar_agencia = true;
+                            $habilitar_boton_guardar = true;
+                            $habilitar_boton_eliminarArchivoSolicitudICV = true;
+                        } else if ($esUsuarioMaster) {
+                            $habilitar_campo_folioARCA = true;
+                            $habilitar_campo_comentariosConcesionario = true;
+                            $habilitar_campo_comentariosARCA = true;
+                            $habilitar_campo_vehiculo_color = true;
+                            $habilitar_campo_vehiculo_vin = true;
+                            $habilitar_campo_cliente_nombre = true;
+                            $habilitar_campo_cliente_apellidoPaterno = true;
+                            $habilitar_campo_cliente_apellidoMaterno = true;
+                            $habilitar_campo_cliente_correoElectronico = true;
+                            $habilitar_campo_folioICV = true;
+                            $habilitar_campo_fechaRecepcionCorreoICV = true;
+                            $habilitar_campo_ejecutivoICV = true;
+                            $habilitar_campo_comentariosICV = true;
+                            $habilitar_campo_archivo_expediente = true;
+                            $habilitar_campo_archivo_solicitudICV = true;
+
+                            $habilitar_campo_idConcesionario = true;
+                            $habilitar_campo_idMensajero = true;
+                            $habilitar_campo_vehiculo_marca = true;
+                            $habilitar_campo_vehiculo_modelo = true;
+                            $habilitar_campo_vehiculo_ano = true;
+
+                            $habilitar_boton_eliminar = true;
+                            $habilitar_boton_enviar_icv = true;
+                            $habilitar_boton_regresar_agencia = true;
+                            $habilitar_boton_guardar = true;
+                            $habilitar_boton_eliminarArchivoExpediente = true;
+                            $habilitar_boton_eliminarArchivoSolicitudICV = true;
+                        }
+
+                        break;
+                    case  "Devuelto a la agencia":
+                        if ($esUsuarioOperador && $usuario_permisoEditarDelegacionVirtual) {
+                            $habilitar_campo_comentariosConcesionario = true;
+                            $habilitar_campo_vehiculo_color = true;
+                            $habilitar_campo_vehiculo_vin = true;
+                            $habilitar_campo_cliente_nombre = true;
+                            $habilitar_campo_cliente_apellidoPaterno = true;
+                            $habilitar_campo_cliente_apellidoMaterno = true;
+                            $habilitar_campo_cliente_correoElectronico = true;
+                            $habilitar_campo_archivo_expediente = true;
+
+                            $habilitar_campo_idMensajero = true;
+                            $habilitar_campo_vehiculo_marca = true;
+                            $habilitar_campo_vehiculo_modelo = true;
+                            $habilitar_campo_vehiculo_ano = true;
+
+                            $habilitar_boton_eliminar = true;
+                            $habilitar_boton_reenviar_arca = true;
+                            $habilitar_boton_guardar = true;
+                            $habilitar_boton_eliminarArchivoSolicitudICV = true;
+                        } else if ($esUsuarioAdministrador && $usuario_permisoEditarDelegacionVirtual) {
+                            $habilitar_boton_eliminar = true;
+                            $habilitar_boton_reenviar_arca = true;
+                            $habilitar_boton_guardar = true;
+                            $habilitar_boton_eliminarArchivoSolicitudICV = true;
+                        } else if ($esUsuarioMaster) {
+                            $habilitar_campo_folioARCA = true;
+                            $habilitar_campo_comentariosConcesionario = true;
+                            $habilitar_campo_comentariosARCA = true;
+                            $habilitar_campo_vehiculo_color = true;
+                            $habilitar_campo_vehiculo_vin = true;
+                            $habilitar_campo_cliente_nombre = true;
+                            $habilitar_campo_cliente_apellidoPaterno = true;
+                            $habilitar_campo_cliente_apellidoMaterno = true;
+                            $habilitar_campo_cliente_correoElectronico = true;
+                            $habilitar_campo_folioICV = true;
+                            $habilitar_campo_fechaRecepcionCorreoICV = true;
+                            $habilitar_campo_ejecutivoICV = true;
+                            $habilitar_campo_comentariosICV = true;
+                            $habilitar_campo_archivo_expediente = true;
+                            $habilitar_campo_archivo_solicitudICV = true;
+
+                            $habilitar_campo_idConcesionario = true;
+                            $habilitar_campo_idMensajero = true;
+                            $habilitar_campo_vehiculo_marca = true;
+                            $habilitar_campo_vehiculo_modelo = true;
+                            $habilitar_campo_vehiculo_ano = true;
+
+                            $habilitar_boton_eliminar = true;
+                            $habilitar_boton_reenviar_arca = true;
+                            $habilitar_boton_guardar = true;
+                            $habilitar_boton_eliminarArchivoExpediente = true;
+                            $habilitar_boton_eliminarArchivoSolicitudICV = true;
+                        }
+
+                        break;
+                    case  "Reenviado a ARCA":
+                        if ($esUsuarioOperador && $usuario_permisoEditarDelegacionVirtual) {
+                            $habilitar_boton_eliminar = true;
+                            $habilitar_boton_enviar_icv = true;
+                            $habilitar_boton_regresar_agencia = true;
+                            $habilitar_boton_guardar = true;
+                            $habilitar_boton_eliminarArchivoSolicitudICV = true;
+                        } else if ($esUsuarioAdministrador && $usuario_permisoEditarDelegacionVirtual) {
+                            $habilitar_campo_folioARCA = true;
+                            $habilitar_campo_comentariosARCA = true;
+
+                            $habilitar_boton_eliminar = true;
+                            $habilitar_boton_enviar_icv = true;
+                            $habilitar_boton_regresar_agencia = true;
+                            $habilitar_boton_guardar = true;
+                            $habilitar_boton_eliminarArchivoSolicitudICV = true;
+                        } else if ($esUsuarioMaster) {
+                            $habilitar_campo_folioARCA = true;
+                            $habilitar_campo_comentariosConcesionario = true;
+                            $habilitar_campo_comentariosARCA = true;
+                            $habilitar_campo_vehiculo_color = true;
+                            $habilitar_campo_vehiculo_vin = true;
+                            $habilitar_campo_cliente_nombre = true;
+                            $habilitar_campo_cliente_apellidoPaterno = true;
+                            $habilitar_campo_cliente_apellidoMaterno = true;
+                            $habilitar_campo_cliente_correoElectronico = true;
+                            $habilitar_campo_folioICV = true;
+                            $habilitar_campo_fechaRecepcionCorreoICV = true;
+                            $habilitar_campo_ejecutivoICV = true;
+                            $habilitar_campo_comentariosICV = true;
+                            $habilitar_campo_archivo_expediente = true;
+                            $habilitar_campo_archivo_solicitudICV = true;
+
+                            $habilitar_campo_idConcesionario = true;
+                            $habilitar_campo_idMensajero = true;
+                            $habilitar_campo_vehiculo_marca = true;
+                            $habilitar_campo_vehiculo_modelo = true;
+                            $habilitar_campo_vehiculo_ano = true;
+
+                            $habilitar_boton_eliminar = true;
+                            $habilitar_boton_enviar_icv = true;
+                            $habilitar_boton_regresar_agencia = true;
+                            $habilitar_boton_guardar = true;
+                            $habilitar_boton_eliminarArchivoExpediente = true;
+                            $habilitar_boton_eliminarArchivoSolicitudICV = true;
+                        }
+
+                        break;
+                    case  "A la espera de respuesta de ICV":
+                        if ($esUsuarioOperador && $usuario_permisoEditarDelegacionVirtual) {
+                            $habilitar_boton_eliminar = true;
+                            $habilitar_boton_rechazado = true;
+                            $habilitar_boton_aprobado = true;
+                            $habilitar_boton_guardar = true;
+                            $habilitar_boton_eliminarArchivoSolicitudICV = true;
+                        } else if ($esUsuarioAdministrador && $usuario_permisoEditarDelegacionVirtual) {
+                            $habilitar_campo_folioICV = true;
+                            $habilitar_campo_fechaRecepcionCorreoICV = true;
+                            $habilitar_campo_ejecutivoICV = true;
+                            $habilitar_campo_comentariosICV = true;
+                            $habilitar_campo_archivo_solicitudICV = true;
+
+                            $habilitar_boton_eliminar = true;
+                            $habilitar_boton_rechazado = true;
+                            $habilitar_boton_aprobado = true;
+                            $habilitar_boton_guardar = true;
+                            $habilitar_boton_eliminarArchivoSolicitudICV = true;
+                        } else if ($esUsuarioMaster) {
+                            $habilitar_campo_folioARCA = true;
+                            $habilitar_campo_comentariosConcesionario = true;
+                            $habilitar_campo_comentariosARCA = true;
+                            $habilitar_campo_vehiculo_color = true;
+                            $habilitar_campo_vehiculo_vin = true;
+                            $habilitar_campo_cliente_nombre = true;
+                            $habilitar_campo_cliente_apellidoPaterno = true;
+                            $habilitar_campo_cliente_apellidoMaterno = true;
+                            $habilitar_campo_cliente_correoElectronico = true;
+                            $habilitar_campo_folioICV = true;
+                            $habilitar_campo_fechaRecepcionCorreoICV = true;
+                            $habilitar_campo_ejecutivoICV = true;
+                            $habilitar_campo_comentariosICV = true;
+                            $habilitar_campo_archivo_expediente = true;
+                            $habilitar_campo_archivo_solicitudICV = true;
+
+                            $habilitar_campo_idConcesionario = true;
+                            $habilitar_campo_idMensajero = true;
+                            $habilitar_campo_vehiculo_marca = true;
+                            $habilitar_campo_vehiculo_modelo = true;
+                            $habilitar_campo_vehiculo_ano = true;
+
+                            $habilitar_boton_eliminar = true;
+                            $habilitar_boton_rechazado = true;
+                            $habilitar_boton_aprobado = true;
+                            $habilitar_boton_guardar = true;
+                            $habilitar_boton_eliminarArchivoExpediente = true;
+                            $habilitar_boton_eliminarArchivoSolicitudICV = true;
+                        }
+
+                        break;
+                    case  "Aprobado":
+                        if ($esUsuarioOperador && $usuario_permisoEditarDelegacionVirtual) {
+                            $habilitar_boton_eliminar = true;
+                            $habilitar_boton_guardar = true;
+                        } else if ($esUsuarioAdministrador && $usuario_permisoEditarDelegacionVirtual) {
+                            $habilitar_boton_eliminar = true;
+                            $habilitar_boton_guardar = true;
+                        } else if ($esUsuarioMaster) {
+                            $habilitar_campo_folioARCA = true;
+                            $habilitar_campo_comentariosConcesionario = true;
+                            $habilitar_campo_comentariosARCA = true;
+                            $habilitar_campo_vehiculo_color = true;
+                            $habilitar_campo_vehiculo_vin = true;
+                            $habilitar_campo_cliente_nombre = true;
+                            $habilitar_campo_cliente_apellidoPaterno = true;
+                            $habilitar_campo_cliente_apellidoMaterno = true;
+                            $habilitar_campo_cliente_correoElectronico = true;
+                            $habilitar_campo_folioICV = true;
+                            $habilitar_campo_fechaRecepcionCorreoICV = true;
+                            $habilitar_campo_ejecutivoICV = true;
+                            $habilitar_campo_comentariosICV = true;
+                            $habilitar_campo_archivo_expediente = true;
+                            $habilitar_campo_archivo_solicitudICV = true;
+
+                            $habilitar_campo_idConcesionario = true;
+                            $habilitar_campo_idMensajero = true;
+                            $habilitar_campo_vehiculo_marca = true;
+                            $habilitar_campo_vehiculo_modelo = true;
+                            $habilitar_campo_vehiculo_ano = true;
+
+                            $habilitar_boton_eliminar = true;
+                            $habilitar_boton_guardar = true;
+                            $habilitar_boton_eliminarArchivoExpediente = true;
+                            $habilitar_boton_eliminarArchivoSolicitudICV = true;
+                        }
+
+                        break;
+                    case  "Rechazado":
+                        if ($esUsuarioOperador && $usuario_permisoEditarDelegacionVirtual) {
+                            $habilitar_boton_eliminar = true;
+                            $habilitar_boton_clonar_tramite = true;
+                            $habilitar_boton_guardar = true;
+                        } else if ($esUsuarioAdministrador && $usuario_permisoEditarDelegacionVirtual) {
+                            $habilitar_boton_eliminar = true;
+                            $habilitar_boton_clonar_tramite = true;
+                            $habilitar_boton_guardar = true;
+                        } else if ($esUsuarioMaster) {
+                            $habilitar_campo_folioARCA = true;
+                            $habilitar_campo_comentariosConcesionario = true;
+                            $habilitar_campo_comentariosARCA = true;
+                            $habilitar_campo_vehiculo_color = true;
+                            $habilitar_campo_vehiculo_vin = true;
+                            $habilitar_campo_cliente_nombre = true;
+                            $habilitar_campo_cliente_apellidoPaterno = true;
+                            $habilitar_campo_cliente_apellidoMaterno = true;
+                            $habilitar_campo_cliente_correoElectronico = true;
+                            $habilitar_campo_folioICV = true;
+                            $habilitar_campo_fechaRecepcionCorreoICV = true;
+                            $habilitar_campo_ejecutivoICV = true;
+                            $habilitar_campo_comentariosICV = true;
+                            $habilitar_campo_archivo_expediente = true;
+                            $habilitar_campo_archivo_solicitudICV = true;
+
+                            $habilitar_campo_idConcesionario = true;
+                            $habilitar_campo_idMensajero = true;
+                            $habilitar_campo_vehiculo_marca = true;
+                            $habilitar_campo_vehiculo_modelo = true;
+                            $habilitar_campo_vehiculo_ano = true;
+
+                            $habilitar_boton_eliminar = true;
+                            $habilitar_boton_clonar_tramite = true;
+                            $habilitar_boton_guardar = true;
+                            $habilitar_boton_eliminarArchivoExpediente = true;
+                            $habilitar_boton_eliminarArchivoSolicitudICV = true;
+                        }
+
+                        break;
+                    default:
+                        break;
                 }
             }
         ?>
@@ -764,7 +1091,7 @@ error_reporting(E_ALL & ~E_DEPRECATED & ~E_USER_DEPRECATED);
                                                                         <div class="row mb-12">
                                                                             <label class="form-label col-md-4" for="campo_fechaAlta">Fecha y hora de alta</label>
                                                                             <div class="col-md-8">
-                                                                                <input class="form-control" id="campo_fechaAlta" name="fechaAlta" type="text" value="<?php echo $fechaAlta; ?>" readonly/>
+                                                                                <input class="form-control" id="campo_fechaAlta" name="fechaAlta" type="text" value="<?php echo $fechaAlta; ?>" readonly />
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -777,7 +1104,7 @@ error_reporting(E_ALL & ~E_DEPRECATED & ~E_USER_DEPRECATED);
                                                                         <div class="row mb-12">
                                                                             <label class="form-label col-md-4" for="campo_status">Estatus</label>
                                                                             <div class="col-md-8">
-                                                                                <input class="form-control" id="campo_status" name="status" type="text" value="<?php echo $status; ?>" readonly/>
+                                                                                <input class="form-control" id="campo_status" name="status" type="text" value="<?php echo $status; ?>" readonly />
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -790,7 +1117,7 @@ error_reporting(E_ALL & ~E_DEPRECATED & ~E_USER_DEPRECATED);
                                                                         <div class="row mb-12">
                                                                             <label class="form-label col-md-4" for="campo_folioARCA">Folio ARCA</label>
                                                                             <div class="col-md-8">
-                                                                                <input class="form-control" id="campo_folioARCA" name="folioARCA" type="text" value="<?php echo $folioARCA; ?>" <?php echo $esUsuarioOperador ? "readonly" : "";?>/>
+                                                                                <input class="form-control" id="campo_folioARCA" name="folioARCA" type="text" value="<?php echo $folioARCA; ?>" <?php echo $habilitar_campo_folioARCA ? "" : "readonly" ?> />
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -804,7 +1131,7 @@ error_reporting(E_ALL & ~E_DEPRECATED & ~E_USER_DEPRECATED);
                                                                     <div class="row mb-12">
                                                                         <label class="form-label col-md-4" for="campo_idConcesionario">Agencia <span class="text-danger">*</span></label>
                                                                         <div class="col-md-8">
-                                                                            <select class="form-control select2-show-search form-select" data-placeholder="Elige" id="campo_idConcesionario" name="idConcesionario">
+                                                                            <select class="form-control select2-show-search form-select" data-placeholder="Elige" id="campo_idConcesionario" name="idConcesionario" <?php echo $habilitar_campo_idConcesionario ? "" : "disabled" ?>>
                                                                                 <option <?php echo estaVacio($idConcesionario) ? "selected" : "" ?> value="">Seleccione</option>
                                                                                 <?php
 
@@ -837,7 +1164,7 @@ error_reporting(E_ALL & ~E_DEPRECATED & ~E_USER_DEPRECATED);
                                                                         <div class="row mb-12">
                                                                             <label class="form-label col-md-4" for="campo_idUsuario">Usuario capturó <span class="text-danger">*</span></label>
                                                                             <div class="col-md-8">
-                                                                                <input class="form-control" id="campo_idUsuario" name="idUsuario" type="text" value="<?php echo $usuarioCapturo["nombre"]; ?>" readonly/>
+                                                                                <input class="form-control" id="campo_idUsuario" name="idUsuario" type="text" value="<?php echo $usuarioCapturo["nombre"]; ?>" readonly />
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -851,7 +1178,7 @@ error_reporting(E_ALL & ~E_DEPRECATED & ~E_USER_DEPRECATED);
                                                                     <div class="row mb-12">
                                                                         <label class="form-label col-md-4" for="campo_idMensajero">Mensajero <span class="text-danger">*</span></label>
                                                                         <div class="col-md-8">
-                                                                            <select class="form-control select2-show-search form-select" data-placeholder="Elige" id="campo_idMensajero" name="idMensajero">
+                                                                            <select class="form-control select2-show-search form-select" data-placeholder="Elige" id="campo_idMensajero" name="idMensajero" <?php echo $habilitar_campo_idMensajero ? "" : "disabled" ?>>
                                                                                 <option <?php echo estaVacio($idMensajero) ? "selected" : "" ?> value="">Seleccione</option>
                                                                                 <?php
 
@@ -882,7 +1209,7 @@ error_reporting(E_ALL & ~E_DEPRECATED & ~E_USER_DEPRECATED);
                                                                     <div class="row mb-20">
                                                                         <label class="form-label col-md-1" for="campo_comentariosConcesionario">Comentarios Agencia </label>
                                                                         <div class="col-md-11">
-                                                                            <textarea class="form-control" id="campo_comentariosConcesionario" name="comentariosConcesionario" rows="2"><?php echo $comentariosConcesionario ?></textarea>
+                                                                            <textarea class="form-control" id="campo_comentariosConcesionario" name="comentariosConcesionario" rows="2" <?php echo $habilitar_campo_comentariosConcesionario ? "" : "readonly" ?>><?php echo $comentariosConcesionario ?></textarea>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -895,7 +1222,7 @@ error_reporting(E_ALL & ~E_DEPRECATED & ~E_USER_DEPRECATED);
                                                                         <div class="row mb-20">
                                                                             <label class="form-label col-md-1" for="campo_comentariosARCA">Comentarios ARCA </label>
                                                                             <div class="col-md-11">
-                                                                                <textarea class="form-control" id="campo_comentariosARCA" name="comentariosARCA" rows="2" <?php echo $esUsuarioOperador ? "readonly" : "";?>><?php echo $comentariosARCA ?></textarea>
+                                                                                <textarea class="form-control" id="campo_comentariosARCA" name="comentariosARCA" rows="2" <?php echo $habilitar_campo_comentariosARCA ? "" : "readonly" ?>><?php echo $comentariosARCA ?></textarea>
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -924,7 +1251,7 @@ error_reporting(E_ALL & ~E_DEPRECATED & ~E_USER_DEPRECATED);
                                                                     <div class="row mb-12">
                                                                         <label class="form-label col-md-4" for="campo_vehiculo_marca">Marca <span class="txt-danger ml-10">*</span></label>
                                                                         <div class="col-md-8">
-                                                                            <select class="form-control select2-show-search form-select" data-placeholder="Seleccione" id="campo_vehiculo_marca" name="vehiculo_marca">
+                                                                            <select class="form-control select2-show-search form-select" data-placeholder="Seleccione" id="campo_vehiculo_marca" name="vehiculo_marca" <?php echo $habilitar_campo_vehiculo_marca ? "" : "disabled" ?>>
                                                                             </select>
                                                                         </div>
                                                                     </div>
@@ -938,7 +1265,7 @@ error_reporting(E_ALL & ~E_DEPRECATED & ~E_USER_DEPRECATED);
                                                                     <div class="row mb-12">
                                                                         <label class="form-label col-md-4" for="campo_vehiculo_modelo">Modelo <span class="txt-danger ml-10">*</span></label>
                                                                         <div class="col-md-8">
-                                                                            <select class="form-control select2-show-search form-select" data-placeholder="Seleccione" id="campo_vehiculo_modelo" name="vehiculo_modelo">
+                                                                            <select class="form-control select2-show-search form-select" data-placeholder="Seleccione" id="campo_vehiculo_modelo" name="vehiculo_modelo" <?php echo $habilitar_campo_vehiculo_modelo ? "" : "disabled" ?>>
                                                                             </select>
                                                                         </div>
                                                                     </div>
@@ -952,7 +1279,7 @@ error_reporting(E_ALL & ~E_DEPRECATED & ~E_USER_DEPRECATED);
                                                                     <div class="row mb-12">
                                                                         <label class="form-label col-md-4" for="campo_vehiculo_ano">Año <span class="txt-danger ml-10">*</span></label>
                                                                         <div class="col-md-8">
-                                                                            <select class="form-control select2-show-search form-select" data-placeholder="Seleccione" id="campo_vehiculo_ano" name="vehiculo_ano">
+                                                                            <select class="form-control select2-show-search form-select" data-placeholder="Seleccione" id="campo_vehiculo_ano" name="vehiculo_ano" <?php echo $habilitar_campo_vehiculo_ano ? "" : "disabled" ?>>
                                                                             </select>
                                                                         </div>
                                                                     </div>
@@ -966,7 +1293,7 @@ error_reporting(E_ALL & ~E_DEPRECATED & ~E_USER_DEPRECATED);
                                                                     <div class="row mb-12">
                                                                         <label class="form-label col-md-4" for="campo_vehiculo_color">Color <span class="text-danger">*</span></label>
                                                                         <div class="col-md-8">
-                                                                            <input class="form-control" id="campo_vehiculo_color" name="vehiculo_color" type="text" value="<?php echo $vehiculo_color; ?>" />
+                                                                            <input class="form-control" id="campo_vehiculo_color" name="vehiculo_color" type="text" value="<?php echo $vehiculo_color; ?>" <?php echo $habilitar_campo_vehiculo_color ? "" : "readonly" ?> />
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -979,7 +1306,7 @@ error_reporting(E_ALL & ~E_DEPRECATED & ~E_USER_DEPRECATED);
                                                                     <div class="row mb-12">
                                                                         <label class="form-label col-md-4" for="campo_vehiculo_vin">VIN <span class="text-danger">*</span></label>
                                                                         <div class="col-md-8">
-                                                                            <input class="form-control" id="campo_vehiculo_vin" name="vehiculo_vin" type="text" value="<?php echo $vehiculo_vin; ?>" />
+                                                                            <input class="form-control" id="campo_vehiculo_vin" name="vehiculo_vin" type="text" value="<?php echo $vehiculo_vin; ?>" <?php echo $habilitar_campo_vehiculo_vin ? "" : "readonly" ?> />
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -992,7 +1319,7 @@ error_reporting(E_ALL & ~E_DEPRECATED & ~E_USER_DEPRECATED);
                                                                     <div class="row mb-12">
                                                                         <label class="form-label col-md-4" for="campo_cliente_nombre">Nombre(s) <span class="text-danger">*</span></label>
                                                                         <div class="col-md-8">
-                                                                            <input class="form-control" id="campo_cliente_nombre" name="cliente_nombre" type="text" value="<?php echo $cliente_nombre; ?>" />
+                                                                            <input class="form-control" id="campo_cliente_nombre" name="cliente_nombre" type="text" value="<?php echo $cliente_nombre; ?>" <?php echo $habilitar_campo_cliente_nombre ? "" : "readonly" ?> />
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -1005,7 +1332,7 @@ error_reporting(E_ALL & ~E_DEPRECATED & ~E_USER_DEPRECATED);
                                                                     <div class="row mb-12">
                                                                         <label class="form-label col-md-4" for="campo_cliente_apellidoPaterno">Apellido Paterno <span class="text-danger">*</span></label>
                                                                         <div class="col-md-8">
-                                                                            <input class="form-control" id="campo_cliente_apellidoPaterno" name="cliente_apellidoPaterno" type="text" value="<?php echo $cliente_apellidoPaterno; ?>" />
+                                                                            <input class="form-control" id="campo_cliente_apellidoPaterno" name="cliente_apellidoPaterno" type="text" value="<?php echo $cliente_apellidoPaterno; ?>" <?php echo $habilitar_campo_cliente_apellidoPaterno ? "" : "readonly" ?> />
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -1018,7 +1345,7 @@ error_reporting(E_ALL & ~E_DEPRECATED & ~E_USER_DEPRECATED);
                                                                     <div class="row mb-12">
                                                                         <label class="form-label col-md-4" for="campo_cliente_apellidoMaterno">Apellido Materno <span class="text-danger">*</span></label>
                                                                         <div class="col-md-8">
-                                                                            <input class="form-control" id="campo_cliente_apellidoMaterno" name="cliente_apellidoMaterno" type="text" value="<?php echo $cliente_apellidoMaterno; ?>" />
+                                                                            <input class="form-control" id="campo_cliente_apellidoMaterno" name="cliente_apellidoMaterno" type="text" value="<?php echo $cliente_apellidoMaterno; ?>" <?php echo $habilitar_campo_cliente_apellidoMaterno ? "" : "readonly" ?> />
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -1031,7 +1358,7 @@ error_reporting(E_ALL & ~E_DEPRECATED & ~E_USER_DEPRECATED);
                                                                     <div class="row mb-12">
                                                                         <label class="form-label col-md-4" for="campo_cliente_correoElectronico">Correo electrónico del cliente <span class="text-danger">*</span></label>
                                                                         <div class="col-md-8">
-                                                                            <input class="form-control" id="campo_cliente_correoElectronico" name="cliente_correoElectronico" type="text" value="<?php echo $cliente_correoElectronico; ?>" />
+                                                                            <input class="form-control" id="campo_cliente_correoElectronico" name="cliente_correoElectronico" type="text" value="<?php echo $cliente_correoElectronico; ?>" <?php echo $habilitar_campo_cliente_correoElectronico ? "" : "readonly" ?> />
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -1048,7 +1375,7 @@ error_reporting(E_ALL & ~E_DEPRECATED & ~E_USER_DEPRECATED);
                                                                         <label class="form-label mb-10">PDF de expediente <span class="text-danger">*</span></label>
 
                                                                         <div>
-                                                                            <input id="archivo_expediente" name="archivo_expediente" type="file" />
+                                                                            <input id="campo_archivo_expediente" name="archivo_expediente" type="file" <?php echo $habilitar_campo_archivo_expediente ? "" : "disabled" ?> />
                                                                             <br />
                                                                             <div class="row">
                                                                                 <div class="col-sm-12">
@@ -1067,8 +1394,12 @@ error_reporting(E_ALL & ~E_DEPRECATED & ~E_USER_DEPRECATED);
                                                                                                                 echo "<span class='name block'>" . $archivo_expediente . "</span>";
                                                                                                                 echo "<span class='time block txt-grey'>";
                                                                                                                 echo "<a download href='" . $constante_urlTramites . "/" . $id . "/" . $archivo_expediente . "'>Descargar</a>";
-                                                                                                                echo "&nbsp;&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;&nbsp;";
-                                                                                                                echo "<a href='javascript:eliminaPdfExpediente(" . $id . ")'>Eliminar</a>";
+
+                                                                                                                if ($habilitar_boton_eliminarArchivoExpediente) {
+                                                                                                                    echo "&nbsp;&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;&nbsp;";
+                                                                                                                    echo "<a href='javascript:eliminaPdfExpediente(" . $id . ")' id='boton_eliminarArchivoExpediente'>Eliminar</a>";
+                                                                                                                }
+
                                                                                                                 echo "</span>";
                                                                                                                 echo "</div>";
                                                                                                                 echo "<div class='clearfix'></div>";
@@ -1105,14 +1436,13 @@ error_reporting(E_ALL & ~E_DEPRECATED & ~E_USER_DEPRECATED);
                                                         <hr />
 
                                                         <div class="row">
-
                                                             <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-20">
                                                                 <div class="row">
                                                                     <div class="col-12">
                                                                         <div class="row mb-12">
                                                                             <label class="form-label col-md-4" for="campo_folioICV">Folio asignado por el ICV</label>
                                                                             <div class="col-md-8">
-                                                                                <input class="form-control" id="campo_folioICV" name="folioICV" type="text" value="<?php echo $folioICV; ?>" <?php echo $esUsuarioOperador ? "readonly" : "";?>/>
+                                                                                <input class="form-control" id="campo_folioICV" name="folioICV" type="text" value="<?php echo $folioICV; ?>" <?php echo $habilitar_campo_folioICV ? "" : "readonly" ?> />
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -1125,7 +1455,7 @@ error_reporting(E_ALL & ~E_DEPRECATED & ~E_USER_DEPRECATED);
                                                                         <div class="row mb-12">
                                                                             <label class="form-label col-md-4" for="campo_fechaRecepcionCorreoICV">Fecha y hora en la que se recibió correo de ICV</label>
                                                                             <div class="col-md-8">
-                                                                                <input class="form-control" id="campo_fechaRecepcionCorreoICV" name="fechaRecepcionCorreoICV" type="datetime-local" value="<?php echo $fechaRecepcionCorreoICV; ?>" <?php echo $esUsuarioOperador ? "readonly" : "";?>/>
+                                                                                <input class="form-control" id="campo_fechaRecepcionCorreoICV" name="fechaRecepcionCorreoICV" type="datetime-local" value="<?php echo $fechaRecepcionCorreoICV; ?>" <?php echo $habilitar_campo_fechaRecepcionCorreoICV ? "" : "readonly" ?> />
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -1138,7 +1468,7 @@ error_reporting(E_ALL & ~E_DEPRECATED & ~E_USER_DEPRECATED);
                                                                         <div class="row mb-12">
                                                                             <label class="form-label col-md-4" for="campo_ejecutivoICV">Ejecutivo ICV <span class="text-danger">*</span></label>
                                                                             <div class="col-md-8">
-                                                                                <input class="form-control" id="campo_ejecutivoICV" name="ejecutivoICV" type="text" value="<?php echo $ejecutivoICV; ?>" <?php echo $esUsuarioOperador ? "readonly" : "";?>/>
+                                                                                <input class="form-control" id="campo_ejecutivoICV" name="ejecutivoICV" type="text" value="<?php echo $ejecutivoICV; ?>" <?php echo $habilitar_campo_ejecutivoICV ? "" : "readonly" ?> />
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -1151,7 +1481,7 @@ error_reporting(E_ALL & ~E_DEPRECATED & ~E_USER_DEPRECATED);
                                                                         <div class="row mb-20">
                                                                             <label class="form-label col-md-1" for="campo_comentariosICV">Comentarios ICV </label>
                                                                             <div class="col-md-11">
-                                                                                <textarea class="form-control" id="campo_comentariosICV" name="comentariosICV" rows="2" <?php echo $esUsuarioOperador ? "readonly" : "";?>><?php echo $comentariosICV ?></textarea>
+                                                                                <textarea class="form-control" id="campo_comentariosICV" name="comentariosICV" rows="2" <?php echo $habilitar_campo_comentariosICV ? "" : "readonly" ?>><?php echo $comentariosICV ?></textarea>
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -1167,7 +1497,7 @@ error_reporting(E_ALL & ~E_DEPRECATED & ~E_USER_DEPRECATED);
                                                                             <label class="form-label mb-10">PDF de la solicitud de ICV</label>
 
                                                                             <div>
-                                                                                <input name="archivo_solicitudICV" type="file" <?php echo $esUsuarioOperador ? "disabled" : "";?>/>
+                                                                                <input id="campo_archivo_solicitudICV" name="archivo_solicitudICV" type="file" <?php echo $habilitar_campo_archivo_solicitudICV ? "" : "disabled" ?>/>
                                                                                 <br />
                                                                                 <div class="row">
                                                                                     <div class="col-sm-12">
@@ -1186,8 +1516,12 @@ error_reporting(E_ALL & ~E_DEPRECATED & ~E_USER_DEPRECATED);
                                                                                                                     echo "<span class='name block'>" . $archivo_solicitudICV . "</span>";
                                                                                                                     echo "<span class='time block txt-grey'>";
                                                                                                                     echo "<a download href='" . $constante_urlTramites . "/" . $id . "/" . $archivo_solicitudICV . "'>Descargar</a>";
-                                                                                                                    echo "&nbsp;&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;&nbsp;";
-                                                                                                                    echo "<a href='javascript:eliminaArchivoIne(" . $id . ")'>Eliminar</a>";
+
+                                                                                                                    if ($habilitar_boton_eliminarArchivoSolicitudICV) {
+                                                                                                                        echo "&nbsp;&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;&nbsp;";
+                                                                                                                        echo "<a href='javascript:eliminaArchivoIne(" . $id . ")' id='boton_eliminarArchivoSolicitudICV'>Eliminar</a>";
+                                                                                                                    }
+
                                                                                                                     echo "</span>";
                                                                                                                     echo "</div>";
                                                                                                                     echo "<div class='clearfix'></div>";
@@ -1265,7 +1599,7 @@ error_reporting(E_ALL & ~E_DEPRECATED & ~E_USER_DEPRECATED);
 
                                     <div class="row mt-6">
                                         <div class="col-md-8 col-sm-6" id="contenedor_botonesIzquierdos">
-                                            <?php if ($esUsuarioMaster && !estaVacio($id) && $eliminado == 0) { ?>
+                                            <?php if ($habilitar_boton_eliminar && $eliminado == 0) { ?>
                                                 <div class="form-group">
                                                     <a class="btn btn-danger mb-3" href="javascript:eliminaTramite(<?php echo  $id ?>)" id="boton_eliminar">Eliminar</a>
                                                 </div>
@@ -1277,36 +1611,36 @@ error_reporting(E_ALL & ~E_DEPRECATED & ~E_USER_DEPRECATED);
                                                 <input id="campo_accion" name="accion" type="hidden" value="<?php echo $accion; ?>" />
                                                 <a class="btn btn-default mb-3" href="javascript:void(0)" id="boton_cerrar">Cerrar</a>
 
-                                                <?php if (!estaVacio($id) && ($esUsuarioMaster || $usuario_permisoEditarDelegacionVirtual)) { ?>
-                                                    <?php if ($status == "Rechazado" && ($esUsuarioMaster || $esUsuarioOperador)) { ?>
-                                                        <button class="btn btn-default mb-3" id="boton_clonar_tramite" onclick="clonar()" type="submit" >Clonar trámite</button>
-                                                    <?php }?>
+                                                <?php if ($habilitar_boton_clonar_tramite) { ?>
+                                                    <button class="btn btn-default mb-3" id="boton_clonar_tramite" onclick="clonar()" type="submit" >Clonar trámite</button>
+                                                <?php }?>
 
-                                                    <?php if ($status == "A la espera de respuesta de ICV" && ($esUsuarioMaster || $esUsuarioAdministrador)) { ?>
-                                                        <button class="btn btn-default mb-3" id="boton_rechazado" onclick="rechazado()" type="submit" >Rechazado</button>
-                                                        <button class="btn btn-default mb-3" id="boton_aprobado" onclick="aprobado()" type="submit" >Aprobado</button>
-                                                    <?php }?>
+                                                <?php if ($habilitar_boton_rechazado) { ?>
+                                                    <button class="btn btn-default mb-3" id="boton_rechazado" onclick="rechazado()" type="submit" >Rechazado</button>
+                                                <?php }?>
 
-                                                    <?php if (($status == "Enviado a ARCA" || $status == "Reenviado a ARCA") && ($esUsuarioMaster || $esUsuarioAdministrador)) { ?>
-                                                        <button class="btn btn-default mb-3" id="boton_enviar_icv" onclick="enviarICV()" type="submit" >Enviar a ICV</button>
-                                                    <?php }?>
+                                                <?php if ($habilitar_boton_aprobado) { ?>
+                                                    <button class="btn btn-default mb-3" id="boton_aprobado" onclick="aprobado()" type="submit" >Aprobado</button>
+                                                <?php }?>
 
-                                                    <?php if ($status == "Devuelto a la agencia" && ($esUsuarioMaster || $esUsuarioOperador)) { ?>
-                                                        <button class="btn btn-default mb-3" id="boton_reenviar_arca" onclick="reenviarArca()" type="submit" >Reenviar a ARCA</button>
-                                                    <?php }?>
+                                                <?php if ($habilitar_boton_enviar_icv) { ?>
+                                                    <button class="btn btn-default mb-3" id="boton_enviar_icv" onclick="enviarICV()" type="submit" >Enviar a ICV</button>
+                                                <?php }?>
 
-                                                    <?php if (($status == "Enviado a ARCA" || $status == "Reenviado a ARCA") && ($esUsuarioMaster || $esUsuarioAdministrador)) { ?>
-                                                        <button class="btn btn-default mb-3" id="boton_regresar_agencia" onclick="regresarAAgencia()" type="submit" >Regresar a Agencia</button>
-                                                    <?php } ?>
+                                                <?php if ($habilitar_boton_reenviar_arca) { ?>
+                                                    <button class="btn btn-default mb-3" id="boton_reenviar_arca" onclick="reenviarArca()" type="submit" >Reenviar a ARCA</button>
+                                                <?php }?>
+
+                                                <?php if ($habilitar_boton_regresar_agencia) { ?>
+                                                    <button class="btn btn-default mb-3" id="boton_regresar_agencia" onclick="regresarAAgencia()" type="submit" >Regresar a Agencia</button>
                                                 <?php } ?>
 
-                                                <?php if ($esUsuarioMaster || $usuario_permisoEditarDelegacionVirtual) { ?>
+                                                <?php if ($habilitar_boton_guardar) { ?>
                                                     <button class="btn btn-success mb-3" id="boton_guardar" onclick="return confirm('¿Desea dar de alta este trámite?');" type="submit" >Generar trámite</button>
                                                 <?php } ?>
                                             </div>
                                         </div>
                                     </div>
-
                                 </form>
                             </div>
                         </div>
