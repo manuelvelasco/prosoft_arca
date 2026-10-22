@@ -1,0 +1,3 @@
+Sitemap: https://seminuevosarca.com.mx/sitemap.txt
+User-agent: *
+Disallow: /cms/

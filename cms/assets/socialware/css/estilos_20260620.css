@@ -1,0 +1,232 @@
+/* Generales */
+
+.app-content {
+    min-height: calc(100vh - 150px) !important;
+}
+
+/* Alertas */
+
+.alert-danger {
+    margin-bottom: 20px !important;
+}
+
+.alert-success {
+    margin-bottom: 20px !important;
+}
+
+/* Bootstrap */
+
+.col-xs-6 {
+    width: 50%;
+}
+
+/* Botones */
+
+a.btn {
+    color: #fff;
+}
+
+a.btn-default {
+    color: #282f53;
+}
+
+.btn-default, .btn-info, .btn-primary, .btn-success, .btn-warning {
+    margin-left: 20px;
+}
+
+.btn-danger {
+    margin-left: 40px;
+}
+
+.botonesDerechos {
+    text-align: right;
+}
+
+.botonesDerechos .btn {
+    margin-left: 10px;
+}
+
+/* Colores */
+
+:root {
+    --primary-bg-color: #00ab9b;
+}
+
+a:hover,.app-sidebar__toggle,.side-menu__item:hover, .side-menu__item:focus,.side-menu .side-menu__icon,.side-menu__item.active .side-menu__icon, .side-menu__item.active,.slide-menu a.active,.breadcrumb .breadcrumb-item.active {
+    color: #00ab9b !important;
+}
+
+.btn-primary {
+    background-color: #00ab9b !important;
+    border: 1px #00ab9b solid !important;
+}
+
+.btn-primary:hover {
+    color: black !important;
+}
+
+.dark-mode .side-header .header-brand-img.desktop-logo {
+    height: 65px !important;
+}
+
+a.btn:hover, .panel-success a:hover {
+    color: black !important;
+}
+
+/* Data tables */
+
+.dt-buttons.btn-group {
+    left: 25px;
+    position: static;
+}
+
+#tabla_resultados thead tr:first-child th:last-child {
+    width: 100px;
+}
+
+div.dataTables_wrapper div.dataTables_info {
+    float: left;
+    padding-top: 0;
+}
+
+div.dataTables_wrapper div.dataTables_paginate {
+    float: right;
+}
+
+.dt-buttons.btn-group {
+    margin-right: 25px;
+}
+
+.page-link:hover {
+    color: white !important;
+}
+
+.dt-buttons button {
+    background-color: white !important;
+    color: #00ab9b !important;
+    border: 1px #00ab9b solid !important;
+}
+
+.dt-buttons button:hover {
+    background-color: #00ab9b !important;
+    color: white !important;
+    border: 1px #00ab9b solid !important;
+    opacity: 1;
+}
+
+#busquedaAvanzadaCard {
+    border-radius: 0px 0px 7px 7px !important;
+}
+
+.buscador .card {
+    border-radius: 7px 7px 0px 0px !important;
+}
+
+.table i {
+    margin-left: 20px;
+}
+
+.table td {
+    vertical-align: middle;
+    text-align: left;
+}
+
+th {
+    text-align: center;
+}
+
+/* Select2 */
+
+.select2-container--default .select2-selection--single .select2-selection__arrow {
+    right: 25px !important;
+}
+
+.select2-container {
+    width: 100% !important;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__arrow {
+    right: 10px !important;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__clear {
+    right: 30px !important;
+}
+
+select2-selection__arrow {
+    position: absolute !important;
+    right: 10px !important;
+}
+
+.select2-selection__clear {
+    position: absolute !important;
+    right: 30px !important;
+}
+
+/* Material switch */
+
+.material-switch {
+    margin-top: 10px;
+}
+
+/* Por clasificar */
+
+.side-header .header-brand-img.light-logo1,.side-header .header-brand-img.light-logo1 {
+    max-width: 30%;
+    margin: auto;
+}
+
+.dot {
+  height: 25px;
+  width: 25px;
+  background-color: #FFF;
+  border-radius: 50%;
+  display: inline-block;
+  transform: translateY(25%);
+  margin-left: 5px;
+}
+
+.flex-direction-row {
+    flex-direction: row !important;
+}
+
+.fancybox__slide {
+    /*padding: 3rem 10px !important;*/
+    /*padding: 1rem !important;*/
+    padding: 10px !important;
+}
+
+.fancybox__slide .is-close {
+    visibility: hidden;
+}
+
+.fancybox__content {
+    padding: 0;
+}
+
+#back-to-top {
+    visibility: hidden;
+}
+
+#back-to-top:last-of-type {
+    visibility: visible;
+}
+
+.btn-gray {
+    color: white;
+
+}
+
+@media only screen and (max-width: 900px) {
+    .fancybox__content {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+    .nav.panel-tabs.panel-success a {
+        font-size: 13.5px;
+        padding: 10px 8px 10px 8px;
+    }
+    .select2-container--default .select2-selection--single .select2-selection__arrow {
+        right: 5px !important;
+    }
+}
