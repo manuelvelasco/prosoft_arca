@@ -1,0 +1,8 @@
+RewriteEngine On
+
+# Detecta si entran por seminuevosarca.com (con o sin www) o seminuevosarca.mx (con o sin www)
+RewriteCond %{HTTP_HOST} ^(www\.)?seminuevosarca\.com$ [NC,OR]
+RewriteCond %{HTTP_HOST} ^(www\.)?seminuevosarca\.mx$ [NC]
+
+# Redirige permanentemente manteniendo la sección exacta de la URL que visitaban
+RewriteRule ^(.*)$ https://seminuevosarca.com.mx [R=301,L]
