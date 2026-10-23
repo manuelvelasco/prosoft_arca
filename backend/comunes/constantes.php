@@ -4,7 +4,8 @@
     // Concesionarios
 
     //$constante_rutaConcesionarios = "/Users/mvelasco/Socialware/Proyectos/Web/arca/concesionarios/";
-    $constante_rutaConcesionarios = "/var/www/html/arca/concesionarios/";
+    //$constante_rutaConcesionarios = "/var/www/html/arca/concesionarios/";
+    $constante_directorioComercio = "/home/1678977.cloudwaysapps.com/zxkxdcbsvk/public_html/concesionarios/";
 
     //$constante_urlConcesionarios = "http://localhost/web/arca/concesionarios/";
     //$constante_urlConcesionarios = "http://54.196.77.109/arca/concesionarios/";
@@ -13,7 +14,8 @@
     // Mensajeros
 
     //$constante_rutaMensajeros = "/Users/mvelasco/Socialware/Proyectos/Web/arca/mensajeros/";
-    $constante_rutaMensajeros = "/var/www/html/arca/mensajeros/";
+    //$constante_rutaMensajeros = "/var/www/html/arca/mensajeros/";
+    $constante_rutaMensajeros = "/home/1678977.cloudwaysapps.com/zxkxdcbsvk/public_html/mensajeros/";
 
     //$constante_urlMensajeros = "http://localhost/web/arca/mensajeros/";
     //$constante_urlMensajeros= "http://54.196.77.109/arca/mensajeros/";
@@ -22,7 +24,8 @@
     // Posts
 
     //$constante_rutaPosts = "/Users/mvelasco/Socialware/Proyectos/Web/arca/posts/";
-    $constante_rutaPosts = "/var/www/html/arca/posts/";
+    //$constante_rutaPosts = "/var/www/html/arca/posts/";
+    $constante_rutaPosts = "/home/1678977.cloudwaysapps.com/zxkxdcbsvk/public_html/posts/";
 
     //$constante_urlPosts = "http://localhost/web/arca/posts/";
     //$constante_urlPosts = "http://54.196.77.109/arca/posts/";
@@ -31,7 +34,8 @@
     // Vehiculos
 
     //$constante_rutaVehiculos = "/Users/mvelasco/Socialware/Proyectos/Web/arca/vehiculos/";
-    $constante_rutaVehiculos = "/var/www/html/arca/vehiculos/";
+    //$constante_rutaVehiculos = "/var/www/html/arca/vehiculos/";
+    $constante_rutaVehiculos = "/home/1678977.cloudwaysapps.com/zxkxdcbsvk/public_html/vehiculos/";
 
     //$constante_urlVehiculos = "http://localhost/web/arca/vehiculos/";
     //$constante_urlVehiculos = "http://54.196.77.109/arca/vehiculos/";

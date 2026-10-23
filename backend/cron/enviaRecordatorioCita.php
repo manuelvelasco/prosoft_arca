@@ -2,7 +2,8 @@
     header("Access-Control-Allow-Origin: *");
 
     //include("/Users/mvelasco/Socialware/Proyectos/Web/arca/backend/comunes/funciones.php");
-    include("/var/www/html/arca/backend/comunes/funciones.php");
+    //include("/var/www/html/arca/backend/comunes/funciones.php");
+    include("/home/1678977.cloudwaysapps.com/zxkxdcbsvk/public_html/backend/comunes/funciones.php");
     
     // Inicializa variable de salida
 

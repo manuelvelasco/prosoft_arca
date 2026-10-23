@@ -1,10 +1,16 @@
 <?php
-    //setlocale(LC_ALL, "es_MX");     // Desarrollo
-    setlocale(LC_ALL, "esm");     // Servidor
+    setlocale(LC_ALL, "es_MX");     // Desarrollo
+    //setlocale(LC_ALL, "esm");     // Servidor
     date_default_timezone_set('America/Monterrey');
 
+
+    // Carga plugin Mailjet
+
+
     //require "c:/wamp64/www/Git/prosoft_arca/backend/plugins/mailjet/vendor/autoload.php";
-    require "/var/www/html/socialware/personalizado/php/plugins/mailjet/vendor/autoload.php";
+    //require "/var/www/html/socialware/personalizado/php/plugins/mailjet/vendor/autoload.php";
+    require "/home/1678977.cloudwaysapps.com/zxkxdcbsvk/public_html/backend/plugins/mailjet/vendor/autoload.php";
+
     use Mailjet\Resources;
 
 
@@ -47,7 +53,8 @@
         //return new mysqli("localhost", "root", "", "arca");
         //return new mysqli("stagedb-2.c7vpephv5j2g.us-east-1.rds.amazonaws.com", "app_respaldos_dbuser", "2brv7b24rV,8sdu8c", "arca");
         //return new mysqli("stagedb-2.c7vpephv5j2g.us-east-1.rds.amazonaws.com", "app_respaldos_dbuser", "n28r75vRNcaSN91BCta_wuxbvAj", "arca");
-        return new mysqli("production.c7vpephv5j2g.us-east-1.rds.amazonaws.com", "app_respaldos_dbuser", "2brv7b24rV,8sdu8c", "arca");
+        //return new mysqli("production.c7vpephv5j2g.us-east-1.rds.amazonaws.com", "app_respaldos_dbuser", "2brv7b24rV,8sdu8c", "arca");
+        return new mysqli("localhost", "zxkxdcbsvk", "SATj6tM6RQ", "zxkxdcbsvk");
     }
 
 
