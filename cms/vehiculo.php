@@ -1236,7 +1236,8 @@ error_log("\nidUsuario = " . $usuario_id, 3, $rutaLog);*/
 
                     if (!file_exists($constante_rutaVehiculos  . $id)) {
                         try {
-                            mkdir($constante_rutaVehiculos  . $id, 0755, true);
+                            //mkdir($constante_rutaVehiculos  . $id, 0755, true);
+                            mkdir($constante_rutaVehiculos  . $id);
                         } catch (Exception $ex) {
                         }
                     }
@@ -1281,7 +1282,8 @@ error_log("\nidUsuario = " . $usuario_id, 3, $rutaLog);*/
                                 $archivoDestino = $constante_rutaVehiculos . "/" . $id . "/" . $nombreEstandarizado;
 
                                 if (!file_exists($constante_rutaVehiculos . "/" . $id)) {
-                                    mkdir($constante_rutaVehiculos . "/" . $id, 0755, true);
+                                    //mkdir($constante_rutaVehiculos . "/" . $id, 0755, true);
+                                    mkdir($constante_rutaVehiculos . "/" . $id);
                                 }
 
                                 move_uploaded_file($archivo["tmp_name"], $archivoDestino);
@@ -1308,7 +1310,8 @@ error_log("\nidUsuario = " . $usuario_id, 3, $rutaLog);*/
                                     $archivoDestino = $constante_rutaVehiculos . "/" . $id . "/galeria/" . $nombreEstandarizado;
 
                                     if (!file_exists($constante_rutaVehiculos . "/" . $id . "/galeria")) {
-                                        mkdir($constante_rutaVehiculos . "/" . $id . "/galeria", 0755, true);
+                                        //mkdir($constante_rutaVehiculos . "/" . $id . "/galeria", 0755, true);
+                                        mkdir($constante_rutaVehiculos . "/" . $id . "/galeria");
                                     }
 
                                     move_uploaded_file($archivo["tmp_name"], $archivoDestino);
@@ -1786,7 +1789,8 @@ error_log("\nidUsuario = " . $usuario_id, 3, $rutaLog);*/
                                 $archivoDestino = $constante_rutaVehiculos . "/" . $id . "/" . $nombreEstandarizado;
 
                                 if (!file_exists($constante_rutaVehiculos . "/" . $id)) {
-                                    mkdir($constante_rutaVehiculos . "/" . $id, 0755, true);
+                                    //mkdir($constante_rutaVehiculos . "/" . $id, 0755, true);
+                                    mkdir($constante_rutaVehiculos . "/" . $id);
                                 }
 
                                 move_uploaded_file($archivo["tmp_name"], $archivoDestino);

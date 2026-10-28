@@ -187,7 +187,8 @@
                                     $archivoDestino = $constante_rutaPosts . "/" . $id . "/" . $nombreEstandarizado;
 
                                     if (!file_exists($constante_rutaPosts . "/" . $id)) {
-                                        mkdir($constante_rutaPosts . "/" . $id, 0755, true);
+                                        //mkdir($constante_rutaPosts . "/" . $id, 0755, true);
+                                        mkdir($constante_rutaPosts . "/" . $id);
                                     }
 
                                     move_uploaded_file($archivo["tmp_name"], $archivoDestino);
@@ -213,7 +214,8 @@
                                         $archivoDestino = $constante_rutaPosts . "/" . $id . "/galeria/" . $nombreEstandarizado;
 
                                         if (!file_exists($constante_rutaPosts . "/" . $id . "/galeria")) {
-                                            mkdir($constante_rutaPosts . "/" . $id . "/galeria", 0755, true);
+                                            //mkdir($constante_rutaPosts . "/" . $id . "/galeria", 0755, true);
+                                            mkdir($constante_rutaPosts . "/" . $id . "/galeria");
                                         }
 
                                         move_uploaded_file($archivo["tmp_name"], $archivoDestino);

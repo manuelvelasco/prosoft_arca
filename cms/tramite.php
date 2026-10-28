@@ -350,7 +350,8 @@
                                             $archivoDestino = $constante_rutaTramites . "/" . $id . "/" . $nombreEstandarizado;
 
                                             if (!file_exists($constante_rutaTramites . "/" . $id)) {
-                                                mkdir($constante_rutaTramites . "/" . $id, 0755, true);
+                                                //mkdir($constante_rutaTramites . "/" . $id, 0755, true);
+                                                mkdir($constante_rutaTramites . "/" . $id);
                                             }
 
                                             move_uploaded_file($archivo["tmp_name"], $archivoDestino);
@@ -415,7 +416,8 @@
                                         $archivoDestino = $constante_rutaTramites . "/" . $id . "/" . $nombreEstandarizado;
 
                                         if (!file_exists($constante_rutaTramites . "/" . $id)) {
-                                            mkdir($constante_rutaTramites . "/" . $id, 0755, true);
+                                            //mkdir($constante_rutaTramites . "/" . $id, 0755, true);
+                                            mkdir($constante_rutaTramites . "/" . $id);
                                         }
 
                                         move_uploaded_file($archivo["tmp_name"], $archivoDestino);
@@ -527,7 +529,8 @@
                                             $archivoDestino = $constante_rutaTramites . "/" . $id . "/" . $nombreEstandarizado;
 
                                             if (!file_exists($constante_rutaTramites . "/" . $id)) {
-                                                mkdir($constante_rutaTramites . "/" . $id, 0755, true);
+                                                //mkdir($constante_rutaTramites . "/" . $id, 0755, true);
+                                                mkdir($constante_rutaTramites . "/" . $id);
                                             }
 
                                             move_uploaded_file($archivo["tmp_name"], $archivoDestino);
@@ -548,7 +551,8 @@
                                             $archivoDestino = $constante_rutaTramites . "/" . $id . "/" . $nombreEstandarizado;
 
                                             if (!file_exists($constante_rutaTramites . "/" . $id)) {
-                                                mkdir($constante_rutaTramites . "/" . $id, 0755, true);
+                                                //mkdir($constante_rutaTramites . "/" . $id, 0755, true);
+                                                mkdir($constante_rutaTramites . "/" . $id);
                                             }
 
                                             move_uploaded_file($archivo["tmp_name"], $archivoDestino);

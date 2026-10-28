@@ -321,7 +321,8 @@
                                     $archivoDestino = $constante_rutaMensajeros . "/" . $id . "/" . $nombreEstandarizado;
 
                                     if (!file_exists($constante_rutaMensajeros . "/" . $id)) {
-                                        mkdir($constante_rutaMensajeros . "/" . $id, 0755, true);
+                                        //mkdir($constante_rutaMensajeros . "/" . $id, 0755, true);
+                                        mkdir($constante_rutaMensajeros . "/" . $id);
                                     }
 
                                     move_uploaded_file($archivo["tmp_name"], $archivoDestino);

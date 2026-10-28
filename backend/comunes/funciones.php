@@ -102,6 +102,10 @@
             return true;
         }
 
+        if (is_array($valor)) {
+            return (sizeof($valor) == 0);
+        }
+
         // 2. If it's a string, check if it's empty after removing whitespace
         if (is_string($valor)) {
             return trim($valor) === "";

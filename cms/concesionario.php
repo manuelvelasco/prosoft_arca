@@ -399,7 +399,8 @@
                                     $archivoDestino = $constante_rutaConcesionarios . "/" . $id . "/" . $nombreEstandarizado;
 
                                     if (!file_exists($constante_rutaConcesionarios . "/" . $id)) {
-                                        mkdir($constante_rutaConcesionarios . "/" . $id, 0755, true);
+                                        //mkdir($constante_rutaConcesionarios . "/" . $id, 0755, true);
+                                        mkdir($constante_rutaConcesionarios . "/" . $id);
                                     }
 
                                     //move_uploaded_file($archivo["tmp_name"], $archivoDestino);
@@ -428,7 +429,8 @@ if(move_uploaded_file($archivo["tmp_name"], $archivoDestino)) {
                                     $archivoDestino = $constante_rutaConcesionarios . "/" . $id . "/" . $nombreEstandarizado;
 
                                     if (!file_exists($constante_rutaConcesionarios . "/" . $id)) {
-                                        mkdir($constante_rutaConcesionarios . "/" . $id, 0755, true);
+                                        //mkdir($constante_rutaConcesionarios . "/" . $id, 0755, true);
+                                        mkdir($constante_rutaConcesionarios . "/" . $id);
                                     }
 
                                     move_uploaded_file($archivo["tmp_name"], $archivoDestino);
@@ -454,7 +456,8 @@ if(move_uploaded_file($archivo["tmp_name"], $archivoDestino)) {
                                         $archivoDestino = $constante_rutaConcesionarios . "/" . $id . "/galeria/" . $nombreEstandarizado;
 
                                         if (!file_exists($constante_rutaConcesionarios . "/" . $id . "/galeria")) {
-                                            mkdir($constante_rutaConcesionarios . "/" . $id . "/galeria", 0755, true);
+                                            //mkdir($constante_rutaConcesionarios . "/" . $id . "/galeria", 0755, true);
+                                            mkdir($constante_rutaConcesionarios . "/" . $id . "/galeria");
                                         }
 
                                         move_uploaded_file($archivo["tmp_name"], $archivoDestino);
