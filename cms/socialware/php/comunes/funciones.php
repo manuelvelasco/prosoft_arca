@@ -95,7 +95,20 @@
 
 
     function estaVacio($valor) {
-        return (!isset($valor) || trim($valor) === "");
+        //return (!isset($valor) || trim($valor) === "");
+
+        // 1. Immediate check if the value is null (works for any type)
+        if ($valor === null) {
+            return true;
+        }
+
+        // 2. If it's a string, check if it's empty after removing whitespace
+        if (is_string($valor)) {
+            return trim($valor) === "";
+        }
+
+        // 3. For any other type (instantiated objects, booleans, non-zero numbers), it is not empty
+        return false;
     }
 
 
