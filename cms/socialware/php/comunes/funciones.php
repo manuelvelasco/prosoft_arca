@@ -1045,7 +1045,7 @@ error_log("\nconcesionario " . $indiceConcesionario . " de " . $cantidadConcesio
      */
 
 
-    function enviaCorreoMailjet($para, $copia, $titulo, $mensaje, $archivoAdjunto) {
+    function enviaCorreoMailjet($para, $copia, $titulo, $mensaje, $archivoAdjunto, $de = "contacto@socialware-mail.com") {
         try {
             //$mailjet = new Mailjet\Client("11fdc29f37135ee7ebb728a4db6b8936", "7eb9b9fe4e95a042d120ef23e575c2e5", true, ['version' => 'v3.1']);
             $mailjet = new Mailjet\Client("47439b3f2f1ee64c44da5cfaa09a100b", "18f0d18bd260c35142b56ba3bc52e9e8", true, ['version' => 'v3.1']);
@@ -1070,7 +1070,7 @@ error_log("\nconcesionario " . $indiceConcesionario . " de " . $cantidadConcesio
                 $contenido .= '"Messages": [';
                     $contenido .= '{';
                         $contenido .= '"From": {';
-                            $contenido .= '"Email": "contacto@socialware-mail.com",';
+                            $contenido .= '"Email": "' . $de . '",';
                             $contenido .= '"Name": "ARCA"';
                         $contenido .= '},';
 

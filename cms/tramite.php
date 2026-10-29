@@ -391,7 +391,8 @@
                                     . "<br />Correo Cliente: ". $cliente_correoElectronico
                                     . "<br />";
 
-                                $enviaCorreo = enviaCorreoMailjet($correoNotificacion["valor"],"", $titulo, $mensajeCorreo, $archivoDestino);
+                                //$enviaCorreo = enviaCorreoMailjet($correoNotificacion["valor"],"", $titulo, $mensajeCorreo, $archivoDestino);
+                                $enviaCorreo = enviaCorreoMailjet($correoNotificacion["valor"],"", $titulo, $mensajeCorreo, $archivoDestino, "delegacionvirtual@seminuevosarca.com.mx");
 
                                 $mensaje = "ok - El tramite ha sido registrado";
 
@@ -491,7 +492,8 @@
 
                                     $archivoCorreo = $constante_rutaTramites . "/" . $id . "/" . $archivo_comprobantePago;
 
-                                    $enviaCorreo = enviaCorreoMailjet($correoNotificar, null, $titulo, $mensajeCorreo, $archivoCorreo);
+                                    //$enviaCorreo = enviaCorreoMailjet($correoNotificar, null, $titulo, $mensajeCorreo, $archivoCorreo);
+                                    $enviaCorreo = enviaCorreoMailjet($correoNotificar, null, $titulo, $mensajeCorreo, $archivoCorreo, "delegacionvirtual@seminuevosarca.com.mx");
                                 } catch (Exception $e) {
                                 }
                             } else {
@@ -777,7 +779,8 @@
 
                                     $archivoCorreo = $constante_rutaTramites . "/" . $id . "/" . $archivo_expediente;
 
-                                    $enviaCorreo = enviaCorreoMailjet($correoNotificar, $correoNotificarCopia, $titulo, $mensajeCorreo, $archivoCorreo);
+                                    //$enviaCorreo = enviaCorreoMailjet($correoNotificar, $correoNotificarCopia, $titulo, $mensajeCorreo, $archivoCorreo);
+                                    $enviaCorreo = enviaCorreoMailjet($correoNotificar, $correoNotificarCopia, $titulo, $mensajeCorreo, $archivoCorreo, "delegacionvirtual@seminuevosarca.com.mx");
                                 }
                             }
 
