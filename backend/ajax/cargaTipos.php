@@ -16,7 +16,7 @@
         // Consulta base de datos
 
         //$tipos_BD = consulta($conexion, "SELECT DISTINCT tipo FROM vehiculo where publicado = 1 ORDER BY tipo");
-        $tipos_BD = consulta($conexion, "SELECT tipo, COUNT(*) AS cantidad FROM vehiculo WHERE eliminado = 0 AND publicado = 1 GROUP BY tipo ORDER BY tipo");
+        $tipos_BD = consulta($conexion, "SELECT tipo, COUNT(*) AS cantidad FROM vehiculo WHERE eliminado = 0 AND publicado = 1 AND idConcesionario IN (SELECT id FROM concesionario WHERE eliminado = 0 AND habilitado = 1) GROUP BY tipo ORDER BY tipo");
 
         $resultado .= "<tipos>";
 

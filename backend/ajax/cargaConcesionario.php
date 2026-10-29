@@ -56,7 +56,7 @@
 
             $limite = 4;
 
-            $vehiculosEquivalentes_BD = consulta($conexion, "SELECT * FROM vehiculo WHERE idConcesionario = " . $id . " AND eliminado = 0 AND publicado = 1 ORDER BY id DESC LIMIT " . $limite);
+            $vehiculosEquivalentes_BD = consulta($conexion, "SELECT * FROM vehiculo WHERE idConcesionario = " . $id . " AND eliminado = 0 AND publicado = 1 AND idConcesionario IN (SELECT id FROM concesionario WHERE eliminado = 0 AND habilitado = 1) ORDER BY id DESC LIMIT " . $limite);
 
             while ($vehiculoEquivalente = obtenResultado($vehiculosEquivalentes_BD)) {
                 $resultado .= "<vehiculoEquivalente>";

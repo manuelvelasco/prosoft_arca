@@ -37,22 +37,22 @@
         $limitante = "";
 
         if (!estaVacio($palabraClave)) {
-            $restricciones .= " AND (LOWER(nombreComercial) LIKE '%" . strtolower($palabraClave) . "%' OR LOWER(resumen) LIKE '%" . strtolower($palabraClave) . "%' OR LOWER(descripcion) LIKE '%" . strtolower($palabraClave) . "%' OR LOWER(calle) LIKE '%" . strtolower($palabraClave) . "%' OR LOWER(colonia) LIKE '%" . strtolower($palabraClave) . "%' OR LOWER(municipio) LIKE '%" . strtolower($palabraClave) . "%')";
+            $restricciones .= " AND (LOWER(c.nombreComercial) LIKE '%" . strtolower($palabraClave) . "%' OR LOWER(c.resumen) LIKE '%" . strtolower($palabraClave) . "%' OR LOWER(c.descripcion) LIKE '%" . strtolower($palabraClave) . "%' OR LOWER(c.calle) LIKE '%" . strtolower($palabraClave) . "%' OR LOWER(c.colonia) LIKE '%" . strtolower($palabraClave) . "%' OR LOWER(c.municipio) LIKE '%" . strtolower($palabraClave) . "%')";
         }
 
         if (!estaVacio($municipio) && strpos($municipio, "VERTODO") === false) {
             $municipio = str_replace("\\", "", $municipio);
 
-            $restricciones .= " AND municipio IN (" . $municipio . ")";
+            $restricciones .= " AND c.municipio IN (" . $municipio . ")";
         }
 
         $limitante = " LIMIT " . (($pagina - 1) * $tamanoPagina) . ", " . $tamanoPagina;
 
         // Consulta base de datos
         //echo "SELECT COUNT(*) AS concesionariosEncontrados FROM concesionario WHERE habilitado = 1 AND eliminado = 0 " . $restricciones;
-        $concesionariosEncontrados = obtenResultado(consulta($conexion, "SELECT COUNT(*) AS concesionariosEncontrados FROM concesionario d WHERE habilitado = 1 AND eliminado = 0 AND (SELECT COUNT(*) FROM vehiculo WHERE idConcesionario = d.id AND eliminado = 0 AND publicado = 1) > 0 " . $restricciones))["concesionariosEncontrados"];
+        $concesionariosEncontrados = obtenResultado(consulta($conexion, "SELECT COUNT(*) AS concesionariosEncontrados FROM concesionario c WHERE c.habilitado = 1 AND c.eliminado = 0 AND (SELECT COUNT(*) FROM vehiculo WHERE idConcesionario = c.id AND eliminado = 0 AND publicado = 1) > 0 " . $restricciones))["concesionariosEncontrados"];
 
-        $concesionarios_BD = consulta($conexion, "SELECT * FROM concesionario d WHERE habilitado = 1 AND (SELECT COUNT(*) FROM vehiculo WHERE idConcesionario = d.id AND eliminado = 0 AND publicado = 1) > 0 " . $restricciones . " ORDER BY RAND() " . $limitante);
+        $concesionarios_BD = consulta($conexion, "SELECT * FROM concesionario c WHERE c.habilitado = 1 AND (SELECT COUNT(*) FROM vehiculo WHERE idConcesionario = c.id AND eliminado = 0 AND publicado = 1) > 0 " . $restricciones . " ORDER BY RAND() " . $limitante);
 
         $resultado .= "<concesionarios total='" . $concesionariosEncontrados . "'>";
 

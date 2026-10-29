@@ -43,7 +43,7 @@
 
         // Consulta base de datos
 
-        $anos_BD = consulta($conexion, "SELECT ano FROM vehiculo WHERE eliminado = 0 AND publicado = 1 AND intelimotor_id IS NOT NULL " . $restricciones . " GROUP BY ano ORDER BY ano");
+        $anos_BD = consulta($conexion, "SELECT ano FROM vehiculo WHERE eliminado = 0 AND publicado = 1 AND intelimotor_id IS NOT NULL AND idConcesionario IN (SELECT id FROM concesionario WHERE eliminado = 0 AND habilitado = 1) " . $restricciones . " GROUP BY ano ORDER BY ano");
 
         $resultado .= "<anos>";
 

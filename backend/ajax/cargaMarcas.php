@@ -29,7 +29,7 @@
 
         // Consulta base de datos
 
-        $marcas_BD = consulta($conexion, "SELECT marca, modelo, count(*) AS cantidad FROM vehiculo WHERE eliminado = 0 AND publicado = 1 " . $restricciones . " GROUP BY marca, modelo ORDER BY marca, modelo");
+        $marcas_BD = consulta($conexion, "SELECT marca, modelo, count(*) AS cantidad FROM vehiculo WHERE eliminado = 0 AND publicado = 1 AND idConcesionario IN (SELECT id FROM concesionario WHERE eliminado = 0 AND habilitado = 1) " . $restricciones . " GROUP BY marca, modelo ORDER BY marca, modelo");
 
         $resultado .= "<marcas>";
 

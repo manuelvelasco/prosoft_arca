@@ -36,7 +36,7 @@
 
         // Consulta base de datos
 
-        $modelos_BD = consulta($conexion, "SELECT DISTINCT modelo FROM vehiculo WHERE eliminado = 0 AND publicado = 1 " . $restricciones . " ORDER BY modelo");
+        $modelos_BD = consulta($conexion, "SELECT DISTINCT modelo FROM vehiculo WHERE eliminado = 0 AND publicado = 1 AND idConcesionario IN (SELECT id FROM concesionario WHERE eliminado = 0 AND habilitado = 1) " . $restricciones . " ORDER BY modelo");
 
         $resultado .= "<modelos>";
 

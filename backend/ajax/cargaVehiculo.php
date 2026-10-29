@@ -25,7 +25,7 @@
 
         // Consulta base de datos
 
-        $vehiculo_BD = consulta($conexion, "SELECT v.*, s.whatsapp AS gerente_whatsapp, c.nombreComercial, c.whatsapp AS concesionarioWhatsapp, c.colonia, c.municipio, c.fachada, c.telefono FROM vehiculo v INNER JOIN concesionario c ON v.idConcesionario = c.id LEFT JOIN sucursal s ON s.id = v.idSucursal WHERE v.id = " . $id . " AND v.eliminado = 0 AND v.publicado = 1");
+        $vehiculo_BD = consulta($conexion, "SELECT v.*, s.whatsapp AS gerente_whatsapp, c.nombreComercial, c.whatsapp AS concesionarioWhatsapp, c.colonia, c.municipio, c.fachada, c.telefono FROM vehiculo v INNER JOIN concesionario c ON v.idConcesionario = c.id LEFT JOIN sucursal s ON s.id = v.idSucursal WHERE v.id = " . $id . " AND v.eliminado = 0 AND v.publicado = 1 AND c.eliminado = 0 AND c.habilitado = 1");
 
         $resultado .= "<vehiculos>";
 
@@ -80,7 +80,7 @@
             $limite = 3;
             $idsVehiculosSimilares = "";
 
-            $vehiculosSimilares_BD = consulta($conexion, "SELECT *, ABS(precio - " . $vehiculo["precio"] . ") AS diferencia FROM vehiculo WHERE id != " . $id . " AND publicado = 1 AND intelimotor_id IS NOT NULL AND ano = '" . $vehiculo["ano"] . "' AND intelimotor_vehicleBodyType = '" . $vehiculo["intelimotor_vehicleBodyType"] . "' AND precio >= (select c.precio - 100000 from vehiculo c where c.id = " . $id . " ) AND precio <= (select c.precio + 100000 from vehiculo c where c.id = " . $id . " ) ORDER BY rand() LIMIT 5");
+            $vehiculosSimilares_BD = consulta($conexion, "SELECT *, ABS(precio - " . $vehiculo["precio"] . ") AS diferencia FROM vehiculo WHERE id != " . $id . " AND publicado = 1 AND eliminado = 0 AND idConcesionario IN (SELECT id FROM concesionario WHERE eliminado = 0 AND habilitado = 1) AND intelimotor_id IS NOT NULL AND ano = '" . $vehiculo["ano"] . "' AND intelimotor_vehicleBodyType = '" . $vehiculo["intelimotor_vehicleBodyType"] . "' AND precio >= (select c.precio - 100000 from vehiculo c where c.id = " . $id . " ) AND precio <= (select c.precio + 100000 from vehiculo c where c.id = " . $id . " ) ORDER BY rand() LIMIT 5");
             //echo "SELECT *, ABS(precio - " . $vehiculo["precio"] . ") AS diferencia FROM vehiculo WHERE id != " . $id . " AND publicado = 1 AND intelimotor_id IS NOT NULL AND ano = '" . $vehiculo["ano"] . "' AND intelimotor_vehicleBodyType = '" . $vehiculo["intelimotor_vehicleBodyType"] . "' AND precio >= (select c.precio - 100000 from vehiculo c where c.id = " . $id . " ) AND precio <= (select c.precio + 100000 from vehiculo c where c.id = " . $id . " ) ORDER BY rand()";
             
             $resultado .= "<vehiculosSimilares>";
@@ -124,7 +124,7 @@
 
             $limite = 8;
 
-            $vehiculosEquivalentes_BD = consulta($conexion, "SELECT *, ABS(precio - " . $vehiculo["precio"] . ") AS diferencia FROM vehiculo WHERE id != " . $id . " AND publicado = 1 AND intelimotor_id IS NOT NULL AND precio >= (select c.precio - 100000 from vehiculo c where c.id = " . $id . " ) AND precio <= (select c.precio + 100000 from vehiculo c where c.id = " . $id . " ) ORDER BY rand() LIMIT " . $limite);
+            $vehiculosEquivalentes_BD = consulta($conexion, "SELECT *, ABS(precio - " . $vehiculo["precio"] . ") AS diferencia FROM vehiculo WHERE id != " . $id . " AND publicado = 1 AND eliminado = 0 AND idConcesionario IN (SELECT id FROM concesionario WHERE eliminado = 0 AND habilitado = 1) AND intelimotor_id IS NOT NULL AND precio >= (select c.precio - 100000 from vehiculo c where c.id = " . $id . " ) AND precio <= (select c.precio + 100000 from vehiculo c where c.id = " . $id . " ) ORDER BY rand() LIMIT " . $limite);
 
             while ($vehiculoEquivalente = obtenResultado($vehiculosEquivalentes_BD)) {
                 $resultado .= "<vehiculoEquivalente>";
