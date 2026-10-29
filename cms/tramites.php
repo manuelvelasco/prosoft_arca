@@ -137,12 +137,12 @@
                                                                         <?php
                                                                             if ($esUsuarioMaster || $esUsuarioAdministrador) {
                                                                                 if (estaVacio($idConcesionario)) {
-                                                                                    $usuarios_BD = consulta($conexion, "SELECT * FROM usuario s WHERE s.rol != 'Master' ORDER BY nombre");
+                                                                                    $usuarios_BD = consulta($conexion, "SELECT * FROM usuario s WHERE s.rol != 'Master' ORDER BY s.nombre");
                                                                                 } else {
-                                                                                    $usuarios_BD = consulta($conexion, "SELECT * FROM usuario s WHERE s.rol != 'Master' AND s.idConcesionario = " . $idConcesionario . " ORDER BY nombre");
+                                                                                    $usuarios_BD = consulta($conexion, "SELECT * FROM usuario s WHERE s.rol != 'Master' AND s.idConcesionario = " . $idConcesionario . " ORDER BY s.nombre");
                                                                                 }
                                                                             } else {
-                                                                                $usuarios_BD = consulta($conexion, "SELECT * FROM usuario c WHERE s.rol != 'Master' AND c.idConcesionario = " . $usuario_idConcesionario. " ORDER BY rol");
+                                                                                $usuarios_BD = consulta($conexion, "SELECT * FROM usuario s WHERE s.rol != 'Master' AND s.idConcesionario = " . $usuario_idConcesionario. " ORDER BY s.rol");
                                                                             }
 
                                                                             while ($usuario_BD = obtenResultado($usuarios_BD)) {
