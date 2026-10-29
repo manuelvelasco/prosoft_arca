@@ -205,6 +205,7 @@ $ordenamiento = " ORDER BY v.id DESC";
 
         //$vehiculos_BD = consulta($conexion, "SELECT id, marca, modelo, ano, precio, kilometraje, transmision, combustible, imagenPrincipal FROM vehiculo WHERE publicado = 1 " . $restricciones . $ordenamiento . $limitante);
         //$vehiculos_BD = consulta($conexion, "SELECT v.*, c.municipio, (SELECT count(*) from analitica a where a.url like concat('%vehiculo.html?id=', v.id)) as cuantos FROM vehiculo v INNER JOIN concesionario c ON v.idConcesionario = c.id WHERE v.publicado = 1 AND c.habilitado = 1 " . $restricciones . $ordenamiento . $limitante);
+/*
         $vehiculos_BD = consulta($conexion, "SELECT"
                 . " v.id"
                 . ", v.version"
@@ -216,6 +217,19 @@ $ordenamiento = " ORDER BY v.id DESC";
                 . ", v.certificado"
                 . ", v.descuentoEspecial"
                 . ", c.municipio"
+            . " FROM"
+                . " vehiculo v"
+                . " JOIN concesionario c ON c.id = v.idConcesionario"
+            . " WHERE"
+                . " v.eliminado = 0"
+                . " AND v.publicado = 1"
+                . " AND c.habilitado = 1"
+                . $restricciones
+                . $ordenamiento
+                . $limitante);
+*/
+        $vehiculos_BD = consulta($conexion, "SELECT"
+                . " v.*"
             . " FROM"
                 . " vehiculo v"
                 . " JOIN concesionario c ON c.id = v.idConcesionario"
