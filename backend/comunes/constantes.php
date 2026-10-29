@@ -5,7 +5,7 @@
 
     //$constante_rutaConcesionarios = "/Users/mvelasco/Socialware/Proyectos/Web/arca/concesionarios/";
     //$constante_rutaConcesionarios = "/var/www/html/arca/concesionarios/";
-    $constante_directorioComercio = "/home/1678977.cloudwaysapps.com/zxkxdcbsvk/public_html/concesionarios/";
+    $constante_rutaConcesionarios = "/home/1678977.cloudwaysapps.com/zxkxdcbsvk/public_html/concesionarios/";
 
     //$constante_urlConcesionarios = "http://localhost/web/arca/concesionarios/";
     //$constante_urlConcesionarios = "http://54.196.77.109/arca/concesionarios/";
