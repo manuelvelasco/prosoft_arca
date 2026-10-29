@@ -519,7 +519,7 @@
                                     . ", comentariosARCA = '" . $comentariosARCA . "'"
                                     . ", comentariosICV = '" . $comentariosICV . "'"
                                     . ", ejecutivoICV = '" . $ejecutivoICV . "'"
-                                    . ", fechaRecepcionCorreoICV = '" . $fechaRecepcionCorreoICV . "'"
+                                    . ", fechaRecepcionCorreoICV = " . (estaVacio($fechaRecepcionCorreoICV) ? "NULL" : "'" . $fechaRecepcionCorreoICV . "'")
                                     . " WHERE id = " . $id);
 
                                 if (isset($_FILES["archivo_expediente"])) {
