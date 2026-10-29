@@ -374,7 +374,7 @@
                                 $correoNotificacion_BD = consulta($conexion, "SELECT * FROM parametro WHERE nombre = 'delegacionVirtual_generarTramite_correosARCA'");
                                 $correoNotificacion = obtenResultado($correoNotificacion_BD);
 
-                                $titulo = "Nuevo solicitud de trámite";
+                                $titulo = "Nueva solicitud de trámite";
                                 $mensajeCorreo = "Se ha recibido una nueva solicitud de trámite con los siguientes datos:"
                                     . "<br />Id: ". $id 
                                     . "<br />Agencia: ". $concesionario["nombreComercial"]
