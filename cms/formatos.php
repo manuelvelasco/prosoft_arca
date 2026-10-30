@@ -102,7 +102,7 @@
                                                                             echo "<td>" . $formato["archivo"] . "</td>";
                                                                             echo "<td>" . $formato["version"] . "</td>";
                                                                             echo "<td>";
-                                                                                echo "<a download href='https://seminuevosarca.com.mx/formatos/" . $formato["archivo"] . "' target='_blank' title='Descargar'><i class='fa fa-download'></i></a>";
+                                                                                echo "<a download href='https://seminuevosarca.com.mx/formatos/" . $formato["id"] . "/" . $formato["archivo"] . "' target='_blank' title='Descargar'><i class='fa fa-download'></i></a>";
                                                                             echo "</td>";
                                                                         echo "</tr>";
                                                                     }
