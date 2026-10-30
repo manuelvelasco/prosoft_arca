@@ -34,7 +34,7 @@
         while ($concesionario = obtenResultado($concesionarios_BD)) {
             $resultado .= "<concesionario>";
             $resultado .= "<id>" . $concesionario["id"] . "</id>";
-            $resultado .= "<nombre>" . $concesionario["nombre"] . "</nombre>";
+            $resultado .= "<nombreComercial>" . $concesionario["nombreComercial"] . "</nombreComercial>";
             $resultado .= "</concesionario>";
         }
 

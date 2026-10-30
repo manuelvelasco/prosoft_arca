@@ -2205,9 +2205,9 @@
 
                     $(resultado).find("concesionario").each(function (index) {
                         var id = $(this).find("id").text();
-                        var nombre = $(this).find("nombre").text();
+                        var nombreComercial = $(this).find("nombreComercial").text();
 
-                        $("#campo_idConcesionario").append("<option " + (idConcesionario == id ? "selected" : "") + " value='" + id + "'>" + nombre + "</option>");
+                        $("#campo_idConcesionario").append("<option " + (idConcesionario == id ? "selected" : "") + " value='" + id + "'>" + nombreComercial + "</option>");
                     });
 
                     $("#campo_idConcesionario").select2("destroy");
