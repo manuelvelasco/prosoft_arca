@@ -136,6 +136,10 @@
                     $mensaje .= "* Mensajero<br />";
                 }
 
+                if (estaVacio($comentariosConcesionario)) {
+                    $mensaje .= "* Comentarios Agencia<br />";
+                }
+
                 if (estaVacio($vehiculo_marca)) {
                     $mensaje .= "* Marca<br />";
                 }
@@ -1478,7 +1482,7 @@
                                                     <hr />
 
                                                     <div class="row">
-                                                        <?php if(!estaVacio($id)){ ?>
+                                                        <?php if(!estaVacio($id)) { ?>
                                                             <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 mb-10 mb-10 hideClonacion">
                                                                 <div class="row">
                                                                     <div class="col-12">
@@ -1539,24 +1543,6 @@
                                                                         <label class="form-label col-md-4" for="campo_idConcesionario">Agencia <span class="text-danger">*</span></label>
                                                                         <div class="col-md-8">
                                                                             <select class="form-control select2-show-search form-select" data-placeholder="Elige" id="campo_idConcesionario" name="idConcesionario" <?php echo $habilitar_campo_idConcesionario ? "" : "disabled" ?>>
-                                                                                <option <?php echo estaVacio($idConcesionario) ? "selected" : "" ?> value="">Seleccione</option>
-                                                                                <?php
-
-                                                                                    if ($esUsuarioMaster || $esUsuarioAdministrador) {
-                                                                                        
-                                                                                        $concesionarios_BD = consulta($conexion, "SELECT * FROM concesionario WHERE habilitado = 1 and eliminado = 0 ORDER BY nombreComercial");
-
-                                                                                    }else{
-
-                                                                                        $concesionarios_BD = consulta($conexion, "SELECT * FROM concesionario c WHERE c.id = " . $usuario_idConcesionario. " ORDER BY nombreComercial");
-                                                                                        $concesionario = $usuario_idConcesionario;
-
-                                                                                    }
-
-                                                                                    while ($concesionarioBD = obtenResultado($concesionarios_BD)) {
-                                                                                        echo "<option " . (!estaVacio($idConcesionario) && $idConcesionario == $concesionarioBD["id"] ? "selected" : "") . " value='" . $concesionarioBD["id"] . "'>" . $concesionarioBD["nombreComercial"] . "</option>";
-                                                                                    }
-                                                                                ?>
                                                                             </select>
                                                                         </div>
                                                                     </div>
@@ -1564,7 +1550,7 @@
                                                             </div>
                                                         </div>
 
-                                                        <?php if(!estaVacio($id)){ ?>
+                                                        <?php if(!estaVacio($id)) { ?>
                                                             <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 mb-10 hideClonacion">
                                                                 <div class="row">
                                                                     <div class="col-12">
@@ -1577,7 +1563,7 @@
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                        <?php }?>
+                                                        <?php } ?>
 
                                                         <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 mb-10">
                                                             <div class="row">
@@ -1586,23 +1572,6 @@
                                                                         <label class="form-label col-md-4" for="campo_idMensajero">Mensajero <span class="text-danger">*</span></label>
                                                                         <div class="col-md-8">
                                                                             <select class="form-control select2-show-search form-select" data-placeholder="Elige" id="campo_idMensajero" name="idMensajero" <?php echo $habilitar_campo_idMensajero ? "" : "disabled" ?>>
-                                                                                <option <?php echo estaVacio($idMensajero) ? "selected" : "" ?> value="">Seleccione</option>
-                                                                                <?php
-
-                                                                                    // Arma restricciones
-
-                                                                                    $restricciones = "";
-
-                                                                                    if (!estaVacio($usuario_idConcesionario)) {
-                                                                                        $restricciones .= " AND id IN (SELECT idMensajero FROM mensajero_concesionario WHERE idConcesionario = " . $usuario_idConcesionario . ")";
-                                                                                    }
-
-                                                                                    $mensajeros_BD = consulta($conexion, "SELECT * FROM mensajero WHERE habilitado = 1 AND eliminado = 0 " . $restricciones . " ORDER BY nombre, apellidoPaterno, apellidoMaterno");
-
-                                                                                    while ($mensajeroBD = obtenResultado($mensajeros_BD)) {
-                                                                                        echo "<option " . (!estaVacio($idMensajero) && $idMensajero == $mensajeroBD["id"] ? "selected" : "") . " value='" . $mensajeroBD["id"] . "'>" . $mensajeroBD["nombre"] . " " . $mensajeroBD["apellidoPaterno"] . " " . $mensajeroBD["apellidoMaterno"] . "</option>";
-                                                                                    }
-                                                                                ?>
                                                                             </select>
                                                                         </div>
                                                                     </div>
@@ -1614,7 +1583,7 @@
                                                             <div class="row">
                                                                 <div class="col-12">
                                                                     <div class="row mb-20">
-                                                                        <label class="form-label col-md-1" for="campo_comentariosConcesionario">Comentarios Agencia </label>
+                                                                        <label class="form-label col-md-1" for="campo_comentariosConcesionario">Comentarios Agencia <span class="text-danger">*</span></label>
                                                                         <div class="col-md-11">
                                                                             <textarea class="form-control" id="campo_comentariosConcesionario" name="comentariosConcesionario" rows="2" <?php echo $habilitar_campo_comentariosConcesionario ? "" : "readonly" ?>><?php echo $comentariosConcesionario ?></textarea>
                                                                         </div>
@@ -1622,6 +1591,7 @@
                                                                 </div>
                                                             </div>
                                                         </div>
+
                                                         <?php if(!estaVacio($id)){ ?>
                                                             <div class="col-md-12 col-sm-12 col-xs-12 mb-10 hideClonacion">
                                                                 <div class="row">
@@ -1636,7 +1606,6 @@
                                                                 </div>
                                                             </div>
                                                         <?php } ?>
-
                                                     </div>
                                                 </div>
                                             </div>
@@ -2079,31 +2048,31 @@
                                                 <a class="btn btn-default mb-3" href="javascript:void(0)" id="boton_cerrar">Cerrar</a>
 
                                                 <?php if ($habilitar_boton_guardar) { ?>
-                                                    <button class="btn btn-success mb-3"  id="boton_guardar" onclick="return confirm('¿Desea dar de alta este trámite?');" type="submit" >Generar trámite</button>
+                                                    <button class="btn btn-success mb-3"  id="boton_guardar" onclick="return confirm('¿Desea dar de alta este trámite?');" style="background-color: #2d146f; color: #fff" type="submit" >Generar trámite</button>
                                                 <?php } ?>
 
                                                 <?php if ($habilitar_boton_enviarICV) { ?>
-                                                    <a class="btn btn-default mb-3"  href="javascript:;" id="boton_enviar_icv" onclick="enviarICV()">Enviar a ICV</a>
+                                                    <a class="btn btn-default mb-3"  href="javascript:;" id="boton_enviar_icv" onclick="enviarICV()" style="background-color: #fb8402; color: #fff">Enviar a ICV</a>
                                                 <?php }?>
 
                                                 <?php if ($habilitar_boton_reenviarARCA) { ?>
-                                                    <a class="btn btn-default mb-3"  href="javascript:;" id="boton_reenviar_arca" onclick="reenviarArca()">Reenviar a ARCA</a>
+                                                    <a class="btn btn-default mb-3"  href="javascript:;" id="boton_reenviar_arca" onclick="reenviarArca()" style="background-color: #2d146f; color: #fff">Reenviar a ARCA</a>
                                                 <?php }?>
 
                                                 <?php if ($habilitar_boton_regresarAgencia) { ?>
-                                                    <a class="btn btn-default mb-3"  href="javascript:;" id="boton_regresar_agencia" onclick="regresarAAgencia()">Regresar a Agencia</a>
+                                                    <a class="btn btn-default mb-3"  href="javascript:;" id="boton_regresar_agencia" onclick="regresarAAgencia()" style="background-color: #ebc807; color: #fff">Regresar a Agencia</a>
                                                 <?php } ?>
 
                                                 <?php if ($habilitar_boton_rechazado) { ?>
-                                                    <a class="btn btn-default mb-3"  href="javascript:;" id="boton_rechazado" onclick="rechazado()">Rechazado</a>
+                                                    <a class="btn btn-default mb-3"  href="javascript:;" id="boton_rechazado" onclick="rechazado()" style="background-color: #e20000; color: #fff">Rechazado</a>
                                                 <?php }?>
 
                                                 <?php if ($habilitar_boton_clonarTramite) { ?>
-                                                    <a class="btn btn-default mb-3"  href="javascript:;" id="boton_clonar_tramite" onclick="clonar()">Clonar trámite</a>
+                                                    <a class="btn btn-default mb-3"  href="javascript:;" id="boton_clonar_tramite" onclick="clonar()" style="background-color: #5ce1e6; color: #fff">Clonar trámite</a>
                                                 <?php }?>
 
                                                 <?php if ($habilitar_boton_aprobado) { ?>
-                                                    <a class="btn btn-default mb-3"  href="javascript:;" id="boton_aprobado" onclick="aprobado()">Aprobado</a>
+                                                    <a class="btn btn-default mb-3"  href="javascript:;" id="boton_aprobado" onclick="aprobado()" style="background-color: #00ae3a; color: #fff">Aprobado</a>
                                                 <?php }?>
 
                                                 <?php if ($habilitar_boton_guardarComprobantePago) { ?>
@@ -2111,11 +2080,11 @@
                                                 <?php }?>
 
                                                 <?php if ($habilitar_boton_aprobado) { ?>
-                                                    <a class="btn btn-default mb-3"  href="javascript:;" id="boton_aprobarConBiometricos" onclick="aprobarConBiometricos()">Aprobado con biométricos</a>
+                                                    <a class="btn btn-default mb-3"  href="javascript:;" id="boton_aprobarConBiometricos" onclick="aprobarConBiometricos()" style="background-color: #5170ff; color: #fff">Aprobado con biométricos</a>
                                                 <?php }?>
 
                                                 <?php if ($habilitar_boton_cancelarTramite) { ?>
-                                                    <a class="btn btn-default mb-3" href="javascript:;" id="boton_cancelarTramite" onclick="cancelarTramite()">Cancelar trámite</a>
+                                                    <a class="btn btn-default mb-3" href="javascript:;" id="boton_cancelarTramite" onclick="cancelarTramite()" style="background-color: #432918; color: #fff">Cancelar trámite</a>
                                                 <?php }?>
                                             </div>
                                         </div>
@@ -2175,6 +2144,8 @@
                 });
 
 */
+
+                cargaConcesionarios();
                 cargaMarcas();
 
                 // Inicializa tabla de resultados
@@ -2216,8 +2187,66 @@
             });
 
 
-            function cargaMarcas(){
+            function cargaConcesionarios() {
                 $.LoadingOverlay("show", { minSize: 30, maxSize: 30 });
+
+                var idConcesionario = "<?php echo $esUsuarioMaster || $esUsuarioAdministrador ? "" : $usuario_idConcesionario ?>";
+
+                $.ajax({
+                    url: "socialware/php/ajax/cargaConcesionarios.php",
+                    type: "post",
+                    data: {
+                        idConcesionario: idConcesionario
+                    }
+                }).done(function (resultado, textStatus, jqXHR) {
+                    $("#campo_idConcesionario").append("<option value=''>Seleccione</option>");
+
+                    var idConcesionario = "<?php echo $idConcesionario; ?>";
+
+                    $(resultado).find("concesionario").each(function (index) {
+                        var id = $(this).find("id").text();
+                        var nombre = $(this).find("nombre").text();
+
+                        $("#campo_idConcesionario").append("<option " + (idConcesionario == id ? "selected" : "") + " value='" + id + "'>" + nombre + "</option>");
+                    });
+
+                    $("#campo_idConcesionario").select2("destroy");
+                    $("#campo_idConcesionario").select2();
+
+                    cargaMensajeros();
+                });
+            }
+
+
+            function cargaMensajeros() {
+                var idConcesionario = $("#campo_idConcesionario option:selected").attr("data-id");
+
+                $.ajax({
+                    url: "socialware/php/ajax/cargaMensajeros.php",
+                    type: "post",
+                    data: {
+                        idConcesionario: idConcesionario
+                    }
+                }).done(function (resultado, textStatus, jqXHR) {
+                    $("#campo_idMensajero").html("<option value=''>Seleccione</option>");
+
+                    var idMensajero = "<?php echo $idMensajero; ?>";
+
+                    $(resultado).find("mensajero").each(function (index) {
+                        var id = $(this).find("id").text();
+                        var nombre = $(this).find("nombre").text();
+
+                        $("#campo_idMensajero").append("<option " + (idMensajero == id ? "selected" : "") + " value='" + id + "'>" + nombre + "</option>");
+                    });
+
+                    $("#campo_idMensajero").select2("destroy");
+                    $("#campo_idMensajero").select2();
+                });
+            }
+
+
+            function cargaMarcas() {
+                //$.LoadingOverlay("show", { minSize: 30, maxSize: 30 });
 
                 $.ajax({
                     url: "socialware/php/ajax/cargaMarcas.php",
@@ -2275,7 +2304,7 @@
             }
 
 
-            function cargaAnos(){
+            function cargaAnos() {
                 var idMarca = $("#campo_vehiculo_marca option:selected").attr("data-id");
                 var idModelo = $("#campo_vehiculo_modelo option:selected").attr("data-id");
 
@@ -2303,6 +2332,11 @@
                     $.LoadingOverlay("hide");
                 });
             }
+
+
+            $("#campo_idConcesionario").on("change", function() {
+                cargaMensajeros();
+            });
 
 
             $("#campo_vehiculo_marca").on("change", function() {
