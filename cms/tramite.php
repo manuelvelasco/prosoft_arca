@@ -2219,7 +2219,7 @@
 
 
             function cargaMensajeros() {
-                var idConcesionario = $("#campo_idConcesionario option:selected").attr("data-id");
+                var idConcesionario = $("#campo_idConcesionario option:selected").val();
 
                 $.ajax({
                     url: "socialware/php/ajax/cargaMensajeros.php",
