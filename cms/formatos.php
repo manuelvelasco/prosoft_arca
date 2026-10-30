@@ -173,6 +173,7 @@
                     ],
                     dom: "rt",
                     bDestroy: true,
+                    order: [[0, 'desc']],
                     paging: false,
                     //pageLength: (paginacion ? "10" : "0"),
                     language: {
