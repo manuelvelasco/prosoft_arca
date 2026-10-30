@@ -2048,31 +2048,31 @@
                                                 <a class="btn btn-default mb-3" href="javascript:void(0)" id="boton_cerrar">Cerrar</a>
 
                                                 <?php if ($habilitar_boton_guardar) { ?>
-                                                    <button class="btn btn-success mb-3"  id="boton_guardar" onclick="return confirm('¿Desea dar de alta este trámite?');" style="background-color: #2d146f; color: #fff" type="submit" >Generar trámite</button>
+                                                    <button class="btn btn-success mb-3"  id="boton_guardar" onclick="return confirm('¿Desea dar de alta este trámite?');" style="background-color: #2d146f; color: #fff !important" type="submit" >Generar trámite</button>
                                                 <?php } ?>
 
                                                 <?php if ($habilitar_boton_enviarICV) { ?>
-                                                    <a class="btn btn-default mb-3"  href="javascript:;" id="boton_enviar_icv" onclick="enviarICV()" style="background-color: #fb8402; color: #fff">Enviar a ICV</a>
+                                                    <a class="btn btn-default mb-3"  href="javascript:;" id="boton_enviar_icv" onclick="enviarICV()" style="background-color: #fb8402; color: #fff !important">Enviar a ICV</a>
                                                 <?php }?>
 
                                                 <?php if ($habilitar_boton_reenviarARCA) { ?>
-                                                    <a class="btn btn-default mb-3"  href="javascript:;" id="boton_reenviar_arca" onclick="reenviarArca()" style="background-color: #2d146f; color: #fff">Reenviar a ARCA</a>
+                                                    <a class="btn btn-default mb-3"  href="javascript:;" id="boton_reenviar_arca" onclick="reenviarArca()" style="background-color: #2d146f; color: #fff !important">Reenviar a ARCA</a>
                                                 <?php }?>
 
                                                 <?php if ($habilitar_boton_regresarAgencia) { ?>
-                                                    <a class="btn btn-default mb-3"  href="javascript:;" id="boton_regresar_agencia" onclick="regresarAAgencia()" style="background-color: #ebc807; color: #fff">Regresar a Agencia</a>
+                                                    <a class="btn btn-default mb-3"  href="javascript:;" id="boton_regresar_agencia" onclick="regresarAAgencia()" style="background-color: #ebc807; color: #fff !important">Regresar a Agencia</a>
                                                 <?php } ?>
 
                                                 <?php if ($habilitar_boton_rechazado) { ?>
-                                                    <a class="btn btn-default mb-3"  href="javascript:;" id="boton_rechazado" onclick="rechazado()" style="background-color: #e20000; color: #fff">Rechazado</a>
+                                                    <a class="btn btn-default mb-3"  href="javascript:;" id="boton_rechazado" onclick="rechazado()" style="background-color: #e20000; color: #fff !important">Rechazado</a>
                                                 <?php }?>
 
                                                 <?php if ($habilitar_boton_clonarTramite) { ?>
-                                                    <a class="btn btn-default mb-3"  href="javascript:;" id="boton_clonar_tramite" onclick="clonar()" style="background-color: #5ce1e6; color: #fff">Clonar trámite</a>
+                                                    <a class="btn btn-default mb-3"  href="javascript:;" id="boton_clonar_tramite" onclick="clonar()" style="background-color: #5ce1e6; color: #fff !important">Clonar trámite</a>
                                                 <?php }?>
 
                                                 <?php if ($habilitar_boton_aprobado) { ?>
-                                                    <a class="btn btn-default mb-3"  href="javascript:;" id="boton_aprobado" onclick="aprobado()" style="background-color: #00ae3a; color: #fff">Aprobado</a>
+                                                    <a class="btn btn-default mb-3"  href="javascript:;" id="boton_aprobado" onclick="aprobado()" style="background-color: #00ae3a; color: #fff !important">Aprobado</a>
                                                 <?php }?>
 
                                                 <?php if ($habilitar_boton_guardarComprobantePago) { ?>
@@ -2080,11 +2080,11 @@
                                                 <?php }?>
 
                                                 <?php if ($habilitar_boton_aprobado) { ?>
-                                                    <a class="btn btn-default mb-3"  href="javascript:;" id="boton_aprobarConBiometricos" onclick="aprobarConBiometricos()" style="background-color: #5170ff; color: #fff">Aprobado con biométricos</a>
+                                                    <a class="btn btn-default mb-3"  href="javascript:;" id="boton_aprobarConBiometricos" onclick="aprobarConBiometricos()" style="background-color: #5170ff; color: #fff !important">Aprobado con biométricos</a>
                                                 <?php }?>
 
                                                 <?php if ($habilitar_boton_cancelarTramite) { ?>
-                                                    <a class="btn btn-default mb-3" href="javascript:;" id="boton_cancelarTramite" onclick="cancelarTramite()" style="background-color: #432918; color: #fff">Cancelar trámite</a>
+                                                    <a class="btn btn-default mb-3" href="javascript:;" id="boton_cancelarTramite" onclick="cancelarTramite()" style="background-color: #432918; color: #fff !important">Cancelar trámite</a>
                                                 <?php }?>
                                             </div>
                                         </div>
