@@ -71,9 +71,11 @@
 
             $esSubmit = sanitiza($conexion, filter_input(INPUT_POST, "esSubmit"));
             $id = sanitiza($conexion, filter_input(INPUT_GET, "id"));
-            if($esSubmit == 1){
+
+            if ($esSubmit == 1) {
                 $id = sanitiza($conexion, filter_input(INPUT_POST, "id"));
             }
+
             $habilitado = sanitiza($conexion, filter_input(INPUT_POST, "habilitado"));
             $eliminado = sanitiza($conexion, filter_input(INPUT_POST, "eliminado"));
             $nombre = sanitiza($conexion, filter_input(INPUT_POST, "nombre"));
@@ -88,12 +90,11 @@
             $colonia = sanitiza($conexion, filter_input(INPUT_POST, "colonia"));
             $estado = sanitiza($conexion, filter_input(INPUT_POST, "estado"));
             $municipio = sanitiza($conexion, filter_input(INPUT_POST, "municipio"));
-            if(isset($_POST["idConcesionario"])){
+
+            if (isset($_POST["idConcesionario"])) {
                 $idConcesionarioArray = $_POST["idConcesionario"];
                 $idConcesionarioLista = implode(",",$_POST["idConcesionario"]);
             }
-
-
 
             // Parametros enviados por origen
 
@@ -177,9 +178,9 @@
                         if (!estaVacio($mensaje)) {
                             $mensaje = "Proporcione los siguientes datos:<br /><br />" . $mensaje;
                         } else {
-                            $usuario_BD = consulta($conexion, "SELECT id FROM mensajero WHERE curp = '" . $curp . "'");
+                            $mensajero_BD = consulta($conexion, "SELECT id FROM mensajero WHERE curp = '" . $curp . "'");
 
-                            if (cuentaResultados($usuario_BD) > 0) {
+                            if (cuentaResultados($mensajero_BD) > 0) {
                                 $mensaje = "El mensajero ya se encuentra registrado en la base de datos";
                             } else {
                                 consulta($conexion, "INSERT INTO mensajero ("
@@ -212,7 +213,7 @@
                                         . ", '" . $municipio . "'"
                                     . ")");
 
-                                $mensajero_BD = consulta($conexion, "SELECT * FROM mensajero WHERE correoElectronico = '" . $correoElectronico . "'");
+                                $mensajero_BD = consulta($conexion, "SELECT * FROM mensajero WHERE curp = '" . $curp . "'");
                                 $mensajero = obtenResultado($mensajero_BD);
 
                                 $id = $mensajero["id"];
@@ -233,7 +234,7 @@
 
                                 consulta($conexion, "DELETE FROM mensajero_concesionario WHERE idMensajero = " . $id);
 
-                                for($i = 0; $i < count($idConcesionarioArray); $i++){
+                                for ($i = 0; $i < count($idConcesionarioArray); $i++) {
                                     consulta($conexion, "INSERT INTO mensajero_concesionario ("
                                         . "idMensajero"
                                         . ", idConcesionario"
@@ -295,7 +296,7 @@
 
                         consulta($conexion, "DELETE FROM mensajero_concesionario WHERE idMensajero = " . $id);
 
-                        for($i = 0; $i < count($idConcesionarioArray); $i++){
+                        for ($i = 0; $i < count($idConcesionarioArray); $i++) {
                             consulta($conexion, "INSERT INTO mensajero_concesionario ("
                                 . "idMensajero"
                                 . ", idConcesionario"
@@ -495,10 +496,10 @@
 
                                                                                     while ($concesionarioBD = obtenResultado($concesionarios_BD)) {
                                                                                         $arrayIdConcesionario = explode(",", $idConcesionarioLista);
-                                                                                        if(in_array($concesionarioBD["id"], $arrayIdConcesionario)){
-                                                                                            echo "<option selected value='" . $concesionarioBD["id"] . "'>" . $concesionarioBD["nombreComercial"] . "</option>";
 
-                                                                                        }else{
+                                                                                        if (in_array($concesionarioBD["id"], $arrayIdConcesionario)) {
+                                                                                            echo "<option selected value='" . $concesionarioBD["id"] . "'>" . $concesionarioBD["nombreComercial"] . "</option>";
+                                                                                        } else {
                                                                                             echo "<option value='" . $concesionarioBD["id"] . "'>" . $concesionarioBD["nombreComercial"] . "</option>";
                                                                                         }
                                                                                     }
