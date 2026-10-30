@@ -2045,7 +2045,7 @@
                                         <div class="col-md-10 col-sm-9" id="contenedor_botonesDerechos">
                                             <div class="form-group">
                                                 <input id="campo_accion" name="accion" type="hidden" value="<?php echo $accion; ?>" />
-                                                <a class="btn btn-default mb-3" href="javascript:void(0)" id="boton_cerrar">Cerrar</a>
+                                                <a class="btn btn-default mb-3" href="javascript:void(0)" id="boton_cerrar" style="color: #fff !important">Cerrar</a>
 
                                                 <?php if ($habilitar_boton_guardar) { ?>
                                                     <button class="btn btn-success mb-3"  id="boton_guardar" onclick="return confirm('¿Desea dar de alta este trámite?');" style="background-color: #2d146f; color: #fff !important" type="submit" >Generar trámite</button>
@@ -2076,7 +2076,7 @@
                                                 <?php }?>
 
                                                 <?php if ($habilitar_boton_guardarComprobantePago) { ?>
-                                                    <a class="btn btn-success mb-3"  href="javascript:;" id="boton_guardarComprobantePago" onclick="submit()">Guardar</a>
+                                                    <a class="btn btn-success mb-3"  href="javascript:;" id="boton_guardarComprobantePago" onclick="submit()" style="color: #fff !important">Guardar</a>
                                                 <?php }?>
 
                                                 <?php if ($habilitar_boton_aprobado) { ?>
