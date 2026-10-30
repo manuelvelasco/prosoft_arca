@@ -177,7 +177,7 @@
                 }
 
                 if ((!estaVacio($id)) && ($accion == "Devuelto a la agencia")) {
-                    if(estaVacio($comentariosARCA)){
+                    if (estaVacio($comentariosARCA)){
                         $mensaje .= "* Comentarios ARCA<br />";
                     }
                 }
@@ -189,15 +189,15 @@
                 }
 
                 if ((!estaVacio($id)) && (($accion == "Aprobado") || ($accion == "Rechazado"))) {
-                    if(estaVacio($ejecutivoICV)){
+                    if (estaVacio($ejecutivoICV)){
                         $mensaje .= "* Ejecutivo ICV<br />";
                     }
 
-                    if(estaVacio($fechaRecepcionCorreoICV)){
+                    if (estaVacio($fechaRecepcionCorreoICV)){
                         $mensaje .= "* Fecha y hora en la que se recibió correo de ICV<br />";
                     }
 
-                    if(estaVacio($comentariosICV)){
+                    if (estaVacio($comentariosICV)){
                         $mensaje .= "* Comentarios ICV<br />";
                     }
                 }
@@ -208,6 +208,28 @@
                     }
 
                     if (!(isset($_FILES['archivo_solicitudICV']) && $_FILES['archivo_solicitudICV']['error'] === UPLOAD_ERR_OK)) {
+                        $mensaje .= "* PDF de la solicitud de ICV <br />";
+                    }
+                }
+
+                if ((!estaVacio($id)) && ($accion == "Aprobado con biométricos")) {
+                    if (estaVacio($folioICV)) {
+                        $mensaje .= "* Folio ICV<br />";
+                    }
+
+                    if (estaVacio($fechaRecepcionCorreoICV)) {
+                        $mensaje .= "* Fecha y hora en la que se recibió correo de ICV<br />";
+                    }
+
+                    if (estaVacio($ejecutivoICV)) {
+                        $mensaje .= "* Ejecutivo ICV<br />";
+                    }
+
+                    if (estaVacio($comentariosICV)) {
+                        $mensaje .= "* Comentarios ICV<br />";
+                    }
+
+                    if (!(isset($_FILES["archivo_solicitudICV"]) && $_FILES["archivo_solicitudICV"]["error"] === UPLOAD_ERR_OK)) {
                         $mensaje .= "* PDF de la solicitud de ICV <br />";
                     }
                 }
@@ -1483,7 +1505,7 @@
                                                     <hr />
 
                                                     <div class="row">
-                                                        <?php if(!estaVacio($id)) { ?>
+                                                        <?php if (!estaVacio($id)) { ?>
                                                             <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 mb-10 mb-10 hideClonacion">
                                                                 <div class="row">
                                                                     <div class="col-12">
@@ -1551,7 +1573,7 @@
                                                             </div>
                                                         </div>
 
-                                                        <?php if(!estaVacio($id)) { ?>
+                                                        <?php if (!estaVacio($id)) { ?>
                                                             <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 mb-10 hideClonacion">
                                                                 <div class="row">
                                                                     <div class="col-12">
@@ -1593,7 +1615,7 @@
                                                             </div>
                                                         </div>
 
-                                                        <?php if(!estaVacio($id)){ ?>
+                                                        <?php if (!estaVacio($id)) { ?>
                                                             <div class="col-md-12 col-sm-12 col-xs-12 mb-10 hideClonacion">
                                                                 <div class="row">
                                                                     <div class="col-12">
@@ -1869,7 +1891,7 @@
                                         </div>
                                     </div>
 
-                                    <?php if(!estaVacio($id)){ ?>
+                                    <?php if (!estaVacio($id)) { ?>
                                         <div class="row" id="seccionICV">
                                             <div class="col-12">
                                                 <div class="card">
@@ -2259,7 +2281,7 @@
 
                     var json = jQuery.parseJSON(resultado);
 
-                    $.each(json.data,function(i,nodo){
+                    $.each(json.data,function(i,nodo) {
                         if (marca == nodo.name) {
                             contenido += "<option value='" + nodo.name + "' data-id='" + nodo.id + "' selected>" + nodo.name + "</option>";
                         } else {
@@ -2287,7 +2309,7 @@
 
                     var json = jQuery.parseJSON(resultado);
 
-                    $.each(json.data,function(i,nodo){
+                    $.each(json.data,function(i,nodo) {
                         if (modelo == nodo.name) {
                             contenido += "<option value='" + nodo.name + "' data-id='" + nodo.id + "' selected>" + nodo.name + "</option>";
                         } else {
@@ -2319,7 +2341,7 @@
 
                     var json = jQuery.parseJSON(resultado);
 
-                    $.each(json.data,function(i,nodo){
+                    $.each(json.data,function(i,nodo) {
                         if (ano == nodo.name) {
                             contenido += "<option value='" + nodo.name + "' data-id='" + nodo.id + "' selected>" + nodo.name + "</option>";
                         } else {
