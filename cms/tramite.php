@@ -401,9 +401,13 @@
                                 $correoNotificacion_BD = consulta($conexion, "SELECT * FROM parametro WHERE nombre = 'delegacionVirtual_generarTramite_correosARCA'");
                                 $correoNotificacion = obtenResultado($correoNotificacion_BD);
 
-                                $titulo = "Nueva solicitud de trámite";
+                                //$titulo = "Nueva solicitud de trámite";
+                                $titulo = "ARCA - " . $folioARCA . " - " . $concesionario["nombreComercial"] . " - " . trim($cliente_nombre . " " . $cliente_apellidoPaterno . " " . $cliente_apellidoMaterno) . " - NUEVO";
+
                                 $mensajeCorreo = "Se ha recibido una nueva solicitud de trámite con los siguientes datos:"
-                                    . "<br />Id: ". $id 
+                                    . "<br />Id: ". $id
+                                    . "<br />Folio ARCA: ". $folioARCA
+                                    . "<br />Estatus: ". $status
                                     . "<br />Agencia: ". $concesionario["nombreComercial"]
                                     . "<br />Usuario capturó: " . $usuario_nombre
                                     . "<br />Mensajero: " . $mensajero["nombre"] . " " . $mensajero["apellidoPaterno"] . " " . $mensajero["apellidoMaterno"]
@@ -499,9 +503,13 @@
 
                                     $correoNotificar = obtenResultado(consulta($conexion, "SELECT * FROM parametro WHERE nombre = 'delegacionVirtual_cargarComprobantePago_correosARCA'"))["valor"];
 
-                                    $titulo = "Carga de comprobante de pago";
-                                    $mensajeCorreo = "Se ha cargado el comprobante de pago del trámite con los siguientes datos:"
+                                    //$titulo = "Carga de comprobante de pago";
+                                    $titulo = "ARCA - " . $folioARCA . " - " . $concesionario["nombreComercial"] . " - " . trim($cliente_nombre . " " . $cliente_apellidoPaterno . " " . $cliente_apellidoMaterno) . " - COMPROBANTE DE PAGO CARGADO";
+
+                                    $mensajeCorreo = "Se ha actualizado la solicitud de trámite con los siguientes datos, favor de ingresar al sistema para ver los detalles:"
                                         . "<br /><br />Id: ". $id 
+                                        . "<br />Folio ARCA: ". $folioARCA
+                                        . "<br />Estatus: ". $status
                                         . "<br />Agencia: ". $concesionario["nombreComercial"]
                                         . "<br />Usuario capturó: " . $usuario_nombre
                                         . "<br />Mensajero: " . $mensajero["nombre"] . " " . $mensajero["apellidoPaterno"] . " " . $mensajero["apellidoMaterno"]
@@ -514,13 +522,12 @@
                                         . "<br />VIN: ". $vehiculo_vin
                                         . "<br />Número de placa: " . $vehiculo_placa
                                         . "<br />Nombre Cliente: ". $cliente_nombre . " " . $cliente_apellidoPaterno . " " . $cliente_apellidoMaterno
-                                        . "<br />Correo Cliente: ". $cliente_correoElectronico
-                                        . "<br />";
+                                        . "<br />Correo Cliente: ". $cliente_correoElectronico;
 
                                     $archivoCorreo = $constante_rutaTramites . "/" . $id . "/" . $archivo_comprobantePago;
 
                                     //$enviaCorreo = enviaCorreoMailjet($correoNotificar, null, $titulo, $mensajeCorreo, $archivoCorreo);
-                                    $enviaCorreo = enviaCorreoMailjet($correoNotificar, null, $titulo, $mensajeCorreo, $archivoCorreo, "delegacionvirtual@seminuevosarca.com.mx");
+$enviaCorreo = enviaCorreoMailjet($correoNotificar, null, $titulo, $mensajeCorreo, $archivoCorreo, "delegacionvirtual@seminuevosarca.com.mx");
                                 } catch (Exception $e) {
                                 }
                             } else {
@@ -659,13 +666,16 @@
                                     $archivoCorreo = null;
 
                                     switch ($accion) {
-                                        case  "Devuelto a la agencia":
+                                        case "Devuelto a la agencia":
                                             $correoNotificar = $usuarioCapturo["correoElectronico"];
 
-                                            $titulo = "Actualización de trámite";
-                                            $mensajeCorreo = "Se ha actualizado la solicitud de trámite con los siguientes datos:"
+                                            //$titulo = "Actualización de trámite";
+                                            $titulo = "ARCA - " . $folioARCA . " - " . $concesionario["nombreComercial"] . " - " . trim($cliente_nombre . " " . $cliente_apellidoPaterno . " " . $cliente_apellidoMaterno) . " - ACTUALIZACION";
+
+                                            $mensajeCorreo = "Se ha actualizado la solicitud de trámite con los siguientes datos, favor de ingresar al sistema para ver los detalles:"
                                                 . "<br /><br />Id: ". $id 
-                                                . "<br />Comentarios ARCA: ". $comentariosARCA
+                                                . "<br />Folio ARCA: ". $folioARCA
+                                                . "<br />Estatus: ". $status
                                                 . "<br />Marca: ". $vehiculo_marca
                                                 . "<br />Modelo: ". $vehiculo_modelo
                                                 . "<br />Año: ". $vehiculo_ano
@@ -673,16 +683,21 @@
                                                 . "<br />VIN: ". $vehiculo_vin
                                                 . "<br />Número de placa: " . $vehiculo_placa
                                                 . "<br />Nombre Cliente: ". $cliente_nombre . " " . $cliente_apellidoPaterno . " " . $cliente_apellidoMaterno
-                                                . "<br />Correo Cliente: ". $cliente_correoElectronico
-                                                . "<br />";
+                                                . "<br />Correo Cliente: ". $cliente_correoElectronico;
+
+                                            $enviaCorreo = enviaCorreoMailjet($correoNotificar, $correoNotificarCopia, $titulo, $mensajeCorreo, null, "delegacionvirtual@seminuevosarca.com.mx");
 
                                             break;
-                                        case  "Reenviado a ARCA":
+                                        case "Reenviado a ARCA":
                                             $correoNotificar = obtenResultado(consulta($conexion, "SELECT * FROM parametro WHERE nombre = 'delegacionVirtual_reenviarTramiteARCA_correosARCA'"))["valor"];
 
-                                            $titulo = "Actualización de trámite";
-                                            $mensajeCorreo = "Se ha actualizado la solicitud de trámite con los siguientes datos:"
+                                            //$titulo = "Actualización de trámite";
+                                            $titulo = "ARCA - " . $folioARCA . " - " . $concesionario["nombreComercial"] . " - " . trim($cliente_nombre . " " . $cliente_apellidoPaterno . " " . $cliente_apellidoMaterno) . " - ACTUALIZACION";
+
+                                            $mensajeCorreo = "Se ha actualizado la solicitud de trámite con los siguientes datos, favor de ingresar al sistema para ver los detalles:"
                                                 . "<br /><br />Id: ". $id 
+                                                . "<br />Folio ARCA: ". $folioARCA
+                                                . "<br />Estatus: ". $status
                                                 . "<br />Agencia: ". $concesionario["nombreComercial"]
                                                 . "<br />Usuario capturó: " . $usuario_nombre
                                                 . "<br />Mensajero: " . $mensajero["nombre"] . " " . $mensajero["apellidoPaterno"] . " " . $mensajero["apellidoMaterno"]
@@ -695,11 +710,14 @@
                                                 . "<br />VIN: ". $vehiculo_vin
                                                 . "<br />Número de placa: " . $vehiculo_placa
                                                 . "<br />Nombre Cliente: ". $cliente_nombre . " " . $cliente_apellidoPaterno . " " . $cliente_apellidoMaterno
-                                                . "<br />Correo Cliente: ". $cliente_correoElectronico
-                                                . "<br />";
+                                                . "<br />Correo Cliente: ". $cliente_correoElectronico;
+
+                                            $archivoCorreo = $constante_rutaTramites . "/" . $id . "/" . $archivo_expediente;
+
+                                            $enviaCorreo = enviaCorreoMailjet($correoNotificar, $correoNotificarCopia, $titulo, $mensajeCorreo, $archivoCorreo, "delegacionvirtual@seminuevosarca.com.mx");
 
                                             break;
-                                        case  "A la espera de respuesta de ICV":
+                                        case "A la espera de respuesta de ICV":
                                             $correoNotificar = obtenResultado(consulta($conexion, "SELECT * FROM parametro WHERE nombre = 'delegacionVirtual_enviarTramiteICV_correosICV'"))["valor"];
                                             $correoNotificarCopia = obtenResultado(consulta($conexion, "SELECT * FROM parametro WHERE nombre = 'delegacionVirtual_enviarTramiteICV_correosARCA'"))["valor"];
 
@@ -719,74 +737,80 @@
                                                 . "<br />VIN: ". $vehiculo_vin
                                                 . "<br />Número de placa: " . $vehiculo_placa
                                                 . "<br />Nombre Cliente: ". $cliente_nombre . " " . $cliente_apellidoPaterno . " " . $cliente_apellidoMaterno
-                                                . "<br />Correo Cliente: ". $cliente_correoElectronico
-                                                . "<br />";
+                                                . "<br />Correo Cliente: ". $cliente_correoElectronico;
+
+                                            $archivoCorreo = $constante_rutaTramites . "/" . $id . "/" . $archivo_expediente;
+
+                                            $enviaCorreo = enviaCorreoMailjet($correoNotificar, $correoNotificarCopia, $titulo, $mensajeCorreo, $archivoCorreo, "delegacionvirtual@seminuevosarca.com.mx");
 
                                             break;
-                                        case  "Aprobado":
+                                        case "Aprobado":
                                             $correoNotificar = $usuarioCapturo["correoElectronico"];
                                             $archivoCorreo = $constante_rutaTramites . "/" . $id . "/" . $archivo_expediente;
 
-                                            $titulo = "Actualización de trámite";
-                                            $mensajeCorreo = "Se ha aprobado la solicitud de trámite con los siguientes datos:"
-                                                . "<br />Id: ". $id 
-                                                . "<br /><br />Marca: ". $vehiculo_marca
+                                            //$titulo = "Actualización de trámite";
+                                            $titulo = "ARCA - " . $folioARCA . " - " . $concesionario["nombreComercial"] . " - " . trim($cliente_nombre . " " . $cliente_apellidoPaterno . " " . $cliente_apellidoMaterno) . " - ACTUALIZACION";
+
+                                            //$mensajeCorreo = "Se ha aprobado la solicitud de trámite con los siguientes datos:"
+                                            $mensajeCorreo = "Se ha actualizado la solicitud de trámite con los siguientes datos, favor de ingresar al sistema para ver los detalles:"
+                                                . "<br /><br />Id: ". $id 
+                                                . "<br />Folio ARCA: ". $folioARCA
+                                                . "<br />Estatus: ". $status
+                                                . "<br />Marca: ". $vehiculo_marca
                                                 . "<br />Modelo: ". $vehiculo_modelo
                                                 . "<br />Año: ". $vehiculo_ano
                                                 . "<br />Color: ". $vehiculo_color
                                                 . "<br />VIN: ". $vehiculo_vin
-                                                . "<br />Número de placa: " . $vehiculo_placa
                                                 . "<br />Nombre Cliente: ". $cliente_nombre . " " . $cliente_apellidoPaterno . " " . $cliente_apellidoMaterno
-                                                . "<br />Correo Cliente: ". $cliente_correoElectronico
-                                                . "<br />";
+                                                . "<br />Correo Cliente: ". $cliente_correoElectronico;
+
+                                            //$archivoCorreo = $constante_rutaTramites . "/" . $id . "/" . $archivo_expediente;
+
+                                            //$enviaCorreo = enviaCorreoMailjet($correoNotificar, $correoNotificarCopia, $titulo, $mensajeCorreo, $archivoCorreo, "delegacionvirtual@seminuevosarca.com.mx");
+                                            $enviaCorreo = enviaCorreoMailjet($correoNotificar, $correoNotificarCopia, $titulo, $mensajeCorreo, null, "delegacionvirtual@seminuevosarca.com.mx");
 
                                             break;
-                                        case  "Rechazado":
+                                        case "Rechazado":
                                             $correoNotificar = $usuarioCapturo["correoElectronico"];
                                             $archivoCorreo = $constante_rutaTramites . "/" . $id . "/" . $archivo_expediente;
 
-                                            $titulo = "Actualización de trámite";
-                                            $mensajeCorreo = "Se ha rechazado la solicitud de trámite con los siguientes datos:"
+                                            //$titulo = "Actualización de trámite";
+                                            $titulo = "ARCA - " . $folioARCA . " - " . $concesionario["nombreComercial"] . " - " . trim($cliente_nombre . " " . $cliente_apellidoPaterno . " " . $cliente_apellidoMaterno) . " - ACTUALIZACION";
+
+                                            //$mensajeCorreo = "Se ha rechazado la solicitud de trámite con los siguientes datos:"
+                                            $mensajeCorreo = "Se ha actualizado la solicitud de trámite con los siguientes datos, favor de ingresar al sistema para ver los detalles:"
                                                 . "<br /><br />Id: ". $id 
+                                                . "<br />Folio ARCA: ". $folioARCA
+                                                . "<br />Estatus: ". $status
                                                 . "<br />Comentarios ICV: ". $comentariosICV
                                                 . "<br />Marca: ". $vehiculo_marca
                                                 . "<br />Modelo: ". $vehiculo_modelo
                                                 . "<br />Año: ". $vehiculo_ano
                                                 . "<br />Color: ". $vehiculo_color
                                                 . "<br />VIN: ". $vehiculo_vin
-                                                . "<br />Número de placa: " . $vehiculo_placa
                                                 . "<br />Nombre Cliente: ". $cliente_nombre . " " . $cliente_apellidoPaterno . " " . $cliente_apellidoMaterno
-                                                . "<br />Correo Cliente: ". $cliente_correoElectronico
-                                                . "<br />";
+                                                . "<br />Correo Cliente: ". $cliente_correoElectronico;
+
+                                            //$archivoCorreo = $constante_rutaTramites . "/" . $id . "/" . $archivo_expediente;
+
+                                            //$enviaCorreo = enviaCorreoMailjet($correoNotificar, $correoNotificarCopia, $titulo, $mensajeCorreo, $archivoCorreo, "delegacionvirtual@seminuevosarca.com.mx");
+                                            $enviaCorreo = enviaCorreoMailjet($correoNotificar, $correoNotificarCopia, $titulo, $mensajeCorreo, null, "delegacionvirtual@seminuevosarca.com.mx");
 
                                             break;
-                                        case  "Cancelado":
-                                            $correoNotificar = $usuarioCapturo["correoElectronico"];
-                                            $archivoCorreo = $constante_rutaTramites . "/" . $id . "/" . $archivo_expediente;
-
-                                            $titulo = "Actualización de trámite";
-                                            $mensajeCorreo = "Se ha cancelado la solicitud de trámite con los siguientes datos:"
-                                                . "<br /><br />Id: ". $id 
-                                                . "<br />Marca: ". $vehiculo_marca
-                                                . "<br />Modelo: ". $vehiculo_modelo
-                                                . "<br />Año: ". $vehiculo_ano
-                                                . "<br />Color: ". $vehiculo_color
-                                                . "<br />VIN: ". $vehiculo_vin
-                                                . "<br />Número de placa: " . $vehiculo_placa
-                                                . "<br />Nombre Cliente: ". $cliente_nombre . " " . $cliente_apellidoPaterno . " " . $cliente_apellidoMaterno
-                                                . "<br />Correo Cliente: ". $cliente_correoElectronico
-                                                . "<br />";
-
+                                        case "Cancelado":
                                             if ($statusAnterior == "A la espera de respuesta de ICV") {
                                                 $correoNotificar = obtenResultado(consulta($conexion, "SELECT * FROM parametro WHERE nombre = 'delegacionVirtual_enviarTramiteICV_correosICV'"))["valor"];
                                                 $correoNotificarCopia = obtenResultado(consulta($conexion, "SELECT * FROM parametro WHERE nombre = 'delegacionVirtual_enviarTramiteICV_correosARCA'"))["valor"];
 
-                                                $titulo = "ARCA - " . $folioARCA . " - " . $concesionario["nombreComercial"] . " - " . trim($cliente_nombre . " " . $cliente_apellidoPaterno . " " . $cliente_apellidoMaterno);
-                                                $mensajeCorreo = "Se desea solicitar la cancelación del trámite con los siguientes datos:"
+                                                $titulo = "ARCA - " . $folioARCA . " - " . $concesionario["nombreComercial"] . " - " . trim($cliente_nombre . " " . $cliente_apellidoPaterno . " " . $cliente_apellidoMaterno) . " - ACTUALIZACION";
+
+                                                //$mensajeCorreo = "Se desea solicitar la cancelación del trámite con los siguientes datos:"
+                                                $mensajeCorreo = "Se ha actualizado la solicitud de trámite con los siguientes datos, favor de ingresar al sistema para ver los detalles:"
                                                     . "<br /><br />Id: ". $id 
+                                                    . "<br />Folio ARCA: ". $folioARCA
+                                                    . "<br />Estatus: ". $status
                                                     . "<br />Agencia: ". $concesionario["nombreComercial"]
                                                     . "<br />Usuario capturó: " . $usuario_nombre
-                                                    . "<br />Folio ARCA: " . $folioARCA
                                                     . "<br />Mensajero: " . $mensajero["nombre"] . " " . $mensajero["apellidoPaterno"] . " " . $mensajero["apellidoMaterno"]
                                                     . "<br />Comentarios agencia: ". $comentariosConcesionario
                                                     . "<br />Comentarios ARCA: ". $comentariosARCA
@@ -795,19 +819,41 @@
                                                     . "<br />Año: ". $vehiculo_ano
                                                     . "<br />Color: ". $vehiculo_color
                                                     . "<br />VIN: ". $vehiculo_vin
-                                                    . "<br />Número de placa: " . $vehiculo_placa
                                                     . "<br />Nombre Cliente: ". $cliente_nombre . " " . $cliente_apellidoPaterno . " " . $cliente_apellidoMaterno
-                                                    . "<br />Correo Cliente: ". $cliente_correoElectronico
-                                                    . "<br />";
+                                                    . "<br />Correo Cliente: ". $cliente_correoElectronico;
+
+                                                //$archivoCorreo = $constante_rutaTramites . "/" . $id . "/" . $archivo_expediente;
+
+                                                //$enviaCorreo = enviaCorreoMailjet($correoNotificar, $correoNotificarCopia, $titulo, $mensajeCorreo, $archivoCorreo, "delegacionvirtual@seminuevosarca.com.mx");
+                                                $enviaCorreo = enviaCorreoMailjet($correoNotificar, $correoNotificarCopia, $titulo, $mensajeCorreo, null, "delegacionvirtual@seminuevosarca.com.mx");
+                                            } else {
+                                                $correoNotificar = $usuarioCapturo["correoElectronico"];
+                                                $archivoCorreo = $constante_rutaTramites . "/" . $id . "/" . $archivo_expediente;
+
+                                                //$titulo = "Actualización de trámite";
+                                                $titulo = "ARCA - " . $folioARCA . " - " . $concesionario["nombreComercial"] . " - " . trim($cliente_nombre . " " . $cliente_apellidoPaterno . " " . $cliente_apellidoMaterno) . " - ACTUALIZACION";
+
+                                                //$mensajeCorreo = "Se ha cancelado la solicitud de trámite con los siguientes datos:"
+                                                $mensajeCorreo = "Se ha actualizado la solicitud de trámite con los siguientes datos, favor de ingresar al sistema para ver los detalles:"
+                                                    . "<br /><br />Id: ". $id 
+                                                    . "<br />Folio ARCA: ". $folioARCA
+                                                    . "<br />Estatus: ". $status
+                                                    . "<br />Marca: ". $vehiculo_marca
+                                                    . "<br />Modelo: ". $vehiculo_modelo
+                                                    . "<br />Año: ". $vehiculo_ano
+                                                    . "<br />Color: ". $vehiculo_color
+                                                    . "<br />VIN: ". $vehiculo_vin
+                                                    . "<br />Nombre Cliente: ". $cliente_nombre . " " . $cliente_apellidoPaterno . " " . $cliente_apellidoMaterno
+                                                    . "<br />Correo Cliente: ". $cliente_correoElectronico;
+
+                                                //$archivoCorreo = $constante_rutaTramites . "/" . $id . "/" . $archivo_expediente;
+
+                                                //$enviaCorreo = enviaCorreoMailjet($correoNotificar, $correoNotificarCopia, $titulo, $mensajeCorreo, $archivoCorreo, "delegacionvirtual@seminuevosarca.com.mx");
+                                                $enviaCorreo = enviaCorreoMailjet($correoNotificar, $correoNotificarCopia, $titulo, $mensajeCorreo, null, "delegacionvirtual@seminuevosarca.com.mx");
                                             }
 
                                             break;
                                     }
-
-                                    $archivoCorreo = $constante_rutaTramites . "/" . $id . "/" . $archivo_expediente;
-
-                                    //$enviaCorreo = enviaCorreoMailjet($correoNotificar, $correoNotificarCopia, $titulo, $mensajeCorreo, $archivoCorreo);
-                                    $enviaCorreo = enviaCorreoMailjet($correoNotificar, $correoNotificarCopia, $titulo, $mensajeCorreo, $archivoCorreo, "delegacionvirtual@seminuevosarca.com.mx");
                                 }
                             }
 
