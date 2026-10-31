@@ -207,8 +207,12 @@
                         $mensaje .= "* Folio ICV<br />";
                     }
 
-                    if (!(isset($_FILES['archivo_solicitudICV']) && $_FILES['archivo_solicitudICV']['error'] === UPLOAD_ERR_OK)) {
-                        $mensaje .= "* PDF de la solicitud de ICV <br />";
+                    $archivoPrevio = obtenResultado(consulta($conexion, "SELECT archivo_solicitudICV FROM tramite WHERE id = " . $id))["archivo_solicitudICV"];
+
+                    if (estaVacio($archivoPrevio)) {
+                        if (!(isset($_FILES['archivo_solicitudICV']) && $_FILES['archivo_solicitudICV']['error'] === UPLOAD_ERR_OK)) {
+                            $mensaje .= "* PDF de la solicitud de ICV <br />";
+                        }
                     }
                 }
 
@@ -405,7 +409,7 @@
                                 $titulo = "ARCA - " . $folioARCA . " - " . $concesionario["nombreComercial"] . " - " . trim($cliente_nombre . " " . $cliente_apellidoPaterno . " " . $cliente_apellidoMaterno) . " - NUEVO";
 
                                 $mensajeCorreo = "Se ha recibido una nueva solicitud de trámite con los siguientes datos:"
-                                    . "<br />Id: ". $id
+                                    . "<br /><br />Id: ". $id
                                     . "<br />Folio ARCA: ". $folioARCA
                                     . "<br />Estatus: ". $status
                                     . "<br />Agencia: ". $concesionario["nombreComercial"]
