@@ -36,7 +36,7 @@
 
                 <div class="main-content app-content mt-0">
                     <div class="side-app">
-                        <?php if ($esUsuarioMaster && ($usuario_permisoConsultarDelegacionVirtual || $usuario_permisoEditarDelegacionVirtual)) { ?>
+                        <?php if ($esUsuarioMaster || $usuario_permisoConsultarDelegacionVirtual || $usuario_permisoEditarDelegacionVirtual) { ?>
                             <div class="main-container container-fluid">
 
 
