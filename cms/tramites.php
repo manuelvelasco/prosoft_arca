@@ -109,9 +109,7 @@
                                                                         <option <?php echo estaVacio($idConcesionario) ? "selected" : "" ?> value="">Ver todo</option>
 
                                                                         <?php
-
                                                                             if ($esUsuarioMaster || $esUsuarioAdministrador) {
-
                                                                                 $concesionarios_BD = consulta($conexion, "SELECT * FROM concesionario ORDER BY nombreComercial");
                                                                             } else {
                                                                                 $concesionarios_BD = consulta($conexion, "SELECT * FROM concesionario c WHERE c.id = " . $usuario_idConcesionario. " ORDER BY nombreComercial");
@@ -119,7 +117,7 @@
                                                                             }
 
                                                                             while ($concesionario_BD = obtenResultado($concesionarios_BD)) {
-                                                                                echo "<option " . ($concesionario_BD["id"] == $idConcesionario ? "selected" : "") . " value='" . $concesionario_BD["id"] . "'>" . $concesionario_BD["nombreComercial"] . "</option>";
+                                                                                echo "<option data-numeroSocio='" . $concesionario_BD["numeroSocio"] . "' " . ($concesionario_BD["id"] == $idConcesionario ? "selected" : "") . " value='" . $concesionario_BD["id"] . "'>" . $concesionario_BD["nombreComercial"] . "</option>";
                                                                             }
                                                                         ?>
                                                                     </select>
@@ -267,7 +265,7 @@
 
                                                                         <?php
 
-                                                                            for($ano = 1900; $ano <= 2027; $ano++){
+                                                                            for($ano = 1900; $ano <= 2027; $ano++) {
                                                                                 echo "<option " . ($ano == $vehiculo_ano ? "selected" : "") . " value='" . $ano . "'>" . $ano . "</option>";
                                                                             }
                                                                         ?>
@@ -538,7 +536,8 @@
                         }
                     ],
                     dom: "rtip",
-                    "bDestroy": true,
+                    bDestroy: true,
+                    order: [[0, 'desc']],
                     //pageLength: (paginacion ? "10" : "0"),
                     language: {
                         scrollX: "100%",
@@ -633,7 +632,7 @@
             });
 
 
-            $("#boton_limpiarFiltros").click(function(){
+            $("#boton_limpiarFiltros").click(function() {
                 $("#campo_rangoFechaAlta").val('');
                 $("#campo_rangoFechaRecepcionCorreoICV").val('');
                 $("#campo_idConcesionario").val('').trigger('change');
@@ -647,11 +646,10 @@
                 $("#campo_vehiculo_marca").val('').trigger('change');
                 $("#campo_vehiculo_ano").val('').trigger('change');
                 $("#campo_cliente_nombre").val('');
-
             });
 
 
-            $("#campo_idConcesionario").on("change",function(){
+            $("#campo_idConcesionario").on("change",function() {
                 var idConcesionario = $("#campo_idConcesionario").val();
 
                 $("#campo_idUsuario").html("");
@@ -662,17 +660,28 @@
                     data: { idConcesionario: idConcesionario }
                 }).done(function (resultado, textStatus, jqXHR) {
                     $("#campo_idUsuario").append("<option value=''>Ver todo</option>");
-                    $(resultado).find("usuario").each(function (index) {
 
+                    $(resultado).find("usuario").each(function (index) {
                         var id = $(this).find("id").text();
                         var nombre = $(this).find("nombre").text();
 
                         $("#campo_idUsuario").append("<option value='" + id + "'>" + nombre + "</option>");
                     });
+
                     $("#campo_idUsuario").select2("destroy");
                     $("#campo_idUsuario").select2();
-
                 });
+            });
+
+
+            $("#boton_agregar").on("click", function() {
+                var numeroSocio = $("#campo_idConcesionario option:selected").attr("data-numeroSocio");
+
+                if (!numeroSocio) {
+                    alert("No se pueden dar de alta trámites ya que la agencia no tiene un número de socio asignado. Favor de contactar a administración.");
+                    
+                    return false;
+                }
             });
         </script>
     </body>
