@@ -527,7 +527,7 @@
                                     $archivoCorreo = $constante_rutaTramites . "/" . $id . "/" . $archivo_comprobantePago;
 
                                     //$enviaCorreo = enviaCorreoMailjet($correoNotificar, null, $titulo, $mensajeCorreo, $archivoCorreo);
-$enviaCorreo = enviaCorreoMailjet($correoNotificar, null, $titulo, $mensajeCorreo, $archivoCorreo, "delegacionvirtual@seminuevosarca.com.mx");
+                                    $enviaCorreo = enviaCorreoMailjet($correoNotificar, null, $titulo, $mensajeCorreo, $archivoCorreo, "delegacionvirtual@seminuevosarca.com.mx");
                                 } catch (Exception $e) {
                                 }
                             } else {
@@ -2071,6 +2071,7 @@ $enviaCorreo = enviaCorreoMailjet($correoNotificar, null, $titulo, $mensajeCorre
                                                                         <thead>
                                                                             <tr>
                                                                                 <th class="border-bottom-0">Fecha y hora</th>
+                                                                                <th class="border-bottom-0">Usuario</th>
                                                                                 <th class="border-bottom-0">Estatus</th>
                                                                                 <th class="border-bottom-0">Tiempo transcurrido</th>
                                                                             </tr>
@@ -2078,19 +2079,20 @@ $enviaCorreo = enviaCorreoMailjet($correoNotificar, null, $titulo, $mensajeCorre
 
                                                                         <tbody id="contenedor_resultados">
                                                                             <?php
-                                                                                    
-                                                                                    // Consulta base de datos
 
-                                                                                    $bitacora_BD = consulta($conexion, "SELECT * FROM tramite_bitacora u WHERE u.idTramite = " . $id . " ORDER BY id");
+                                                                                // Consulta base de datos
 
-                                                                                    while ($bitacora = obtenResultado($bitacora_BD)) {
-                                                                                        echo "<tr>";
-                                                                                            echo "<td>" . $bitacora["fechaInicial"] . "</td>";
-                                                                                            echo "<td>" . $bitacora["status"] . "</td>";
-                                                                                            echo "<td>" . ($bitacora["status"] == "Aprobado" || $bitacora["status"] == "Rechazado" ? "" : calculaTiempoHabilTransccurrido($bitacora["fechaInicial"], $bitacora["fechaFinal"])) . "</td>";
-                                                                                        echo "</tr>";
-                                                                                    }
-                                                                                ?>
+                                                                                $bitacora_BD = consulta($conexion, "SELECT t.*, u.nombre AS usuario FROM tramite_bitacora t JOIN usuario u ON u.id = t.idUsuario WHERE t.idTramite = " . $id . " ORDER BY t.id");
+
+                                                                                while ($bitacora = obtenResultado($bitacora_BD)) {
+                                                                                    echo "<tr>";
+                                                                                        echo "<td>" . $bitacora["fechaInicial"] . "</td>";
+                                                                                        echo "<td>" . $bitacora["usuario"] . "</td>";
+                                                                                        echo "<td>" . $bitacora["status"] . "</td>";
+                                                                                        echo "<td>" . ($bitacora["status"] == "Aprobado" || $bitacora["status"] == "Rechazado" ? "" : calculaTiempoHabilTransccurrido($bitacora["fechaInicial"], $bitacora["fechaFinal"])) . "</td>";
+                                                                                    echo "</tr>";
+                                                                                }
+                                                                            ?>
                                                                         </tbody>
                                                                     </table>
                                                                 </div>
