@@ -1295,6 +1295,7 @@
 
                         break;
                     case "Rechazado":
+/*
                         if ($esUsuarioOperador && $usuario_permisoEditarDelegacionVirtual) {
                             $habilitar_boton_clonarTramite = true;
                             $habilitar_boton_guardar = true;
@@ -1331,6 +1332,67 @@
                             $habilitar_boton_guardar = true;
                             $habilitar_boton_eliminarArchivoExpediente = true;
                             $habilitar_boton_eliminarArchivoSolicitudICV = true;
+                        }
+
+                        break;
+*/
+
+                        if ($esUsuarioOperador && $usuario_permisoEditarDelegacionVirtual) {
+                            $habilitar_campo_comentariosConcesionario = true;
+                            $habilitar_campo_vehiculo_color = true;
+                            $habilitar_campo_vehiculo_vin = true;
+                            $habilitar_campo_vehiculo_placa = true;
+                            $habilitar_campo_cliente_nombre = true;
+                            $habilitar_campo_cliente_apellidoPaterno = true;
+                            $habilitar_campo_cliente_apellidoMaterno = true;
+                            $habilitar_campo_cliente_correoElectronico = true;
+
+                            $habilitar_campo_archivo_expediente = true;
+
+                            $habilitar_campo_idMensajero = true;
+                            $habilitar_campo_vehiculo_marca = true;
+                            $habilitar_campo_vehiculo_modelo = true;
+                            $habilitar_campo_vehiculo_ano = true;
+
+                            $habilitar_boton_reenviarARCA = true;
+                            $habilitar_boton_guardar = true;
+                            $habilitar_boton_eliminarArchivoSolicitudICV = true;
+                            $habilitar_boton_cancelarTramite = true;
+                        } else if ($esUsuarioAdministrador && $usuario_permisoEditarDelegacionVirtual) {
+                            $habilitar_boton_guardar = true;
+                            $habilitar_boton_eliminarArchivoSolicitudICV = true;
+                            $habilitar_boton_cancelarTramite = true;
+                        } else if ($esUsuarioMaster) {
+                            $habilitar_campo_folioARCA = true;
+                            $habilitar_campo_comentariosConcesionario = true;
+                            $habilitar_campo_comentariosARCA = true;
+                            $habilitar_campo_vehiculo_color = true;
+                            $habilitar_campo_vehiculo_vin = true;
+                            $habilitar_campo_vehiculo_placa = true;
+                            $habilitar_campo_cliente_nombre = true;
+                            $habilitar_campo_cliente_apellidoPaterno = true;
+                            $habilitar_campo_cliente_apellidoMaterno = true;
+                            $habilitar_campo_cliente_correoElectronico = true;
+                            $habilitar_campo_folioICV = true;
+                            $habilitar_campo_fechaRecepcionCorreoICV = true;
+                            $habilitar_campo_ejecutivoICV = true;
+                            $habilitar_campo_comentariosICV = true;
+
+                            $habilitar_campo_archivo_expediente = true;
+                            $habilitar_campo_archivo_solicitudICV = true;
+
+                            $habilitar_campo_idConcesionario = true;
+                            $habilitar_campo_idMensajero = true;
+                            $habilitar_campo_vehiculo_marca = true;
+                            $habilitar_campo_vehiculo_modelo = true;
+                            $habilitar_campo_vehiculo_ano = true;
+
+                            $habilitar_boton_eliminar = true;
+                            $habilitar_boton_reenviarARCA = true;
+                            $habilitar_boton_guardar = true;
+                            $habilitar_boton_eliminarArchivoExpediente = true;
+                            $habilitar_boton_eliminarArchivoSolicitudICV = true;
+                            $habilitar_boton_cancelarTramite = true;
                         }
 
                         break;
@@ -2125,7 +2187,8 @@ error_log("\ntiempoTranscurrido = " . sprintf("%02dd %02dh %02dm", $dias, $horas
                                                                                         echo "<td>" . $bitacora["fechaInicial"] . "</td>";
                                                                                         echo "<td>" . $bitacora["usuario"] . "</td>";
                                                                                         echo "<td>" . $bitacora["status"] . "</td>";
-                                                                                        echo "<td>" . ($bitacora["status"] == "Aprobado" || $bitacora["status"] == "Rechazado" ? "" : calculaTiempoHabilTransccurrido($bitacora["fechaInicial"], $bitacora["fechaFinal"])) . "</td>";
+                                                                                        //echo "<td>" . ($bitacora["status"] == "Aprobado" || $bitacora["status"] == "Rechazado" ? "" : calculaTiempoHabilTransccurrido($bitacora["fechaInicial"], $bitacora["fechaFinal"])) . "</td>";
+                                                                                        echo "<td>" . ($bitacora["status"] == "Aprobado" ? "" : calculaTiempoHabilTransccurrido($bitacora["fechaInicial"], $bitacora["fechaFinal"])) . "</td>";
                                                                                     echo "</tr>";
                                                                                 }
                                                                             ?>
