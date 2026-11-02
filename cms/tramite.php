@@ -1386,21 +1386,23 @@
                 if (estaVacio($fechaFinal)) {
                     $fechaFinal = date("Y-m-d H:i:s");
                 }
-//echo "<br />A";
-//echo " - fechaInicial = " . $fechaInicial;
-//echo " - fechaFinal = " . $fechaFinal;
+
+$rutaLog = "/home/1678977.cloudwaysapps.com/zxkxdcbsvk/public_html/cms/error.log";
+error_log("\n\nA", 3, $rutaLog);
+error_log("\nfechaInicial = " . $fechaInicial, 3, $rutaLog);
+error_log("\nfechaFinal = " . $fechaFinal, 3, $rutaLog);
                 $inicio = new DateTime($fechaInicial);
                 $fin = new DateTime($fechaFinal);
 
                 if ($inicio > $fin) {
-//echo " - A";
+error_log("\n1", 3, $rutaLog);
                     //return "00:00:00";
 
                     return "00d 00h 00m";
                 } else {
-//echo " - B";
+error_log("\n2", 3, $rutaLog);
                     global $conexion;
-//echo " - C";
+error_log("\n3", 3, $rutaLog);
 
                     $horario_lunesaviernes_inicio = obtenResultado(consulta($conexion, "SELECT valor FROM parametro WHERE nombre = 'horario_lunesaviernes_inicio'"))["valor"];
                     $horario_lunesaviernes_fin = obtenResultado(consulta($conexion, "SELECT valor FROM parametro WHERE nombre = 'horario_lunesaviernes_fin'"))["valor"];
@@ -1416,11 +1418,23 @@
                         $diaIteracion->setTime((int)$horario_sabado_inicio, 0, 0);
                     }
 
+/*
+ * fechaInicial - Guarda la fecha de inicio del status
+ * fechaFinal - Guarda la fecha de fin del status
+ * 
+ * inicio - Guarda la fecha de inicio del status
+ * fin - Guarda la fecha de fin del status
+ * 
+ * diaIteracion - Guarda el dia que se esta comparando con la hora de inicio de la jornada laboral
+ * 
+ * jornadaInicio - Guarda el dia que se esta comparando con la hora de inicio de la jornada laboral
+ * jornadaFin - Guarda el dia que se esta comparando con la hora de fin de la jornada laboral
+ */
+
                     while ($diaIteracion <= $fin) {
-//echo " - " . $diaIteracion->format("N") . " <= " . $fin->format("N");
-//echo ", x";
+error_log("\n" . $diaIteracion->format("N") . " <= " . $fin->format("N"), 3, $rutaLog);
                         if ($diaIteracion->format("N") <= 6) {
-//echo "y";
+error_log("\n4", 3, $rutaLog);
                             $jornadaInicio = clone $diaIteracion;
 
                             if ($jornadaInicio->format("N") < 6) {
@@ -1439,11 +1453,29 @@
 
                             // Calcular solapamiento para el día actual
 
-                            $validoInicio = max($inicio, $jornadaInicio);
-                            $validoFin = min($fin, $jornadaFin);
+error_log("\n5", 3, $rutaLog);
+error_log("\ninicio = " . $inicio->format("Y-m-d H:i:s"), 3, $rutaLog);
+error_log("\njornadaInicio = " . $jornadaInicio->format("Y-m-d H:i:s"), 3, $rutaLog);
+error_log("\nfin = " . $fin->format("Y-m-d H:i:s"), 3, $rutaLog);
+error_log("\njornadaFin = " . $jornadaFin->format("Y-m-d H:i:s"), 3, $rutaLog);
+
+
+
+                            //$validoInicio = max($inicio, $jornadaInicio);
+                            //$validoFin = min($fin, $jornadaFin);
+
+                            //$validoInicio = (strtotime($inicio) - strtotime($jornadaInicio) > 0 ? $inicio : $jornadaInicio);
+                            //$validoFin = (strtotime($fin) - strtotime($jornadaFin) > 0 ? $fin : $jornadaFin);
+
+                            $validoInicio = ($inicio > $jornadaInicio ? $inicio : $jornadaInicio);
+                            $validoFin = ($fin < $jornadaFin ? $fin : $jornadaFin);
+error_log("\nvalidoInicio = " . $validoInicio->format("Y-m-d H:i:s"), 3, $rutaLog);
+error_log("\nvalidoFin = " . $validoFin->format("Y-m-d H:i:s"), 3, $rutaLog);
 
                             if ($validoInicio < $validoFin) {
+error_log("\n6", 3, $rutaLog);
                                 $totalSegundos += ($validoFin->getTimestamp() - $validoInicio->getTimestamp());
+error_log("\ntotalSegundos = " . $totalSegundos, 3, $rutaLog);
                             }
                         }
 
@@ -1463,12 +1495,12 @@
                     //$segundos = $totalSegundos % 60;
 
                     //return sprintf("%02d:%02d:%02d", $horas, $minutos, $segundos);
-//echo " - totalSegundos = " . $totalSegundos;
+error_log("\ntotalSegundos = " . $totalSegundos, 3, $rutaLog);
 
                     $dias = floor($totalSegundos / 86400);
                     $horas = floor(($totalSegundos / 3600) % 24);
                     $minutos = floor(($totalSegundos / 60) % 60);
-//echo " - tiempoTranscurrido = " . sprintf("%02dd %02dh %02dm", $dias, $horas, $minutos);
+error_log("\ntiempoTranscurrido = " . sprintf("%02dd %02dh %02dm", $dias, $horas, $minutos), 3, $rutaLog);
 
                     return sprintf("%02dd %02dh %02dm", $dias, $horas, $minutos);
                 }
@@ -2268,7 +2300,7 @@
                 var idConcesionario = "<?php echo $esUsuarioMaster || $esUsuarioAdministrador ? "" : $usuario_idConcesionario ?>";
 
                 $.ajax({
-                    url: "socialware/php/ajax/cargaConcesionarios.php",
+                    url: "socialware/php/ajax/cargaConcesionariosPuedenGenerarTramite.php",
                     type: "post",
                     data: {
                         idConcesionario: idConcesionario
