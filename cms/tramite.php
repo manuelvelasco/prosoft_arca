@@ -1461,14 +1461,14 @@ error_log("\njornadaFin = " . $jornadaFin->format("Y-m-d H:i:s"), 3, $rutaLog);
 
 
 
-                            //$validoInicio = max($inicio, $jornadaInicio);
-                            //$validoFin = min($fin, $jornadaFin);
+                            $validoInicio = max($inicio, $jornadaInicio);
+                            $validoFin = min($fin, $jornadaFin);
 
                             //$validoInicio = (strtotime($inicio) - strtotime($jornadaInicio) > 0 ? $inicio : $jornadaInicio);
                             //$validoFin = (strtotime($fin) - strtotime($jornadaFin) > 0 ? $fin : $jornadaFin);
 
-                            $validoInicio = ($inicio > $jornadaInicio ? $inicio : $jornadaInicio);
-                            $validoFin = ($fin < $jornadaFin ? $fin : $jornadaFin);
+                            //$validoInicio = ($inicio > $jornadaInicio ? $inicio : $jornadaInicio);
+                            //$validoFin = ($fin < $jornadaFin ? $fin : $jornadaFin);
 error_log("\nvalidoInicio = " . $validoInicio->format("Y-m-d H:i:s"), 3, $rutaLog);
 error_log("\nvalidoFin = " . $validoFin->format("Y-m-d H:i:s"), 3, $rutaLog);
 
