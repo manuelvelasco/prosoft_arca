@@ -1887,7 +1887,7 @@ error_log("\ntiempoTranscurrido = " . sprintf("%02dd %02dh %02dm", $dias, $horas
                                                                                                                 echo "<div class='user-data'>";
                                                                                                                 echo "<span class='name block'>" . $archivo_expediente . "</span>";
                                                                                                                 echo "<span class='time block txt-grey'>";
-                                                                                                                echo "<a download href='" . $constante_urlTramites . "/" . $id . "/" . $archivo_expediente . "'>Descargar</a>";
+                                                                                                                echo "<a download href='" . $constante_urlTramites . "/" . $id . "/" . rawurlencode($archivo_expediente) . "'>Descargar</a>";
 
                                                                                                                 if ($habilitar_boton_eliminarArchivoExpediente) {
                                                                                                                     echo "&nbsp;&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;&nbsp;";
@@ -1941,7 +1941,7 @@ error_log("\ntiempoTranscurrido = " . sprintf("%02dd %02dh %02dm", $dias, $horas
                                                                                                                 echo "<div class='user-data'>";
                                                                                                                 echo "<span class='name block'>" . $archivo_comprobantePago . "</span>";
                                                                                                                 echo "<span class='time block txt-grey'>";
-                                                                                                                echo "<a download href='" . $constante_urlTramites . "/" . $id . "/" . $archivo_comprobantePago . "'>Descargar</a>";
+                                                                                                                echo "<a download href='" . $constante_urlTramites . "/" . $id . "/" . rawurlencode($archivo_comprobantePago) . "'>Descargar</a>";
 /*
                                                                                                                 if ($habilitar_boton_eliminarArchivoExpediente) {
                                                                                                                     echo "&nbsp;&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;&nbsp;";
@@ -2060,7 +2060,7 @@ error_log("\ntiempoTranscurrido = " . sprintf("%02dd %02dh %02dm", $dias, $horas
                                                                                                                     echo "<div class='user-data'>";
                                                                                                                     echo "<span class='name block'>" . $archivo_solicitudICV . "</span>";
                                                                                                                     echo "<span class='time block txt-grey'>";
-                                                                                                                    echo "<a download href='" . $constante_urlTramites . "/" . $id . "/" . $archivo_solicitudICV . "'>Descargar</a>";
+                                                                                                                    echo "<a download href='" . $constante_urlTramites . "/" . $id . "/" . rawurlencode($archivo_solicitudICV) . "'>Descargar</a>";
 
                                                                                                                     if ($habilitar_boton_eliminarArchivoSolicitudICV) {
                                                                                                                         echo "&nbsp;&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;&nbsp;";

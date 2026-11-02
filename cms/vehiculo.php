@@ -3712,9 +3712,9 @@ error_log("\nidUsuario = " . $usuario_id, 3, $rutaLog);*/
                                                                                                                     echo "<div class='user-data'>";
                                                                                                                     echo "<span class='name block capitalize-font'>" . $imagenPrincipal . "</span>";
                                                                                                                     echo "<span class='time block txt-grey'>";
-                                                                                                                    echo "<a data-lightbox='imagen' href='" . $constante_urlVehiculos . "/" . $id . "/" . $imagenPrincipal . "'>Ampliar</a>";
+                                                                                                                    echo "<a data-lightbox='imagen' href='" . $constante_urlVehiculos . "/" . $id . "/" . rawurlencode($imagenPrincipal) . "'>Ampliar</a>";
                                                                                                                     echo "&nbsp;&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;&nbsp;";
-                                                                                                                    echo "<a download href='" . $constante_urlVehiculos . "/" . $id . "/" . $imagenPrincipal . "'>Descargar</a>";
+                                                                                                                    echo "<a download href='" . $constante_urlVehiculos . "/" . $id . "/" . rawurlencode($imagenPrincipal) . "'>Descargar</a>";
                                                                                                                     echo "</span>";
                                                                                                                     echo "</div>";
                                                                                                                     echo "<div class='clearfix'></div>";
@@ -3779,9 +3779,9 @@ error_log("\nidUsuario = " . $usuario_id, 3, $rutaLog);*/
                                                                                                                                 echo "<div class='user-data'>";
                                                                                                                                 echo "<span class='name block capitalize-font'>" . $archivo . "</span>";
                                                                                                                                 echo "<span class='time block txt-grey'>";
-                                                                                                                                echo "<a data-lightbox='imagen' href='" . $constante_urlVehiculos . "/" . $id . "/galeria/" . $archivo . "'>Ampliar</a>";
+                                                                                                                                echo "<a data-lightbox='imagen' href='" . $constante_urlVehiculos . "/" . $id . "/galeria/" . rawurlencode($archivo) . "'>Ampliar</a>";
                                                                                                                                 echo "&nbsp;&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;&nbsp;";
-                                                                                                                                echo "<a download href='" . $constante_urlVehiculos . "/" . $id . "/galeria/" . $archivo . "'>Descargar</a>";
+                                                                                                                                echo "<a download href='" . $constante_urlVehiculos . "/" . $id . "/galeria/" . rawurlencode($archivo) . "'>Descargar</a>";
                                                                                                                                 echo "&nbsp;&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;&nbsp;";
                                                                                                                                 echo "<a href='javascript:eliminaImagenGaleria(" . $id . ", \"" . $archivo . "\", " . $indice . ")'>Eliminar</a>";
                                                                                                                                 echo "</span>";
@@ -5006,9 +5006,9 @@ error_log("\nidUsuario = " . $usuario_id, 3, $rutaLog);*/
                                                                                                                     echo "<div class='user-data'>";
                                                                                                                     echo "<span class='name block capitalize-font'>" . $intelimotor_picture . "</span>";
                                                                                                                     echo "<span class='time block txt-grey'>";
-                                                                                                                    echo "<a data-lightbox='imagen' href='" . $intelimotor_picture . "'>Ampliar</a>";
+                                                                                                                    echo "<a data-lightbox='imagen' href='" . rawurlencode($intelimotor_picture) . "'>Ampliar</a>";
                                                                                                                     echo "&nbsp;&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;&nbsp;";
-                                                                                                                    echo "<a download href='" . $intelimotor_picture . "'>Descargar</a>";
+                                                                                                                    echo "<a download href='" . rawurlencode($intelimotor_picture) . "'>Descargar</a>";
                                                                                                                     echo "</span>";
                                                                                                                     echo "</div>";
                                                                                                                     echo "<div class='clearfix'></div>";
@@ -5043,9 +5043,9 @@ error_log("\nidUsuario = " . $usuario_id, 3, $rutaLog);*/
                                                                                                                     echo "<div class='user-data'>";
                                                                                                                     echo "<span class='name block capitalize-font'>" . $imagen["imagen"] . "</span>";
                                                                                                                     echo "<span class='time block txt-grey'>";
-                                                                                                                    echo "<a data-lightbox='imagen' href='" . $imagen["imagen"] . "'>Ampliar</a>";
+                                                                                                                    echo "<a data-lightbox='imagen' href='" . rawurlencode($imagen["imagen"]) . "'>Ampliar</a>";
                                                                                                                     echo "&nbsp;&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;&nbsp;";
-                                                                                                                    echo "<a download href='" . $imagen["imagen"] . "'>Descargar</a>";
+                                                                                                                    echo "<a download href='" . rawurlencode($imagen["imagen"]) . "'>Descargar</a>";
                                                                                                                     echo "</span>";
                                                                                                                     echo "</div>";
                                                                                                                     echo "<div class='clearfix'></div>";

@@ -1006,9 +1006,9 @@ if(move_uploaded_file($archivo["tmp_name"], $archivoDestino)) {
                                                                                                                     echo "<div class='user-data'>";
                                                                                                                     echo "<span class='name block capitalize-font'>" . $logotipo . "</span>";
                                                                                                                     echo "<span class='time block txt-grey'>";
-                                                                                                                    echo "<a data-lightbox='imagen' href='" . $constante_urlConcesionarios . "/" . $id . "/" . $logotipo . "'>Ampliar</a>";
+                                                                                                                    echo "<a data-lightbox='imagen' href='" . $constante_urlConcesionarios . "/" . $id . "/" . rawurlencode($logotipo) . "'>Ampliar</a>";
                                                                                                                     echo "&nbsp;&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;&nbsp;";
-                                                                                                                    echo "<a download href='" . $constante_urlConcesionarios . "/" . $id . "/" . $logotipo . "'>Descargar</a>";
+                                                                                                                    echo "<a download href='" . $constante_urlConcesionarios . "/" . $id . "/" . rawurlencode($logotipo) . "'>Descargar</a>";
                                                                                                                     echo "</span>";
                                                                                                                     echo "</div>";
                                                                                                                     echo "<div class='clearfix'></div>";
@@ -1053,9 +1053,9 @@ if(move_uploaded_file($archivo["tmp_name"], $archivoDestino)) {
                                                                                                                     echo "<div class='user-data'>";
                                                                                                                     echo "<span class='name block capitalize-font'>" . $fachada . "</span>";
                                                                                                                     echo "<span class='time block txt-grey'>";
-                                                                                                                    echo "<a data-lightbox='imagen' href='" . $constante_urlConcesionarios . "/" . $id . "/" . $fachada . "'>Ampliar</a>";
+                                                                                                                    echo "<a data-lightbox='imagen' href='" . $constante_urlConcesionarios . "/" . $id . "/" . rawurlencode($fachada) . "'>Ampliar</a>";
                                                                                                                     echo "&nbsp;&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;&nbsp;";
-                                                                                                                    echo "<a download href='" . $constante_urlConcesionarios . "/" . $id . "/" . $fachada . "'>Descargar</a>";
+                                                                                                                    echo "<a download href='" . $constante_urlConcesionarios . "/" . $id . "/" . rawurlencode($fachada) . "'>Descargar</a>";
                                                                                                                     echo "</span>";
                                                                                                                     echo "</div>";
                                                                                                                     echo "<div class='clearfix'></div>";
@@ -1109,9 +1109,9 @@ if(move_uploaded_file($archivo["tmp_name"], $archivoDestino)) {
                                                                                                                                 echo "<div class='user-data'>";
                                                                                                                                 echo "<span class='name block capitalize-font'>" . $archivo . "</span>";
                                                                                                                                 echo "<span class='time block txt-grey'>";
-                                                                                                                                echo "<a data-lightbox='imagen' href='" . $constante_urlConcesionarios . "/" . $id . "/galeria/" . $archivo . "'>Ampliar</a>";
+                                                                                                                                echo "<a data-lightbox='imagen' href='" . $constante_urlConcesionarios . "/" . $id . "/galeria/" . rawurlencode($archivo) . "'>Ampliar</a>";
                                                                                                                                 echo "&nbsp;&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;&nbsp;";
-                                                                                                                                echo "<a download href='" . $constante_urlConcesionarios . "/" . $id . "/galeria/" . $archivo . "'>Descargar</a>";
+                                                                                                                                echo "<a download href='" . $constante_urlConcesionarios . "/" . $id . "/galeria/" . rawurlencode($archivo) . "'>Descargar</a>";
                                                                                                                                 echo "&nbsp;&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;&nbsp;";
                                                                                                                                 echo "<a href='javascript:eliminaImagenGaleria(" . $id . ", \"" . $archivo . "\", " . $indice . ")'>Eliminar</a>";
                                                                                                                                 echo "</span>";

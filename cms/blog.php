@@ -531,9 +531,9 @@
                                                                                                                     echo "<div class='user-data'>";
                                                                                                                     echo "<span class='name block'>" . $imagenPrincipal . "</span>";
                                                                                                                     echo "<span class='time block txt-grey'>";
-                                                                                                                    echo "<a data-lightbox='imagen' href='" . $constante_urlPosts . "/" . $id . "/" . $imagenPrincipal . "'>Ampliar</a>";
+                                                                                                                    echo "<a data-lightbox='imagen' href='" . $constante_urlPosts . "/" . $id . "/" . rawurlencode($imagenPrincipal) . "'>Ampliar</a>";
                                                                                                                     echo "&nbsp;&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;&nbsp;";
-                                                                                                                    echo "<a download href='" . $constante_urlPosts . "/" . $id . "/" . $imagenPrincipal . "'>Descargar</a>";
+                                                                                                                    echo "<a download href='" . $constante_urlPosts . "/" . $id . "/" . rawurlencode($imagenPrincipal) . "'>Descargar</a>";
                                                                                                                     echo "</span>";
                                                                                                                     echo "</div>";
                                                                                                                     echo "<div class='clearfix'></div>";
@@ -600,9 +600,9 @@
                                                                                                                                 echo "<div class='user-data'>";
                                                                                                                                 echo "<span class='name block'>". $constante_urlPosts . $id . "/galeria/" . $archivo . "</span>";
                                                                                                                                 echo "<span class='time block txt-grey'>";
-                                                                                                                                echo "<a data-lightbox='imagen' href='" . $constante_urlPosts . "/" . $id . "/galeria/" . $archivo . "'>Ampliar</a>";
+                                                                                                                                echo "<a data-lightbox='imagen' href='" . $constante_urlPosts . "/" . $id . "/galeria/" . rawurlencode($archivo) . "'>Ampliar</a>";
                                                                                                                                 echo "&nbsp;&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;&nbsp;";
-                                                                                                                                echo "<a download href='" . $constante_urlPosts . "/" . $id . "/galeria/" . $archivo . "'>Descargar</a>";
+                                                                                                                                echo "<a download href='" . $constante_urlPosts . "/" . $id . "/galeria/" . rawurlencode($archivo) . "'>Descargar</a>";
                                                                                                                                 echo "&nbsp;&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;&nbsp;";
                                                                                                                                 echo "<a href='javascript:eliminaImagenGaleria(" . $id . ", \"" . $archivo . "\", " . $indice . ")'>Eliminar</a>";
                                                                                                                                 echo "</span>";
