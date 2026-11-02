@@ -138,7 +138,7 @@
             $usuario_permisoEditarDelegacionVirtual = isset($_SESSION["usuario_permisoEditarDelegacionVirtual"]) ? sanitiza($conexion, $_SESSION["usuario_permisoEditarDelegacionVirtual"]) : "";
 
             $usuario_idConcesionario = isset($_SESSION["usuario_idConcesionario"]) ? sanitiza($conexion, $_SESSION["usuario_idConcesionario"]) : "";
-
+            $usuario_numeroSocioConcesionario = isset($_SESSION["usuario_numeroSocioConcesionario"]) ? sanitiza($conexion, $_SESSION["usuario_numeroSocioConcesionario"]) : "";
         ?>
 
 

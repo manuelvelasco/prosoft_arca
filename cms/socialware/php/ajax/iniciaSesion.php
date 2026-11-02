@@ -22,7 +22,7 @@
 
 	$conexion = obtenConexion();
 
-	$usuario_DB = consulta($conexion, "SELECT * FROM usuario WHERE correoElectronico  = '". $correoElectronico . "' AND contrasena = '" . md5($contrasena) . "' AND habilitado = 1");
+	$usuario_DB = consulta($conexion, "SELECT u.*, c.numeroSocio FROM usuario u LEFT JOIN concesionario c ON c.id = u.idConcesionario WHERE u.correoElectronico  = '". $correoElectronico . "' AND u.contrasena = '" . md5($contrasena) . "' AND u.habilitado = 1");
 
         if (cuentaResultados($usuario_DB) > 0) {
 	    $usuario = obtenResultado($usuario_DB);
@@ -49,6 +49,7 @@
 
 
             $_SESSION["usuario_idConcesionario"] = $usuario["idConcesionario"];
+            $_SESSION["usuario_numeroSocioConcesionario"] = $usuario["numeroSocio"];
 
             echo "ok";
 	} else {

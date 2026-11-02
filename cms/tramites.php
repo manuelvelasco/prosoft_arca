@@ -674,15 +674,17 @@
             });
 
 
-            $("#boton_agregar").on("click", function() {
-                var numeroSocio = $("#campo_idConcesionario option:selected").attr("data-numeroSocio");
+            <?php if (!$esUsuarioMaster && !$esUsuarioAdministrador) { ?>
+                $("#boton_agregar").on("click", function() {
+                    var numeroSocio = "<?php echo $usuario_numeroSocioConcesionario ?>";
 
-                if (!numeroSocio) {
-                    alert("No se pueden dar de alta trámites ya que la agencia no tiene un número de socio asignado. Favor de contactar a administración.");
-                    
-                    return false;
-                }
-            });
+                    if (!numeroSocio) {
+                        alert("No se pueden dar de alta trámites ya que la agencia no tiene un número de socio asignado. Favor de contactar a administración.");
+
+                        return false;
+                    }
+                });
+            <?php } ?>
         </script>
     </body>
 </html>
