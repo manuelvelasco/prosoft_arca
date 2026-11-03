@@ -964,6 +964,9 @@
             $habilitar_campo_cliente_apellidoPaterno = false;
             $habilitar_campo_cliente_apellidoMaterno = false;
             $habilitar_campo_cliente_correoElectronico = false;
+            $habilitar_campo_tipoTramite = false;
+            $habilitar_campo_tipoFactura = false;
+            $habilitar_campo_numeroFactura = false;
             $habilitar_campo_folioICV = false;
             $habilitar_campo_fechaRecepcionCorreoICV = false;
             $habilitar_campo_ejecutivoICV = false;
@@ -1008,6 +1011,9 @@
                     $habilitar_campo_cliente_apellidoPaterno = true;
                     $habilitar_campo_cliente_apellidoMaterno = true;
                     $habilitar_campo_cliente_correoElectronico = true;
+                    $habilitar_campo_tipoTramite = true;
+                    $habilitar_campo_tipoFactura = true;
+                    $habilitar_campo_numeroFactura = true;
 
                     $habilitar_campo_archivo_expediente = true;
 
@@ -1029,6 +1035,9 @@
                     $habilitar_campo_cliente_apellidoPaterno = true;
                     $habilitar_campo_cliente_apellidoMaterno = true;
                     $habilitar_campo_cliente_correoElectronico = true;
+                    $habilitar_campo_tipoTramite = true;
+                    $habilitar_campo_tipoFactura = true;
+                    $habilitar_campo_numeroFactura = true;
                     $habilitar_campo_folioICV = true;
                     $habilitar_campo_fechaRecepcionCorreoICV = true;
                     $habilitar_campo_ejecutivoICV = true;
@@ -1055,6 +1064,9 @@
                     $habilitar_campo_cliente_apellidoPaterno = true;
                     $habilitar_campo_cliente_apellidoMaterno = true;
                     $habilitar_campo_cliente_correoElectronico = true;
+                    $habilitar_campo_tipoTramite = true;
+                    $habilitar_campo_tipoFactura = true;
+                    $habilitar_campo_numeroFactura = true;
                     $habilitar_campo_folioICV = true;
                     $habilitar_campo_fechaRecepcionCorreoICV = true;
                     $habilitar_campo_ejecutivoICV = true;
@@ -1100,6 +1112,9 @@
                             $habilitar_campo_cliente_apellidoPaterno = true;
                             $habilitar_campo_cliente_apellidoMaterno = true;
                             $habilitar_campo_cliente_correoElectronico = true;
+                            $habilitar_campo_tipoTramite = true;
+                            $habilitar_campo_tipoFactura = true;
+                            $habilitar_campo_numeroFactura = true;
                             $habilitar_campo_folioICV = true;
                             $habilitar_campo_fechaRecepcionCorreoICV = true;
                             $habilitar_campo_ejecutivoICV = true;
@@ -1134,6 +1149,9 @@
                             $habilitar_campo_cliente_apellidoPaterno = true;
                             $habilitar_campo_cliente_apellidoMaterno = true;
                             $habilitar_campo_cliente_correoElectronico = true;
+                            $habilitar_campo_tipoTramite = true;
+                            $habilitar_campo_tipoFactura = true;
+                            $habilitar_campo_numeroFactura = true;
 
                             $habilitar_campo_archivo_expediente = true;
 
@@ -1161,6 +1179,9 @@
                             $habilitar_campo_cliente_apellidoPaterno = true;
                             $habilitar_campo_cliente_apellidoMaterno = true;
                             $habilitar_campo_cliente_correoElectronico = true;
+                            $habilitar_campo_tipoTramite = true;
+                            $habilitar_campo_tipoFactura = true;
+                            $habilitar_campo_numeroFactura = true;
                             $habilitar_campo_folioICV = true;
                             $habilitar_campo_fechaRecepcionCorreoICV = true;
                             $habilitar_campo_ejecutivoICV = true;
@@ -1209,6 +1230,9 @@
                             $habilitar_campo_cliente_apellidoPaterno = true;
                             $habilitar_campo_cliente_apellidoMaterno = true;
                             $habilitar_campo_cliente_correoElectronico = true;
+                            $habilitar_campo_tipoTramite = true;
+                            $habilitar_campo_tipoFactura = true;
+                            $habilitar_campo_numeroFactura = true;
                             $habilitar_campo_folioICV = true;
                             $habilitar_campo_fechaRecepcionCorreoICV = true;
                             $habilitar_campo_ejecutivoICV = true;
@@ -1262,6 +1286,9 @@
                             $habilitar_campo_cliente_apellidoPaterno = true;
                             $habilitar_campo_cliente_apellidoMaterno = true;
                             $habilitar_campo_cliente_correoElectronico = true;
+                            $habilitar_campo_tipoTramite = true;
+                            $habilitar_campo_tipoFactura = true;
+                            $habilitar_campo_numeroFactura = true;
                             $habilitar_campo_folioICV = true;
                             $habilitar_campo_fechaRecepcionCorreoICV = true;
                             $habilitar_campo_ejecutivoICV = true;
@@ -1309,6 +1336,9 @@
                             $habilitar_campo_cliente_apellidoPaterno = true;
                             $habilitar_campo_cliente_apellidoMaterno = true;
                             $habilitar_campo_cliente_correoElectronico = true;
+                            $habilitar_campo_tipoTramite = true;
+                            $habilitar_campo_tipoFactura = true;
+                            $habilitar_campo_numeroFactura = true;
                             $habilitar_campo_folioICV = true;
                             $habilitar_campo_fechaRecepcionCorreoICV = true;
                             $habilitar_campo_ejecutivoICV = true;
@@ -1351,6 +1381,9 @@
                             $habilitar_campo_cliente_apellidoPaterno = true;
                             $habilitar_campo_cliente_apellidoMaterno = true;
                             $habilitar_campo_cliente_correoElectronico = true;
+                            $habilitar_campo_tipoTramite = true;
+                            $habilitar_campo_tipoFactura = true;
+                            $habilitar_campo_numeroFactura = true;
                             $habilitar_campo_folioICV = true;
                             $habilitar_campo_fechaRecepcionCorreoICV = true;
                             $habilitar_campo_ejecutivoICV = true;
@@ -1384,6 +1417,9 @@
                             $habilitar_campo_cliente_apellidoPaterno = true;
                             $habilitar_campo_cliente_apellidoMaterno = true;
                             $habilitar_campo_cliente_correoElectronico = true;
+                            $habilitar_campo_tipoTramite = true;
+                            $habilitar_campo_tipoFactura = true;
+                            $habilitar_campo_numeroFactura = true;
 
                             $habilitar_campo_archivo_expediente = true;
 
@@ -1411,6 +1447,9 @@
                             $habilitar_campo_cliente_apellidoPaterno = true;
                             $habilitar_campo_cliente_apellidoMaterno = true;
                             $habilitar_campo_cliente_correoElectronico = true;
+                            $habilitar_campo_tipoTramite = true;
+                            $habilitar_campo_tipoFactura = true;
+                            $habilitar_campo_numeroFactura = true;
                             $habilitar_campo_folioICV = true;
                             $habilitar_campo_fechaRecepcionCorreoICV = true;
                             $habilitar_campo_ejecutivoICV = true;
@@ -1966,7 +2005,7 @@ error_log("\ntiempoTranscurrido = " . sprintf("%02dd %02dh %02dm", $dias, $horas
                                                                     <div class="row mb-12">
                                                                         <label class="form-label col-md-4" for="campo_tipoTramite">Tipo de trámite <span class="text-danger">*</span></label>
                                                                         <div class="col-md-8">
-<select class="form-control select2-show-search form-select" data-placeholder="Elige" id="campo_tipoTramite" name="tipoTramite" <?php echo $habilitar_campo_idConcesionario ? "" : "disabled" ?>>
+                                                                            <select class="form-control select2-show-search form-select" data-placeholder="Elige" id="campo_tipoTramite" name="tipoTramite" <?php echo $habilitar_campo_tipoTramite ? "" : "disabled" ?>>
                                                                                 <option <?php echo $tipoTramite == "Alta" ? "selected" : "" ?> value="Alta">Alta</option>
                                                                                 <option <?php echo $tipoTramite == "Baja" ? "selected" : "" ?> value="Baja">Baja</option>
                                                                                 <option <?php echo $tipoTramite == "Cambio de propietario" ? "selected" : "" ?> value="Cambio de propietario">Cambio de propietario</option>
@@ -1985,7 +2024,7 @@ error_log("\ntiempoTranscurrido = " . sprintf("%02dd %02dh %02dm", $dias, $horas
                                                                     <div class="row mb-12">
                                                                         <label class="form-label col-md-4" for="campo_numeroFactura">Número de factura <span class="text-danger">*</span></label>
                                                                         <div class="col-md-8">
-<input class="form-control" id="campo_numeroFactura" name="numeroFactura" type="text" value="<?php echo $numeroFactura; ?>" <?php echo $habilitar_campo_cliente_correoElectronico ? "" : "readonly" ?> />
+                                                                            <input class="form-control" id="campo_numeroFactura" name="numeroFactura" type="text" value="<?php echo $numeroFactura; ?>" <?php echo $habilitar_campo_numeroFactura ? "" : "readonly" ?> />
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -1998,7 +2037,7 @@ error_log("\ntiempoTranscurrido = " . sprintf("%02dd %02dh %02dm", $dias, $horas
                                                                     <div class="row mb-12">
                                                                         <label class="form-label col-md-4" for="campo_tipoFactura">Tipo de factura <span class="text-danger">*</span></label>
                                                                         <div class="col-md-8">
-<select class="form-control select2-show-search form-select" data-placeholder="Elige" id="campo_tipoFactura" name="tipoFactura" <?php echo $habilitar_campo_idConcesionario ? "" : "disabled" ?>>
+                                                                            <select class="form-control select2-show-search form-select" data-placeholder="Elige" id="campo_tipoFactura" name="tipoFactura" <?php echo $habilitar_campo_tipoFactura ? "" : "disabled" ?>>
                                                                                 <option <?php echo $tipoFactura == "Endoso" ? "selected" : "" ?> value="Endoso">Endoso</option>
                                                                                 <option <?php echo $tipoFactura == "Refactura" ? "selected" : "" ?> value="Refactura">Refactura</option>
                                                                             </select>
