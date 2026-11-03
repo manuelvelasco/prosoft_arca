@@ -275,7 +275,8 @@
                                 $mensaje = "El concesionario no cuenta con los valores necesarios para generar trámites";
                             } else {
                                 //$folioARCA = "A" . $concesionario_numeroSocio . date("YmdHi") . $concesionario_consecutivoDelegacionVirtual;
-                                $folioARCA = "A" . str_pad($concesionario_numeroSocio, 3, "0") . date("dmy") . str_pad($concesionario_consecutivoDelegacionVirtual, 4, "0", STR_PAD_LEFT);
+                                //$folioARCA = "A" . str_pad($concesionario_numeroSocio, 3, "0") . date("dmy") . str_pad($concesionario_consecutivoDelegacionVirtual, 4, "0", STR_PAD_LEFT);
+                                $folioARCA = "A" . $concesionario_numeroSocio . date("dmy") . str_pad($concesionario_consecutivoDelegacionVirtual, 4, "0", STR_PAD_LEFT);
 
                                 // Registra tramite
 
