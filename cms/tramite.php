@@ -610,11 +610,15 @@
                                     . ", fechaRecepcionCorreoICV = " . (estaVacio($fechaRecepcionCorreoICV) ? "NULL" : "'" . $fechaRecepcionCorreoICV . "'")
                                     . " WHERE id = " . $id);
 
+error_log("\n\nGuardando archivos", 3, $rutaLog);
+
                                 if (isset($_FILES["archivo_expediente"])) {
+error_log("\narchivo_expediente", 3, $rutaLog);
                                     try {
                                         $archivo = $_FILES["archivo_expediente"];
 
                                         if ($archivo["size"] > 0) {
+error_log("\n1", 3, $rutaLog);
                                             $nombreEstandarizado = $id . "_expediente_" . date("YmdHis") . "_" . rand(100, 999) . "." . pathinfo($archivo["name"], PATHINFO_EXTENSION);
                                             $archivoDestino = $constante_rutaTramites . "/" . $id . "/" . $nombreEstandarizado;
 
@@ -622,11 +626,15 @@
                                                 //mkdir($constante_rutaTramites . "/" . $id, 0755, true);
                                                 mkdir($constante_rutaTramites . "/" . $id);
                                             }
+error_log("\n2", 3, $rutaLog);
 
                                             move_uploaded_file($archivo["tmp_name"], $archivoDestino);
+error_log("\n3", 3, $rutaLog);
 
                                             consulta($conexion, "UPDATE tramite SET archivo_expediente = " . (estaVacio($nombreEstandarizado) ? "NULL" : "'" . $nombreEstandarizado . "'") . " WHERE id = " . $id);
                                             $archivo_expediente = $nombreEstandarizado;
+error_log("\n4", 3, $rutaLog);
+error_log("\narchivo_expediente" . $archivo_expediente, 3, $rutaLog);
                                         }
                                     } catch (Exception $e) {
                                     }
