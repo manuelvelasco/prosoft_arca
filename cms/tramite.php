@@ -610,15 +610,11 @@
                                     . ", fechaRecepcionCorreoICV = " . (estaVacio($fechaRecepcionCorreoICV) ? "NULL" : "'" . $fechaRecepcionCorreoICV . "'")
                                     . " WHERE id = " . $id);
 
-error_log("\n\nGuardando archivos", 3, $rutaLog);
-
                                 if (isset($_FILES["archivo_expediente"])) {
-error_log("\narchivo_expediente", 3, $rutaLog);
                                     try {
                                         $archivo = $_FILES["archivo_expediente"];
 
                                         if ($archivo["size"] > 0) {
-error_log("\n1", 3, $rutaLog);
                                             $nombreEstandarizado = $id . "_expediente_" . date("YmdHis") . "_" . rand(100, 999) . "." . pathinfo($archivo["name"], PATHINFO_EXTENSION);
                                             $archivoDestino = $constante_rutaTramites . "/" . $id . "/" . $nombreEstandarizado;
 
@@ -626,15 +622,11 @@ error_log("\n1", 3, $rutaLog);
                                                 //mkdir($constante_rutaTramites . "/" . $id, 0755, true);
                                                 mkdir($constante_rutaTramites . "/" . $id);
                                             }
-error_log("\n2", 3, $rutaLog);
 
                                             move_uploaded_file($archivo["tmp_name"], $archivoDestino);
-error_log("\n3", 3, $rutaLog);
 
                                             consulta($conexion, "UPDATE tramite SET archivo_expediente = " . (estaVacio($nombreEstandarizado) ? "NULL" : "'" . $nombreEstandarizado . "'") . " WHERE id = " . $id);
                                             $archivo_expediente = $nombreEstandarizado;
-error_log("\n4", 3, $rutaLog);
-error_log("\narchivo_expediente" . $archivo_expediente, 3, $rutaLog);
                                         }
                                     } catch (Exception $e) {
                                     }
@@ -1738,8 +1730,8 @@ error_log("\ntiempoTranscurrido = " . sprintf("%02dd %02dh %02dm", $dias, $horas
                     <div class="main-content app-content mt-0">
                         <div class="side-app">
                             <div class="main-container container-fluid">
-                                <!-- Titulo -->
 
+                                <!-- Titulo -->
 
                                 <div class="page-header">
                                     <h1 class="page-title">Detalle de trámite</h1>
@@ -1755,8 +1747,8 @@ error_log("\ntiempoTranscurrido = " . sprintf("%02dd %02dh %02dm", $dias, $horas
                                         -->
                                     </div>
                                 </div>
-                                <form autocomplete="off" enctype="multipart/form-data" id="formulario" method="post">
 
+                                <form action="tramite.php" autocomplete="off" enctype="multipart/form-data" id="formulario" method="post">
                                     <input id="campo_esSubmit" name="esSubmit" type="hidden" value="1" />
 
                                     <div class="alert" id="contenedor_mensaje">
@@ -2387,6 +2379,7 @@ error_log("\ntiempoTranscurrido = " . sprintf("%02dd %02dh %02dm", $dias, $horas
                                         <div class="col-md-10 col-sm-9" id="contenedor_botonesDerechos">
                                             <div class="form-group">
                                                 <input id="campo_accion" name="accion" type="hidden" value="<?php echo $accion; ?>" />
+
                                                 <a class="btn btn-default mb-3" href="javascript:void(0)" id="boton_cerrar" style="color: #fff !important">Cerrar</a>
 
                                                 <?php if ($habilitar_boton_guardar) { ?>
