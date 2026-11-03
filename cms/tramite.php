@@ -582,7 +582,36 @@
                                 } catch (Exception $e) {
                                 }
                             } else {
+$rutaLog = "/home/1678977.cloudwaysapps.com/zxkxdcbsvk/public_html/cms/error.log";
+error_log("\n\nB", 3, $rutaLog);
+
                                 $statusAnterior = obtenResultado(consulta($conexion, "SELECT status FROM tramite WHERE id = " . $id))["status"];
+error_log("\nstatusAnterior = " . $statusAnterior, 3, $rutaLog);
+error_log("\n" . "UPDATE tramite SET "
+                                    . "idConcesionario = " . $idConcesionario
+                                    . ", idMensajero = " . $idMensajero
+                                    . ", folioARCA = '" . $folioARCA . "'"
+                                    . ", folioICV = '" . $folioICV . "'"
+                                    . ", status = '" . $accion . "'"
+                                    . ", vehiculo_marca = '" . $vehiculo_marca . "'"
+                                    . ", vehiculo_modelo = '" . $vehiculo_modelo . "'"
+                                    . ", vehiculo_ano = '" . $vehiculo_ano . "'"
+                                    . ", vehiculo_color = '" . $vehiculo_color . "'"
+                                    . ", vehiculo_vin = '" . $vehiculo_vin . "'"
+                                    . ", vehiculo_placa = " . (estaVacio($vehiculo_placa) ? "NULL" : "'" . $vehiculo_placa . "'")
+                                    . ", cliente_nombre = '" . $cliente_nombre . "'"
+                                    . ", cliente_apellidoPaterno = '" . $cliente_apellidoPaterno . "'"
+                                    . ", cliente_apellidoMaterno = '" . $cliente_apellidoMaterno . "'"
+                                    . ", cliente_correoElectronico = '" . $cliente_correoElectronico . "'"
+                                    . ", tipoTramite = '" . $tipoTramite . "'"
+                                    . ", tipoFactura = '" . $tipoFactura . "'"
+                                    . ", numeroFactura = '" . $numeroFactura . "'"
+                                    . ", comentariosConcesionario = '" . $comentariosConcesionario . "'"
+                                    . ", comentariosARCA = '" . $comentariosARCA . "'"
+                                    . ", comentariosICV = '" . $comentariosICV . "'"
+                                    . ", ejecutivoICV = '" . $ejecutivoICV . "'"
+                                    . ", fechaRecepcionCorreoICV = " . (estaVacio($fechaRecepcionCorreoICV) ? "NULL" : "'" . $fechaRecepcionCorreoICV . "'")
+                                    . " WHERE id = " . $id, 3, $rutaLog);
 
                                 consulta($conexion, "UPDATE tramite SET "
                                     . "idConcesionario = " . $idConcesionario
@@ -609,6 +638,7 @@
                                     . ", ejecutivoICV = '" . $ejecutivoICV . "'"
                                     . ", fechaRecepcionCorreoICV = " . (estaVacio($fechaRecepcionCorreoICV) ? "NULL" : "'" . $fechaRecepcionCorreoICV . "'")
                                     . " WHERE id = " . $id);
+error_log("\n1", 3, $rutaLog);
 
                                 if (isset($_FILES["archivo_expediente"])) {
                                     try {
@@ -653,9 +683,11 @@
                                     } catch (Exception $e) {
                                     }
                                 }
+error_log("\n2", 3, $rutaLog);
 
                                 $tramite_BD = consulta($conexion, "SELECT * FROM tramite WHERE id = " . $id);
                                 $tramite = obtenResultado($tramite_BD);
+error_log("\n3", 3, $rutaLog);
 
                                 $id = $tramite["id"];
                                 $fechaAlta = $tramite["fechaAlta"];
@@ -666,6 +698,7 @@
                                 $idMensajero = $tramite["idMensajero"];
                                 $comentariosARCA = $tramite["comentariosARCA"];
                                 $comentariosConcesionario = $tramite["comentariosConcesionario"];
+error_log("\n4", 3, $rutaLog);
 
                                 $vehiculo_marca = $tramite["vehiculo_marca"];
                                 $vehiculo_modelo = $tramite["vehiculo_modelo"];
@@ -682,12 +715,14 @@
                                 $numeroFactura = $tramite["numeroFactura"];
                                 $archivo_expediente = $tramite["archivo_expediente"];
                                 $archivo_comprobantePago = $tramite["archivo_comprobantePago"];
+error_log("\n5", 3, $rutaLog);
 
                                 $fechaRecepcionCorreoICV = $tramite["fechaRecepcionCorreoICV"];
                                 $comentariosICV = $tramite["comentariosICV"];
                                 $archivo_solicitudICV = $tramite["archivo_solicitudICV"];
                                 $ejecutivoICV = $tramite["ejecutivoICV"];
                                 $folioICV = $tramite["folioICV"];
+error_log("\n6", 3, $rutaLog);
 
                                 if ($status != $statusAnterior) {
                                     $bitacora_BD = consulta($conexion, "SELECT * FROM tramite_bitacora WHERE idTramite = " . $id . " ORDER BY id DESC LIMIT 1");
@@ -1564,22 +1599,15 @@
                     $fechaFinal = date("Y-m-d H:i:s");
                 }
 
-$rutaLog = "/home/1678977.cloudwaysapps.com/zxkxdcbsvk/public_html/cms/error.log";
-error_log("\n\nA", 3, $rutaLog);
-error_log("\nfechaInicial = " . $fechaInicial, 3, $rutaLog);
-error_log("\nfechaFinal = " . $fechaFinal, 3, $rutaLog);
                 $inicio = new DateTime($fechaInicial);
                 $fin = new DateTime($fechaFinal);
 
                 if ($inicio > $fin) {
-error_log("\n1", 3, $rutaLog);
                     //return "00:00:00";
 
                     return "00d 00h 00m";
                 } else {
-error_log("\n2", 3, $rutaLog);
                     global $conexion;
-error_log("\n3", 3, $rutaLog);
 
                     $horario_lunesaviernes_inicio = obtenResultado(consulta($conexion, "SELECT valor FROM parametro WHERE nombre = 'horario_lunesaviernes_inicio'"))["valor"];
                     $horario_lunesaviernes_fin = obtenResultado(consulta($conexion, "SELECT valor FROM parametro WHERE nombre = 'horario_lunesaviernes_fin'"))["valor"];
@@ -1609,9 +1637,7 @@ error_log("\n3", 3, $rutaLog);
  */
 
                     while ($diaIteracion <= $fin) {
-error_log("\n" . $diaIteracion->format("N") . " <= " . $fin->format("N"), 3, $rutaLog);
                         if ($diaIteracion->format("N") <= 6) {
-error_log("\n4", 3, $rutaLog);
                             $jornadaInicio = clone $diaIteracion;
 
                             if ($jornadaInicio->format("N") < 6) {
@@ -1630,29 +1656,11 @@ error_log("\n4", 3, $rutaLog);
 
                             // Calcular solapamiento para el día actual
 
-error_log("\n5", 3, $rutaLog);
-error_log("\ninicio = " . $inicio->format("Y-m-d H:i:s"), 3, $rutaLog);
-error_log("\njornadaInicio = " . $jornadaInicio->format("Y-m-d H:i:s"), 3, $rutaLog);
-error_log("\nfin = " . $fin->format("Y-m-d H:i:s"), 3, $rutaLog);
-error_log("\njornadaFin = " . $jornadaFin->format("Y-m-d H:i:s"), 3, $rutaLog);
-
-
-
                             $validoInicio = max($inicio, $jornadaInicio);
                             $validoFin = min($fin, $jornadaFin);
 
-                            //$validoInicio = (strtotime($inicio) - strtotime($jornadaInicio) > 0 ? $inicio : $jornadaInicio);
-                            //$validoFin = (strtotime($fin) - strtotime($jornadaFin) > 0 ? $fin : $jornadaFin);
-
-                            //$validoInicio = ($inicio > $jornadaInicio ? $inicio : $jornadaInicio);
-                            //$validoFin = ($fin < $jornadaFin ? $fin : $jornadaFin);
-error_log("\nvalidoInicio = " . $validoInicio->format("Y-m-d H:i:s"), 3, $rutaLog);
-error_log("\nvalidoFin = " . $validoFin->format("Y-m-d H:i:s"), 3, $rutaLog);
-
                             if ($validoInicio < $validoFin) {
-error_log("\n6", 3, $rutaLog);
                                 $totalSegundos += ($validoFin->getTimestamp() - $validoInicio->getTimestamp());
-error_log("\ntotalSegundos = " . $totalSegundos, 3, $rutaLog);
                             }
                         }
 
@@ -1672,12 +1680,10 @@ error_log("\ntotalSegundos = " . $totalSegundos, 3, $rutaLog);
                     //$segundos = $totalSegundos % 60;
 
                     //return sprintf("%02d:%02d:%02d", $horas, $minutos, $segundos);
-error_log("\ntotalSegundos = " . $totalSegundos, 3, $rutaLog);
 
                     $dias = floor($totalSegundos / 86400);
                     $horas = floor(($totalSegundos / 3600) % 24);
                     $minutos = floor(($totalSegundos / 60) % 60);
-error_log("\ntiempoTranscurrido = " . sprintf("%02dd %02dh %02dm", $dias, $horas, $minutos), 3, $rutaLog);
 
                     return sprintf("%02dd %02dh %02dm", $dias, $horas, $minutos);
                 }
@@ -1748,7 +1754,7 @@ error_log("\ntiempoTranscurrido = " . sprintf("%02dd %02dh %02dm", $dias, $horas
                                     </div>
                                 </div>
 
-                                <form action="tramite.php" autocomplete="off" enctype="multipart/form-data" id="formulario" method="post">
+                                <form autocomplete="off" enctype="multipart/form-data" id="formulario" method="post">
                                     <input id="campo_esSubmit" name="esSubmit" type="hidden" value="1" />
 
                                     <div class="alert" id="contenedor_mensaje">
