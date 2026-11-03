@@ -787,7 +787,6 @@
                                                 . "<br /><br />Id: ". $id 
                                                 . "<br />Folio ARCA: ". $folioARCA
                                                 . "<br />Estatus: ". $status
-                                                . "<br />Comentarios ICV: ". $comentariosICV
                                                 . "<br />Marca: ". $vehiculo_marca
                                                 . "<br />Modelo: ". $vehiculo_modelo
                                                 . "<br />Año: ". $vehiculo_ano
