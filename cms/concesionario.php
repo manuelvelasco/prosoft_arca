@@ -651,7 +651,7 @@ if(move_uploaded_file($archivo["tmp_name"], $archivoDestino)) {
                                                                     <div class="row mb-12">
                                                                         <label class="form-label col-md-4" for="campo_razonSocial">Número de socio</label>
                                                                         <div class="col-md-8">
-                                                                            <input class="form-control" id="campo_numeroSocio" maxlength="3" name="numeroSocio" <?php echo $esUsuarioMaster ? "" : "readonly" ?> type="text" value="<?php echo $numeroSocio ?>" />
+                                                                            <input class="form-control" id="campo_numeroSocio" name="numeroSocio" <?php echo $esUsuarioMaster ? "" : "readonly" ?> type="text" value="<?php echo $numeroSocio ?>" />
                                                                         </div>
                                                                     </div>
                                                                 </div>
