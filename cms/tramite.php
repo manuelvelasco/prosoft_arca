@@ -2006,6 +2006,7 @@ error_log("\ntiempoTranscurrido = " . sprintf("%02dd %02dh %02dm", $dias, $horas
                                                                         <label class="form-label col-md-4" for="campo_tipoTramite">Tipo de trámite <span class="text-danger">*</span></label>
                                                                         <div class="col-md-8">
                                                                             <select class="form-control select2-show-search form-select" data-placeholder="Elige" id="campo_tipoTramite" name="tipoTramite" <?php echo $habilitar_campo_tipoTramite ? "" : "disabled" ?>>
+                                                                                <option <?php echo estaVacio($tipoTramite) ? "selected" : "" ?> value="">Seleccione</option>
                                                                                 <option <?php echo $tipoTramite == "Alta" ? "selected" : "" ?> value="Alta">Alta</option>
                                                                                 <option <?php echo $tipoTramite == "Baja" ? "selected" : "" ?> value="Baja">Baja</option>
                                                                                 <option <?php echo $tipoTramite == "Cambio de propietario" ? "selected" : "" ?> value="Cambio de propietario">Cambio de propietario</option>
@@ -2038,6 +2039,7 @@ error_log("\ntiempoTranscurrido = " . sprintf("%02dd %02dh %02dm", $dias, $horas
                                                                         <label class="form-label col-md-4" for="campo_tipoFactura">Tipo de factura <span class="text-danger">*</span></label>
                                                                         <div class="col-md-8">
                                                                             <select class="form-control select2-show-search form-select" data-placeholder="Elige" id="campo_tipoFactura" name="tipoFactura" <?php echo $habilitar_campo_tipoFactura ? "" : "disabled" ?>>
+                                                                                <option <?php echo estaVacio($tipoFactura) ? "selected" : "" ?> value="">Seleccione</option>
                                                                                 <option <?php echo $tipoFactura == "Endoso" ? "selected" : "" ?> value="Endoso">Endoso</option>
                                                                                 <option <?php echo $tipoFactura == "Refactura" ? "selected" : "" ?> value="Refactura">Refactura</option>
                                                                             </select>
