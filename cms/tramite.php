@@ -251,8 +251,20 @@
                     }
 
                     if (!(isset($_FILES["archivo_solicitudICV"]) && $_FILES["archivo_solicitudICV"]["error"] === UPLOAD_ERR_OK)) {
-                        $mensaje .= "* PDF de la solicitud de ICV <br />";
+                        $mensaje .= "* PDF de la solicitud de ICV<br />";
                     }
+                }
+
+                if (isset($_FILES["archivo_expediente"]) && $_FILES["archivo_expediente"]["size"] > 22020096) {
+                    $mensaje .= "* PDF de expediente debe ser de hasta 20 MB<br />";
+                }
+
+                if (isset($_FILES["archivo_comprobantePago"]) && $_FILES["archivo_comprobantePago"]["size"] > 22020096) {
+                    $mensaje .= "* PDF de pago debe ser de hasta 20 MB<br />";
+                }
+
+                if (isset($_FILES["archivo_solicitudICV"]) && $_FILES["archivo_solicitudICV"]["size"] > 22020096) {
+                    $mensaje .= "* PDF de la solicitud de ICV debe ser de hasta 20 MB<br />";
                 }
 
                 if (!estaVacio($mensaje)) {
