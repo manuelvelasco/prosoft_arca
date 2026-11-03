@@ -93,10 +93,15 @@
             $vehiculo_color = sanitiza($conexion, filter_input(INPUT_POST, "vehiculo_color"));
             $vehiculo_vin = sanitiza($conexion, filter_input(INPUT_POST, "vehiculo_vin"));
             $vehiculo_placa = sanitiza($conexion, filter_input(INPUT_POST, "vehiculo_placa"));
+
             $cliente_nombre = sanitiza($conexion, filter_input(INPUT_POST, "cliente_nombre"));
             $cliente_apellidoPaterno = sanitiza($conexion, filter_input(INPUT_POST, "cliente_apellidoPaterno"));
             $cliente_apellidoMaterno = sanitiza($conexion, filter_input(INPUT_POST, "cliente_apellidoMaterno"));
             $cliente_correoElectronico = sanitiza($conexion, filter_input(INPUT_POST, "cliente_correoElectronico"));
+
+            $tipoTramite = sanitiza($conexion, filter_input(INPUT_POST, "tipoTramite"));
+            $tipoFactura = sanitiza($conexion, filter_input(INPUT_POST, "tipoFactura"));
+            $numeroFactura = sanitiza($conexion, filter_input(INPUT_POST, "numeroFactura"));
 
             $fechaRecepcionCorreoICV = sanitiza($conexion, filter_input(INPUT_POST, "fechaRecepcionCorreoICV"));
             $comentariosICV = sanitiza($conexion, filter_input(INPUT_POST, "comentariosICV"));
@@ -174,6 +179,18 @@
 
                 if (estaVacio($cliente_correoElectronico)) {
                     $mensaje .= "* Correo electrónico<br />";
+                }
+
+                if (estaVacio($tipoTramite)) {
+                    $mensaje .= "* Tipo de trámite<br />";
+                }
+
+                if (estaVacio($tipoFactura)) {
+                    $mensaje .= "* Tipo de factura<br />";
+                }
+
+                if (estaVacio($numeroFactura)) {
+                    $mensaje .= "* Número de factura<br />";
                 }
 
                 if ((!estaVacio($id)) && ($accion == "Devuelto a la agencia")) {
@@ -294,6 +311,9 @@
                                         . ", cliente_apellidoPaterno"
                                         . ", cliente_apellidoMaterno"
                                         . ", cliente_correoElectronico"
+                                        . ", tipoTramite"
+                                        . ", tipoFactura"
+                                        . ", numeroFactura"
                                         . ", fechaAlta"
                                         . ", status"
                                         . ", idUsuario"
@@ -312,6 +332,9 @@
                                         . ", '" . $cliente_apellidoPaterno . "'"
                                         . ", '" . $cliente_apellidoMaterno . "'"
                                         . ", '" . $cliente_correoElectronico . "'"
+                                        . ", '" . $tipoTramite . "'"
+                                        . ", '" . $tipoFactura . "'"
+                                        . ", '" . $numeroFactura . "'"
                                         . ", '" . $fechaActual . "'"
                                         . ", 'Enviado a ARCA'"
                                         .", " . $usuario_id
@@ -341,6 +364,9 @@
                                 $cliente_apellidoPaterno = $tramite["cliente_apellidoPaterno"];
                                 $cliente_apellidoMaterno = $tramite["cliente_apellidoMaterno"];
                                 $cliente_correoElectronico = $tramite["cliente_correoElectronico"];
+                                $tipoTramite = $tramite["tipoTramite"];
+                                $tipoFactura = $tramite["tipoFactura"];
+                                $numeroFactura = $tramite["numeroFactura"];
                                 $archivo_expediente = $tramite["archivo_expediente"];
                                 $archivo_comprobantePago = $tramite["archivo_comprobantePago"];
 
@@ -486,6 +512,9 @@
                                     $cliente_apellidoPaterno = $tramite["cliente_apellidoPaterno"];
                                     $cliente_apellidoMaterno = $tramite["cliente_apellidoMaterno"];
                                     $cliente_correoElectronico = $tramite["cliente_correoElectronico"];
+                                    $tipoTramite = $tramite["tipoTramite"];
+                                    $tipoFactura = $tramite["tipoFactura"];
+                                    $numeroFactura = $tramite["numeroFactura"];
                                     $archivo_expediente = $tramite["archivo_expediente"];
                                     $archivo_comprobantePago = $tramite["archivo_comprobantePago"];
 
@@ -554,6 +583,9 @@
                                     . ", cliente_apellidoPaterno = '" . $cliente_apellidoPaterno . "'"
                                     . ", cliente_apellidoMaterno = '" . $cliente_apellidoMaterno . "'"
                                     . ", cliente_correoElectronico = '" . $cliente_correoElectronico . "'"
+                                    . ", tipoTramite = '" . $tipoTramite . "'"
+                                    . ", tipoFactura = '" . $tipoFactura . "'"
+                                    . ", numeroFactura = '" . $numeroFactura . "'"
                                     . ", comentariosConcesionario = '" . $comentariosConcesionario . "'"
                                     . ", comentariosARCA = '" . $comentariosARCA . "'"
                                     . ", comentariosICV = '" . $comentariosICV . "'"
@@ -628,6 +660,9 @@
                                 $cliente_apellidoPaterno = $tramite["cliente_apellidoPaterno"];
                                 $cliente_apellidoMaterno = $tramite["cliente_apellidoMaterno"];
                                 $cliente_correoElectronico = $tramite["cliente_correoElectronico"];
+                                $tipoTramite = $tramite["tipoTramite"];
+                                $tipoFactura = $tramite["tipoFactura"];
+                                $numeroFactura = $tramite["numeroFactura"];
                                 $archivo_expediente = $tramite["archivo_expediente"];
                                 $archivo_comprobantePago = $tramite["archivo_comprobantePago"];
 
@@ -895,6 +930,9 @@
                     $cliente_apellidoPaterno = $tramite["cliente_apellidoPaterno"];
                     $cliente_apellidoMaterno = $tramite["cliente_apellidoMaterno"];
                     $cliente_correoElectronico = $tramite["cliente_correoElectronico"];
+                    $tipoTramite = $tramite["tipoTramite"];
+                    $tipoFactura = $tramite["tipoFactura"];
+                    $numeroFactura = $tramite["numeroFactura"];
                     $archivo_expediente = $tramite["archivo_expediente"];
                     $archivo_comprobantePago = $tramite["archivo_comprobantePago"];
 
@@ -1921,6 +1959,54 @@ error_log("\ntiempoTranscurrido = " . sprintf("%02dd %02dh %02dm", $dias, $horas
                                                                 </div>
                                                             </div>
                                                         </div>
+
+                                                        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 mb-10">
+                                                            <div class="row">
+                                                                <div class="col-12">
+                                                                    <div class="row mb-12">
+                                                                        <label class="form-label col-md-4" for="campo_tipoTramite">Tipo de trámite <span class="text-danger">*</span></label>
+                                                                        <div class="col-md-8">
+<select class="form-control select2-show-search form-select" data-placeholder="Elige" id="campo_tipoTramite" name="tipoTramite" <?php echo $habilitar_campo_idConcesionario ? "" : "disabled" ?>>
+                                                                                <option <?php echo $tipoTramite == "Alta" ? "selected" : "" ?> value="Alta">Alta</option>
+                                                                                <option <?php echo $tipoTramite == "Baja" ? "selected" : "" ?> value="Baja">Baja</option>
+                                                                                <option <?php echo $tipoTramite == "Cambio de propietario" ? "selected" : "" ?> value="Cambio de propietario">Cambio de propietario</option>
+                                                                                <option <?php echo $tipoTramite == "Certificación" ? "selected" : "" ?> value="Certificación">Certificación</option>
+                                                                                <option <?php echo $tipoTramite == "Placas nuevas" ? "selected" : "" ?> value="Placas nuevas">Placas nuevas</option>
+                                                                            </select>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 mb-10">
+                                                            <div class="row">
+                                                                <div class="col-12">
+                                                                    <div class="row mb-12">
+                                                                        <label class="form-label col-md-4" for="campo_numeroFactura">Número de factura <span class="text-danger">*</span></label>
+                                                                        <div class="col-md-8">
+<input class="form-control" id="campo_numeroFactura" name="numeroFactura" type="text" value="<?php echo $numeroFactura; ?>" <?php echo $habilitar_campo_cliente_correoElectronico ? "" : "readonly" ?> />
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 mb-10">
+                                                            <div class="row">
+                                                                <div class="col-12">
+                                                                    <div class="row mb-12">
+                                                                        <label class="form-label col-md-4" for="campo_tipoFactura">Tipo de factura <span class="text-danger">*</span></label>
+                                                                        <div class="col-md-8">
+<select class="form-control select2-show-search form-select" data-placeholder="Elige" id="campo_tipoFactura" name="tipoFactura" <?php echo $habilitar_campo_idConcesionario ? "" : "disabled" ?>>
+                                                                                <option <?php echo $tipoFactura == "Endoso" ? "selected" : "" ?> value="Endoso">Endoso</option>
+                                                                                <option <?php echo $tipoFactura == "Refactura" ? "selected" : "" ?> value="Refactura">Refactura</option>
+                                                                            </select>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
                                                     </div>
 
                                                     <div class="row">
@@ -2710,6 +2796,9 @@ error_log("\ntiempoTranscurrido = " . sprintf("%02dd %02dh %02dm", $dias, $horas
                     $("#campo_cliente_apellidoPaterno").removeAttr("readonly");
                     $("#campo_cliente_apellidoMaterno").removeAttr("readonly");
                     $("#campo_cliente_correoElectronico").removeAttr("readonly");
+                    $("#campo_tipoTramite").removeAttr("readonly");
+                    $("#campo_tipoFactura").removeAttr("readonly");
+                    $("#campo_numeroFactura").removeAttr("readonly");
 
                     $("#campo_archivo_expediente").removeAttr("disabled");
 
