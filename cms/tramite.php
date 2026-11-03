@@ -2037,7 +2037,6 @@ error_log("\ntiempoTranscurrido = " . sprintf("%02dd %02dh %02dm", $dias, $horas
                                                                                 <option <?php echo $tipoTramite == "Baja" ? "selected" : "" ?> value="Baja">Baja</option>
                                                                                 <option <?php echo $tipoTramite == "Cambio de propietario" ? "selected" : "" ?> value="Cambio de propietario">Cambio de propietario</option>
                                                                                 <option <?php echo $tipoTramite == "Certificación" ? "selected" : "" ?> value="Certificación">Certificación</option>
-                                                                                <option <?php echo $tipoTramite == "Placas nuevas" ? "selected" : "" ?> value="Placas nuevas">Placas nuevas</option>
                                                                             </select>
                                                                         </div>
                                                                     </div>
