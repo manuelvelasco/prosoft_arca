@@ -451,7 +451,9 @@
                                     . "<br />Número de placa: " . $vehiculo_placa
                                     . "<br />Nombre Cliente: ". $cliente_nombre . " " . $cliente_apellidoPaterno . " " . $cliente_apellidoMaterno
                                     . "<br />Correo Cliente: ". $cliente_correoElectronico
-                                    . "<br />";
+                                    . "<br />Tipo de trámite: ". $tipoTramite
+                                    . "<br />Tipo de factura: ". $tipoFactura
+                                    . "<br />Número de factura: ". $numeroFactura;
 
                                 //$enviaCorreo = enviaCorreoMailjet($correoNotificacion["valor"],"", $titulo, $mensajeCorreo, $archivoDestino);
                                 $enviaCorreo = enviaCorreoMailjet($correoNotificacion["valor"],"", $titulo, $mensajeCorreo, $archivoDestino, "delegacionvirtual@seminuevosarca.com.mx");
@@ -556,7 +558,10 @@
                                         . "<br />VIN: ". $vehiculo_vin
                                         . "<br />Número de placa: " . $vehiculo_placa
                                         . "<br />Nombre Cliente: ". $cliente_nombre . " " . $cliente_apellidoPaterno . " " . $cliente_apellidoMaterno
-                                        . "<br />Correo Cliente: ". $cliente_correoElectronico;
+                                        . "<br />Correo Cliente: ". $cliente_correoElectronico
+                                        . "<br />Tipo de trámite: ". $tipoTramite
+                                        . "<br />Tipo de factura: ". $tipoFactura
+                                        . "<br />Número de factura: ". $numeroFactura;
 
                                     $archivoCorreo = $constante_rutaTramites . "/" . $id . "/" . $archivo_comprobantePago;
 
@@ -723,7 +728,10 @@
                                                 . "<br />VIN: ". $vehiculo_vin
                                                 . "<br />Número de placa: " . $vehiculo_placa
                                                 . "<br />Nombre Cliente: ". $cliente_nombre . " " . $cliente_apellidoPaterno . " " . $cliente_apellidoMaterno
-                                                . "<br />Correo Cliente: ". $cliente_correoElectronico;
+                                                . "<br />Correo Cliente: ". $cliente_correoElectronico
+                                                . "<br />Tipo de trámite: ". $tipoTramite
+                                                . "<br />Tipo de factura: ". $tipoFactura
+                                                . "<br />Número de factura: ". $numeroFactura;
 
                                             $enviaCorreo = enviaCorreoMailjet($correoNotificar, $correoNotificarCopia, $titulo, $mensajeCorreo, null, "delegacionvirtual@seminuevosarca.com.mx");
 
@@ -750,7 +758,10 @@
                                                 . "<br />VIN: ". $vehiculo_vin
                                                 . "<br />Número de placa: " . $vehiculo_placa
                                                 . "<br />Nombre Cliente: ". $cliente_nombre . " " . $cliente_apellidoPaterno . " " . $cliente_apellidoMaterno
-                                                . "<br />Correo Cliente: ". $cliente_correoElectronico;
+                                                . "<br />Correo Cliente: ". $cliente_correoElectronico
+                                                . "<br />Tipo de trámite: ". $tipoTramite
+                                                . "<br />Tipo de factura: ". $tipoFactura
+                                                . "<br />Número de factura: ". $numeroFactura;
 
                                             $archivoCorreo = $constante_rutaTramites . "/" . $id . "/" . $archivo_expediente;
 
@@ -777,7 +788,10 @@
                                                 . "<br />VIN: ". $vehiculo_vin
                                                 . "<br />Número de placa: " . $vehiculo_placa
                                                 . "<br />Nombre Cliente: ". $cliente_nombre . " " . $cliente_apellidoPaterno . " " . $cliente_apellidoMaterno
-                                                . "<br />Correo Cliente: ". $cliente_correoElectronico;
+                                                . "<br />Correo Cliente: ". $cliente_correoElectronico
+                                                . "<br />Tipo de trámite: ". $tipoTramite
+                                                . "<br />Tipo de factura: ". $tipoFactura
+                                                . "<br />Número de factura: ". $numeroFactura;
 
                                             $archivoCorreo = $constante_rutaTramites . "/" . $id . "/" . $archivo_expediente;
 
@@ -802,7 +816,10 @@
                                                 . "<br />Color: ". $vehiculo_color
                                                 . "<br />VIN: ". $vehiculo_vin
                                                 . "<br />Nombre Cliente: ". $cliente_nombre . " " . $cliente_apellidoPaterno . " " . $cliente_apellidoMaterno
-                                                . "<br />Correo Cliente: ". $cliente_correoElectronico;
+                                                . "<br />Correo Cliente: ". $cliente_correoElectronico
+                                                . "<br />Tipo de trámite: ". $tipoTramite
+                                                . "<br />Tipo de factura: ". $tipoFactura
+                                                . "<br />Número de factura: ". $numeroFactura;
 
                                             //$archivoCorreo = $constante_rutaTramites . "/" . $id . "/" . $archivo_expediente;
 
@@ -828,7 +845,10 @@
                                                 . "<br />Color: ". $vehiculo_color
                                                 . "<br />VIN: ". $vehiculo_vin
                                                 . "<br />Nombre Cliente: ". $cliente_nombre . " " . $cliente_apellidoPaterno . " " . $cliente_apellidoMaterno
-                                                . "<br />Correo Cliente: ". $cliente_correoElectronico;
+                                                . "<br />Correo Cliente: ". $cliente_correoElectronico
+                                                . "<br />Tipo de trámite: ". $tipoTramite
+                                                . "<br />Tipo de factura: ". $tipoFactura
+                                                . "<br />Número de factura: ". $numeroFactura;
 
                                             //$archivoCorreo = $constante_rutaTramites . "/" . $id . "/" . $archivo_expediente;
 
@@ -859,7 +879,10 @@
                                                     . "<br />Color: ". $vehiculo_color
                                                     . "<br />VIN: ". $vehiculo_vin
                                                     . "<br />Nombre Cliente: ". $cliente_nombre . " " . $cliente_apellidoPaterno . " " . $cliente_apellidoMaterno
-                                                    . "<br />Correo Cliente: ". $cliente_correoElectronico;
+                                                    . "<br />Correo Cliente: ". $cliente_correoElectronico
+                                                    . "<br />Tipo de trámite: ". $tipoTramite
+                                                    . "<br />Tipo de factura: ". $tipoFactura
+                                                    . "<br />Número de factura: ". $numeroFactura;
 
                                                 //$archivoCorreo = $constante_rutaTramites . "/" . $id . "/" . $archivo_expediente;
 
@@ -883,7 +906,10 @@
                                                     . "<br />Color: ". $vehiculo_color
                                                     . "<br />VIN: ". $vehiculo_vin
                                                     . "<br />Nombre Cliente: ". $cliente_nombre . " " . $cliente_apellidoPaterno . " " . $cliente_apellidoMaterno
-                                                    . "<br />Correo Cliente: ". $cliente_correoElectronico;
+                                                    . "<br />Correo Cliente: ". $cliente_correoElectronico
+                                                    . "<br />Tipo de trámite: ". $tipoTramite
+                                                    . "<br />Tipo de factura: ". $tipoFactura
+                                                    . "<br />Número de factura: ". $numeroFactura;
 
                                                 //$archivoCorreo = $constante_rutaTramites . "/" . $id . "/" . $archivo_expediente;
 
