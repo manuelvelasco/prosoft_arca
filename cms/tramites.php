@@ -652,6 +652,10 @@
             $("#campo_idConcesionario").on("change",function() {
                 var idConcesionario = $("#campo_idConcesionario").val();
 
+                <?php if (!$esUsuarioMaster && !$esUsuarioAdministrador) { ?>
+                    idConcesionario = "<?php echo $usuario_idConcesionario ?>";
+                <?php } ?>
+
                 $("#campo_idUsuario").html("");
 
                 $.ajax({
