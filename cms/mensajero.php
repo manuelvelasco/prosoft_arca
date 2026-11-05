@@ -492,7 +492,13 @@
                                                                         <div class="col-md-8">
                                                                             <select class="select2-show-search form-select" data-placeholder="Elige" id="campo_idConcesionario" multiple="multiple" name="idConcesionario[]">
                                                                                 <?php
-                                                                                    $concesionarios_BD = consulta($conexion, "SELECT * FROM concesionario WHERE habilitado = 1 and eliminado = 0 ORDER BY nombreComercial");
+                                                                                    $restricciones = "";
+
+                                                                                    if (!$esUsuarioMaster && !$esUsuarioAdministrador) {
+                                                                                        $restricciones .= " AND id = " . $usuario_idConcesionario;
+                                                                                    }
+
+                                                                                    $concesionarios_BD = consulta($conexion, "SELECT * FROM concesionario WHERE habilitado = 1 AND eliminado = 0 " . $restricciones . " ORDER BY nombreComercial");
 
                                                                                     while ($concesionarioBD = obtenResultado($concesionarios_BD)) {
                                                                                         $arrayIdConcesionario = explode(",", $idConcesionarioLista);
