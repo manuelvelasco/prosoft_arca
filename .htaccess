@@ -6,3 +6,8 @@ RewriteCond %{HTTP_HOST} ^(www\.)?seminuevosarca\.mx$ [NC]
 
 # Redirige permanentemente manteniendo la sección exacta de la URL que visitaban
 RewriteRule ^(.*)$ https://seminuevosarca.com.mx [R=301,L]
+
+
+<FilesMatch "\.(pdf)$">
+    Header set Cross-Origin-Resource-Policy "cross-origin"
+</FilesMatch>
