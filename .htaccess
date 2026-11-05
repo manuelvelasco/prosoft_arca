@@ -1,13 +1,16 @@
-RewriteEngine On
+#RewriteEngine On
 
 # Detecta si entran por seminuevosarca.com (con o sin www) o seminuevosarca.mx (con o sin www)
-RewriteCond %{HTTP_HOST} ^(www\.)?seminuevosarca\.com$ [NC,OR]
-RewriteCond %{HTTP_HOST} ^(www\.)?seminuevosarca\.mx$ [NC]
+#RewriteCond %{HTTP_HOST} ^(www\.)?seminuevosarca\.com$ [NC,OR]
+#RewriteCond %{HTTP_HOST} ^(www\.)?seminuevosarca\.mx$ [NC]
 
 # Redirige permanentemente manteniendo la sección exacta de la URL que visitaban
-RewriteRule ^(.*)$ https://seminuevosarca.com.mx [R=301,L]
+#RewriteRule ^(.*)$ https://seminuevosarca.com.mx [R=301,L]
 
 
-<FilesMatch "\.(pdf)$">
-    Header set Cross-Origin-Resource-Policy "cross-origin"
-</FilesMatch>
+<IfModule mod_headers.c>
+    <FilesMatch "\.(pdf)$">
+        Header set Content-Disposition "attachment"
+        Header set Cross-Origin-Resource-Policy "cross-origin"
+    </FilesMatch>
+</IfModule>
