@@ -445,7 +445,7 @@
                                 $correoNotificacion = obtenResultado($correoNotificacion_BD);
 
                                 //$titulo = "Nueva solicitud de trámite";
-                                $titulo = "ARCA - " . $folioARCA . " - " . $concesionario["nombreComercial"] . " - " . trim($cliente_nombre . " " . $cliente_apellidoPaterno . " " . $cliente_apellidoMaterno) . " - NUEVO";
+                                $titulo = "ARCA - " . $folioARCA . " - " . $concesionario["nombreComercial"] . " - " . trim($cliente_nombre . " " . $cliente_apellidoPaterno . " " . $cliente_apellidoMaterno);
 
                                 $mensajeCorreo = "Se ha recibido una nueva solicitud de trámite con los siguientes datos:"
                                     . "<br /><br />Id: ". $id
