@@ -2360,7 +2360,7 @@
                                                 <a class="btn btn-default mb-3" href="javascript:;" onclick="reenviaCorreo('Reenviado a ARCA')">Reenviar último correo</a>
                                             <?php } else if ($status == "A la espera de respuesta de ICV") { ?>
                                                 <a class="btn btn-default mb-3" href="javascript:;" onclick="reenviaCorreo('A la espera de respuesta de ICV')">Reenviar último correo</a>
-                                            <?php } else if ($status == "Aprobado") { ?>
+                                            <?php } else if ($status == "Aprobado" || $status == "Aprobado con biométricos") { ?>
                                                 <a class="btn btn-default mb-3" href="javascript:;" onclick="reenviaCorreo('Aprobado')">Reenviar último correo</a>
                                             <?php } else if ($status == "Rechazado") { ?>
                                                 <a class="btn btn-default mb-3" href="javascript:;" onclick="reenviaCorreo('Rechazado')">Reenviar último correo</a>
