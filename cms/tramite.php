@@ -2339,7 +2339,7 @@
                                     <?php } ?> 
 
                                     <div class="row mt-6">
-                                        <div class="col-md-2 col-sm-3" id="contenedor_botonesIzquierdos">
+                                        <div class="col-sm-3 col-xs-12" id="contenedor_botonesIzquierdos">
                                             <div class="form-group">
                                                 <?php if ($habilitar_boton_eliminar && $eliminado == 0) { ?>
                                                     <a class="btn btn-danger mb-3" href="javascript:eliminaTramite(<?php echo  $id ?>)" id="boton_eliminar">Eliminar</a>
@@ -2351,7 +2351,7 @@
                                             </div>
                                         </div>
 
-                                        <div class="col-md-10 col-sm-9" id="contenedor_botonesDerechos">
+                                        <div class="col-sm-9 col-xs-12" id="contenedor_botonesDerechos">
                                             <div class="form-group">
                                                 <input id="campo_accion" name="accion" type="hidden" value="<?php echo $accion; ?>" />
 
