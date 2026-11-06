@@ -2295,13 +2295,15 @@ error_log("\nidUsuario = " . $usuario_id, 3, $rutaLog);*/
                                                                         <label class="form-label col-md-4" for="campo_idConcesionario">Agencia</label>
                                                                         <div class="col-md-8">
                                                                             <select class="form-control select2-show-search form-select" data-placeholder="Seleccione" id="campo_idConcesionario" name="idConcesionario">
-                                                                                <option <?php echo estaVacio($municipio) ? "selected" : "" ?> value="">Seleccione</option>
+                                                                                <option <?php echo estaVacio($idConcesionario) ? "selected" : "" ?> value="">Seleccione</option>
+
                                                                                 <?php
                                                                                     if ($esUsuarioOperador) {
                                                                                         $concesionarios_BD = consulta($conexion, "SELECT * FROM concesionario WHERE id = " . $usuario_idConcesionario . " ORDER BY nombreComercial");
                                                                                     } else {
                                                                                         $concesionarios_BD = consulta($conexion, "SELECT * FROM concesionario ORDER BY nombreComercial");
                                                                                     }
+
                                                                                     while ($concesionario = obtenResultado($concesionarios_BD)) {
                                                                                         echo "<option " . ($idConcesionario == $concesionario["id"] ? "selected" : "") . " value='" . $concesionario["id"] . "'>" . $concesionario["nombreComercial"] . "</option>";
                                                                                     }
