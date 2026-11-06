@@ -91,6 +91,8 @@
             $estado = sanitiza($conexion, filter_input(INPUT_POST, "estado"));
             $municipio = sanitiza($conexion, filter_input(INPUT_POST, "municipio"));
 
+            $idConcesionarioLista = "";
+
             if (isset($_POST["idConcesionario"])) {
                 $idConcesionarioArray = $_POST["idConcesionario"];
                 $idConcesionarioLista = implode(",",$_POST["idConcesionario"]);
