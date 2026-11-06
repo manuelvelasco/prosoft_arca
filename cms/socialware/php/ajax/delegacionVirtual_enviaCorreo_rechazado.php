@@ -36,7 +36,7 @@
 
         $titulo = "ARCA - " . $tramite["folioARCA"] . " - " . $concesionario["nombreComercial"] . " - " . trim($tramite["cliente_nombre"] . " " . $tramite["cliente_apellidoPaterno"] . " " . $tramite["cliente_apellidoMaterno"]) . " - ACTUALIZACION";
 
-        $mensajeCorreo = "Se ha actualizado la solicitud de trámite con los siguientes datos, favor de ingresar al sistema para ver los detalles:"
+        $mensaje = "Se ha actualizado la solicitud de trámite con los siguientes datos, favor de ingresar al sistema para ver los detalles:"
             . "<br /><br />Id: ". $idTramite
             . "<br />Folio ARCA: ". $tramite["folioARCA"]
             . "<br />Estatus: ". $tramite["status"]
