@@ -32,7 +32,7 @@
 
         $correoNotificacion = obtenResultado(consulta($conexion, "SELECT * FROM parametro WHERE nombre = 'delegacionVirtual_cargarComprobantePago_correosARCA'"))["valor"];
         $correoNotificacion_copia = null;
-        $archivo = $constante_rutaTramites . "/" . $id . "/" . $tramite["archivo_comprobantePago"];
+        $archivo = $constante_rutaTramites . "/" . $idTramite . "/" . $tramite["archivo_comprobantePago"];
 
         $titulo = "ARCA - " . $tramite["folioARCA"] . " - " . $concesionario["nombreComercial"] . " - " . trim($tramite["cliente_nombre"] . " " . $tramite["cliente_apellidoPaterno"] . " " . $tramite["cliente_apellidoMaterno"]) . " - COMPROBANTE DE PAGO CARGADO";
 
