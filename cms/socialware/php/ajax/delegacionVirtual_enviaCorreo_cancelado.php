@@ -61,7 +61,7 @@
 
             $enviaCorreo = enviaCorreoMailjet($correoNotificacion, $correoNotificacion_copia, $titulo, $mensaje, $archivo, "delegacionvirtual@seminuevosarca.com.mx");
         } else {
-            $correoNotificacion = $usuarioCapturo["correoElectronico"];
+            $correoNotificacion = $usuario["correoElectronico"];
             $correoNotificacion_copia = null;
             $archivo = $constante_rutaTramites . "/" . $idTramite . "/" . $tramite["archivo_expediente"];
 

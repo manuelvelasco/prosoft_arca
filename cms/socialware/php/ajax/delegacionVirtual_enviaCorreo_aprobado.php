@@ -30,7 +30,7 @@
         $concesionario = obtenResultado(consulta($conexion, "SELECT * FROM concesionario WHERE id = (SELECT idConcesionario FROM tramite WHERE id = " . $idTramite . ")"));
         $mensajero = obtenResultado(consulta($conexion, "SELECT * FROM mensajero WHERE id = (SELECT idMensajero FROM tramite WHERE id = " . $idTramite . ")"));
 
-        $correoNotificacion = $usuarioCapturo["correoElectronico"];
+        $correoNotificacion = $usuario["correoElectronico"];
         $correoNotificacion_copia = null;
         $archivo = null;
 
