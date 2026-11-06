@@ -126,6 +126,9 @@
             $habilitado = estaVacio($habilitado) ? 0 : 1;
             $eliminado = estaVacio($eliminado) ? 0 : 1;
             $imagenPrincipal = "";
+            $archivo_expediente = "";
+            $archivo_comprobantePago = "";
+            $archivo_solicitudICV = "";
 
             // Procesa el request
 
