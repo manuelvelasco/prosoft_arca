@@ -32,7 +32,7 @@
 
         $correoNotificacion = $usuario["correoElectronico"];
         $correoNotificacion_copia = null;
-        $archivo = $constante_rutaTramites . "/" . $idTramite . "/" . $tramite["archivo_expediente"];
+        $archivo = null;
 
         $titulo = "ARCA - " . $tramite["folioARCA"] . " - " . $concesionario["nombreComercial"] . " - " . trim($tramite["cliente_nombre"] . " " . $tramite["cliente_apellidoPaterno"] . " " . $tramite["cliente_apellidoMaterno"]) . " - ACTUALIZACION";
 
