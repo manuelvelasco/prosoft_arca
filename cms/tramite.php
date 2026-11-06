@@ -2910,7 +2910,7 @@
             function reenviaCorreo(status) {
                 $.LoadingOverlay("show", { minSize: 30, maxSize: 30 });
 
-                var idTramite = "<?php echo $idTramite ?>";
+                var idTramite = "<?php echo $id ?>";
                 var servicio = "";
 
                 if (status == "Enviado a ARCA") {

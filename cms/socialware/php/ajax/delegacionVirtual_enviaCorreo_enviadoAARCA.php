@@ -62,19 +62,4 @@
     } catch (Exception $ex) {
         echo "error";
     }
-
-    
-    
-    
-
-
-
-"Enviado a ARCA"
-"Devuelto a la agencia"
-"Reenviado a ARCA"
-            "A la espera de respuesta de ICV"
-            "Aprobado"
-            "Aprobado con biométricos"
-            "Rechazado"
-            
 ?>
