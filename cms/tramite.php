@@ -582,36 +582,7 @@
                                 } catch (Exception $e) {
                                 }
                             } else {
-$rutaLog = "/home/1678977.cloudwaysapps.com/zxkxdcbsvk/public_html/cms/error.log";
-error_log("\n\nB", 3, $rutaLog);
-
                                 $statusAnterior = obtenResultado(consulta($conexion, "SELECT status FROM tramite WHERE id = " . $id))["status"];
-error_log("\nstatusAnterior = " . $statusAnterior, 3, $rutaLog);
-error_log("\n" . "UPDATE tramite SET "
-                                    . "idConcesionario = " . $idConcesionario
-                                    . ", idMensajero = " . $idMensajero
-                                    . ", folioARCA = '" . $folioARCA . "'"
-                                    . ", folioICV = '" . $folioICV . "'"
-                                    . ", status = '" . $accion . "'"
-                                    . ", vehiculo_marca = '" . $vehiculo_marca . "'"
-                                    . ", vehiculo_modelo = '" . $vehiculo_modelo . "'"
-                                    . ", vehiculo_ano = '" . $vehiculo_ano . "'"
-                                    . ", vehiculo_color = '" . $vehiculo_color . "'"
-                                    . ", vehiculo_vin = '" . $vehiculo_vin . "'"
-                                    . ", vehiculo_placa = " . (estaVacio($vehiculo_placa) ? "NULL" : "'" . $vehiculo_placa . "'")
-                                    . ", cliente_nombre = '" . $cliente_nombre . "'"
-                                    . ", cliente_apellidoPaterno = '" . $cliente_apellidoPaterno . "'"
-                                    . ", cliente_apellidoMaterno = '" . $cliente_apellidoMaterno . "'"
-                                    . ", cliente_correoElectronico = '" . $cliente_correoElectronico . "'"
-                                    . ", tipoTramite = '" . $tipoTramite . "'"
-                                    . ", tipoFactura = '" . $tipoFactura . "'"
-                                    . ", numeroFactura = '" . $numeroFactura . "'"
-                                    . ", comentariosConcesionario = '" . $comentariosConcesionario . "'"
-                                    . ", comentariosARCA = '" . $comentariosARCA . "'"
-                                    . ", comentariosICV = '" . $comentariosICV . "'"
-                                    . ", ejecutivoICV = '" . $ejecutivoICV . "'"
-                                    . ", fechaRecepcionCorreoICV = " . (estaVacio($fechaRecepcionCorreoICV) ? "NULL" : "'" . $fechaRecepcionCorreoICV . "'")
-                                    . " WHERE id = " . $id, 3, $rutaLog);
 
                                 consulta($conexion, "UPDATE tramite SET "
                                     . "idConcesionario = " . $idConcesionario
@@ -638,7 +609,6 @@ error_log("\n" . "UPDATE tramite SET "
                                     . ", ejecutivoICV = '" . $ejecutivoICV . "'"
                                     . ", fechaRecepcionCorreoICV = " . (estaVacio($fechaRecepcionCorreoICV) ? "NULL" : "'" . $fechaRecepcionCorreoICV . "'")
                                     . " WHERE id = " . $id);
-error_log("\n1", 3, $rutaLog);
 
                                 if (isset($_FILES["archivo_expediente"])) {
                                     try {
@@ -683,11 +653,9 @@ error_log("\n1", 3, $rutaLog);
                                     } catch (Exception $e) {
                                     }
                                 }
-error_log("\n2", 3, $rutaLog);
 
                                 $tramite_BD = consulta($conexion, "SELECT * FROM tramite WHERE id = " . $id);
                                 $tramite = obtenResultado($tramite_BD);
-error_log("\n3", 3, $rutaLog);
 
                                 $id = $tramite["id"];
                                 $fechaAlta = $tramite["fechaAlta"];
@@ -698,7 +666,6 @@ error_log("\n3", 3, $rutaLog);
                                 $idMensajero = $tramite["idMensajero"];
                                 $comentariosARCA = $tramite["comentariosARCA"];
                                 $comentariosConcesionario = $tramite["comentariosConcesionario"];
-error_log("\n4", 3, $rutaLog);
 
                                 $vehiculo_marca = $tramite["vehiculo_marca"];
                                 $vehiculo_modelo = $tramite["vehiculo_modelo"];
@@ -715,14 +682,12 @@ error_log("\n4", 3, $rutaLog);
                                 $numeroFactura = $tramite["numeroFactura"];
                                 $archivo_expediente = $tramite["archivo_expediente"];
                                 $archivo_comprobantePago = $tramite["archivo_comprobantePago"];
-error_log("\n5", 3, $rutaLog);
 
                                 $fechaRecepcionCorreoICV = $tramite["fechaRecepcionCorreoICV"];
                                 $comentariosICV = $tramite["comentariosICV"];
                                 $archivo_solicitudICV = $tramite["archivo_solicitudICV"];
                                 $ejecutivoICV = $tramite["ejecutivoICV"];
                                 $folioICV = $tramite["folioICV"];
-error_log("\n6", 3, $rutaLog);
 
                                 if ($status != $statusAnterior) {
                                     $bitacora_BD = consulta($conexion, "SELECT * FROM tramite_bitacora WHERE idTramite = " . $id . " ORDER BY id DESC LIMIT 1");
@@ -2375,11 +2340,15 @@ error_log("\n6", 3, $rutaLog);
 
                                     <div class="row mt-6">
                                         <div class="col-md-2 col-sm-3" id="contenedor_botonesIzquierdos">
-                                            <?php if ($habilitar_boton_eliminar && $eliminado == 0) { ?>
-                                                <div class="form-group">
+                                            <div class="form-group">
+                                                <?php if ($habilitar_boton_eliminar && $eliminado == 0) { ?>
                                                     <a class="btn btn-danger mb-3" href="javascript:eliminaTramite(<?php echo  $id ?>)" id="boton_eliminar">Eliminar</a>
-                                                </div>
-                                            <?php } ?>
+                                                <?php } ?>
+
+                                                <?php if ($habilitar_boton_cancelarTramite) { ?>
+                                                    <a class="btn btn-default mb-3" href="javascript:;" id="boton_cancelarTramite" onclick="cancelarTramite()" style="background-color: #432918; color: #fff !important">Cancelar trámite</a>
+                                                <?php }?>
+                                            </div>
                                         </div>
 
                                         <div class="col-md-10 col-sm-9" id="contenedor_botonesDerechos">
@@ -2422,10 +2391,6 @@ error_log("\n6", 3, $rutaLog);
 
                                                 <?php if ($habilitar_boton_aprobado) { ?>
                                                     <a class="btn btn-default mb-3"  href="javascript:;" id="boton_aprobarConBiometricos" onclick="aprobarConBiometricos()" style="background-color: #5170ff; color: #fff !important">Aprobado con biométricos</a>
-                                                <?php }?>
-
-                                                <?php if ($habilitar_boton_cancelarTramite) { ?>
-                                                    <a class="btn btn-default mb-3" href="javascript:;" id="boton_cancelarTramite" onclick="cancelarTramite()" style="background-color: #432918; color: #fff !important">Cancelar trámite</a>
                                                 <?php }?>
                                             </div>
                                         </div>
