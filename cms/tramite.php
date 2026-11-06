@@ -2351,7 +2351,25 @@
                                             </div>
                                         </div>
 
-                                        <div class="col-sm-9 col-xs-12" id="contenedor_botonesDerechos">
+                                        <div class="col-sm-3 col-xs-12" id="contenedor_botonesIzquierdos">
+                                            <?php if ($status == "Enviado a ARCA") { ?>
+                                                <a class="btn btn-default mb-3" href="javascript:;" onclick="reenviaCorreo('Enviado a ARCA')">Reenviar correo</a>
+                                            <?php } else if ($status == "Devuelto a la agencia") { ?>
+                                                <a class="btn btn-default mb-3" href="javascript:;" onclick="reenviaCorreo('Devuelto a la agencia')">Reenviar correo</a>
+                                            <?php } else if ($status == "Reenviado a ARCA") { ?>
+                                                <a class="btn btn-default mb-3" href="javascript:;" onclick="reenviaCorreo('Reenviado a ARCA')">Reenviar correo</a>
+                                            <?php } else if ($status == "A la espera de respuesta de ICV") { ?>
+                                                <a class="btn btn-default mb-3" href="javascript:;" onclick="reenviaCorreo('A la espera de respuesta de ICV')">Reenviar correo</a>
+                                            <?php } else if ($status == "Aprobado") { ?>
+                                                <a class="btn btn-default mb-3" href="javascript:;" onclick="reenviaCorreo('Aprobado')">Reenviar correo</a>
+                                            <?php } else if ($status == "Rechazado") { ?>
+                                                <a class="btn btn-default mb-3" href="javascript:;" onclick="reenviaCorreo('Rechazado')">Reenviar correo</a>
+                                            <?php } else if ($status == "Cancelado") { ?>
+                                                <a class="btn btn-default mb-3" href="javascript:;" onclick="reenviaCorreo('Cancelado')">Reenviar correo</a>
+                                            <?php } ?>
+                                        </div>
+
+                                        <div class="col-sm-6 col-xs-12" id="contenedor_botonesDerechos">
                                             <div class="form-group">
                                                 <input id="campo_accion" name="accion" type="hidden" value="<?php echo $accion; ?>" />
 
@@ -2882,6 +2900,49 @@
             <?php if (!estaVacio($id)) { ?>
                 $("#boton_guardar").hide();
             <?php } ?>
+
+
+            // Botones de reenvio de correos
+
+
+            function reenviaCorreo(status) {
+                $.LoadingOverlay("show", { minSize: 30, maxSize: 30 });
+
+                var idTramite = "<?php echo $idTramite ?>";
+                var servicio = "";
+
+                if (status == "Enviado a ARCA") {
+                    servicio = "delegacionVirtual_enviaCorreo_enviadoAARCA.php";
+                } else if (status == "Devuelto a la agencia") {
+                    servicio = "delegacionVirtual_enviaCorreo_devueltoALaAgencia.php";
+                } else if (status == "Reenviado a ARCA") {
+                    servicio = "delegacionVirtual_enviaCorreo_reenviadoAARCA.php";
+                } else if (status == "A la espera de respuesta de ICV") {
+                    servicio = "delegacionVirtual_enviaCorreo_aLaEsperaDeRespuestaDeICV.php";
+                } else if (status == "Aprobado") {
+                    servicio = "delegacionVirtual_enviaCorreo_aprobado.php";
+                } else if (status == "Rechazado") {
+                    servicio = "delegacionVirtual_enviaCorreo_rechazado.php";
+                } else if (status == "Cancelado") {
+                    servicio = "delegacionVirtual_enviaCorreo_cancelado.php";
+                }
+
+                $.ajax({
+                    url: "socialware/php/ajax/" + servicio,
+                    type: "post",
+                    data: {
+                        idTramite: idTramite
+                    }
+                }).done(function (resultado, textStatus, jqXHR) {
+                    if (resultado == "ok") {
+                        alert("Se ha reenviado el correo correspondiente al status actual.");
+                    } else {
+                        alert("Ha ocurrido un error al reenviar el correo, por favor intente de nuevo.");
+                    }
+
+                    $.LoadingOverlay("hide");
+                });
+            }
         </script>
     </body>
 </html>
