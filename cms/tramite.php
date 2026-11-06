@@ -2353,27 +2353,29 @@
 
                                         <div class="col-sm-3 col-xs-12" id="contenedor_botonesIzquierdos">
                                             <?php if ($status == "Enviado a ARCA") { ?>
-                                                <a class="btn btn-default mb-3" href="javascript:;" onclick="reenviaCorreo('Enviado a ARCA')">Reenviar correo</a>
+                                                <a class="btn btn-default mb-3" href="javascript:;" onclick="reenviaCorreo('Enviado a ARCA')">Reenviar último correo</a>
                                             <?php } else if ($status == "Devuelto a la agencia") { ?>
-                                                <a class="btn btn-default mb-3" href="javascript:;" onclick="reenviaCorreo('Devuelto a la agencia')">Reenviar correo</a>
+                                                <a class="btn btn-default mb-3" href="javascript:;" onclick="reenviaCorreo('Devuelto a la agencia')">Reenviar último correo</a>
                                             <?php } else if ($status == "Reenviado a ARCA") { ?>
-                                                <a class="btn btn-default mb-3" href="javascript:;" onclick="reenviaCorreo('Reenviado a ARCA')">Reenviar correo</a>
+                                                <a class="btn btn-default mb-3" href="javascript:;" onclick="reenviaCorreo('Reenviado a ARCA')">Reenviar último correo</a>
                                             <?php } else if ($status == "A la espera de respuesta de ICV") { ?>
-                                                <a class="btn btn-default mb-3" href="javascript:;" onclick="reenviaCorreo('A la espera de respuesta de ICV')">Reenviar correo</a>
+                                                <a class="btn btn-default mb-3" href="javascript:;" onclick="reenviaCorreo('A la espera de respuesta de ICV')">Reenviar último correo</a>
                                             <?php } else if ($status == "Aprobado") { ?>
-                                                <a class="btn btn-default mb-3" href="javascript:;" onclick="reenviaCorreo('Aprobado')">Reenviar correo</a>
+                                                <a class="btn btn-default mb-3" href="javascript:;" onclick="reenviaCorreo('Aprobado')">Reenviar último correo</a>
                                             <?php } else if ($status == "Rechazado") { ?>
-                                                <a class="btn btn-default mb-3" href="javascript:;" onclick="reenviaCorreo('Rechazado')">Reenviar correo</a>
+                                                <a class="btn btn-default mb-3" href="javascript:;" onclick="reenviaCorreo('Rechazado')">Reenviar último correo</a>
                                             <?php } else if ($status == "Cancelado") { ?>
-                                                <a class="btn btn-default mb-3" href="javascript:;" onclick="reenviaCorreo('Cancelado')">Reenviar correo</a>
+                                                <a class="btn btn-default mb-3" href="javascript:;" onclick="reenviaCorreo('Cancelado')">Reenviar último correo</a>
                                             <?php } ?>
+
+                                            <a class="btn btn-default mb-3" href="javascript:void(0)" id="boton_cerrar">Cerrar</a>
                                         </div>
 
                                         <div class="col-sm-6 col-xs-12" id="contenedor_botonesDerechos">
                                             <div class="form-group">
                                                 <input id="campo_accion" name="accion" type="hidden" value="<?php echo $accion; ?>" />
 
-                                                <a class="btn btn-default mb-3" href="javascript:void(0)" id="boton_cerrar" style="color: #fff !important">Cerrar</a>
+                                                <!--a class="btn btn-default mb-3" href="javascript:void(0)" id="boton_cerrar" style="color: #fff !important">Cerrar</a-->
 
                                                 <?php if ($habilitar_boton_guardar) { ?>
                                                     <button class="btn btn-success mb-3"  id="boton_guardar" onclick="return confirm('¿Desea dar de alta este trámite?');" style="background-color: #2d146f; color: #fff !important" type="submit" >Generar trámite</button>
