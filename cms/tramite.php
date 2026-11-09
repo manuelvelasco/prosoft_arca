@@ -931,6 +931,67 @@
                                             }
 
                                             break;
+                                        case "Actualización solicitada a ARCA":
+                                            $correoNotificar = obtenResultado(consulta($conexion, "SELECT * FROM parametro WHERE nombre = 'delegacionVirtual_solicitarActualiacionFolio_correosARCA'"))["valor"];
+
+                                            $titulo = "ARCA - " . $folioARCA . " - " . $concesionario["nombreComercial"] . " - " . trim($cliente_nombre . " " . $cliente_apellidoPaterno . " " . $cliente_apellidoMaterno) . " - ACTUALIZACION";
+
+                                            $mensajeCorreo = "Se ha actualizado la solicitud de trámite con los siguientes datos, favor de ingresar al sistema para ver los detalles:"
+                                                . "<br /><br />Id: ". $id 
+                                                . "<br />Folio ARCA: ". $folioARCA
+                                                . "<br />Estatus: ". $status
+                                                . "<br />Agencia: ". $concesionario["nombreComercial"]
+                                                . "<br />Usuario capturó: " . $usuario_nombre
+                                                . "<br />Mensajero: " . $mensajero["nombre"] . " " . $mensajero["apellidoPaterno"] . " " . $mensajero["apellidoMaterno"]
+                                                . "<br />Comentarios agencia: ". $comentariosConcesionario
+                                                . "<br />Comentarios ARCA: ". $comentariosARCA
+                                                . "<br />Marca: ". $vehiculo_marca
+                                                . "<br />Modelo: ". $vehiculo_modelo
+                                                . "<br />Año: ". $vehiculo_ano
+                                                . "<br />Color: ". $vehiculo_color
+                                                . "<br />VIN: ". $vehiculo_vin
+                                                . "<br />Número de placa: " . $vehiculo_placa
+                                                . "<br />Nombre Cliente: ". $cliente_nombre . " " . $cliente_apellidoPaterno . " " . $cliente_apellidoMaterno
+                                                . "<br />Correo Cliente: ". $cliente_correoElectronico
+                                                . "<br />Tipo de trámite: ". $tipoTramite
+                                                . "<br />Tipo de factura: ". $tipoFactura
+                                                . "<br />Número de factura: ". $numeroFactura;
+
+                                            $archivoCorreo = $constante_rutaTramites . "/" . $id . "/" . $archivo_expediente;
+
+                                            $enviaCorreo = enviaCorreoMailjet($correoNotificar, $correoNotificarCopia, $titulo, $mensajeCorreo, $archivoCorreo, "delegacionvirtual@seminuevosarca.com.mx");
+
+                                            break;
+                                        case "Actualización solicitada a ICV":
+                                            $correoNotificar = obtenResultado(consulta($conexion, "SELECT * FROM parametro WHERE nombre = 'delegacionVirtual_solicitarActualizacionICV_correosICV'"))["valor"];
+
+                                            $titulo = "ARCA - " . $folioARCA . " - " . $concesionario["nombreComercial"] . " - " . trim($cliente_nombre . " " . $cliente_apellidoPaterno . " " . $cliente_apellidoMaterno) . " - ACTUALIZACION";
+
+                                            $mensajeCorreo = "Se ha actualizado la solicitud de trámite con los siguientes datos:"
+                                                . "<br /><br />Id: ". $id 
+                                                . "<br />Agencia: ". $concesionario["nombreComercial"]
+                                                . "<br />Usuario capturó: " . $usuario_nombre
+                                                . "<br />Folio ARCA: " . $folioARCA
+                                                . "<br />Mensajero: " . $mensajero["nombre"] . " " . $mensajero["apellidoPaterno"] . " " . $mensajero["apellidoMaterno"]
+                                                . "<br />Comentarios agencia: ". $comentariosConcesionario
+                                                . "<br />Comentarios ARCA: ". $comentariosARCA
+                                                . "<br />Marca: ". $vehiculo_marca
+                                                . "<br />Modelo: ". $vehiculo_modelo
+                                                . "<br />Año: ". $vehiculo_ano
+                                                . "<br />Color: ". $vehiculo_color
+                                                . "<br />VIN: ". $vehiculo_vin
+                                                . "<br />Número de placa: " . $vehiculo_placa
+                                                . "<br />Nombre Cliente: ". $cliente_nombre . " " . $cliente_apellidoPaterno . " " . $cliente_apellidoMaterno
+                                                . "<br />Correo Cliente: ". $cliente_correoElectronico
+                                                . "<br />Tipo de trámite: ". $tipoTramite
+                                                . "<br />Tipo de factura: ". $tipoFactura
+                                                . "<br />Número de factura: ". $numeroFactura;
+
+                                            $archivoCorreo = $constante_rutaTramites . "/" . $id . "/" . $archivo_expediente;
+
+                                            $enviaCorreo = enviaCorreoMailjet($correoNotificar, $correoNotificarCopia, $titulo, $mensajeCorreo, $archivoCorreo, "delegacionvirtual@seminuevosarca.com.mx");
+
+                                            break;
                                     }
                                 }
                             }
@@ -1039,6 +1100,8 @@
             $habilitar_boton_eliminarArchivoExpediente = false;
             $habilitar_boton_eliminarArchivoSolicitudICV = false;
             $habilitar_boton_cancelarTramite = false;
+            $habilitar_boton_solicitarActualizacionFolio = false;
+            $habilitar_boton_solicitarActualizacionICV = false;
 
             if (estaVacio($id)) {
                 if ($esUsuarioOperador && $usuario_permisoEditarDelegacionVirtual) {
@@ -1359,11 +1422,14 @@
 
                             $habilitar_boton_guardar = true;
                             $habilitar_boton_guardarComprobantePago = true;
+                            $habilitar_boton_cancelarTramite = true;
+                            $habilitar_boton_solicitarActualizacionFolio = true;
                         } else if ($esUsuarioAdministrador && $usuario_permisoEditarDelegacionVirtual) {
                             $habilitar_campo_archivo_comprobantePago = true;
 
                             $habilitar_boton_guardar = true;
                             $habilitar_boton_guardarComprobantePago = true;
+                            $habilitar_boton_cancelarTramite = true;
                         } else if ($esUsuarioMaster) {
                             $habilitar_campo_folioARCA = true;
                             $habilitar_campo_comentariosConcesionario = true;
@@ -1398,17 +1464,39 @@
                             $habilitar_boton_guardarComprobantePago = true;
                             $habilitar_boton_eliminarArchivoExpediente = true;
                             $habilitar_boton_eliminarArchivoSolicitudICV = true;
+                            $habilitar_boton_cancelarTramite = true;
                         }
 
                         break;
                     case "Rechazado":
-/*
                         if ($esUsuarioOperador && $usuario_permisoEditarDelegacionVirtual) {
-                            $habilitar_boton_clonarTramite = true;
+                            $habilitar_campo_comentariosConcesionario = true;
+                            $habilitar_campo_vehiculo_color = true;
+                            $habilitar_campo_vehiculo_vin = true;
+                            $habilitar_campo_vehiculo_placa = true;
+                            $habilitar_campo_cliente_nombre = true;
+                            $habilitar_campo_cliente_apellidoPaterno = true;
+                            $habilitar_campo_cliente_apellidoMaterno = true;
+                            $habilitar_campo_cliente_correoElectronico = true;
+                            $habilitar_campo_tipoTramite = true;
+                            $habilitar_campo_tipoFactura = true;
+                            $habilitar_campo_numeroFactura = true;
+
+                            $habilitar_campo_archivo_expediente = true;
+
+                            $habilitar_campo_idMensajero = true;
+                            $habilitar_campo_vehiculo_marca = true;
+                            $habilitar_campo_vehiculo_modelo = true;
+                            $habilitar_campo_vehiculo_ano = true;
+
+                            $habilitar_boton_reenviarARCA = true;
                             $habilitar_boton_guardar = true;
+                            $habilitar_boton_eliminarArchivoSolicitudICV = true;
+                            $habilitar_boton_cancelarTramite = true;
                         } else if ($esUsuarioAdministrador && $usuario_permisoEditarDelegacionVirtual) {
-                            $habilitar_boton_clonarTramite = true;
                             $habilitar_boton_guardar = true;
+                            $habilitar_boton_eliminarArchivoSolicitudICV = true;
+                            $habilitar_boton_cancelarTramite = true;
                         } else if ($esUsuarioMaster) {
                             $habilitar_campo_folioARCA = true;
                             $habilitar_campo_comentariosConcesionario = true;
@@ -1438,76 +1526,52 @@
                             $habilitar_campo_vehiculo_ano = true;
 
                             $habilitar_boton_eliminar = true;
-                            $habilitar_boton_clonarTramite = true;
+                            $habilitar_boton_reenviarARCA = true;
                             $habilitar_boton_guardar = true;
                             $habilitar_boton_eliminarArchivoExpediente = true;
                             $habilitar_boton_eliminarArchivoSolicitudICV = true;
+                            $habilitar_boton_cancelarTramite = true;
                         }
 
                         break;
-*/
-
+                    case "Actualización solicitada a ARCA":
                         if ($esUsuarioOperador && $usuario_permisoEditarDelegacionVirtual) {
-                            $habilitar_campo_comentariosConcesionario = true;
-                            $habilitar_campo_vehiculo_color = true;
-                            $habilitar_campo_vehiculo_vin = true;
-                            $habilitar_campo_vehiculo_placa = true;
-                            $habilitar_campo_cliente_nombre = true;
-                            $habilitar_campo_cliente_apellidoPaterno = true;
-                            $habilitar_campo_cliente_apellidoMaterno = true;
-                            $habilitar_campo_cliente_correoElectronico = true;
-                            $habilitar_campo_tipoTramite = true;
-                            $habilitar_campo_tipoFactura = true;
-                            $habilitar_campo_numeroFactura = true;
-
-                            $habilitar_campo_archivo_expediente = true;
-
-                            $habilitar_campo_idMensajero = true;
-                            $habilitar_campo_vehiculo_marca = true;
-                            $habilitar_campo_vehiculo_modelo = true;
-                            $habilitar_campo_vehiculo_ano = true;
-
-                            $habilitar_boton_reenviarARCA = true;
-                            $habilitar_boton_guardar = true;
-                            $habilitar_boton_eliminarArchivoSolicitudICV = true;
                             $habilitar_boton_cancelarTramite = true;
                         } else if ($esUsuarioAdministrador && $usuario_permisoEditarDelegacionVirtual) {
-                            $habilitar_boton_guardar = true;
-                            $habilitar_boton_eliminarArchivoSolicitudICV = true;
-                            $habilitar_boton_cancelarTramite = true;
-                        } else if ($esUsuarioMaster) {
-                            $habilitar_campo_folioARCA = true;
-                            $habilitar_campo_comentariosConcesionario = true;
                             $habilitar_campo_comentariosARCA = true;
-                            $habilitar_campo_vehiculo_color = true;
-                            $habilitar_campo_vehiculo_vin = true;
-                            $habilitar_campo_vehiculo_placa = true;
-                            $habilitar_campo_cliente_nombre = true;
-                            $habilitar_campo_cliente_apellidoPaterno = true;
-                            $habilitar_campo_cliente_apellidoMaterno = true;
-                            $habilitar_campo_cliente_correoElectronico = true;
-                            $habilitar_campo_tipoTramite = true;
-                            $habilitar_campo_tipoFactura = true;
-                            $habilitar_campo_numeroFactura = true;
+
+                            $habilitar_boton_cancelarTramite = true;
+                            $habilitar_boton_solicitarActualizacionICV = true;
+                        } else if ($esUsuarioMaster) {
+                            $habilitar_campo_comentariosARCA = true;
+
+                            $habilitar_boton_cancelarTramite = true;
+                            $habilitar_boton_solicitarActualizacionICV = true;
+                        }
+
+                        break;
+                    case "Actualización solicitada a ICV":
+                        if ($esUsuarioOperador && $usuario_permisoEditarDelegacionVirtual) {
+                            $habilitar_boton_cancelarTramite = true;
+                        } else if ($esUsuarioAdministrador && $usuario_permisoEditarDelegacionVirtual) {
                             $habilitar_campo_folioICV = true;
                             $habilitar_campo_fechaRecepcionCorreoICV = true;
                             $habilitar_campo_ejecutivoICV = true;
                             $habilitar_campo_comentariosICV = true;
 
-                            $habilitar_campo_archivo_expediente = true;
                             $habilitar_campo_archivo_solicitudICV = true;
 
-                            $habilitar_campo_idConcesionario = true;
-                            $habilitar_campo_idMensajero = true;
-                            $habilitar_campo_vehiculo_marca = true;
-                            $habilitar_campo_vehiculo_modelo = true;
-                            $habilitar_campo_vehiculo_ano = true;
+                            $habilitar_boton_aprobado = true;
+                            $habilitar_boton_cancelarTramite = true;
+                        } else if ($esUsuarioMaster) {
+                            $habilitar_campo_folioICV = true;
+                            $habilitar_campo_fechaRecepcionCorreoICV = true;
+                            $habilitar_campo_ejecutivoICV = true;
+                            $habilitar_campo_comentariosICV = true;
 
-                            $habilitar_boton_eliminar = true;
-                            $habilitar_boton_reenviarARCA = true;
-                            $habilitar_boton_guardar = true;
-                            $habilitar_boton_eliminarArchivoExpediente = true;
-                            $habilitar_boton_eliminarArchivoSolicitudICV = true;
+                            $habilitar_campo_archivo_solicitudICV = true;
+
+                            $habilitar_boton_aprobado = true;
                             $habilitar_boton_cancelarTramite = true;
                         }
 
@@ -2367,6 +2431,10 @@
                                                 <a class="btn btn-default mb-3" href="javascript:;" onclick="reenviaCorreo('Rechazado')">Reenviar último correo</a>
                                             <?php } else if ($status == "Cancelado") { ?>
                                                 <a class="btn btn-default mb-3" href="javascript:;" onclick="reenviaCorreo('Cancelado')">Reenviar último correo</a>
+                                            <?php } else if ($status == "Actualización solicitada a ARCA") { ?>
+                                                <a class="btn btn-default mb-3" href="javascript:;" onclick="reenviaCorreo('Actualización solicitada a ARCA')">Reenviar último correo</a>
+                                            <?php } else if ($status == "Actualización solicitada a ICV") { ?>
+                                                <a class="btn btn-default mb-3" href="javascript:;" onclick="reenviaCorreo('Actualización solicitada a ICV')">Reenviar último correo</a>
                                             <?php } ?>
 
                                             <a class="btn btn-default mb-3" href="javascript:void(0)" id="boton_cerrar">Cerrar</a>
@@ -2412,6 +2480,14 @@
 
                                                 <?php if ($habilitar_boton_aprobado) { ?>
                                                     <a class="btn btn-default mb-3"  href="javascript:;" id="boton_aprobarConBiometricos" onclick="aprobarConBiometricos()" style="background-color: #5170ff; color: #fff !important">Aprobado con biométricos</a>
+                                                <?php }?>
+
+                                                <?php if ($habilitar_boton_solicitarActualizacionFolio) { ?>
+                                                    <a class="btn btn-default mb-3"  href="javascript:;" id="boton_solicitarActualizacionFolio" onclick="solicitarActualizacionFolio()">Solicitar actualización de folio</a>
+                                                <?php }?>
+
+                                                <?php if ($habilitar_boton_solicitarActualizacionICV) { ?>
+                                                    <a class="btn btn-default mb-3"  href="javascript:;" id="boton_solicitarActualizacionICV" onclick="solicitarActualizacionICV()">Solicitar actualización a ICV</a>
                                                 <?php }?>
                                             </div>
                                         </div>
