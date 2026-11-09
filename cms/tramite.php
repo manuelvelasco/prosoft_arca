@@ -1465,6 +1465,7 @@
                             $habilitar_boton_eliminarArchivoExpediente = true;
                             $habilitar_boton_eliminarArchivoSolicitudICV = true;
                             $habilitar_boton_cancelarTramite = true;
+                            $habilitar_boton_solicitarActualizacionFolio = true;
                         }
 
                         break;
