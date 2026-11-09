@@ -237,10 +237,6 @@
                 }
 
                 if ((!estaVacio($id)) && ($accion == "Aprobado con biométricos")) {
-                    if (estaVacio($folioICV)) {
-                        $mensaje .= "* Folio ICV<br />";
-                    }
-
                     if (estaVacio($fechaRecepcionCorreoICV)) {
                         $mensaje .= "* Fecha y hora en la que se recibió correo de ICV<br />";
                     }
@@ -251,10 +247,6 @@
 
                     if (estaVacio($comentariosICV)) {
                         $mensaje .= "* Comentarios ICV<br />";
-                    }
-
-                    if (!(isset($_FILES["archivo_solicitudICV"]) && $_FILES["archivo_solicitudICV"]["error"] === UPLOAD_ERR_OK)) {
-                        $mensaje .= "* PDF de la solicitud de ICV<br />";
                     }
                 }
 
