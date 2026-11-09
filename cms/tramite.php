@@ -932,7 +932,7 @@
 
                                             break;
                                         case "Actualización solicitada a ARCA":
-                                            $correoNotificar = obtenResultado(consulta($conexion, "SELECT * FROM parametro WHERE nombre = 'delegacionVirtual_solicitarActualiacionFolio_correosARCA'"))["valor"];
+                                            $correoNotificar = obtenResultado(consulta($conexion, "SELECT * FROM parametro WHERE nombre = 'delegacionVirtual_enviarTramiteICV_correosARCA'"))["valor"];
 
                                             $titulo = "ARCA - " . $folioARCA . " - " . $concesionario["nombreComercial"] . " - " . trim($cliente_nombre . " " . $cliente_apellidoPaterno . " " . $cliente_apellidoMaterno) . " - ACTUALIZACION";
 
@@ -963,7 +963,7 @@
 
                                             break;
                                         case "Actualización solicitada a ICV":
-                                            $correoNotificar = obtenResultado(consulta($conexion, "SELECT * FROM parametro WHERE nombre = 'delegacionVirtual_solicitarActualizacionICV_correosICV'"))["valor"];
+                                            $correoNotificar = obtenResultado(consulta($conexion, "SELECT * FROM parametro WHERE nombre = 'delegacionVirtual_enviarTramiteICV_correosICV'"))["valor"];
 
                                             $titulo = "ARCA - " . $folioARCA . " - " . $concesionario["nombreComercial"] . " - " . trim($cliente_nombre . " " . $cliente_apellidoPaterno . " " . $cliente_apellidoMaterno) . " - ACTUALIZACION";
 
@@ -2483,11 +2483,11 @@
                                                 <?php }?>
 
                                                 <?php if ($habilitar_boton_solicitarActualizacionFolio) { ?>
-                                                    <a class="btn btn-default mb-3"  href="javascript:;" id="boton_solicitarActualizacionFolio" onclick="solicitarActualizacionFolio()">Solicitar actualización de folio</a>
+                                                    <a class="btn btn-default mb-3"  href="javascript:;" id="boton_solicitarActualizacionFolio" onclick="solicitarActualizacionFolio()" style="background-color: #5170ff; color: #fff !important">Solicitar actualización de folio</a>
                                                 <?php }?>
 
                                                 <?php if ($habilitar_boton_solicitarActualizacionICV) { ?>
-                                                    <a class="btn btn-default mb-3"  href="javascript:;" id="boton_solicitarActualizacionICV" onclick="solicitarActualizacionICV()">Solicitar actualización a ICV</a>
+                                                    <a class="btn btn-default mb-3"  href="javascript:;" id="boton_solicitarActualizacionICV" onclick="solicitarActualizacionICV()" style="background-color: #5170ff; color: #fff !important">Solicitar actualización a ICV</a>
                                                 <?php }?>
                                             </div>
                                         </div>
