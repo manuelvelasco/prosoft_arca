@@ -2483,11 +2483,11 @@
                                                 <?php }?>
 
                                                 <?php if ($habilitar_boton_solicitarActualizacionFolio) { ?>
-                                                    <a class="btn btn-default mb-3"  href="javascript:;" id="boton_solicitarActualizacionFolio" onclick="solicitarActualizacionFolio()" style="background-color: #5170ff; color: #fff !important">Solicitar actualización de folio</a>
+                                                    <a class="btn btn-default mb-3"  href="javascript:;" id="boton_solicitarActualizacionFolio" onclick="solicitarActualizacionFolio()" style="background-color: #2d146f; color: #fff !important">Solicitar actualización de folio</a>
                                                 <?php }?>
 
                                                 <?php if ($habilitar_boton_solicitarActualizacionICV) { ?>
-                                                    <a class="btn btn-default mb-3"  href="javascript:;" id="boton_solicitarActualizacionICV" onclick="solicitarActualizacionICV()" style="background-color: #5170ff; color: #fff !important">Solicitar actualización a ICV</a>
+                                                    <a class="btn btn-default mb-3"  href="javascript:;" id="boton_solicitarActualizacionICV" onclick="solicitarActualizacionICV()" style="background-color: #fb8402; color: #fff !important">Solicitar actualización a ICV</a>
                                                 <?php }?>
                                             </div>
                                         </div>
@@ -2905,6 +2905,35 @@
 
                 if (confirm("¿Desea aprobar este trámite?")) {
                     $("#campo_accion").val("Aprobado con biométricos");
+
+                    $("input").removeAttr("readonly");
+                    $("select").removeAttr("disabled");
+
+                    $('#formulario').submit();
+                }
+            }
+
+
+            function solicitarActualizacionFolio() {
+                //event.preventDefault();
+
+
+                if (confirm("¿Desea solicitar actualización de este trámite a ARCA?")) {
+                    $("#campo_accion").val("Actualización solicitada a ARCA");
+
+                    $("input").removeAttr("readonly");
+                    $("select").removeAttr("disabled");
+
+                    $('#formulario').submit();
+                }
+            }
+
+
+            function solicitarActualizacionICV() {
+                //event.preventDefault();
+
+                if (confirm("¿Desea solicitar actualización de este trámite a ICV?")) {
+                    $("#campo_accion").val("Actualización solicitada a ICV");
 
                     $("input").removeAttr("readonly");
                     $("select").removeAttr("disabled");
