@@ -294,6 +294,12 @@
                             $mensaje .= "* PDF de expediente <br />";
                         }
 
+                        $tramitesActivos_BD = consulta($conexion, "SELECT id FROM tramite WHERE vehiculo_vin = '" . $vehiculo_vin . "' AND status IN ('A la espera de respuesta de ICV', 'Devuelto a la agencia', 'Enviado a ARCA', 'Reenviado a ARCA')");
+
+                        if (cuentaResultados($tramitesActivos_BD) > 0) {
+                            $mensaje .= "* El VIN proporcionado ya cuenta con un trámite en proceso <br />";
+                        }
+
                         if (!estaVacio($mensaje)) {
                             $mensaje = "Proporcione los siguientes datos:<br /><br />" . $mensaje;
                         } else {
