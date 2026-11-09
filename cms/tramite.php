@@ -412,24 +412,22 @@
 
                                 // Carga pdf expediente
 
-                                if (isset($_FILES["archivo_expediente"])) {
+                                if (isset($_FILES["archivo_expediente"]) && $_FILES["archivo_expediente"]["size"] > 0) {
                                     try {
                                         $archivo = $_FILES["archivo_expediente"];
 
-                                        if ($archivo["size"] > 0) {
-                                            $nombreEstandarizado = $id . "_expediente_" . date("YmdHis") . "_" . rand(100, 999) . "." . pathinfo($archivo["name"], PATHINFO_EXTENSION);
-                                            $archivoDestino = $constante_rutaTramites . "/" . $id . "/" . $nombreEstandarizado;
+                                        $nombreEstandarizado = $id . "_expediente_" . date("YmdHis") . "_" . rand(100, 999) . "." . pathinfo($archivo["name"], PATHINFO_EXTENSION);
+                                        $archivoDestino = $constante_rutaTramites . "/" . $id . "/" . $nombreEstandarizado;
 
-                                            if (!file_exists($constante_rutaTramites . "/" . $id)) {
-                                                //mkdir($constante_rutaTramites . "/" . $id, 0755, true);
-                                                mkdir($constante_rutaTramites . "/" . $id);
-                                            }
-
-                                            move_uploaded_file($archivo["tmp_name"], $archivoDestino);
-
-                                            consulta($conexion, "UPDATE tramite SET archivo_expediente = " . (estaVacio($nombreEstandarizado) ? "NULL" : "'" . $nombreEstandarizado . "'") . " WHERE id = " . $id);
-                                            $archivo_expediente = $nombreEstandarizado;
+                                        if (!file_exists($constante_rutaTramites . "/" . $id)) {
+                                            //mkdir($constante_rutaTramites . "/" . $id, 0755, true);
+                                            mkdir($constante_rutaTramites . "/" . $id);
                                         }
+
+                                        move_uploaded_file($archivo["tmp_name"], $archivoDestino);
+
+                                        consulta($conexion, "UPDATE tramite SET archivo_expediente = " . (estaVacio($nombreEstandarizado) ? "NULL" : "'" . $nombreEstandarizado . "'") . " WHERE id = " . $id);
+                                        $archivo_expediente = $nombreEstandarizado;
                                     } catch (Exception $e) {
                                     }
                                 }
@@ -485,24 +483,22 @@
                         if (estaVacio($folioARCA)) {
                             $mensaje .= "Proporcione el Folio ARCA";
                         } else {
-                            if (isset($_FILES["archivo_comprobantePago"])) {
+                            if (isset($_FILES["archivo_comprobantePago"]) && $_FILES["archivo_comprobantePago"]["size"] > 0) {
                                 try {
                                     $archivo = $_FILES["archivo_comprobantePago"];
 
-                                    if ($archivo["size"] > 0) {
-                                        $nombreEstandarizado = $id . "_comprobantePago_" . date("YmdHis") . "_" . rand(100, 999) . "." . pathinfo($archivo["name"], PATHINFO_EXTENSION);
-                                        $archivoDestino = $constante_rutaTramites . "/" . $id . "/" . $nombreEstandarizado;
+                                    $nombreEstandarizado = $id . "_comprobantePago_" . date("YmdHis") . "_" . rand(100, 999) . "." . pathinfo($archivo["name"], PATHINFO_EXTENSION);
+                                    $archivoDestino = $constante_rutaTramites . "/" . $id . "/" . $nombreEstandarizado;
 
-                                        if (!file_exists($constante_rutaTramites . "/" . $id)) {
-                                            //mkdir($constante_rutaTramites . "/" . $id, 0755, true);
-                                            mkdir($constante_rutaTramites . "/" . $id);
-                                        }
-
-                                        move_uploaded_file($archivo["tmp_name"], $archivoDestino);
-
-                                        consulta($conexion, "UPDATE tramite SET archivo_comprobantePago = " . (estaVacio($nombreEstandarizado) ? "NULL" : "'" . $nombreEstandarizado . "'") . " WHERE id = " . $id);
-                                        $archivo_comprobantePago = $nombreEstandarizado;
+                                    if (!file_exists($constante_rutaTramites . "/" . $id)) {
+                                        //mkdir($constante_rutaTramites . "/" . $id, 0755, true);
+                                        mkdir($constante_rutaTramites . "/" . $id);
                                     }
+
+                                    move_uploaded_file($archivo["tmp_name"], $archivoDestino);
+
+                                    consulta($conexion, "UPDATE tramite SET archivo_comprobantePago = " . (estaVacio($nombreEstandarizado) ? "NULL" : "'" . $nombreEstandarizado . "'") . " WHERE id = " . $id);
+                                    $archivo_comprobantePago = $nombreEstandarizado;
 
                                     $tramite_BD = consulta($conexion, "SELECT * FROM tramite WHERE id = " . $id);
                                     $tramite = obtenResultado($tramite_BD);
@@ -611,46 +607,42 @@
                                     . ", fechaRecepcionCorreoICV = " . (estaVacio($fechaRecepcionCorreoICV) ? "NULL" : "'" . $fechaRecepcionCorreoICV . "'")
                                     . " WHERE id = " . $id);
 
-                                if (isset($_FILES["archivo_expediente"])) {
+                                if (isset($_FILES["archivo_expediente"]) && $_FILES["archivo_expediente"]["size"] > 0) {
                                     try {
                                         $archivo = $_FILES["archivo_expediente"];
 
-                                        if ($archivo["size"] > 0) {
-                                            $nombreEstandarizado = $id . "_expediente_" . date("YmdHis") . "_" . rand(100, 999) . "." . pathinfo($archivo["name"], PATHINFO_EXTENSION);
-                                            $archivoDestino = $constante_rutaTramites . "/" . $id . "/" . $nombreEstandarizado;
+                                        $nombreEstandarizado = $id . "_expediente_" . date("YmdHis") . "_" . rand(100, 999) . "." . pathinfo($archivo["name"], PATHINFO_EXTENSION);
+                                        $archivoDestino = $constante_rutaTramites . "/" . $id . "/" . $nombreEstandarizado;
 
-                                            if (!file_exists($constante_rutaTramites . "/" . $id)) {
-                                                //mkdir($constante_rutaTramites . "/" . $id, 0755, true);
-                                                mkdir($constante_rutaTramites . "/" . $id);
-                                            }
-
-                                            move_uploaded_file($archivo["tmp_name"], $archivoDestino);
-
-                                            consulta($conexion, "UPDATE tramite SET archivo_expediente = " . (estaVacio($nombreEstandarizado) ? "NULL" : "'" . $nombreEstandarizado . "'") . " WHERE id = " . $id);
-                                            $archivo_expediente = $nombreEstandarizado;
+                                        if (!file_exists($constante_rutaTramites . "/" . $id)) {
+                                            //mkdir($constante_rutaTramites . "/" . $id, 0755, true);
+                                            mkdir($constante_rutaTramites . "/" . $id);
                                         }
+
+                                        move_uploaded_file($archivo["tmp_name"], $archivoDestino);
+
+                                        consulta($conexion, "UPDATE tramite SET archivo_expediente = " . (estaVacio($nombreEstandarizado) ? "NULL" : "'" . $nombreEstandarizado . "'") . " WHERE id = " . $id);
+                                        $archivo_expediente = $nombreEstandarizado;
                                     } catch (Exception $e) {
                                     }
                                 }
 
-                                if (isset($_FILES["archivo_solicitudICV"])) {
+                                if (isset($_FILES["archivo_solicitudICV"]) && $_FILES["archivo_solicitudICV"]["size"] > 0) {
                                     try {
                                         $archivo = $_FILES["archivo_solicitudICV"];
 
-                                        if ($archivo["size"] > 0) {
-                                            $nombreEstandarizado = $id . "_solicitudICV_" . date("YmdHis") . "_" . rand(100, 999) . "." . pathinfo($archivo["name"], PATHINFO_EXTENSION);
-                                            $archivoDestino = $constante_rutaTramites . "/" . $id . "/" . $nombreEstandarizado;
+                                        $nombreEstandarizado = $id . "_solicitudICV_" . date("YmdHis") . "_" . rand(100, 999) . "." . pathinfo($archivo["name"], PATHINFO_EXTENSION);
+                                        $archivoDestino = $constante_rutaTramites . "/" . $id . "/" . $nombreEstandarizado;
 
-                                            if (!file_exists($constante_rutaTramites . "/" . $id)) {
-                                                //mkdir($constante_rutaTramites . "/" . $id, 0755, true);
-                                                mkdir($constante_rutaTramites . "/" . $id);
-                                            }
-
-                                            move_uploaded_file($archivo["tmp_name"], $archivoDestino);
-
-                                            consulta($conexion, "UPDATE tramite SET archivo_solicitudICV = " . (estaVacio($nombreEstandarizado) ? "NULL" : "'" . $nombreEstandarizado . "'") . " WHERE id = " . $id);
-                                            $archivo_solicitudICV = $nombreEstandarizado;
+                                        if (!file_exists($constante_rutaTramites . "/" . $id)) {
+                                            //mkdir($constante_rutaTramites . "/" . $id, 0755, true);
+                                            mkdir($constante_rutaTramites . "/" . $id);
                                         }
+
+                                        move_uploaded_file($archivo["tmp_name"], $archivoDestino);
+
+                                        consulta($conexion, "UPDATE tramite SET archivo_solicitudICV = " . (estaVacio($nombreEstandarizado) ? "NULL" : "'" . $nombreEstandarizado . "'") . " WHERE id = " . $id);
+                                        $archivo_solicitudICV = $nombreEstandarizado;
                                     } catch (Exception $e) {
                                     }
                                 }
