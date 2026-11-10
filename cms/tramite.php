@@ -1551,6 +1551,7 @@
 
                             $habilitar_boton_aprobado = true;
                             $habilitar_boton_cancelarTramite = true;
+                            $habilitar_boton_eliminarArchivoSolicitudICV = true;
                         } else if ($esUsuarioMaster) {
                             $habilitar_campo_folioICV = true;
                             $habilitar_campo_fechaRecepcionCorreoICV = true;
@@ -1561,6 +1562,7 @@
 
                             $habilitar_boton_aprobado = true;
                             $habilitar_boton_cancelarTramite = true;
+                            $habilitar_boton_eliminarArchivoSolicitudICV = true;
                         }
 
                         break;
