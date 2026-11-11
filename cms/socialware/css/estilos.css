@@ -82,7 +82,7 @@ div.dt-button-collection .dt-button{
     padding: 8px;
 }
 
-.row:has(.col textarea) {
+.card-body div.mb-20:has(.col textarea) {
     height: auto;
 }
 
