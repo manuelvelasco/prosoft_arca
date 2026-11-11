@@ -82,7 +82,7 @@ div.dt-button-collection .dt-button{
     padding: 8px;
 }
 
-textarea {
+.row:has(textarea) {
     height: auto;
 }
 
