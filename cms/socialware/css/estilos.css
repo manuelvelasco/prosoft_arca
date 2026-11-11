@@ -82,6 +82,10 @@ div.dt-button-collection .dt-button{
     padding: 8px;
 }
 
+textarea {
+    height: auto;
+}
+
 .zonaCaracteristicas.intelimotor .mb-20{
     height: 65px !important;
 }
