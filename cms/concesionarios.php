@@ -147,7 +147,8 @@
                                                                 <div class="d-flex">
                                                                     <div class="input-group wd-150" id="contenedor_botones">
                                                                         <input class="form-control br-0" id="campo_llaveResultado" placeholder="Buscar..." type="text" />
-                                                                        <?php if ($esUsuarioMaster || $usuario_permisoEditarConcesionarios) { ?>
+                                                                        <!--?php if ($esUsuarioMaster || $usuario_permisoEditarConcesionarios) { ?-->
+                                                                        <?php if ($esUsuarioMaster || $esUsuarioAdministrador) { ?>
                                                                             <a class="btn btn-primary" data-fancybox data-type="iframe" data-preload="false" data-height="900" href="concesionario.php" id="boton_agregar">Agregar Agencia</a>
                                                                             &nbsp;&nbsp;&nbsp;
                                                                         <?php } ?>
@@ -176,6 +177,7 @@
                                                                     <th class="border-bottom-0">Teléfono de Contacto</th>
                                                                     <th class="border-bottom-0">Email</th>
                                                                     <th class="border-bottom-0">Número de Whatsapp</th>
+                                                                    <th class="border-bottom-0">Siguiente consecutivo DV</th>
                                                                     <th class="border-bottom-0">Publicado</th>
                                                                     <th class="border-bottom-0">Acciones</th>
                                                                 </tr>
@@ -222,6 +224,7 @@
                                                                             echo "<td>" . $concesionario["telefono"] . "</td>";
                                                                             echo "<td>" . $concesionario["correoElectronico"] . "</td>";
                                                                             echo "<td>" . $concesionario["whatsapp"] . "</td>";
+                                                                            echo "<td>" . $concesionario["consecutivoDelegacionVirtual"] . "</td>";
                                                                             echo "<td>" . ($concesionario["habilitado"] == 1 ? " Si " : " No ") . "</td>";
                                                                             echo "<td>";
                                                                                 echo "<a data-fancybox data-type='iframe' data-preload='false' data-height='1080' href='concesionario.php?id=" . $concesionario["id"] . "' title='Editar'><i class='fa fa-search'></i></a>";
