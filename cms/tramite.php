@@ -3373,7 +3373,9 @@
                     $(".hideClonacion").hide();
                     $("#contenedor_archivo_expediente").hide();
 
-                    $("#boton_guardar").show();
+                    $("#contenedor_botonesDerechos").prepend('<button class="btn btn-success mb-3"  id="boton_guardar" onclick="return confirm(\'¿Desea dar de alta este trámite?\');" style="background-color: #2d146f; color: #fff !important" type="submit" >Generar trámite</button>');
+
+                    //$("#boton_guardar").show();
                     $("#boton_clonar_tramite").hide();
                     $("#boton_rechazado").hide();
                     $("#boton_aprobado").hide();
