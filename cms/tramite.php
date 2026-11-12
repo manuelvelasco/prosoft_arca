@@ -3361,20 +3361,19 @@
                     $("#campo_cliente_apellidoPaterno").removeAttr("readonly");
                     $("#campo_cliente_apellidoMaterno").removeAttr("readonly");
                     $("#campo_cliente_correoElectronico").removeAttr("readonly");
-                    $("#campo_tipoTramite").removeAttr("readonly");
-                    $("#campo_tipoFactura").removeAttr("readonly");
                     $("#campo_numeroFactura").removeAttr("readonly");
-
-                    $("#campo_archivo_expediente").removeAttr("disabled");
 
                     $("#campo_idConcesionario").removeAttr("disabled");
                     $("#campo_idMensajero").removeAttr("disabled");
                     $("#campo_vehiculo_marca").removeAttr("disabled");
                     $("#campo_vehiculo_modelo").removeAttr("disabled");
                     $("#campo_vehiculo_ano").removeAttr("disabled");
+                    $("#campo_tipoTramite").removeAttr("disabled");
+                    $("#campo_tipoFactura").removeAttr("disabled");
+                    $("#campo_archivo_expediente").removeAttr("disabled");
+                    $("#contenedor_archivo_expediente").hide();
 
                     $(".hideClonacion").hide();
-                    $("#contenedor_archivo_expediente").hide();
 
                     $("#contenedor_botonesDerechos").prepend('<button class="btn btn-success mb-3"  id="boton_guardar" onclick="return confirm(\'¿Desea dar de alta este trámite?\');" style="background-color: #2d146f; color: #fff !important" type="submit" >Generar trámite</button>');
 
