@@ -3202,7 +3202,7 @@
                 if (confirm("¿Desea dar de alta este trámite?")) {
                     var archivo = document.getElementById("campo_archivo_expediente").files[0];
 
-                    if(archivo && archivo.size < 22020096) {
+                    if (archivo && archivo.size < 22020096) {
                         submit();
                     } else {
                         alert("PDF de expediente debe pesar menos de 20 MB");
@@ -3389,7 +3389,7 @@
 
                     $(".hideClonacion").hide();
 
-                    $("#contenedor_botonesDerechos").prepend('<button class="btn btn-success mb-3"  id="boton_guardar" onclick="return confirm(\'¿Desea dar de alta este trámite?\');" style="background-color: #2d146f; color: #fff !important" type="submit" >Generar trámite</button>');
+                    //$("#contenedor_botonesDerechos").prepend('<button class="btn btn-success mb-3"  id="boton_guardar" onclick="return confirm(\'¿Desea dar de alta este trámite?\');" style="background-color: #2d146f; color: #fff !important" type="submit" >Generar trámite</button>');
 
                     //$("#boton_guardar").show();
                     $("#boton_clonar_tramite").hide();
