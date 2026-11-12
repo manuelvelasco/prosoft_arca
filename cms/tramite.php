@@ -1769,6 +1769,15 @@
                         }
 
                         break;
+                    case "Cancelado":
+                        if ($esUsuarioOperador && $usuario_permisoEditarDelegacionVirtual) {
+                            $habilitar_boton_clonarTramite = true;
+                        } else if ($esUsuarioAdministrador && $usuario_permisoEditarDelegacionVirtual) {
+                        } else if ($esUsuarioMaster) {
+                            $habilitar_boton_clonarTramite = true;
+                        }
+
+                        break;
                     case "Actualización solicitada a ARCA":
                         if ($esUsuarioOperador && $usuario_permisoEditarDelegacionVirtual) {
                             $habilitar_boton_cancelarTramite = true;
