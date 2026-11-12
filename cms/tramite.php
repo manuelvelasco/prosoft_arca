@@ -2836,7 +2836,7 @@
                                                 <!--a class="btn btn-default mb-3" href="javascript:void(0)" id="boton_cerrar" style="color: #fff !important">Cerrar</a-->
 
                                                 <?php if ($habilitar_boton_guardar) { ?>
-                                                    <a class="btn btn-success mb-3" href="javascript:;"  id="boton_guardar" onclick="generarTramite()" style="background-color: #2d146f; color: #fff !important">Generar trámite</button>
+                                                    <a class="btn btn-success mb-3" href="javascript:;"  id="boton_guardar" onclick="generarTramite()" style="background-color: #2d146f; color: #fff !important">Generar trámite</a>
                                                 <?php } ?>
 
                                                 <?php if ($habilitar_boton_enviarICV) { ?>
@@ -3389,7 +3389,7 @@
 
                     $(".hideClonacion").hide();
 
-                    //$("#contenedor_botonesDerechos").prepend('<button class="btn btn-success mb-3"  id="boton_guardar" onclick="return confirm(\'¿Desea dar de alta este trámite?\');" style="background-color: #2d146f; color: #fff !important" type="submit" >Generar trámite</button>');
+                    $("#contenedor_botonesDerechos").prepend('<a class="btn btn-success mb-3" href="javascript:;"  id="boton_guardar" onclick="generarTramite()" style="background-color: #2d146f; color: #fff !important">Generar trámite</button>');
 
                     //$("#boton_guardar").show();
                     $("#boton_clonar_tramite").hide();
