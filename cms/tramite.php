@@ -1388,6 +1388,7 @@
             $habilitar_boton_clonarTramite = false;
             $habilitar_boton_rechazado = false;
             $habilitar_boton_aprobado = false;
+            $habilitar_boton_aprobadoConBiometricos = false;
             $habilitar_boton_enviarICV = false;
             $habilitar_boton_reenviarARCA = false;
             $habilitar_boton_regresarAgencia = false;
@@ -1629,6 +1630,7 @@
                             //$habilitar_boton_guardar = true;
                             $habilitar_boton_rechazado = true;
                             $habilitar_boton_aprobado = true;
+                            $habilitar_boton_aprobadoConBiometricos = true;
                         } else if ($esUsuarioMaster) {
                             $habilitar_campo_folioICV = true;
                             $habilitar_campo_fechaRecepcionCorreoICV = true;
@@ -1643,6 +1645,7 @@
                             //$habilitar_boton_guardar = true;
                             $habilitar_boton_rechazado = true;
                             $habilitar_boton_aprobado = true;
+                            $habilitar_boton_aprobadoConBiometricos = true;
                         }
 
                         break;
@@ -2864,7 +2867,7 @@
                                                     <a class="btn btn-success mb-3"  href="javascript:;" id="boton_guardarComprobantePago" onclick="submit()" style="color: #fff !important">Guardar</a>
                                                 <?php }?>
 
-                                                <?php if ($habilitar_boton_aprobado) { ?>
+                                                <?php if ($habilitar_boton_aprobadoConBiometricos) { ?>
                                                     <a class="btn btn-default mb-3"  href="javascript:;" id="boton_aprobarConBiometricos" onclick="aprobarConBiometricos()" style="background-color: #5170ff; color: #fff !important">Aprobado con biométricos</a>
                                                 <?php }?>
 
