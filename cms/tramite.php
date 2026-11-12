@@ -2363,99 +2363,95 @@
                                                     </div>
 
                                                     <div class="row">
-                                                        <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
-                                                            <div class="row">
-                                                                <div class="col-md-6 col-sm-12">
-                                                                    <div class="form-group">
-                                                                        <label class="form-label mb-10">PDF de expediente <span class="text-danger">*</span></label>
+                                                        <div class="col-md-6 col-sm-12">
+                                                            <div class="form-group">
+                                                                <label class="form-label mb-10">PDF de expediente <span class="text-danger">*</span></label>
 
-                                                                        <div>
-                                                                            <input id="campo_archivo_expediente" name="archivo_expediente" type="file" <?php echo $habilitar_campo_archivo_expediente ? "" : "disabled" ?> />
-                                                                            <br />
-                                                                            <div class="row">
-                                                                                <div class="col-sm-12">
-                                                                                    <div class="panel panel-success card-view">
-                                                                                        <div class="panel-wrapper in">
-                                                                                            <div class="panel-body">
-                                                                                                <ul class="chat-list-wrap">
-                                                                                                    <li class="chat-list">
-                                                                                                        <div class="chat-body">
-                                                                                                        <?php
-                                                                                                            if (!estaVacio($archivo_expediente)) {
-                                                                                                                echo "<div class='chat-data' id='contenedor_archivo_expediente'>";
-                                                                                                                //echo "<img class='user-img' src='" . $constante_urlTramites . "/" . $id . "/" . $archivo_expediente . "' />";
+                                                                <div>
+                                                                    <input id="campo_archivo_expediente" name="archivo_expediente" type="file" <?php echo $habilitar_campo_archivo_expediente ? "" : "disabled" ?> />
+                                                                    <br />
+                                                                    <div class="row">
+                                                                        <div class="col-sm-12">
+                                                                            <div class="panel panel-success card-view">
+                                                                                <div class="panel-wrapper in">
+                                                                                    <div class="panel-body">
+                                                                                        <ul class="chat-list-wrap">
+                                                                                            <li class="chat-list">
+                                                                                                <div class="chat-body">
+                                                                                                <?php
+                                                                                                    if (!estaVacio($archivo_expediente)) {
+                                                                                                        echo "<div class='chat-data' id='contenedor_archivo_expediente'>";
+                                                                                                        //echo "<img class='user-img' src='" . $constante_urlTramites . "/" . $id . "/" . $archivo_expediente . "' />";
 
-                                                                                                                echo "<div class='user-data'>";
-                                                                                                                echo "<span class='name block'>" . $archivo_expediente . "</span>";
-                                                                                                                echo "<span class='time block txt-grey'>";
-                                                                                                                echo "<a download href='" . $constante_urlTramites . "/" . $id . "/" . rawurlencode($archivo_expediente) . "'>Descargar</a>";
+                                                                                                        echo "<div class='user-data'>";
+                                                                                                        echo "<span class='name block'>" . $archivo_expediente . "</span>";
+                                                                                                        echo "<span class='time block txt-grey'>";
+                                                                                                        echo "<a download href='" . $constante_urlTramites . "/" . $id . "/" . rawurlencode($archivo_expediente) . "'>Descargar</a>";
 
-                                                                                                                if ($habilitar_boton_eliminarArchivoExpediente) {
-                                                                                                                    echo "&nbsp;&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;&nbsp;";
-                                                                                                                    echo "<a href='javascript:eliminaArchivoExpediente(" . $id . ")' id='boton_eliminarArchivoExpediente'>Eliminar</a>";
-                                                                                                                }
+                                                                                                        if ($habilitar_boton_eliminarArchivoExpediente) {
+                                                                                                            echo "&nbsp;&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;&nbsp;";
+                                                                                                            echo "<a href='javascript:eliminaArchivoExpediente(" . $id . ")' id='boton_eliminarArchivoExpediente'>Eliminar</a>";
+                                                                                                        }
 
-                                                                                                                echo "</span>";
-                                                                                                                echo "</div>";
-                                                                                                                echo "<div class='clearfix'></div>";
-                                                                                                                echo "</div>";
-                                                                                                            }
-                                                                                                        ?>
-                                                                                                        </div>
-                                                                                                    </li>
-                                                                                                </ul>
-                                                                                            </div>
-                                                                                        </div>
+                                                                                                        echo "</span>";
+                                                                                                        echo "</div>";
+                                                                                                        echo "<div class='clearfix'></div>";
+                                                                                                        echo "</div>";
+                                                                                                    }
+                                                                                                ?>
+                                                                                                </div>
+                                                                                            </li>
+                                                                                        </ul>
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
+                                                            </div>
+                                                        </div>
 
-                                                                <div class="col-md-6 col-sm-12">
-                                                                    <div class="form-group">
-                                                                        <label class="form-label mb-10">PDF de comprobante de biométricos</label>
+                                                        <div class="col-md-6 col-sm-12">
+                                                            <div class="form-group">
+                                                                <label class="form-label mb-10">PDF de comprobante de biométricos</label>
 
-                                                                        <div>
-                                                                            <input id="campo_archivo_comprobanteBiometricos" name="archivo_comprobanteBiometricos" type="file" <?php echo $habilitar_campo_archivo_comprobanteBiometricos ? "" : "disabled" ?> />
-                                                                            <br />
-                                                                            <div class="row">
-                                                                                <div class="col-sm-12">
-                                                                                    <div class="panel panel-success card-view">
-                                                                                        <div class="panel-wrapper in">
-                                                                                            <div class="panel-body">
-                                                                                                <ul class="chat-list-wrap">
-                                                                                                    <li class="chat-list">
-                                                                                                        <div class="chat-body">
-                                                                                                        <?php
-                                                                                                            if (!estaVacio($archivo_comprobanteBiometricos)) {
-                                                                                                                echo "<div class='chat-data' id='contenedor_archivo_comprobanteBiometricos'>";
-                                                                                                                //echo "<img class='user-img' src='" . $constante_urlTramites . "/" . $id . "/" . $archivo_comprobanteBiometricos . "' />";
+                                                                <div>
+                                                                    <input id="campo_archivo_comprobanteBiometricos" name="archivo_comprobanteBiometricos" type="file" <?php echo $habilitar_campo_archivo_comprobanteBiometricos ? "" : "disabled" ?> />
+                                                                    <br />
+                                                                    <div class="row">
+                                                                        <div class="col-sm-12">
+                                                                            <div class="panel panel-success card-view">
+                                                                                <div class="panel-wrapper in">
+                                                                                    <div class="panel-body">
+                                                                                        <ul class="chat-list-wrap">
+                                                                                            <li class="chat-list">
+                                                                                                <div class="chat-body">
+                                                                                                <?php
+                                                                                                    if (!estaVacio($archivo_comprobanteBiometricos)) {
+                                                                                                        echo "<div class='chat-data' id='contenedor_archivo_comprobanteBiometricos'>";
+                                                                                                        //echo "<img class='user-img' src='" . $constante_urlTramites . "/" . $id . "/" . $archivo_comprobanteBiometricos . "' />";
 
-                                                                                                                echo "<div class='user-data'>";
-                                                                                                                echo "<span class='name block'>" . $archivo_comprobanteBiometricos . "</span>";
-                                                                                                                echo "<span class='time block txt-grey'>";
-                                                                                                                echo "<a download href='" . $constante_urlTramites . "/" . $id . "/" . rawurlencode($archivo_comprobanteBiometricos) . "'>Descargar</a>";
+                                                                                                        echo "<div class='user-data'>";
+                                                                                                        echo "<span class='name block'>" . $archivo_comprobanteBiometricos . "</span>";
+                                                                                                        echo "<span class='time block txt-grey'>";
+                                                                                                        echo "<a download href='" . $constante_urlTramites . "/" . $id . "/" . rawurlencode($archivo_comprobanteBiometricos) . "'>Descargar</a>";
 
 /*
-                                                                                                                if ($habilitar_boton_eliminarArchivoComprobanteBiometricos) {
-                                                                                                                    echo "&nbsp;&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;&nbsp;";
-                                                                                                                    echo "<a href='javascript:eliminaArchivoComprobanteBiometricos(" . $id . ")' id='boton_eliminarArchivoComprobanteBiometricos'>Eliminar</a>";
-                                                                                                                }
+                                                                                                        if ($habilitar_boton_eliminarArchivoComprobanteBiometricos) {
+                                                                                                            echo "&nbsp;&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;&nbsp;";
+                                                                                                            echo "<a href='javascript:eliminaArchivoComprobanteBiometricos(" . $id . ")' id='boton_eliminarArchivoComprobanteBiometricos'>Eliminar</a>";
+                                                                                                        }
 */
 
-                                                                                                                echo "</span>";
-                                                                                                                echo "</div>";
-                                                                                                                echo "<div class='clearfix'></div>";
-                                                                                                                echo "</div>";
-                                                                                                            }
-                                                                                                        ?>
-                                                                                                        </div>
-                                                                                                    </li>
-                                                                                                </ul>
-                                                                                            </div>
-                                                                                        </div>
+                                                                                                        echo "</span>";
+                                                                                                        echo "</div>";
+                                                                                                        echo "<div class='clearfix'></div>";
+                                                                                                        echo "</div>";
+                                                                                                    }
+                                                                                                ?>
+                                                                                                </div>
+                                                                                            </li>
+                                                                                        </ul>
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
@@ -2467,99 +2463,95 @@
                                                     </div>
 
                                                     <div class="row">
-                                                        <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
-                                                            <div class="row">
-                                                                <div class="col-md-6 col-sm-12">
-                                                                    <div class="form-group">
-                                                                        <label class="form-label mb-10">PDF de pago</label>
+                                                        <div class="col-md-6 col-sm-12">
+                                                            <div class="form-group">
+                                                                <label class="form-label mb-10">PDF de pago</label>
 
-                                                                        <div>
-                                                                            <input id="campo_archivo_comprobantePago" name="archivo_comprobantePago" type="file" <?php echo $habilitar_campo_archivo_comprobantePago ? "" : "disabled" ?> />
-                                                                            <br />
-                                                                            <div class="row">
-                                                                                <div class="col-sm-12">
-                                                                                    <div class="panel panel-success card-view">
-                                                                                        <div class="panel-wrapper in">
-                                                                                            <div class="panel-body">
-                                                                                                <ul class="chat-list-wrap">
-                                                                                                    <li class="chat-list">
-                                                                                                        <div class="chat-body">
-                                                                                                        <?php
-                                                                                                            if (!estaVacio($archivo_comprobantePago)) {
-                                                                                                                echo "<div class='chat-data' id='contenedor_archivo_comprobantePago'>";
-                                                                                                                //echo "<img class='user-img' src='" . $constante_urlTramites . "/" . $id . "/" . $archivo_expediente . "' />";
+                                                                <div>
+                                                                    <input id="campo_archivo_comprobantePago" name="archivo_comprobantePago" type="file" <?php echo $habilitar_campo_archivo_comprobantePago ? "" : "disabled" ?> />
+                                                                    <br />
+                                                                    <div class="row">
+                                                                        <div class="col-sm-12">
+                                                                            <div class="panel panel-success card-view">
+                                                                                <div class="panel-wrapper in">
+                                                                                    <div class="panel-body">
+                                                                                        <ul class="chat-list-wrap">
+                                                                                            <li class="chat-list">
+                                                                                                <div class="chat-body">
+                                                                                                <?php
+                                                                                                    if (!estaVacio($archivo_comprobantePago)) {
+                                                                                                        echo "<div class='chat-data' id='contenedor_archivo_comprobantePago'>";
+                                                                                                        //echo "<img class='user-img' src='" . $constante_urlTramites . "/" . $id . "/" . $archivo_expediente . "' />";
 
-                                                                                                                echo "<div class='user-data'>";
-                                                                                                                echo "<span class='name block'>" . $archivo_comprobantePago . "</span>";
-                                                                                                                echo "<span class='time block txt-grey'>";
-                                                                                                                echo "<a download href='" . $constante_urlTramites . "/" . $id . "/" . rawurlencode($archivo_comprobantePago) . "'>Descargar</a>";
+                                                                                                        echo "<div class='user-data'>";
+                                                                                                        echo "<span class='name block'>" . $archivo_comprobantePago . "</span>";
+                                                                                                        echo "<span class='time block txt-grey'>";
+                                                                                                        echo "<a download href='" . $constante_urlTramites . "/" . $id . "/" . rawurlencode($archivo_comprobantePago) . "'>Descargar</a>";
 /*
-                                                                                                                if ($habilitar_boton_eliminarArchivoExpediente) {
-                                                                                                                    echo "&nbsp;&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;&nbsp;";
-                                                                                                                    echo "<a href='javascript:eliminaArchivoExpediente(" . $id . ")' id='boton_eliminarArchivoExpediente'>Eliminar</a>";
-                                                                                                                }
+                                                                                                        if ($habilitar_boton_eliminarArchivoExpediente) {
+                                                                                                            echo "&nbsp;&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;&nbsp;";
+                                                                                                            echo "<a href='javascript:eliminaArchivoExpediente(" . $id . ")' id='boton_eliminarArchivoExpediente'>Eliminar</a>";
+                                                                                                        }
 */
-                                                                                                                echo "</span>";
-                                                                                                                echo "</div>";
-                                                                                                                echo "<div class='clearfix'></div>";
-                                                                                                                echo "</div>";
-                                                                                                            }
-                                                                                                        ?>
-                                                                                                        </div>
-                                                                                                    </li>
-                                                                                                </ul>
-                                                                                            </div>
-                                                                                        </div>
+                                                                                                        echo "</span>";
+                                                                                                        echo "</div>";
+                                                                                                        echo "<div class='clearfix'></div>";
+                                                                                                        echo "</div>";
+                                                                                                    }
+                                                                                                ?>
+                                                                                                </div>
+                                                                                            </li>
+                                                                                        </ul>
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
+                                                            </div>
+                                                        </div>
 
-                                                                <div class="col-md-6 col-sm-12">
-                                                                    <div class="form-group">
-                                                                        <label class="form-label mb-10">PDF de checklist para E6</label>
+                                                        <div class="col-md-6 col-sm-12">
+                                                            <div class="form-group">
+                                                                <label class="form-label mb-10">PDF de checklist para E6</label>
 
-                                                                        <div>
-                                                                            <input id="campo_archivo_comprobanteE6" name="archivo_comprobanteE6" type="file" <?php echo $habilitar_campo_archivo_comprobanteE6 ? "" : "disabled" ?> />
-                                                                            <br />
-                                                                            <div class="row">
-                                                                                <div class="col-sm-12">
-                                                                                    <div class="panel panel-success card-view">
-                                                                                        <div class="panel-wrapper in">
-                                                                                            <div class="panel-body">
-                                                                                                <ul class="chat-list-wrap">
-                                                                                                    <li class="chat-list">
-                                                                                                        <div class="chat-body">
-                                                                                                        <?php
-                                                                                                            if (!estaVacio($archivo_comprobanteE6)) {
-                                                                                                                echo "<div class='chat-data' id='contenedor_archivo_comprobanteE6'>";
-                                                                                                                //echo "<img class='user-img' src='" . $constante_urlTramites . "/" . $id . "/" . $archivo_comprobanteE6 . "' />";
+                                                                <div>
+                                                                    <input id="campo_archivo_comprobanteE6" name="archivo_comprobanteE6" type="file" <?php echo $habilitar_campo_archivo_comprobanteE6 ? "" : "disabled" ?> />
+                                                                    <br />
+                                                                    <div class="row">
+                                                                        <div class="col-sm-12">
+                                                                            <div class="panel panel-success card-view">
+                                                                                <div class="panel-wrapper in">
+                                                                                    <div class="panel-body">
+                                                                                        <ul class="chat-list-wrap">
+                                                                                            <li class="chat-list">
+                                                                                                <div class="chat-body">
+                                                                                                <?php
+                                                                                                    if (!estaVacio($archivo_comprobanteE6)) {
+                                                                                                        echo "<div class='chat-data' id='contenedor_archivo_comprobanteE6'>";
+                                                                                                        //echo "<img class='user-img' src='" . $constante_urlTramites . "/" . $id . "/" . $archivo_comprobanteE6 . "' />";
 
-                                                                                                                echo "<div class='user-data'>";
-                                                                                                                echo "<span class='name block'>" . $archivo_comprobanteE6 . "</span>";
-                                                                                                                echo "<span class='time block txt-grey'>";
-                                                                                                                echo "<a download href='" . $constante_urlTramites . "/" . $id . "/" . rawurlencode($archivo_comprobanteE6) . "'>Descargar</a>";
+                                                                                                        echo "<div class='user-data'>";
+                                                                                                        echo "<span class='name block'>" . $archivo_comprobanteE6 . "</span>";
+                                                                                                        echo "<span class='time block txt-grey'>";
+                                                                                                        echo "<a download href='" . $constante_urlTramites . "/" . $id . "/" . rawurlencode($archivo_comprobanteE6) . "'>Descargar</a>";
 
 /*
-                                                                                                                if ($habilitar_boton_eliminarArchivoComprobanteE6) {
-                                                                                                                    echo "&nbsp;&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;&nbsp;";
-                                                                                                                    echo "<a href='javascript:eliminaArchivoComprobanteE6(" . $id . ")' id='boton_eliminarArchivoComprobanteE6'>Eliminar</a>";
-                                                                                                                }
+                                                                                                        if ($habilitar_boton_eliminarArchivoComprobanteE6) {
+                                                                                                            echo "&nbsp;&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;&nbsp;";
+                                                                                                            echo "<a href='javascript:eliminaArchivoComprobanteE6(" . $id . ")' id='boton_eliminarArchivoComprobanteE6'>Eliminar</a>";
+                                                                                                        }
 */
 
-                                                                                                                echo "</span>";
-                                                                                                                echo "</div>";
-                                                                                                                echo "<div class='clearfix'></div>";
-                                                                                                                echo "</div>";
-                                                                                                            }
-                                                                                                        ?>
-                                                                                                        </div>
-                                                                                                    </li>
-                                                                                                </ul>
-                                                                                            </div>
-                                                                                        </div>
+                                                                                                        echo "</span>";
+                                                                                                        echo "</div>";
+                                                                                                        echo "<div class='clearfix'></div>";
+                                                                                                        echo "</div>";
+                                                                                                    }
+                                                                                                ?>
+                                                                                                </div>
+                                                                                            </li>
+                                                                                        </ul>
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
@@ -2636,99 +2628,95 @@
                                                                 </div>
                                                             </div>
 
-                                                            <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
-                                                                <div class="row">
-                                                                    <div class="col-md-6 col-sm-12">
-                                                                        <div class="form-group">
-                                                                            <label class="form-label mb-10">PDF de la solicitud de ICV</label>
+                                                            <div class="col-md-6 col-sm-12">
+                                                                <div class="form-group">
+                                                                    <label class="form-label mb-10">PDF de la solicitud de ICV</label>
 
-                                                                            <div>
-                                                                                <input id="campo_archivo_solicitudICV" name="archivo_solicitudICV" type="file" <?php echo $habilitar_campo_archivo_solicitudICV ? "" : "disabled" ?>/>
-                                                                                <br />
-                                                                                <div class="row">
-                                                                                    <div class="col-sm-12">
-                                                                                        <div class="panel panel-success card-view">
-                                                                                            <div class="panel-wrapper in">
-                                                                                                <div class="panel-body">
-                                                                                                    <ul class="chat-list-wrap">
-                                                                                                        <li class="chat-list">
-                                                                                                            <div class="chat-body">
-                                                                                                            <?php
-                                                                                                                if (!estaVacio($archivo_solicitudICV)) {
-                                                                                                                    echo "<div class='chat-data' id='contenedor_archivo_solicitudICV'>";
-                                                                                                                    //echo "<img class='user-img' src='" . $constante_urlTramites . "/" . $id . "/" . $archivo_solicitudICV . "' />";
+                                                                    <div>
+                                                                        <input id="campo_archivo_solicitudICV" name="archivo_solicitudICV" type="file" <?php echo $habilitar_campo_archivo_solicitudICV ? "" : "disabled" ?>/>
+                                                                        <br />
+                                                                        <div class="row">
+                                                                            <div class="col-sm-12">
+                                                                                <div class="panel panel-success card-view">
+                                                                                    <div class="panel-wrapper in">
+                                                                                        <div class="panel-body">
+                                                                                            <ul class="chat-list-wrap">
+                                                                                                <li class="chat-list">
+                                                                                                    <div class="chat-body">
+                                                                                                    <?php
+                                                                                                        if (!estaVacio($archivo_solicitudICV)) {
+                                                                                                            echo "<div class='chat-data' id='contenedor_archivo_solicitudICV'>";
+                                                                                                            //echo "<img class='user-img' src='" . $constante_urlTramites . "/" . $id . "/" . $archivo_solicitudICV . "' />";
 
-                                                                                                                    echo "<div class='user-data'>";
-                                                                                                                    echo "<span class='name block'>" . $archivo_solicitudICV . "</span>";
-                                                                                                                    echo "<span class='time block txt-grey'>";
-                                                                                                                    echo "<a download href='" . $constante_urlTramites . "/" . $id . "/" . rawurlencode($archivo_solicitudICV) . "'>Descargar</a>";
+                                                                                                            echo "<div class='user-data'>";
+                                                                                                            echo "<span class='name block'>" . $archivo_solicitudICV . "</span>";
+                                                                                                            echo "<span class='time block txt-grey'>";
+                                                                                                            echo "<a download href='" . $constante_urlTramites . "/" . $id . "/" . rawurlencode($archivo_solicitudICV) . "'>Descargar</a>";
 
-                                                                                                                    if ($habilitar_boton_eliminarArchivoSolicitudICV) {
-                                                                                                                        echo "&nbsp;&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;&nbsp;";
-                                                                                                                        echo "<a href='javascript:eliminaArchivoIne(" . $id . ")' id='boton_eliminarArchivoSolicitudICV'>Eliminar</a>";
-                                                                                                                    }
+                                                                                                            if ($habilitar_boton_eliminarArchivoSolicitudICV) {
+                                                                                                                echo "&nbsp;&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;&nbsp;";
+                                                                                                                echo "<a href='javascript:eliminaArchivoIne(" . $id . ")' id='boton_eliminarArchivoSolicitudICV'>Eliminar</a>";
+                                                                                                            }
 
-                                                                                                                    echo "</span>";
-                                                                                                                    echo "</div>";
-                                                                                                                    echo "<div class='clearfix'></div>";
-                                                                                                                    echo "</div>";
-                                                                                                                }
-                                                                                                            ?>
-                                                                                                            </div>
-                                                                                                        </li>
-                                                                                                    </ul>
-                                                                                                </div>
-                                                                                            </div>
+                                                                                                            echo "</span>";
+                                                                                                            echo "</div>";
+                                                                                                            echo "<div class='clearfix'></div>";
+                                                                                                            echo "</div>";
+                                                                                                        }
+                                                                                                    ?>
+                                                                                                    </div>
+                                                                                                </li>
+                                                                                            </ul>
                                                                                         </div>
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
                                                                     </div>
+                                                                </div>
+                                                            </div>
 
-                                                                    <div class="col-md-6 col-sm-12">
-                                                                        <div class="form-group">
-                                                                            <label class="form-label mb-10">PDF de checklist para E6</label>
+                                                            <div class="col-md-6 col-sm-12">
+                                                                <div class="form-group">
+                                                                    <label class="form-label mb-10">PDF de checklist para E6</label>
 
-                                                                            <div>
-                                                                                <input id="campo_archivo_checklistE6" name="archivo_checklistE6" type="file" <?php echo $habilitar_campo_archivo_checklistE6 ? "" : "disabled" ?> />
-                                                                                <br />
-                                                                                <div class="row">
-                                                                                    <div class="col-sm-12">
-                                                                                        <div class="panel panel-success card-view">
-                                                                                            <div class="panel-wrapper in">
-                                                                                                <div class="panel-body">
-                                                                                                    <ul class="chat-list-wrap">
-                                                                                                        <li class="chat-list">
-                                                                                                            <div class="chat-body">
-                                                                                                            <?php
-                                                                                                                if (!estaVacio($archivo_checklistE6)) {
-                                                                                                                    echo "<div class='chat-data' id='contenedor_archivo_checklistE6'>";
-                                                                                                                    //echo "<img class='user-img' src='" . $constante_urlTramites . "/" . $id . "/" . $archivo_comprobanteE6 . "' />";
+                                                                    <div>
+                                                                        <input id="campo_archivo_checklistE6" name="archivo_checklistE6" type="file" <?php echo $habilitar_campo_archivo_checklistE6 ? "" : "disabled" ?> />
+                                                                        <br />
+                                                                        <div class="row">
+                                                                            <div class="col-sm-12">
+                                                                                <div class="panel panel-success card-view">
+                                                                                    <div class="panel-wrapper in">
+                                                                                        <div class="panel-body">
+                                                                                            <ul class="chat-list-wrap">
+                                                                                                <li class="chat-list">
+                                                                                                    <div class="chat-body">
+                                                                                                    <?php
+                                                                                                        if (!estaVacio($archivo_checklistE6)) {
+                                                                                                            echo "<div class='chat-data' id='contenedor_archivo_checklistE6'>";
+                                                                                                            //echo "<img class='user-img' src='" . $constante_urlTramites . "/" . $id . "/" . $archivo_comprobanteE6 . "' />";
 
-                                                                                                                    echo "<div class='user-data'>";
-                                                                                                                    echo "<span class='name block'>" . $archivo_checklistE6 . "</span>";
-                                                                                                                    echo "<span class='time block txt-grey'>";
-                                                                                                                    echo "<a download href='" . $constante_urlTramites . "/" . $id . "/" . rawurlencode($archivo_checklistE6) . "'>Descargar</a>";
+                                                                                                            echo "<div class='user-data'>";
+                                                                                                            echo "<span class='name block'>" . $archivo_checklistE6 . "</span>";
+                                                                                                            echo "<span class='time block txt-grey'>";
+                                                                                                            echo "<a download href='" . $constante_urlTramites . "/" . $id . "/" . rawurlencode($archivo_checklistE6) . "'>Descargar</a>";
 
 /*
-                                                                                                                    if ($habilitar_boton_eliminarArchivoChecklistE6) {
-                                                                                                                        echo "&nbsp;&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;&nbsp;";
-                                                                                                                        echo "<a href='javascript:eliminaArchivoChecklistE6(" . $id . ")' id='boton_eliminarArchivoChecklistE6'>Eliminar</a>";
-                                                                                                                    }
+                                                                                                            if ($habilitar_boton_eliminarArchivoChecklistE6) {
+                                                                                                                echo "&nbsp;&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;&nbsp;";
+                                                                                                                echo "<a href='javascript:eliminaArchivoChecklistE6(" . $id . ")' id='boton_eliminarArchivoChecklistE6'>Eliminar</a>";
+                                                                                                            }
 */
 
-                                                                                                                    echo "</span>";
-                                                                                                                    echo "</div>";
-                                                                                                                    echo "<div class='clearfix'></div>";
-                                                                                                                    echo "</div>";
-                                                                                                                }
-                                                                                                            ?>
-                                                                                                            </div>
-                                                                                                        </li>
-                                                                                                    </ul>
-                                                                                                </div>
-                                                                                            </div>
+                                                                                                            echo "</span>";
+                                                                                                            echo "</div>";
+                                                                                                            echo "<div class='clearfix'></div>";
+                                                                                                            echo "</div>";
+                                                                                                        }
+                                                                                                    ?>
+                                                                                                    </div>
+                                                                                                </li>
+                                                                                            </ul>
                                                                                         </div>
                                                                                     </div>
                                                                                 </div>
