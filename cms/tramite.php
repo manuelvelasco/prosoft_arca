@@ -2872,7 +2872,7 @@
                                                 <?php }?>
 
                                                 <?php if ($habilitar_boton_solicitarActualizacionFolio) { ?>
-                                                    <a class="btn btn-default mb-3"  href="javascript:;" id="boton_solicitarActualizacionFolio" onclick="solicitarActualizacionFolio()" style="background-color: #2d146f; color: #fff !important">Solicitar actualización de folio</a>
+                                                    <a class="btn btn-default mb-3"  href="javascript:;" id="boton_solicitarActualizacionFolio" onclick="solicitarActualizacionFolio()" style="background-color: #2d146f; color: #fff !important">Solicitar actualización de folio por cambio de mes</a>
                                                 <?php }?>
 
                                                 <?php if ($habilitar_boton_solicitarActualizacionICV) { ?>
