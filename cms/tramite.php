@@ -254,27 +254,27 @@
                 }
 
                 if (isset($_FILES["archivo_expediente"]) && $_FILES["archivo_expediente"]["size"] > 22020096) {
-                    $mensaje .= "* PDF de expediente debe ser de hasta 20 MB<br />";
+                    $mensaje .= "* PDF de expediente debe pesar menos de 20 MB<br />";
                 }
 
                 if (isset($_FILES["archivo_comprobantePago"]) && $_FILES["archivo_comprobantePago"]["size"] > 22020096) {
-                    $mensaje .= "* PDF de pago debe ser de hasta 20 MB<br />";
+                    $mensaje .= "* PDF de pago debe pesar menos de 20 MB<br />";
                 }
 
                 if (isset($_FILES["archivo_solicitudICV"]) && $_FILES["archivo_solicitudICV"]["size"] > 22020096) {
-                    $mensaje .= "* PDF de la solicitud de ICV debe ser de hasta 20 MB<br />";
+                    $mensaje .= "* PDF de la solicitud de ICV debe pesar menos de 20 MB<br />";
                 }
 
                 if (isset($_FILES["archivo_checklistE6"]) && $_FILES["archivo_checklistE6"]["size"] > 22020096) {
-                    $mensaje .= "* PDF de checklist para E6 debe ser de hasta 20 MB<br />";
+                    $mensaje .= "* PDF de checklist para E6 debe pesar menos de 20 MB<br />";
                 }
 
                 if (isset($_FILES["archivo_comprobanteE6"]) && $_FILES["archivo_comprobanteE6"]["size"] > 22020096) {
-                    $mensaje .= "* PDF de checklist para E6 debe ser de hasta 20 MB<br />";
+                    $mensaje .= "* PDF de checklist para E6 debe pesar menos de 20 MB<br />";
                 }
 
                 if (isset($_FILES["archivo_comprobanteBiometricos"]) && $_FILES["archivo_comprobanteBiometricos"]["size"] > 22020096) {
-                    $mensaje .= "* PDF de comprobante de biométricos debe ser de hasta 20 MB<br />";
+                    $mensaje .= "* PDF de comprobante de biométricos debe pesar menos de 20 MB<br />";
                 }
 
                 if (!estaVacio($mensaje)) {
@@ -2836,7 +2836,7 @@
                                                 <!--a class="btn btn-default mb-3" href="javascript:void(0)" id="boton_cerrar" style="color: #fff !important">Cerrar</a-->
 
                                                 <?php if ($habilitar_boton_guardar) { ?>
-                                                    <button class="btn btn-success mb-3"  id="boton_guardar" onclick="return confirm('¿Desea dar de alta este trámite?');" style="background-color: #2d146f; color: #fff !important" type="submit" >Generar trámite</button>
+                                                    <a class="btn btn-success mb-3" href="javascript:;"  id="boton_guardar" onclick="generarTramite()" style="background-color: #2d146f; color: #fff !important">Generar trámite</button>
                                                 <?php } ?>
 
                                                 <?php if ($habilitar_boton_enviarICV) { ?>
@@ -3197,6 +3197,20 @@
 
             // Funciones por estatus
 
+
+            function generarTramite() {
+                if (confirm("¿Desea dar de alta este trámite?")) {
+                    var archivo = document.getElementById("campo_archivo_expediente").files[0];
+
+                    if(archivo && archivo.size < 22020096) {
+                        submit();
+                    } else {
+                        alert("PDF de expediente debe pesar menos de 20 MB");
+
+                        return false;
+                    }
+                }
+            }
 
             function regresarAAgencia() {
                 //event.preventDefault();
