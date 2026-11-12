@@ -3199,12 +3199,36 @@
 
 
             function validaArchivos() {
-                var archivo_expediente = document.getElementById("campo_archivo_expediente").files[0];
-                var archivo_comprobantePago = document.getElementById("campo_archivo_comprobantePago").files[0];
-                var archivo_solicitudICV = document.getElementById("campo_archivo_solicitudICV").files[0];
-                var archivo_checklistE6 = document.getElementById("campo_archivo_checklistE6").files[0];
-                var archivo_comprobanteE6 = document.getElementById("campo_archivo_comprobanteE6").files[0];
-                var archivo_comprobanteBiometricos = document.getElementById("campo_archivo_comprobanteBiometricos").files[0];
+                var archivo_expediente = null;
+                var archivo_comprobantePago = null;
+                var archivo_solicitudICV = null;
+                var archivo_checklistE6 = null;
+                var archivo_comprobanteE6 = null;
+                var archivo_comprobanteBiometricos = null;
+
+                if (document.getElementById("campo_archivo_expediente")) {
+                    archivo_expediente = document.getElementById("campo_archivo_expediente").files[0];
+                }
+
+                if (document.getElementById("campo_archivo_comprobantePago")) {
+                    archivo_comprobantePago = document.getElementById("campo_archivo_comprobantePago").files[0];
+                }
+
+                if (document.getElementById("campo_archivo_solicitudICV")) {
+                    archivo_solicitudICV = document.getElementById("campo_archivo_solicitudICV").files[0];
+                }
+
+                if (document.getElementById("campo_archivo_checklistE6")) {
+                    archivo_checklistE6 = document.getElementById("campo_archivo_checklistE6").files[0];
+                }
+
+                if (document.getElementById("campo_archivo_comprobanteE6")) {
+                    archivo_comprobanteE6 = document.getElementById("campo_archivo_comprobanteE6").files[0];
+                }
+
+                if (document.getElementById("campo_archivo_comprobanteBiometricos")) {
+                    archivo_comprobanteBiometricos = document.getElementById("campo_archivo_comprobanteBiometricos").files[0];
+                }
 
                 if ((archivo_expediente && archivo_expediente > 22020096)
                     || (archivo_comprobantePago && archivo_comprobantePago > 22020096)
