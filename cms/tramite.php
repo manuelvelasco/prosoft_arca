@@ -129,6 +129,9 @@
             $archivo_expediente = "";
             $archivo_comprobantePago = "";
             $archivo_solicitudICV = "";
+            $archivo_checklistE6 = "";
+            $archivo_comprobanteE6 = "";
+            $archivo_comprobanteBiometricos = "";
 
             // Procesa el request
 
@@ -262,6 +265,18 @@
                     $mensaje .= "* PDF de la solicitud de ICV debe ser de hasta 20 MB<br />";
                 }
 
+                if (isset($_FILES["archivo_checklistE6"]) && $_FILES["archivo_checklistE6"]["size"] > 22020096) {
+                    $mensaje .= "* PDF de checklist para E6 debe ser de hasta 20 MB<br />";
+                }
+
+                if (isset($_FILES["archivo_comprobanteE6"]) && $_FILES["archivo_comprobanteE6"]["size"] > 22020096) {
+                    $mensaje .= "* PDF de checklist para E6 debe ser de hasta 20 MB<br />";
+                }
+
+                if (isset($_FILES["archivo_comprobanteBiometricos"]) && $_FILES["archivo_comprobanteBiometricos"]["size"] > 22020096) {
+                    $mensaje .= "* PDF de comprobante de biométricos debe ser de hasta 20 MB<br />";
+                }
+
                 if (!estaVacio($mensaje)) {
                     $mensaje = "Proporcione los siguientes datos:<br /><br />" . $mensaje;
 
@@ -272,6 +287,9 @@
                         $archivo_expediente = $tramite["archivo_expediente"];
                         $archivo_comprobantePago = $tramite["archivo_comprobantePago"];
                         $archivo_solicitudICV = $tramite["archivo_solicitudICV"];
+                        $archivo_checklistE6 = $tramite["archivo_checklistE6"];
+                        $archivo_comprobanteE6 = $tramite["archivo_comprobanteE6"];
+                        $archivo_comprobanteBiometricos = $tramite["archivo_comprobanteBiometricos"];
 
                         $idUsuarioCapturo = $tramite["idUsuario"];
                         $usuarioCapturo_BD = consulta($conexion, "SELECT * FROM usuario WHERE id = " . $idUsuarioCapturo);
@@ -388,6 +406,10 @@
                                 $archivo_solicitudICV = $tramite["archivo_solicitudICV"];
                                 $ejecutivoICV = $tramite["ejecutivoICV"];
                                 $folioICV = $tramite["folioICV"];
+
+                                $archivo_checklistE6 = $tramite["archivo_checklistE6"];
+                                $archivo_comprobanteE6 = $tramite["archivo_comprobanteE6"];
+                                $archivo_comprobanteBiometricos = $tramite["archivo_comprobanteBiometricos"];
 
                                 // Actualiza consecutivo de concesionario
 
@@ -535,6 +557,10 @@
                                     $ejecutivoICV = $tramite["ejecutivoICV"];
                                     $folioICV = $tramite["folioICV"];
 
+                                    $archivo_checklistE6 = $tramite["archivo_checklistE6"];
+                                    $archivo_comprobanteE6 = $tramite["archivo_comprobanteE6"];
+                                    $archivo_comprobanteBiometricos = $tramite["archivo_comprobanteBiometricos"];
+
                                     $usuarioCapturo_BD = consulta($conexion, "SELECT * FROM usuario WHERE id = " . $idUsuario);
                                     $usuarioCapturo = obtenResultado($usuarioCapturo_BD);
 
@@ -573,6 +599,254 @@
                                         . "<br />Número de factura: ". $numeroFactura;
 
                                     $archivoCorreo = $constante_rutaTramites . "/" . $id . "/" . $archivo_comprobantePago;
+
+                                    //$enviaCorreo = enviaCorreoMailjet($correoNotificar, null, $titulo, $mensajeCorreo, $archivoCorreo);
+                                    $enviaCorreo = enviaCorreoMailjet($correoNotificar, null, $titulo, $mensajeCorreo, $archivoCorreo, "delegacionvirtual@seminuevosarca.com.mx");
+                                } catch (Exception $e) {
+                                }
+                            } else if (isset($_FILES["archivo_comprobanteBiometricos"]) && $_FILES["archivo_comprobanteBiometricos"]["size"] > 0) {
+                                try {
+
+                                    // Carga archivo
+
+                                    $archivo = $_FILES["archivo_comprobanteBiometricos"];
+
+                                    $nombreEstandarizado = $id . "_comprobanteBiometricos_" . date("YmdHis") . "_" . rand(100, 999) . "." . pathinfo($archivo["name"], PATHINFO_EXTENSION);
+                                    $archivoDestino = $constante_rutaTramites . "/" . $id . "/" . $nombreEstandarizado;
+
+                                    if (!file_exists($constante_rutaTramites . "/" . $id)) {
+                                        //mkdir($constante_rutaTramites . "/" . $id, 0755, true);
+                                        mkdir($constante_rutaTramites . "/" . $id);
+                                    }
+
+                                    move_uploaded_file($archivo["tmp_name"], $archivoDestino);
+
+                                    consulta($conexion, "UPDATE tramite SET archivo_comprobanteBiometricos = " . (estaVacio($nombreEstandarizado) ? "NULL" : "'" . $nombreEstandarizado . "'") . " WHERE id = " . $id);
+                                    $archivo_comprobanteBiometricos = $nombreEstandarizado;
+
+                                    // Actualiza bitacora de tramite
+
+                                    consulta($conexion, "UPDATE tramite SET status = 'Reenviado a ARCA' WHERE id = " . $id);
+
+                                    $bitacora_BD = consulta($conexion, "SELECT * FROM tramite_bitacora WHERE idTramite = " . $id . " ORDER BY id DESC LIMIT 1");
+                                    $bitacora = obtenResultado($bitacora_BD);
+
+                                    consulta($conexion, "UPDATE tramite_bitacora SET fechaFinal = '" . $fechaActual . "' WHERE id = " . $bitacora["id"]);
+
+                                    consulta($conexion, "INSERT INTO tramite_bitacora ("
+                                            . "idTramite"
+                                            . ", idUsuario"
+                                            . ", status"
+                                            . ", fechaInicial"
+                                        . ") VALUES ("
+                                            . $id
+                                            . ", " . $usuario_id
+                                            . ", 'Enviado a ARCA'"
+                                            . ", '" . $fechaActual . "'"
+                                        . ")");
+
+                                    // Carga informacion actualizada
+
+                                    $tramite_BD = consulta($conexion, "SELECT * FROM tramite WHERE id = " . $id);
+                                    $tramite = obtenResultado($tramite_BD);
+
+                                    $id = $tramite["id"];
+                                    $fechaAlta = $tramite["fechaAlta"];
+                                    $status = $tramite["status"];
+                                    $folioARCA = $tramite["folioARCA"];
+                                    $idConcesionario = $tramite["idConcesionario"];
+                                    $idUsuario = $tramite["idUsuario"];
+                                    $idMensajero = $tramite["idMensajero"];
+                                    $comentariosARCA = $tramite["comentariosARCA"];
+                                    $comentariosConcesionario = $tramite["comentariosConcesionario"];
+
+                                    $vehiculo_marca = $tramite["vehiculo_marca"];
+                                    $vehiculo_modelo = $tramite["vehiculo_modelo"];
+                                    $vehiculo_ano = $tramite["vehiculo_ano"];
+                                    $vehiculo_color = $tramite["vehiculo_color"];
+                                    $vehiculo_vin = $tramite["vehiculo_vin"];
+                                    $vehiculo_placa = $tramite["vehiculo_placa"];
+                                    $cliente_nombre = $tramite["cliente_nombre"];
+                                    $cliente_apellidoPaterno = $tramite["cliente_apellidoPaterno"];
+                                    $cliente_apellidoMaterno = $tramite["cliente_apellidoMaterno"];
+                                    $cliente_correoElectronico = $tramite["cliente_correoElectronico"];
+                                    $tipoTramite = $tramite["tipoTramite"];
+                                    $tipoFactura = $tramite["tipoFactura"];
+                                    $numeroFactura = $tramite["numeroFactura"];
+                                    $archivo_expediente = $tramite["archivo_expediente"];
+                                    $archivo_comprobantePago = $tramite["archivo_comprobantePago"];
+
+                                    $fechaRecepcionCorreoICV = $tramite["fechaRecepcionCorreoICV"];
+                                    $comentariosICV = $tramite["comentariosICV"];
+                                    $archivo_solicitudICV = $tramite["archivo_solicitudICV"];
+                                    $ejecutivoICV = $tramite["ejecutivoICV"];
+                                    $folioICV = $tramite["folioICV"];
+
+                                    $archivo_checklistE6 = $tramite["archivo_checklistE6"];
+                                    $archivo_comprobanteE6 = $tramite["archivo_comprobanteE6"];
+                                    $archivo_comprobanteBiometricos = $tramite["archivo_comprobanteBiometricos"];
+
+                                    $usuarioCapturo_BD = consulta($conexion, "SELECT * FROM usuario WHERE id = " . $idUsuario);
+                                    $usuarioCapturo = obtenResultado($usuarioCapturo_BD);
+
+                                    // Envia correo de notificacion
+
+                                    $concesionario_BD = consulta($conexion, "SELECT * FROM concesionario WHERE id = " . $idConcesionario);
+                                    $concesionario = obtenResultado($concesionario_BD);
+
+                                    $mensajero_BD = consulta($conexion, "SELECT * FROM mensajero WHERE id = " . $idMensajero);
+                                    $mensajero = obtenResultado($mensajero_BD);
+
+                                    $correoNotificar = obtenResultado(consulta($conexion, "SELECT * FROM parametro WHERE nombre = 'delegacionVirtual_reenviarTramiteARCA_correosARCA'"))["valor"];
+
+                                    $titulo = "ARCA - " . $folioARCA . " - " . $concesionario["nombreComercial"] . " - " . trim($cliente_nombre . " " . $cliente_apellidoPaterno . " " . $cliente_apellidoMaterno) . " - COMPROBANTE BIOMÉTRICOS CARGADO";
+
+                                    $mensajeCorreo = "Se ha actualizado la solicitud de trámite con los siguientes datos, favor de ingresar al sistema para ver los detalles:"
+                                        . "<br /><br />Id: ". $id 
+                                        . "<br />Folio ARCA: ". $folioARCA
+                                        . "<br />Estatus: ". $status
+                                        . "<br />Agencia: ". $concesionario["nombreComercial"]
+                                        . "<br />Usuario capturó: " . $usuario_nombre
+                                        . "<br />Mensajero: " . $mensajero["nombre"] . " " . $mensajero["apellidoPaterno"] . " " . $mensajero["apellidoMaterno"]
+                                        . "<br />Comentarios agencia: ". $comentariosConcesionario
+                                        . "<br />Comentarios ARCA: ". $comentariosARCA
+                                        . "<br />Marca: ". $vehiculo_marca
+                                        . "<br />Modelo: ". $vehiculo_modelo
+                                        . "<br />Año: ". $vehiculo_ano
+                                        . "<br />Color: ". $vehiculo_color
+                                        . "<br />VIN: ". $vehiculo_vin
+                                        . "<br />Número de placa: " . $vehiculo_placa
+                                        . "<br />Nombre Cliente: ". $cliente_nombre . " " . $cliente_apellidoPaterno . " " . $cliente_apellidoMaterno
+                                        . "<br />Correo Cliente: ". $cliente_correoElectronico
+                                        . "<br />Tipo de trámite: ". $tipoTramite
+                                        . "<br />Tipo de factura: ". $tipoFactura
+                                        . "<br />Número de factura: ". $numeroFactura;
+
+                                    $archivoCorreo = $constante_rutaTramites . "/" . $id . "/" . $archivo_comprobanteBiometricos;
+
+                                    //$enviaCorreo = enviaCorreoMailjet($correoNotificar, null, $titulo, $mensajeCorreo, $archivoCorreo);
+                                    $enviaCorreo = enviaCorreoMailjet($correoNotificar, null, $titulo, $mensajeCorreo, $archivoCorreo, "delegacionvirtual@seminuevosarca.com.mx");
+                                } catch (Exception $e) {
+                                }
+                            } else if (isset($_FILES["archivo_comprobanteE6"]) && $_FILES["archivo_comprobanteE6"]["size"] > 0) {
+                                try {
+
+                                    // Carga archivo
+
+                                    $archivo = $_FILES["archivo_comprobanteE6"];
+
+                                    $nombreEstandarizado = $id . "_comprobanteE6_" . date("YmdHis") . "_" . rand(100, 999) . "." . pathinfo($archivo["name"], PATHINFO_EXTENSION);
+                                    $archivoDestino = $constante_rutaTramites . "/" . $id . "/" . $nombreEstandarizado;
+
+                                    if (!file_exists($constante_rutaTramites . "/" . $id)) {
+                                        //mkdir($constante_rutaTramites . "/" . $id, 0755, true);
+                                        mkdir($constante_rutaTramites . "/" . $id);
+                                    }
+
+                                    move_uploaded_file($archivo["tmp_name"], $archivoDestino);
+
+                                    consulta($conexion, "UPDATE tramite SET archivo_comprobanteE6 = " . (estaVacio($nombreEstandarizado) ? "NULL" : "'" . $nombreEstandarizado . "'") . " WHERE id = " . $id);
+                                    $archivo_comprobanteE6 = $nombreEstandarizado;
+
+                                    // Actualiza bitacora de tramite
+
+                                    consulta($conexion, "UPDATE tramite SET status = 'Reenviado a ARCA' WHERE id = " . $id);
+
+                                    $bitacora_BD = consulta($conexion, "SELECT * FROM tramite_bitacora WHERE idTramite = " . $id . " ORDER BY id DESC LIMIT 1");
+                                    $bitacora = obtenResultado($bitacora_BD);
+
+                                    consulta($conexion, "UPDATE tramite_bitacora SET fechaFinal = '" . $fechaActual . "' WHERE id = " . $bitacora["id"]);
+
+                                    consulta($conexion, "INSERT INTO tramite_bitacora ("
+                                            . "idTramite"
+                                            . ", idUsuario"
+                                            . ", status"
+                                            . ", fechaInicial"
+                                        . ") VALUES ("
+                                            . $id
+                                            . ", " . $usuario_id
+                                            . ", 'Enviado a ARCA'"
+                                            . ", '" . $fechaActual . "'"
+                                        . ")");
+
+                                    // Carga informacion actualizada
+
+                                    $tramite_BD = consulta($conexion, "SELECT * FROM tramite WHERE id = " . $id);
+                                    $tramite = obtenResultado($tramite_BD);
+
+                                    $id = $tramite["id"];
+                                    $fechaAlta = $tramite["fechaAlta"];
+                                    $status = $tramite["status"];
+                                    $folioARCA = $tramite["folioARCA"];
+                                    $idConcesionario = $tramite["idConcesionario"];
+                                    $idUsuario = $tramite["idUsuario"];
+                                    $idMensajero = $tramite["idMensajero"];
+                                    $comentariosARCA = $tramite["comentariosARCA"];
+                                    $comentariosConcesionario = $tramite["comentariosConcesionario"];
+
+                                    $vehiculo_marca = $tramite["vehiculo_marca"];
+                                    $vehiculo_modelo = $tramite["vehiculo_modelo"];
+                                    $vehiculo_ano = $tramite["vehiculo_ano"];
+                                    $vehiculo_color = $tramite["vehiculo_color"];
+                                    $vehiculo_vin = $tramite["vehiculo_vin"];
+                                    $vehiculo_placa = $tramite["vehiculo_placa"];
+                                    $cliente_nombre = $tramite["cliente_nombre"];
+                                    $cliente_apellidoPaterno = $tramite["cliente_apellidoPaterno"];
+                                    $cliente_apellidoMaterno = $tramite["cliente_apellidoMaterno"];
+                                    $cliente_correoElectronico = $tramite["cliente_correoElectronico"];
+                                    $tipoTramite = $tramite["tipoTramite"];
+                                    $tipoFactura = $tramite["tipoFactura"];
+                                    $numeroFactura = $tramite["numeroFactura"];
+                                    $archivo_expediente = $tramite["archivo_expediente"];
+                                    $archivo_comprobantePago = $tramite["archivo_comprobantePago"];
+
+                                    $fechaRecepcionCorreoICV = $tramite["fechaRecepcionCorreoICV"];
+                                    $comentariosICV = $tramite["comentariosICV"];
+                                    $archivo_solicitudICV = $tramite["archivo_solicitudICV"];
+                                    $ejecutivoICV = $tramite["ejecutivoICV"];
+                                    $folioICV = $tramite["folioICV"];
+
+                                    $archivo_checklistE6 = $tramite["archivo_checklistE6"];
+                                    $archivo_comprobanteE6 = $tramite["archivo_comprobanteE6"];
+                                    $archivo_comprobanteBiometricos = $tramite["archivo_comprobanteBiometricos"];
+
+                                    $usuarioCapturo_BD = consulta($conexion, "SELECT * FROM usuario WHERE id = " . $idUsuario);
+                                    $usuarioCapturo = obtenResultado($usuarioCapturo_BD);
+
+                                    // Envia correo de notificacion
+
+                                    $concesionario_BD = consulta($conexion, "SELECT * FROM concesionario WHERE id = " . $idConcesionario);
+                                    $concesionario = obtenResultado($concesionario_BD);
+
+                                    $mensajero_BD = consulta($conexion, "SELECT * FROM mensajero WHERE id = " . $idMensajero);
+                                    $mensajero = obtenResultado($mensajero_BD);
+
+                                    $correoNotificar = obtenResultado(consulta($conexion, "SELECT * FROM parametro WHERE nombre = 'delegacionVirtual_reenviarTramiteARCA_correosARCA'"))["valor"];
+
+                                    $titulo = "ARCA - " . $folioARCA . " - " . $concesionario["nombreComercial"] . " - " . trim($cliente_nombre . " " . $cliente_apellidoPaterno . " " . $cliente_apellidoMaterno) . " - COMPROBANTE DE E6 CARGADO";
+
+                                    $mensajeCorreo = "Se ha actualizado la solicitud de trámite con los siguientes datos, favor de ingresar al sistema para ver los detalles:"
+                                        . "<br /><br />Id: ". $id 
+                                        . "<br />Folio ARCA: ". $folioARCA
+                                        . "<br />Estatus: ". $status
+                                        . "<br />Agencia: ". $concesionario["nombreComercial"]
+                                        . "<br />Usuario capturó: " . $usuario_nombre
+                                        . "<br />Mensajero: " . $mensajero["nombre"] . " " . $mensajero["apellidoPaterno"] . " " . $mensajero["apellidoMaterno"]
+                                        . "<br />Comentarios agencia: ". $comentariosConcesionario
+                                        . "<br />Comentarios ARCA: ". $comentariosARCA
+                                        . "<br />Marca: ". $vehiculo_marca
+                                        . "<br />Modelo: ". $vehiculo_modelo
+                                        . "<br />Año: ". $vehiculo_ano
+                                        . "<br />Color: ". $vehiculo_color
+                                        . "<br />VIN: ". $vehiculo_vin
+                                        . "<br />Número de placa: " . $vehiculo_placa
+                                        . "<br />Nombre Cliente: ". $cliente_nombre . " " . $cliente_apellidoPaterno . " " . $cliente_apellidoMaterno
+                                        . "<br />Correo Cliente: ". $cliente_correoElectronico
+                                        . "<br />Tipo de trámite: ". $tipoTramite
+                                        . "<br />Tipo de factura: ". $tipoFactura
+                                        . "<br />Número de factura: ". $numeroFactura;
+
+                                    $archivoCorreo = $constante_rutaTramites . "/" . $id . "/" . $archivo_comprobanteE6;
 
                                     //$enviaCorreo = enviaCorreoMailjet($correoNotificar, null, $titulo, $mensajeCorreo, $archivoCorreo);
                                     $enviaCorreo = enviaCorreoMailjet($correoNotificar, null, $titulo, $mensajeCorreo, $archivoCorreo, "delegacionvirtual@seminuevosarca.com.mx");
@@ -647,6 +921,26 @@
                                     }
                                 }
 
+                                if (isset($_FILES["archivo_checklistE6"]) && $_FILES["archivo_checklistE6"]["size"] > 0) {
+                                    try {
+                                        $archivo = $_FILES["archivo_checklistE6"];
+
+                                        $nombreEstandarizado = $id . "_checklistE6_" . date("YmdHis") . "_" . rand(100, 999) . "." . pathinfo($archivo["name"], PATHINFO_EXTENSION);
+                                        $archivoDestino = $constante_rutaTramites . "/" . $id . "/" . $nombreEstandarizado;
+
+                                        if (!file_exists($constante_rutaTramites . "/" . $id)) {
+                                            //mkdir($constante_rutaTramites . "/" . $id, 0755, true);
+                                            mkdir($constante_rutaTramites . "/" . $id);
+                                        }
+
+                                        move_uploaded_file($archivo["tmp_name"], $archivoDestino);
+
+                                        consulta($conexion, "UPDATE tramite SET archivo_checklistE6 = " . (estaVacio($nombreEstandarizado) ? "NULL" : "'" . $nombreEstandarizado . "'") . " WHERE id = " . $id);
+                                        $archivo_solicitudICV = $nombreEstandarizado;
+                                    } catch (Exception $e) {
+                                    }
+                                }
+
                                 $tramite_BD = consulta($conexion, "SELECT * FROM tramite WHERE id = " . $id);
                                 $tramite = obtenResultado($tramite_BD);
 
@@ -682,7 +976,14 @@
                                 $ejecutivoICV = $tramite["ejecutivoICV"];
                                 $folioICV = $tramite["folioICV"];
 
+                                $archivo_checklistE6 = $tramite["archivo_checklistE6"];
+                                $archivo_comprobanteE6 = $tramite["archivo_comprobanteE6"];
+                                $archivo_comprobanteBiometricos = $tramite["archivo_comprobanteBiometricos"];
+
                                 if ($status != $statusAnterior) {
+
+                                    // Actualiza bitacora de tramite
+
                                     $bitacora_BD = consulta($conexion, "SELECT * FROM tramite_bitacora WHERE idTramite = " . $id . " ORDER BY id DESC LIMIT 1");
                                     $bitacora = obtenResultado($bitacora_BD);
 
@@ -1028,7 +1329,11 @@
                     $archivo_solicitudICV = $tramite["archivo_solicitudICV"];
                     $ejecutivoICV = $tramite["ejecutivoICV"];
                     $folioICV = $tramite["folioICV"];
-                    
+
+                    $archivo_checklistE6 = $tramite["archivo_checklistE6"];
+                    $archivo_comprobanteE6 = $tramite["archivo_comprobanteE6"];
+                    $archivo_comprobanteBiometricos = $tramite["archivo_comprobanteBiometricos"];
+
                     $usuarioCapturo_BD = consulta($conexion, "SELECT * FROM usuario WHERE id = " . $idUsuario);
                     $usuarioCapturo = obtenResultado($usuarioCapturo_BD);
 
@@ -1064,6 +1369,10 @@
             $habilitar_campo_archivo_expediente = false;
             $habilitar_campo_archivo_comprobantePago = false;
             $habilitar_campo_archivo_solicitudICV = false;
+
+            $habilitar_campo_archivo_checklistE6 = false;
+            $habilitar_campo_archivo_comprobanteE6 = false;
+            $habilitar_campo_archivo_comprobanteBiometricos = false;
 
             // Selects a habilitar
 
@@ -1178,59 +1487,44 @@
                 switch ($statusTramite) {
                     case "Enviado a ARCA":
                         if ($esUsuarioOperador && $usuario_permisoEditarDelegacionVirtual) {
-                            $habilitar_boton_guardar = true;
                             $habilitar_boton_eliminarArchivoSolicitudICV = true;
+
                             $habilitar_boton_cancelarTramite = true;
+
+                            //$habilitar_boton_guardar = true;
                         } else if ($esUsuarioAdministrador && $usuario_permisoEditarDelegacionVirtual) {
                             $habilitar_campo_folioARCA = true;
                             $habilitar_campo_comentariosARCA = true;
 
+                            $habilitar_boton_eliminarArchivoSolicitudICV = true;
+
+                            $habilitar_boton_cancelarTramite = true;
+
+                            //$habilitar_boton_guardar = true;
                             $habilitar_boton_enviarICV = true;
                             $habilitar_boton_regresarAgencia = true;
-                            $habilitar_boton_guardar = true;
-                            $habilitar_boton_eliminarArchivoSolicitudICV = true;
-                            $habilitar_boton_cancelarTramite = true;
                         } else if ($esUsuarioMaster) {
                             $habilitar_campo_folioARCA = true;
-                            $habilitar_campo_comentariosConcesionario = true;
                             $habilitar_campo_comentariosARCA = true;
-                            $habilitar_campo_vehiculo_color = true;
-                            $habilitar_campo_vehiculo_vin = true;
-                            $habilitar_campo_vehiculo_placa = true;
-                            $habilitar_campo_cliente_nombre = true;
-                            $habilitar_campo_cliente_apellidoPaterno = true;
-                            $habilitar_campo_cliente_apellidoMaterno = true;
-                            $habilitar_campo_cliente_correoElectronico = true;
-                            $habilitar_campo_tipoTramite = true;
-                            $habilitar_campo_tipoFactura = true;
-                            $habilitar_campo_numeroFactura = true;
-                            $habilitar_campo_folioICV = true;
-                            $habilitar_campo_fechaRecepcionCorreoICV = true;
-                            $habilitar_campo_ejecutivoICV = true;
-                            $habilitar_campo_comentariosICV = true;
 
-                            $habilitar_campo_archivo_expediente = true;
-                            $habilitar_campo_archivo_solicitudICV = true;
+                            $habilitar_boton_eliminarArchivoSolicitudICV = true;
 
-                            $habilitar_campo_idConcesionario = true;
-                            $habilitar_campo_idMensajero = true;
-                            $habilitar_campo_vehiculo_marca = true;
-                            $habilitar_campo_vehiculo_modelo = true;
-                            $habilitar_campo_vehiculo_ano = true;
+                            $habilitar_boton_cancelarTramite = true;
 
-                            $habilitar_boton_eliminar = true;
+                            //$habilitar_boton_guardar = true;
                             $habilitar_boton_enviarICV = true;
                             $habilitar_boton_regresarAgencia = true;
-                            $habilitar_boton_guardar = true;
-                            $habilitar_boton_eliminarArchivoExpediente = true;
-                            $habilitar_boton_eliminarArchivoSolicitudICV = true;
-                            $habilitar_boton_cancelarTramite = true;
                         }
 
                         break;
                     case "Devuelto a la agencia":
                         if ($esUsuarioOperador && $usuario_permisoEditarDelegacionVirtual) {
+                            $habilitar_campo_idMensajero = true;
                             $habilitar_campo_comentariosConcesionario = true;
+
+                            $habilitar_campo_vehiculo_marca = true;
+                            $habilitar_campo_vehiculo_modelo = true;
+                            $habilitar_campo_vehiculo_ano = true;
                             $habilitar_campo_vehiculo_color = true;
                             $habilitar_campo_vehiculo_vin = true;
                             $habilitar_campo_vehiculo_placa = true;
@@ -1239,28 +1533,28 @@
                             $habilitar_campo_cliente_apellidoMaterno = true;
                             $habilitar_campo_cliente_correoElectronico = true;
                             $habilitar_campo_tipoTramite = true;
-                            $habilitar_campo_tipoFactura = true;
                             $habilitar_campo_numeroFactura = true;
-
+                            $habilitar_campo_tipoFactura = true;
                             $habilitar_campo_archivo_expediente = true;
 
-                            $habilitar_campo_idMensajero = true;
-                            $habilitar_campo_vehiculo_marca = true;
-                            $habilitar_campo_vehiculo_modelo = true;
-                            $habilitar_campo_vehiculo_ano = true;
+                            $habilitar_boton_eliminarArchivoSolicitudICV = true;
 
-                            $habilitar_boton_reenviarARCA = true;
-                            $habilitar_boton_guardar = true;
-                            $habilitar_boton_eliminarArchivoSolicitudICV = true;
                             $habilitar_boton_cancelarTramite = true;
+
+                            //$habilitar_boton_guardar = true;
+                            $habilitar_boton_reenviarARCA = true;
                         } else if ($esUsuarioAdministrador && $usuario_permisoEditarDelegacionVirtual) {
-                            $habilitar_boton_guardar = true;
                             $habilitar_boton_eliminarArchivoSolicitudICV = true;
+
+                            //$habilitar_boton_guardar = true;
                             $habilitar_boton_cancelarTramite = true;
                         } else if ($esUsuarioMaster) {
-                            $habilitar_campo_folioARCA = true;
+                            $habilitar_campo_idMensajero = true;
                             $habilitar_campo_comentariosConcesionario = true;
-                            $habilitar_campo_comentariosARCA = true;
+
+                            $habilitar_campo_vehiculo_marca = true;
+                            $habilitar_campo_vehiculo_modelo = true;
+                            $habilitar_campo_vehiculo_ano = true;
                             $habilitar_campo_vehiculo_color = true;
                             $habilitar_campo_vehiculo_vin = true;
                             $habilitar_campo_vehiculo_placa = true;
@@ -1269,196 +1563,157 @@
                             $habilitar_campo_cliente_apellidoMaterno = true;
                             $habilitar_campo_cliente_correoElectronico = true;
                             $habilitar_campo_tipoTramite = true;
-                            $habilitar_campo_tipoFactura = true;
                             $habilitar_campo_numeroFactura = true;
-                            $habilitar_campo_folioICV = true;
-                            $habilitar_campo_fechaRecepcionCorreoICV = true;
-                            $habilitar_campo_ejecutivoICV = true;
-                            $habilitar_campo_comentariosICV = true;
-
+                            $habilitar_campo_tipoFactura = true;
                             $habilitar_campo_archivo_expediente = true;
-                            $habilitar_campo_archivo_solicitudICV = true;
 
-                            $habilitar_campo_idConcesionario = true;
-                            $habilitar_campo_idMensajero = true;
-                            $habilitar_campo_vehiculo_marca = true;
-                            $habilitar_campo_vehiculo_modelo = true;
-                            $habilitar_campo_vehiculo_ano = true;
-
-                            $habilitar_boton_eliminar = true;
-                            $habilitar_boton_reenviarARCA = true;
-                            $habilitar_boton_guardar = true;
-                            $habilitar_boton_eliminarArchivoExpediente = true;
                             $habilitar_boton_eliminarArchivoSolicitudICV = true;
+
                             $habilitar_boton_cancelarTramite = true;
+
+                            //$habilitar_boton_guardar = true;
+                            $habilitar_boton_reenviarARCA = true;
                         }
 
                         break;
                     case "Reenviado a ARCA":
                         if ($esUsuarioOperador && $usuario_permisoEditarDelegacionVirtual) {
-                            $habilitar_boton_guardar = true;
                             $habilitar_boton_eliminarArchivoSolicitudICV = true;
+
                             $habilitar_boton_cancelarTramite = true;
+
+                            //$habilitar_boton_guardar = true;
                         } else if ($esUsuarioAdministrador && $usuario_permisoEditarDelegacionVirtual) {
                             $habilitar_campo_folioARCA = true;
                             $habilitar_campo_comentariosARCA = true;
 
+                            $habilitar_boton_eliminarArchivoSolicitudICV = true;
+
+                            $habilitar_boton_cancelarTramite = true;
+
+                            //$habilitar_boton_guardar = true;
                             $habilitar_boton_enviarICV = true;
                             $habilitar_boton_regresarAgencia = true;
-                            $habilitar_boton_guardar = true;
-                            $habilitar_boton_eliminarArchivoSolicitudICV = true;
-                            $habilitar_boton_cancelarTramite = true;
                         } else if ($esUsuarioMaster) {
                             $habilitar_campo_folioARCA = true;
-                            $habilitar_campo_comentariosConcesionario = true;
                             $habilitar_campo_comentariosARCA = true;
-                            $habilitar_campo_vehiculo_color = true;
-                            $habilitar_campo_vehiculo_vin = true;
-                            $habilitar_campo_vehiculo_placa = true;
-                            $habilitar_campo_cliente_nombre = true;
-                            $habilitar_campo_cliente_apellidoPaterno = true;
-                            $habilitar_campo_cliente_apellidoMaterno = true;
-                            $habilitar_campo_cliente_correoElectronico = true;
-                            $habilitar_campo_tipoTramite = true;
-                            $habilitar_campo_tipoFactura = true;
-                            $habilitar_campo_numeroFactura = true;
-                            $habilitar_campo_folioICV = true;
-                            $habilitar_campo_fechaRecepcionCorreoICV = true;
-                            $habilitar_campo_ejecutivoICV = true;
-                            $habilitar_campo_comentariosICV = true;
 
-                            $habilitar_campo_archivo_expediente = true;
-                            $habilitar_campo_archivo_solicitudICV = true;
+                            $habilitar_boton_eliminarArchivoSolicitudICV = true;
 
-                            $habilitar_campo_idConcesionario = true;
-                            $habilitar_campo_idMensajero = true;
-                            $habilitar_campo_vehiculo_marca = true;
-                            $habilitar_campo_vehiculo_modelo = true;
-                            $habilitar_campo_vehiculo_ano = true;
+                            $habilitar_boton_cancelarTramite = true;
 
-                            $habilitar_boton_eliminar = true;
+                            //$habilitar_boton_guardar = true;
                             $habilitar_boton_enviarICV = true;
                             $habilitar_boton_regresarAgencia = true;
-                            $habilitar_boton_guardar = true;
-                            $habilitar_boton_eliminarArchivoExpediente = true;
-                            $habilitar_boton_eliminarArchivoSolicitudICV = true;
-                            $habilitar_boton_cancelarTramite = true;
                         }
 
                         break;
                     case "A la espera de respuesta de ICV":
                         if ($esUsuarioOperador && $usuario_permisoEditarDelegacionVirtual) {
-                            $habilitar_boton_guardar = true;
                             $habilitar_boton_eliminarArchivoSolicitudICV = true;
+
                             $habilitar_boton_cancelarTramite = true;
+
+                            //$habilitar_boton_guardar = true;
                         } else if ($esUsuarioAdministrador && $usuario_permisoEditarDelegacionVirtual) {
                             $habilitar_campo_folioICV = true;
                             $habilitar_campo_fechaRecepcionCorreoICV = true;
                             $habilitar_campo_ejecutivoICV = true;
                             $habilitar_campo_comentariosICV = true;
-
                             $habilitar_campo_archivo_solicitudICV = true;
+                            $habilitar_boton_eliminarArchivoSolicitudICV = true;
+                            $habilitar_campo_archivo_checklistE6 = true;
 
+                            $habilitar_boton_cancelarTramite = true;
+
+                            //$habilitar_boton_guardar = true;
                             $habilitar_boton_rechazado = true;
                             $habilitar_boton_aprobado = true;
-                            $habilitar_boton_guardar = true;
-                            $habilitar_boton_eliminarArchivoSolicitudICV = true;
-                            $habilitar_boton_cancelarTramite = true;
                         } else if ($esUsuarioMaster) {
-                            $habilitar_campo_folioARCA = true;
-                            $habilitar_campo_comentariosConcesionario = true;
-                            $habilitar_campo_comentariosARCA = true;
-                            $habilitar_campo_vehiculo_color = true;
-                            $habilitar_campo_vehiculo_vin = true;
-                            $habilitar_campo_vehiculo_placa = true;
-                            $habilitar_campo_cliente_nombre = true;
-                            $habilitar_campo_cliente_apellidoPaterno = true;
-                            $habilitar_campo_cliente_apellidoMaterno = true;
-                            $habilitar_campo_cliente_correoElectronico = true;
-                            $habilitar_campo_tipoTramite = true;
-                            $habilitar_campo_tipoFactura = true;
-                            $habilitar_campo_numeroFactura = true;
                             $habilitar_campo_folioICV = true;
                             $habilitar_campo_fechaRecepcionCorreoICV = true;
                             $habilitar_campo_ejecutivoICV = true;
                             $habilitar_campo_comentariosICV = true;
-
-                            $habilitar_campo_archivo_expediente = true;
                             $habilitar_campo_archivo_solicitudICV = true;
+                            $habilitar_boton_eliminarArchivoSolicitudICV = true;
+                            $habilitar_campo_archivo_checklistE6 = true;
 
-                            $habilitar_campo_idConcesionario = true;
-                            $habilitar_campo_idMensajero = true;
-                            $habilitar_campo_vehiculo_marca = true;
-                            $habilitar_campo_vehiculo_modelo = true;
-                            $habilitar_campo_vehiculo_ano = true;
+                            $habilitar_boton_cancelarTramite = true;
 
-                            $habilitar_boton_eliminar = true;
+                            //$habilitar_boton_guardar = true;
                             $habilitar_boton_rechazado = true;
                             $habilitar_boton_aprobado = true;
-                            $habilitar_boton_guardar = true;
-                            $habilitar_boton_eliminarArchivoExpediente = true;
-                            $habilitar_boton_eliminarArchivoSolicitudICV = true;
-                            $habilitar_boton_cancelarTramite = true;
                         }
 
                         break;
                     case "Aprobado":
-                    case "Aprobado con biométricos":
                         if ($esUsuarioOperador && $usuario_permisoEditarDelegacionVirtual) {
                             $habilitar_campo_archivo_comprobantePago = true;
 
-                            $habilitar_boton_guardar = true;
-                            $habilitar_boton_guardarComprobantePago = true;
                             $habilitar_boton_cancelarTramite = true;
+
+                            //$habilitar_boton_guardar = true;
+                            $habilitar_boton_guardarComprobantePago = true;
                             $habilitar_boton_solicitarActualizacionFolio = true;
                         } else if ($esUsuarioAdministrador && $usuario_permisoEditarDelegacionVirtual) {
                             $habilitar_campo_archivo_comprobantePago = true;
 
-                            $habilitar_boton_guardar = true;
-                            $habilitar_boton_guardarComprobantePago = true;
                             $habilitar_boton_cancelarTramite = true;
+
+                            //$habilitar_boton_guardar = true;
+                            $habilitar_boton_guardarComprobantePago = true;
                         } else if ($esUsuarioMaster) {
-                            $habilitar_campo_folioARCA = true;
-                            $habilitar_campo_comentariosConcesionario = true;
-                            $habilitar_campo_comentariosARCA = true;
-                            $habilitar_campo_vehiculo_color = true;
-                            $habilitar_campo_vehiculo_vin = true;
-                            $habilitar_campo_vehiculo_placa = true;
-                            $habilitar_campo_cliente_nombre = true;
-                            $habilitar_campo_cliente_apellidoPaterno = true;
-                            $habilitar_campo_cliente_apellidoMaterno = true;
-                            $habilitar_campo_cliente_correoElectronico = true;
-                            $habilitar_campo_tipoTramite = true;
-                            $habilitar_campo_tipoFactura = true;
-                            $habilitar_campo_numeroFactura = true;
-                            $habilitar_campo_folioICV = true;
-                            $habilitar_campo_fechaRecepcionCorreoICV = true;
-                            $habilitar_campo_ejecutivoICV = true;
-                            $habilitar_campo_comentariosICV = true;
-
-                            $habilitar_campo_archivo_expediente = true;
                             $habilitar_campo_archivo_comprobantePago = true;
-                            $habilitar_campo_archivo_solicitudICV = true;
 
-                            $habilitar_campo_idConcesionario = true;
-                            $habilitar_campo_idMensajero = true;
-                            $habilitar_campo_vehiculo_marca = true;
-                            $habilitar_campo_vehiculo_modelo = true;
-                            $habilitar_campo_vehiculo_ano = true;
-
-                            $habilitar_boton_eliminar = true;
-                            $habilitar_boton_guardar = true;
-                            $habilitar_boton_guardarComprobantePago = true;
-                            $habilitar_boton_eliminarArchivoExpediente = true;
-                            $habilitar_boton_eliminarArchivoSolicitudICV = true;
                             $habilitar_boton_cancelarTramite = true;
+
+                            //$habilitar_boton_guardar = true;
+                            $habilitar_boton_guardarComprobantePago = true;
                             $habilitar_boton_solicitarActualizacionFolio = true;
+                        }
+
+                        break;
+                    case "Aprobado con biométricos":
+                        if ($esUsuarioOperador && $usuario_permisoEditarDelegacionVirtual) {
+                            //$habilitar_campo_archivo_comprobantePago = true;
+                            $habilitar_campo_archivo_comprobanteBiometricos = true;
+
+                            $habilitar_boton_cancelarTramite = true;
+
+                            //$habilitar_boton_guardar = true;
+                            //$habilitar_boton_guardarComprobantePago = true;
+                            //$habilitar_boton_solicitarActualizacionFolio = true;
+                            $habilitar_boton_reenviarARCA = true;
+                        } else if ($esUsuarioAdministrador && $usuario_permisoEditarDelegacionVirtual) {
+                            //$habilitar_campo_archivo_comprobantePago = true;
+                            //$habilitar_campo_archivo_comprobanteBiometricos = true;
+
+                            $habilitar_boton_cancelarTramite = true;
+
+                            //$habilitar_boton_guardar = true;
+                            //$habilitar_boton_guardarComprobantePago = true;
+                            //$habilitar_boton_reenviarARCA = true;
+                        } else if ($esUsuarioMaster) {
+                            //$habilitar_campo_archivo_comprobantePago = true;
+                            $habilitar_campo_archivo_comprobanteBiometricos = true;
+
+                            $habilitar_boton_cancelarTramite = true;
+
+                            //$habilitar_boton_guardar = true;
+                            //$habilitar_boton_guardarComprobantePago = true;
+                            //$habilitar_boton_solicitarActualizacionFolio = true;
+                            $habilitar_boton_reenviarARCA = true;
                         }
 
                         break;
                     case "Rechazado":
                         if ($esUsuarioOperador && $usuario_permisoEditarDelegacionVirtual) {
+                            $habilitar_campo_idMensajero = true;
                             $habilitar_campo_comentariosConcesionario = true;
+
+                            $habilitar_campo_vehiculo_marca = true;
+                            $habilitar_campo_vehiculo_modelo = true;
+                            $habilitar_campo_vehiculo_ano = true;
                             $habilitar_campo_vehiculo_color = true;
                             $habilitar_campo_vehiculo_vin = true;
                             $habilitar_campo_vehiculo_placa = true;
@@ -1467,28 +1722,31 @@
                             $habilitar_campo_cliente_apellidoMaterno = true;
                             $habilitar_campo_cliente_correoElectronico = true;
                             $habilitar_campo_tipoTramite = true;
-                            $habilitar_campo_tipoFactura = true;
                             $habilitar_campo_numeroFactura = true;
-
+                            $habilitar_campo_tipoFactura = true;
                             $habilitar_campo_archivo_expediente = true;
+                            $habilitar_campo_archivo_comprobanteE6 = true;
 
-                            $habilitar_campo_idMensajero = true;
-                            $habilitar_campo_vehiculo_marca = true;
-                            $habilitar_campo_vehiculo_modelo = true;
-                            $habilitar_campo_vehiculo_ano = true;
+                            //$habilitar_boton_eliminarArchivoSolicitudICV = true;
 
-                            $habilitar_boton_reenviarARCA = true;
-                            $habilitar_boton_guardar = true;
-                            $habilitar_boton_eliminarArchivoSolicitudICV = true;
                             $habilitar_boton_cancelarTramite = true;
+
+                            //$habilitar_boton_guardar = true;
+                            $habilitar_boton_reenviarARCA = true;
                         } else if ($esUsuarioAdministrador && $usuario_permisoEditarDelegacionVirtual) {
-                            $habilitar_boton_guardar = true;
-                            $habilitar_boton_eliminarArchivoSolicitudICV = true;
+                            //$habilitar_campo_archivo_comprobanteE6 = true;
+
+                            //$habilitar_boton_eliminarArchivoSolicitudICV = true;
+
+                            //$habilitar_boton_guardar = true;
                             $habilitar_boton_cancelarTramite = true;
                         } else if ($esUsuarioMaster) {
-                            $habilitar_campo_folioARCA = true;
+                            $habilitar_campo_idMensajero = true;
                             $habilitar_campo_comentariosConcesionario = true;
-                            $habilitar_campo_comentariosARCA = true;
+
+                            $habilitar_campo_vehiculo_marca = true;
+                            $habilitar_campo_vehiculo_modelo = true;
+                            $habilitar_campo_vehiculo_ano = true;
                             $habilitar_campo_vehiculo_color = true;
                             $habilitar_campo_vehiculo_vin = true;
                             $habilitar_campo_vehiculo_placa = true;
@@ -1497,28 +1755,17 @@
                             $habilitar_campo_cliente_apellidoMaterno = true;
                             $habilitar_campo_cliente_correoElectronico = true;
                             $habilitar_campo_tipoTramite = true;
-                            $habilitar_campo_tipoFactura = true;
                             $habilitar_campo_numeroFactura = true;
-                            $habilitar_campo_folioICV = true;
-                            $habilitar_campo_fechaRecepcionCorreoICV = true;
-                            $habilitar_campo_ejecutivoICV = true;
-                            $habilitar_campo_comentariosICV = true;
-
+                            $habilitar_campo_tipoFactura = true;
                             $habilitar_campo_archivo_expediente = true;
-                            $habilitar_campo_archivo_solicitudICV = true;
+                            $habilitar_campo_archivo_comprobanteE6 = true;
 
-                            $habilitar_campo_idConcesionario = true;
-                            $habilitar_campo_idMensajero = true;
-                            $habilitar_campo_vehiculo_marca = true;
-                            $habilitar_campo_vehiculo_modelo = true;
-                            $habilitar_campo_vehiculo_ano = true;
+                            //$habilitar_boton_eliminarArchivoSolicitudICV = true;
 
-                            $habilitar_boton_eliminar = true;
-                            $habilitar_boton_reenviarARCA = true;
-                            $habilitar_boton_guardar = true;
-                            $habilitar_boton_eliminarArchivoExpediente = true;
-                            $habilitar_boton_eliminarArchivoSolicitudICV = true;
                             $habilitar_boton_cancelarTramite = true;
+
+                            //$habilitar_boton_guardar = true;
+                            $habilitar_boton_reenviarARCA = true;
                         }
 
                         break;
@@ -1529,11 +1776,13 @@
                             $habilitar_campo_comentariosARCA = true;
 
                             $habilitar_boton_cancelarTramite = true;
+
                             $habilitar_boton_solicitarActualizacionICV = true;
                         } else if ($esUsuarioMaster) {
                             $habilitar_campo_comentariosARCA = true;
 
                             $habilitar_boton_cancelarTramite = true;
+
                             $habilitar_boton_solicitarActualizacionICV = true;
                         }
 
@@ -1546,23 +1795,23 @@
                             $habilitar_campo_fechaRecepcionCorreoICV = true;
                             $habilitar_campo_ejecutivoICV = true;
                             $habilitar_campo_comentariosICV = true;
-
                             $habilitar_campo_archivo_solicitudICV = true;
+                            $habilitar_boton_eliminarArchivoSolicitudICV = true;
+
+                            $habilitar_boton_cancelarTramite = true;
 
                             $habilitar_boton_aprobado = true;
-                            $habilitar_boton_cancelarTramite = true;
-                            $habilitar_boton_eliminarArchivoSolicitudICV = true;
                         } else if ($esUsuarioMaster) {
                             $habilitar_campo_folioICV = true;
                             $habilitar_campo_fechaRecepcionCorreoICV = true;
                             $habilitar_campo_ejecutivoICV = true;
                             $habilitar_campo_comentariosICV = true;
-
                             $habilitar_campo_archivo_solicitudICV = true;
+                            $habilitar_boton_eliminarArchivoSolicitudICV = true;
+
+                            $habilitar_boton_cancelarTramite = true;
 
                             $habilitar_boton_aprobado = true;
-                            $habilitar_boton_cancelarTramite = true;
-                            $habilitar_boton_eliminarArchivoSolicitudICV = true;
                         }
 
                         break;
@@ -2116,7 +2365,7 @@
                                                     <div class="row">
                                                         <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
                                                             <div class="row">
-                                                                <div class="col-12">
+                                                                <div class="col-md-6 col-sm-12">
                                                                     <div class="form-group">
                                                                         <label class="form-label mb-10">PDF de expediente <span class="text-danger">*</span></label>
 
@@ -2143,8 +2392,58 @@
 
                                                                                                                 if ($habilitar_boton_eliminarArchivoExpediente) {
                                                                                                                     echo "&nbsp;&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;&nbsp;";
-                                                                                                                    echo "<a href='javascript:eliminaPdfExpediente(" . $id . ")' id='boton_eliminarArchivoExpediente'>Eliminar</a>";
+                                                                                                                    echo "<a href='javascript:eliminaArchivoExpediente(" . $id . ")' id='boton_eliminarArchivoExpediente'>Eliminar</a>";
                                                                                                                 }
+
+                                                                                                                echo "</span>";
+                                                                                                                echo "</div>";
+                                                                                                                echo "<div class='clearfix'></div>";
+                                                                                                                echo "</div>";
+                                                                                                            }
+                                                                                                        ?>
+                                                                                                        </div>
+                                                                                                    </li>
+                                                                                                </ul>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="col-md-6 col-sm-12">
+                                                                    <div class="form-group">
+                                                                        <label class="form-label mb-10">PDF de comprobante de biométricos</label>
+
+                                                                        <div>
+                                                                            <input id="campo_archivo_comprobanteBiometricos" name="archivo_comprobanteBiometricos" type="file" <?php echo $habilitar_campo_archivo_comprobanteBiometricos ? "" : "disabled" ?> />
+                                                                            <br />
+                                                                            <div class="row">
+                                                                                <div class="col-sm-12">
+                                                                                    <div class="panel panel-success card-view">
+                                                                                        <div class="panel-wrapper in">
+                                                                                            <div class="panel-body">
+                                                                                                <ul class="chat-list-wrap">
+                                                                                                    <li class="chat-list">
+                                                                                                        <div class="chat-body">
+                                                                                                        <?php
+                                                                                                            if (!estaVacio($archivo_comprobanteBiometricos)) {
+                                                                                                                echo "<div class='chat-data' id='contenedor_archivo_comprobanteBiometricos'>";
+                                                                                                                //echo "<img class='user-img' src='" . $constante_urlTramites . "/" . $id . "/" . $archivo_comprobanteBiometricos . "' />";
+
+                                                                                                                echo "<div class='user-data'>";
+                                                                                                                echo "<span class='name block'>" . $archivo_comprobanteBiometricos . "</span>";
+                                                                                                                echo "<span class='time block txt-grey'>";
+                                                                                                                echo "<a download href='" . $constante_urlTramites . "/" . $id . "/" . rawurlencode($archivo_comprobanteBiometricos) . "'>Descargar</a>";
+
+/*
+                                                                                                                if ($habilitar_boton_eliminarArchivoComprobanteBiometricos) {
+                                                                                                                    echo "&nbsp;&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;&nbsp;";
+                                                                                                                    echo "<a href='javascript:eliminaArchivoComprobanteBiometricos(" . $id . ")' id='boton_eliminarArchivoComprobanteBiometricos'>Eliminar</a>";
+                                                                                                                }
+*/
 
                                                                                                                 echo "</span>";
                                                                                                                 echo "</div>";
@@ -2170,7 +2469,7 @@
                                                     <div class="row">
                                                         <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
                                                             <div class="row">
-                                                                <div class="col-12">
+                                                                <div class="col-md-6 col-sm-12">
                                                                     <div class="form-group">
                                                                         <label class="form-label mb-10">PDF de pago</label>
 
@@ -2197,9 +2496,59 @@
 /*
                                                                                                                 if ($habilitar_boton_eliminarArchivoExpediente) {
                                                                                                                     echo "&nbsp;&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;&nbsp;";
-                                                                                                                    echo "<a href='javascript:eliminaPdfExpediente(" . $id . ")' id='boton_eliminarArchivoExpediente'>Eliminar</a>";
+                                                                                                                    echo "<a href='javascript:eliminaArchivoExpediente(" . $id . ")' id='boton_eliminarArchivoExpediente'>Eliminar</a>";
                                                                                                                 }
 */
+                                                                                                                echo "</span>";
+                                                                                                                echo "</div>";
+                                                                                                                echo "<div class='clearfix'></div>";
+                                                                                                                echo "</div>";
+                                                                                                            }
+                                                                                                        ?>
+                                                                                                        </div>
+                                                                                                    </li>
+                                                                                                </ul>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="col-md-6 col-sm-12">
+                                                                    <div class="form-group">
+                                                                        <label class="form-label mb-10">PDF de checklist para E6</label>
+
+                                                                        <div>
+                                                                            <input id="campo_archivo_comprobanteE6" name="archivo_comprobanteE6" type="file" <?php echo $habilitar_campo_archivo_comprobanteE6 ? "" : "disabled" ?> />
+                                                                            <br />
+                                                                            <div class="row">
+                                                                                <div class="col-sm-12">
+                                                                                    <div class="panel panel-success card-view">
+                                                                                        <div class="panel-wrapper in">
+                                                                                            <div class="panel-body">
+                                                                                                <ul class="chat-list-wrap">
+                                                                                                    <li class="chat-list">
+                                                                                                        <div class="chat-body">
+                                                                                                        <?php
+                                                                                                            if (!estaVacio($archivo_comprobanteE6)) {
+                                                                                                                echo "<div class='chat-data' id='contenedor_archivo_comprobanteE6'>";
+                                                                                                                //echo "<img class='user-img' src='" . $constante_urlTramites . "/" . $id . "/" . $archivo_comprobanteE6 . "' />";
+
+                                                                                                                echo "<div class='user-data'>";
+                                                                                                                echo "<span class='name block'>" . $archivo_comprobanteE6 . "</span>";
+                                                                                                                echo "<span class='time block txt-grey'>";
+                                                                                                                echo "<a download href='" . $constante_urlTramites . "/" . $id . "/" . rawurlencode($archivo_comprobanteE6) . "'>Descargar</a>";
+
+/*
+                                                                                                                if ($habilitar_boton_eliminarArchivoComprobanteE6) {
+                                                                                                                    echo "&nbsp;&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;&nbsp;";
+                                                                                                                    echo "<a href='javascript:eliminaArchivoComprobanteE6(" . $id . ")' id='boton_eliminarArchivoComprobanteE6'>Eliminar</a>";
+                                                                                                                }
+*/
+
                                                                                                                 echo "</span>";
                                                                                                                 echo "</div>";
                                                                                                                 echo "<div class='clearfix'></div>";
@@ -2289,7 +2638,7 @@
 
                                                             <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
                                                                 <div class="row">
-                                                                    <div class="col-12">
+                                                                    <div class="col-md-6 col-sm-12">
                                                                         <div class="form-group">
                                                                             <label class="form-label mb-10">PDF de la solicitud de ICV</label>
 
@@ -2318,6 +2667,56 @@
                                                                                                                         echo "&nbsp;&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;&nbsp;";
                                                                                                                         echo "<a href='javascript:eliminaArchivoIne(" . $id . ")' id='boton_eliminarArchivoSolicitudICV'>Eliminar</a>";
                                                                                                                     }
+
+                                                                                                                    echo "</span>";
+                                                                                                                    echo "</div>";
+                                                                                                                    echo "<div class='clearfix'></div>";
+                                                                                                                    echo "</div>";
+                                                                                                                }
+                                                                                                            ?>
+                                                                                                            </div>
+                                                                                                        </li>
+                                                                                                    </ul>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="col-md-6 col-sm-12">
+                                                                        <div class="form-group">
+                                                                            <label class="form-label mb-10">PDF de checklist para E6</label>
+
+                                                                            <div>
+                                                                                <input id="campo_archivo_checklistE6" name="archivo_checklistE6" type="file" <?php echo $habilitar_campo_archivo_checklistE6 ? "" : "disabled" ?> />
+                                                                                <br />
+                                                                                <div class="row">
+                                                                                    <div class="col-sm-12">
+                                                                                        <div class="panel panel-success card-view">
+                                                                                            <div class="panel-wrapper in">
+                                                                                                <div class="panel-body">
+                                                                                                    <ul class="chat-list-wrap">
+                                                                                                        <li class="chat-list">
+                                                                                                            <div class="chat-body">
+                                                                                                            <?php
+                                                                                                                if (!estaVacio($archivo_checklistE6)) {
+                                                                                                                    echo "<div class='chat-data' id='contenedor_archivo_checklistE6'>";
+                                                                                                                    //echo "<img class='user-img' src='" . $constante_urlTramites . "/" . $id . "/" . $archivo_comprobanteE6 . "' />";
+
+                                                                                                                    echo "<div class='user-data'>";
+                                                                                                                    echo "<span class='name block'>" . $archivo_checklistE6 . "</span>";
+                                                                                                                    echo "<span class='time block txt-grey'>";
+                                                                                                                    echo "<a download href='" . $constante_urlTramites . "/" . $id . "/" . rawurlencode($archivo_checklistE6) . "'>Descargar</a>";
+
+/*
+                                                                                                                    if ($habilitar_boton_eliminarArchivoChecklistE6) {
+                                                                                                                        echo "&nbsp;&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;&nbsp;";
+                                                                                                                        echo "<a href='javascript:eliminaArchivoChecklistE6(" . $id . ")' id='boton_eliminarArchivoChecklistE6'>Eliminar</a>";
+                                                                                                                    }
+*/
 
                                                                                                                     echo "</span>";
                                                                                                                     echo "</div>";
@@ -2756,14 +3155,14 @@
              // Borra PDF expediente
 
 
-            function eliminaPdfExpediente(idTramite) {
+            function eliminaArchivoExpediente(idTramite) {
                 if (confirm("Al continuar se eliminará el archivo, ¿desea proceder?")) {
                     $.ajax({
                         data: {
                             idTramite: idTramite
                         },
                         type: "post",
-                        url: "socialware/php/ajax/eliminaPdfExpedienteTramite.php",
+                        url: "socialware/php/ajax/eliminaArchivoExpedienteTramite.php",
                         success: function(resultado) {
                             if (resultado === "ok") {
                                 $("#contenedor_archivo_expediente").hide();
