@@ -3198,16 +3198,37 @@
             // Funciones por estatus
 
 
+            function validaArchivos() {
+                var archivo_expediente = document.getElementById("campo_archivo_expediente").files[0];
+                var archivo_comprobantePago = document.getElementById("campo_archivo_comprobantePago").files[0];
+                var archivo_solicitudICV = document.getElementById("campo_archivo_solicitudICV").files[0];
+                var archivo_checklistE6 = document.getElementById("campo_archivo_checklistE6").files[0];
+                var archivo_comprobanteE6 = document.getElementById("campo_archivo_comprobanteE6").files[0];
+                var archivo_comprobanteBiometricos = document.getElementById("campo_archivo_comprobanteBiometricos").files[0];
+
+                if ((archivo_expediente && archivo_expediente > 22020096)
+                    || (archivo_comprobantePago && archivo_comprobantePago > 22020096)
+                    || (archivo_solicitudICV && archivo_solicitudICV > 22020096)
+                    || (archivo_checklistE6 && archivo_checklistE6 > 22020096)
+                    || (archivo_comprobanteE6 && archivo_comprobanteE6 > 22020096)
+                    || (archivo_comprobanteBiometricos && archivo_comprobanteBiometricos > 22020096)
+                    ) {
+
+                    return false;
+                } else {
+                    return true;
+                }
+            }
+
+
             function generarTramite() {
                 if (confirm("¿Desea dar de alta este trámite?")) {
-                    var archivo = document.getElementById("campo_archivo_expediente").files[0];
-
-                    if (archivo && archivo.size < 22020096) {
-                        submit();
-                    } else {
-                        alert("PDF de expediente debe pesar menos de 20 MB");
+                    if (!validaArchivos()) {
+                        alert("Los archivos adjuntos deben pesar menos de 20 MB");
 
                         return false;
+                    } else {
+                        submit();
                     }
                 }
             }
@@ -3216,12 +3237,18 @@
                 //event.preventDefault();
 
                 if (confirm("¿Desea reenviar a la agencia este trámite?")) {
-                    $("#campo_accion").val("Devuelto a la agencia");
+                    if (!validaArchivos()) {
+                        alert("Los archivos adjuntos deben pesar menos de 20 MB");
 
-                    $("input").removeAttr("readonly");
-                    $("select").removeAttr("disabled");
+                        return false;
+                    } else {
+                        $("#campo_accion").val("Devuelto a la agencia");
 
-                    $('#formulario').submit();
+                        $("input").removeAttr("readonly");
+                        $("select").removeAttr("disabled");
+
+                        $('#formulario').submit();
+                    }
                 }
             }
 
@@ -3236,7 +3263,33 @@
                     alert("Para continuar debe adjuntar un archivo PDF de expediente");
                 } else {
                     if (confirm("¿Desea reenviar a ARCA este trámite?")) {
-                        $("#campo_accion").val("Reenviado a ARCA");
+                        if (!validaArchivos()) {
+                            alert("Los archivos adjuntos deben pesar menos de 20 MB");
+
+                            return false;
+                        } else {
+                            $("#campo_accion").val("Reenviado a ARCA");
+
+                            $("input").removeAttr("readonly");
+                            $("select").removeAttr("disabled");
+
+                            $('#formulario').submit();
+                        }
+                    }
+                }
+            }
+
+
+            function enviarICV() {
+                //event.preventDefault();
+
+                if (confirm("¿Desea enviar a ICV este trámite?")) {
+                    if (!validaArchivos()) {
+                        alert("Los archivos adjuntos deben pesar menos de 20 MB");
+
+                        return false;
+                    } else {
+                        $("#campo_accion").val("A la espera de respuesta de ICV");
 
                         $("input").removeAttr("readonly");
                         $("select").removeAttr("disabled");
@@ -3247,30 +3300,22 @@
             }
 
 
-            function enviarICV() {
-                //event.preventDefault();
-
-                if (confirm("¿Desea enviar a ICV este trámite?")) {
-                    $("#campo_accion").val("A la espera de respuesta de ICV");
-
-                    $("input").removeAttr("readonly");
-                    $("select").removeAttr("disabled");
-
-                    $('#formulario').submit();
-                }
-            }
-
-
             function aprobado() {
                 //event.preventDefault();
 
                 if (confirm("¿Desea aprobar este trámite?")) {
-                    $("#campo_accion").val("Aprobado");
+                    if (!validaArchivos()) {
+                        alert("Los archivos adjuntos deben pesar menos de 20 MB");
 
-                    $("input").removeAttr("readonly");
-                    $("select").removeAttr("disabled");
+                        return false;
+                    } else {
+                        $("#campo_accion").val("Aprobado");
 
-                    $('#formulario').submit();
+                        $("input").removeAttr("readonly");
+                        $("select").removeAttr("disabled");
+
+                        $('#formulario').submit();
+                    }
                 }
             }
 
@@ -3279,12 +3324,18 @@
                 //event.preventDefault();
 
                 if (confirm("¿Desea rechazar este trámite?")) {
-                    $("#campo_accion").val("Rechazado");
+                    if (!validaArchivos()) {
+                        alert("Los archivos adjuntos deben pesar menos de 20 MB");
 
-                    $("input").removeAttr("readonly");
-                    $("select").removeAttr("disabled");
+                        return false;
+                    } else {
+                        $("#campo_accion").val("Rechazado");
 
-                    $('#formulario').submit();
+                        $("input").removeAttr("readonly");
+                        $("select").removeAttr("disabled");
+
+                        $('#formulario').submit();
+                    }
                 }
             }
 
@@ -3293,12 +3344,18 @@
                 //event.preventDefault();
 
                 if (confirm("¿Desea cancelar este trámite?")) {
-                    $("#campo_accion").val("Cancelado");
+                    if (!validaArchivos()) {
+                        alert("Los archivos adjuntos deben pesar menos de 20 MB");
 
-                    $("input").removeAttr("readonly");
-                    $("select").removeAttr("disabled");
+                        return false;
+                    } else {
+                        $("#campo_accion").val("Cancelado");
 
-                    $('#formulario').submit();
+                        $("input").removeAttr("readonly");
+                        $("select").removeAttr("disabled");
+
+                        $('#formulario').submit();
+                    }
                 }
             }
 
@@ -3307,12 +3364,18 @@
                 //event.preventDefault();
 
                 if (confirm("¿Desea aprobar este trámite?")) {
-                    $("#campo_accion").val("Aprobado con biométricos");
+                    if (!validaArchivos()) {
+                        alert("Los archivos adjuntos deben pesar menos de 20 MB");
 
-                    $("input").removeAttr("readonly");
-                    $("select").removeAttr("disabled");
+                        return false;
+                    } else {
+                        $("#campo_accion").val("Aprobado con biométricos");
 
-                    $('#formulario').submit();
+                        $("input").removeAttr("readonly");
+                        $("select").removeAttr("disabled");
+
+                        $('#formulario').submit();
+                    }
                 }
             }
 
@@ -3322,12 +3385,18 @@
 
 
                 if (confirm("¿Desea solicitar actualización de este trámite a ARCA?")) {
-                    $("#campo_accion").val("Actualización solicitada a ARCA");
+                    if (!validaArchivos()) {
+                        alert("Los archivos adjuntos deben pesar menos de 20 MB");
 
-                    $("input").removeAttr("readonly");
-                    $("select").removeAttr("disabled");
+                        return false;
+                    } else {
+                        $("#campo_accion").val("Actualización solicitada a ARCA");
 
-                    $('#formulario').submit();
+                        $("input").removeAttr("readonly");
+                        $("select").removeAttr("disabled");
+
+                        $('#formulario').submit();
+                    }
                 }
             }
 
@@ -3336,12 +3405,18 @@
                 //event.preventDefault();
 
                 if (confirm("¿Desea solicitar actualización de este trámite a ICV?")) {
-                    $("#campo_accion").val("Actualización solicitada a ICV");
+                    if (!validaArchivos()) {
+                        alert("Los archivos adjuntos deben pesar menos de 20 MB");
 
-                    $("input").removeAttr("readonly");
-                    $("select").removeAttr("disabled");
+                        return false;
+                    } else {
+                        $("#campo_accion").val("Actualización solicitada a ICV");
 
-                    $('#formulario').submit();
+                        $("input").removeAttr("readonly");
+                        $("select").removeAttr("disabled");
+
+                        $('#formulario').submit();
+                    }
                 }
             }
 
@@ -3351,10 +3426,16 @@
 
                 //$("#campo_accion").val("Aprobado");
 
-                $("input").removeAttr("readonly");
-                $("select").removeAttr("disabled");
+                if (!validaArchivos()) {
+                    alert("Los archivos adjuntos deben pesar menos de 20 MB");
 
-                $('#formulario').submit();
+                    return false;
+                } else {
+                    $("input").removeAttr("readonly");
+                    $("select").removeAttr("disabled");
+
+                    $('#formulario').submit();
+                }
             }
 
 
