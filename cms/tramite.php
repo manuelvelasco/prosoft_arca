@@ -3230,12 +3230,12 @@
                     archivo_comprobanteBiometricos = document.getElementById("campo_archivo_comprobanteBiometricos").files[0];
                 }
 
-                if ((archivo_expediente !== null && archivo_expediente > 22020096)
-                    || (archivo_comprobantePago !== null && archivo_comprobantePago > 22020096)
-                    || (archivo_solicitudICV !== null && archivo_solicitudICV > 22020096)
-                    || (archivo_checklistE6 !== null && archivo_checklistE6 > 22020096)
-                    || (archivo_comprobanteE6 !== null && archivo_comprobanteE6 > 22020096)
-                    || (archivo_comprobanteBiometricos !== null && archivo_comprobanteBiometricos > 22020096)
+                if ((archivo_expediente && archivo_expediente.size > 22020096)
+                    || (archivo_comprobantePago && archivo_comprobantePago.size > 22020096)
+                    || (archivo_solicitudICV && archivo_solicitudICV.size > 22020096)
+                    || (archivo_checklistE6 && archivo_checklistE6.size > 22020096)
+                    || (archivo_comprobanteE6 && archivo_comprobanteE6.size > 22020096)
+                    || (archivo_comprobanteBiometricos && archivo_comprobanteBiometricos.size > 22020096)
                     ) {
 
                     return false;
