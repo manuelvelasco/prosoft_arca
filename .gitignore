@@ -84,3 +84,9 @@
 /backend/ajax/_cargaTipos_20260908.php
 /backend/ajax/_cargaVehiculos_20260908_2.php
 /backend/cron/_enviaRecordatorioCita_20251023.php
+/backend/cron/_enviaRecordatorioCita.php
+/backend/ajax/_agendaCita.php
+/backend/ajax/_registraFinanciamiento.php
+/backend/ajax/_solicitaFinanciamiento.php
+/backend/ajax/_procesaVentaAuto.php
+/backend/ajax/_contacta.php
