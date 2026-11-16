@@ -1976,4 +1976,27 @@ $indiceConcesionario++;
         } catch (Exception $e) {
         }
     }
+
+
+    function enviaCorreo($parametros) {
+        try {
+            $endpoint = "https://socialware.mx/utilerias/enviaCorreo.php";
+
+            curl_setopt_array($canal = curl_init(), array(
+                CURLOPT_URL => $endpoint,
+                CURLOPT_HTTPHEADER => array("Content-Type: application/json"),
+                CURLOPT_HEADER => false,
+                CURLOPT_POST => true,
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_POSTFIELDS => json_encode($parametros),
+
+                CURLOPT_RESOLVE => [ "socialware.mx:80:127.0.0.1", "socialware.mx:443:127.0.0.1" ],
+                CURLOPT_SSL_VERIFYPEER => false,
+                CURLOPT_SSL_VERIFYHOST => false
+            ));
+
+            $respuesta = curl_exec($canal);
+        } catch (Exception $e) {
+        }
+    }
 ?>
