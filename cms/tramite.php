@@ -463,7 +463,7 @@
                                 $mensajero = obtenResultado($mensajero_BD);
 
                                 $correoNotificacion_BD = consulta($conexion, "SELECT * FROM parametro WHERE nombre = 'delegacionVirtual_generarTramite_correosARCA'");
-                                $correoNotificacion = obtenResultado($correoNotificacion_BD);
+                                $correoNotificacion = obtenResultado($correoNotificacion_BD)["valor"];
 
                                 $titulo = "ARCA - " . $folioARCA . " - " . $concesionario["nombreComercial"] . " - " . trim($cliente_nombre . " " . $cliente_apellidoPaterno . " " . $cliente_apellidoMaterno);
 
