@@ -320,10 +320,6 @@
 
     function sincronizaInventarioInteliMotor($usuario_correoElectronico = null, $idConcesionario = null) {
         try {
-//$rutaLog = "/Users/mvelasco/Socialware/error.log";
-$rutaLog = "/var/www/html/arca/error.log";
-error_log("\n\n" . date("Y-m-d H:i:s"), 3, $rutaLog);
-error_log("\nsincronizaInventarioInteliMotor", 3, $rutaLog);
 
             // Obtiene conexion a base de datos
 
@@ -893,7 +889,6 @@ $indiceConcesionario = 0;
                 }
 
 $indiceConcesionario++;
-error_log("\nconcesionario " . $indiceConcesionario . " de " . $cantidadConcesionarios, 3, $rutaLog);
             }
 
             if (!estaVacio($usuario_correoElectronico)) {
@@ -919,352 +914,1066 @@ error_log("\nconcesionario " . $indiceConcesionario . " de " . $cantidadConcesio
      */
 
 
-    function enviaCorreo($para, $titulo, $mensaje) {
-        enviaCorreoMailjet($para, null, $titulo, $mensaje, null);
-/*
-        $cabeceras = "MIME-Version: 1.0\r\n";
-        $cabeceras .= "Content-type: text/html; charset=utf-8\r\n";
-        //$cabeceras .= "Cc: luislc1971@live.com.mx\r\n";
-        //$cabeceras .= "Bcc: luis@socialware.mx,manuel@socialware.mx\r\n";
-        $cabeceras .= "From: app@Albacar.com";
+    function delegacionVirtual_enviaCorreo_aLaEsperaDeRespuestaDeICV(
+        $destinatario_para
+        , $destinatario_copia
+        , $titulo
+        , $archivoAdjunto_nombre
+        , $archivoAdjunto_contenido
+        , $idTramite
+        , $tramite_folioARCA
+        , $concesionario_nombreComercial
+        , $usuario_nombre
+        , $mensajero_nombre
+        , $tramite_comentariosConcesionario
+        , $tramite_comentariosARCA
+        , $tramite_vehiculo_marca
+        , $tramite_vehiculo_modelo
+        , $tramite_vehiculo_ano
+        , $tramite_vehiculo_color
+        , $tramite_vehiculo_vin
+        , $tramite_vehiculo_placa
+        , $tramite_cliente_nombre
+        , $tramite_cliente_correoElectronico
+        , $tramite_tipoTramite
+        , $tramite_tipoFactura
+        , $tramite_numeroFactura) {
 
-        mail($para, $titulo, $mensaje, $cabeceras);
-*/
-    }
-
-
-    function enviaCorreoMailer($para, $titulo, $mensaje, $porSeparado = false, $remitenteCorreoElectronico = "contacto@socialware.mx", $remitenteNombre = "Socialware") {
-        enviaCorreoMailjet($para, null, $titulo, $mensaje, null);
-/*
         try {
-            $email = new PHPMailer();
-            $email->CharSet = "UTF-8";
-            //$email->Encoding = "16bit";
-            //$email->isHTML();
-            $email->Subject = $titulo;
-            //$email->Body = utf8_decode($mensaje);
-            $email->MsgHTML($mensaje);
-            $email->SetFrom($remitenteCorreoElectronico, $remitenteNombre);
 
-            if (strpos($para, ",") !== false) {
-                $destinatarios = explode(",", $para);
+            // Arma cadena de envio
 
-                if ($porSeparado) {
-                    foreach ($destinatarios as $destinatario) {
-                        $email2 = clone $email;
-                        $email2->AddAddress($destinatario);
-                        $email2->Send();
-                    }
-                } else {
-                    foreach ($destinatarios as $destinatario) {
-                        $email->AddAddress($destinatario);
-                    }
-
-                    $email->Send();
-                }
-            } else {
-                $email->AddAddress($para);
-                $email->Send();
-            }
-        } catch (Exception $e) {
-        }
-*/
-    }
-
-
-    function enviaCorreoAldeamo($para, $titulo, $mensaje) {
-        enviaCorreoMailjet($para, null, $titulo, $mensaje, null);
-/*
-        try {
-            $mensaje = preg_replace('/\s+/S', " ", $mensaje);
-
-            // Arma cadena de destinatarios
-
-            $cadenaPara = "";
-
-            if (strpos($para, ",") > -1) {
-                $destinatarios = explode(",", $para);
-
-                foreach ($destinatarios as $destinatario) {
-                    $cadenaPara .= '{ "email": "' . $destinatario . '" },';
-                }
-
-                $cadenaPara = substr($cadenaPara, 0, -1);
-            } else {
-                $cadenaPara = '{ "email": "' . $para . '" }';
-            }
-
-            // Forma cadena de envio
-
-            $parametros = '{
-                "from": {
-                    "email": "contacto@albacar.mx",
-                    "name": "Albacar"
-                },
-                "to": [
-                    ' . $cadenaPara . '
+            $json = [
+                "to" => [
+                    [
+                        "email" => $destinatario_para
+                    ]
                 ],
-                "replyTo": {
-                    "email": "contacto@albacar.mx",
-                    "name": "Albacar"
-                },
-                "subject": "' . $titulo . '",
-                "body": "' . $mensaje . '",
-                "options": {}
-            }';
+                "cc" => [
+                    [
+                        "email" => $destinatario_copia
+                    ]
+                ],
+                "template_id" => "pxkjn41qdrplz781",
+                "subject" => $titulo,
+                "attachments" => [
+                    [
+                        "filename" => $archivoAdjunto_nombre,
+                        "content" => $archivoAdjunto_contenido
+                    ]
+                ],
+                "personalization" => [
+                    [
+                        "email" => $destinatario_para,
+                        "data" => [
+                            "idTramite" => $idTramite,
+                            "tramite_folioARCA" => $tramite_folioARCA,
+                            "concesionario_nombreComercial" => $concesionario_nombreComercial,
+                            "usuario_nombre" => $usuario_nombre,
+                            "mensajero_nombre" => $mensajero_nombre,
+                            "tramite_comentariosConcesionario" => $tramite_comentariosConcesionario,
+                            "tramite_comentariosARCA" => $tramite_comentariosARCA,
+                            "tramite_vehiculo_marca" => $tramite_vehiculo_marca,
+                            "tramite_vehiculo_modelo" => $tramite_vehiculo_modelo,
+                            "tramite_vehiculo_ano" => $tramite_vehiculo_ano,
+                            "tramite_vehiculo_color" => $tramite_vehiculo_color,
+                            "tramite_vehiculo_vin" => $tramite_vehiculo_vin,
+                            "tramite_vehiculo_placa" => $tramite_vehiculo_placa,
+                            "tramite_cliente_nombre" => $tramite_cliente_nombre,
+                            "tramite_cliente_correoElectronico" => $tramite_cliente_correoElectronico,
+                            "tramite_tipoTramite" => $tramite_tipoTramite,
+                            "tramite_tipoFactura" => $tramite_tipoFactura,
+                            "tramite_numeroFactura" => $tramite_numeroFactura
+                        ]
+                    ],
+                    [
+                        "email" => $destinatario_copia,
+                        "data" => [
+                            "idTramite" => $idTramite,
+                            "tramite_folioARCA" => $tramite_folioARCA,
+                            "concesionario_nombreComercial" => $concesionario_nombreComercial,
+                            "usuario_nombre" => $usuario_nombre,
+                            "mensajero_nombre" => $mensajero_nombre,
+                            "tramite_comentariosConcesionario" => $tramite_comentariosConcesionario,
+                            "tramite_comentariosARCA" => $tramite_comentariosARCA,
+                            "tramite_vehiculo_marca" => $tramite_vehiculo_marca,
+                            "tramite_vehiculo_modelo" => $tramite_vehiculo_modelo,
+                            "tramite_vehiculo_ano" => $tramite_vehiculo_ano,
+                            "tramite_vehiculo_color" => $tramite_vehiculo_color,
+                            "tramite_vehiculo_vin" => $tramite_vehiculo_vin,
+                            "tramite_vehiculo_placa" => $tramite_vehiculo_placa,
+                            "tramite_cliente_nombre" => $tramite_cliente_nombre,
+                            "tramite_cliente_correoElectronico" => $tramite_cliente_correoElectronico,
+                            "tramite_tipoTramite" => $tramite_tipoTramite,
+                            "tramite_tipoFactura" => $tramite_tipoFactura,
+                            "tramite_numeroFactura" => $tramite_numeroFactura
+                        ]
+                    ]
+                ]
+            ];
 
-            // Envia correo electronico
+            $parametros = [
+                "aplicacion" => "seminuevosarca.com.mx",
+                "json" => json_encode($json)
+            ];
 
-            curl_setopt_array($canal = curl_init(), array(
-                //CURLOPT_URL => "http://email.aldeamo.com:5000/v1/email",
-                CURLOPT_URL => "http://api.ckpnd.com:5000/v1/email",
-                CURLOPT_HTTPHEADER => array("Content-Type: application/json", "Authorization: Bearer 78c4191b.ba3a4d5f84831db85521931a"),
-                CURLOPT_HEADER => true,
-                CURLOPT_POST => true,
-                CURLOPT_RETURNTRANSFER => true,
-                CURLOPT_POSTFIELDS => $parametros
-            ));
+            // Envia correo
 
-            $respuesta = curl_exec($canal);
-
-            $httpCode = curl_getinfo($canal, CURLINFO_HTTP_CODE);
-
-            curl_close($canal);
-
-            return $httpCode;
-        } catch (Error $e) {
-        } catch (Exception $e) {
-        }
-*/
-    }
-
-
-    /*
-     * Integracion con Mailjet
-     * https://dev.mailjet.com/email/guides/#getting-started
-     */
-
-
-    function enviaCorreoMailjet($para, $copia, $titulo, $mensaje, $archivoAdjunto, $de = "contacto@socialware-mail.com") {
-        try {
-            //$mailjet = new Mailjet\Client("11fdc29f37135ee7ebb728a4db6b8936", "7eb9b9fe4e95a042d120ef23e575c2e5", true, ['version' => 'v3.1']);
-            $mailjet = new Mailjet\Client("47439b3f2f1ee64c44da5cfaa09a100b", "18f0d18bd260c35142b56ba3bc52e9e8", true, ['version' => 'v3.1']);
-
-            $mensaje = str_replace(array("\r", "\n"), "", $mensaje);
-
-            $fechaActual = date("Y-m-d_H:i:s");
-
-            $archivo = null;
-            $archivo_nombre = null;
-            $archivo_tipoMime = null;
-            $archivo_base64 = null;
-
-            if (!estaVacio($archivoAdjunto)) {
-                $archivo = file_get_contents($archivoAdjunto);
-                $archivo_nombre = basename($archivoAdjunto);
-                $archivo_tipoMime = get_mime_type($archivo_nombre);
-                $archivo_base64 = base64_encode($archivo);
-            }
-
-            $contenido = '{';
-                $contenido .= '"Messages": [';
-                    $contenido .= '{';
-                        $contenido .= '"From": {';
-                            $contenido .= '"Email": "' . $de . '",';
-                            $contenido .= '"Name": "ARCA"';
-                        $contenido .= '},';
-
-                        if (!estaVacio($para)) {
-                            $contenido .= '"To": [';
-                                foreach(explode(",", $para) as $destinatario) {
-                                    $contenido .= '{';
-                                        $contenido .= '"Email": "' . $destinatario . '",';
-                                        $contenido .= '"Name": "' . $destinatario . '"';
-                                    $contenido .= '},';
-                                }
-                                $contenido = rtrim($contenido, ",");
-                            $contenido .= '],';
-                        }
-
-                        if (!estaVacio($copia)) {
-                            $contenido .= '"Cc": [';
-                                foreach(explode(",", $copia) as $destinatario) {
-                                    $contenido .= '{';
-                                        $contenido .= '"Email": "' . $destinatario . '",';
-                                        $contenido .= '"Name": "' . $destinatario . '"';
-                                    $contenido .= '},';
-                                }
-                                $contenido = rtrim($contenido, ",");
-                            $contenido .= '],';
-                        }
-
-                        $contenido .= '"Subject": "' . $titulo . '",';
-                        $contenido .= '"HTMLPart": "' . $mensaje . '",';
-
-                        if (!estaVacio($archivo_nombre) && !estaVacio($archivo_tipoMime) && !estaVacio($archivo_base64)) {
-                            $contenido .= '"Attachments": [';
-                                $contenido .= '{';
-                                    $contenido .= '"ContentType": "' . $archivo_tipoMime . '",';
-                                    $contenido .= '"Filename": "' . $archivo_nombre . '",';
-                                    $contenido .= '"Base64Content": "' . base64_encode($archivo) . '"';
-                                $contenido .= '}';
-                            $contenido .= '],';
-                        }
-
-                        $contenido .= '"CustomID": "arca.mx_' . $fechaActual . '"';
-                    $contenido .= '}';
-                $contenido .= ']';
-            $contenido .= '}';
-
-            $cuerpo = json_decode($contenido);
-
-            $respuesta = $mailjet->post(Resources::$Email, ["body" => $cuerpo]);
-            //$respuesta->success();
-
-            //var_dump($respuesta->getData());
+            enviaCorreo($parametros);
         } catch (Exception $e) {
         }
     }
 
-    function get_mime_type($filename) {
-        $idx = explode('.', $filename);
-        $count_explode = count($idx);
-        $idx = strtolower($idx[$count_explode - 1]);
 
-        $mimet = array(
-            'txt' => 'text/plain',
-            'htm' => 'text/html',
-            'html' => 'text/html',
-            'php' => 'text/html',
-            'css' => 'text/css',
-            'js' => 'application/javascript',
-            'json' => 'application/json',
-            'xml' => 'application/xml',
-            'swf' => 'application/x-shockwave-flash',
-            'flv' => 'video/x-flv',
-            'csv' => 'text/csv',
-            // images
-            'png' => 'image/png',
-            'jpe' => 'image/jpeg',
-            'jpeg' => 'image/jpeg',
-            'jpg' => 'image/jpeg',
-            'gif' => 'image/gif',
-            'bmp' => 'image/bmp',
-            'ico' => 'image/vnd.microsoft.icon',
-            'tiff' => 'image/tiff',
-            'tif' => 'image/tiff',
-            'svg' => 'image/svg+xml',
-            'svgz' => 'image/svg+xml',
-            // archives
-            'zip' => 'application/zip',
-            'rar' => 'application/x-rar-compressed',
-            'exe' => 'application/x-msdownload',
-            'msi' => 'application/x-msdownload',
-            'cab' => 'application/vnd.ms-cab-compressed',
-            // audio/video
-            'mp3' => 'audio/mpeg',
-            'qt' => 'video/quicktime',
-            'mov' => 'video/quicktime',
-            // adobe
-            'pdf' => 'application/pdf',
-            'psd' => 'image/vnd.adobe.photoshop',
-            'ai' => 'application/postscript',
-            'eps' => 'application/postscript',
-            'ps' => 'application/postscript',
-            // ms office
-            'doc' => 'application/msword',
-            'rtf' => 'application/rtf',
-            'xls' => 'application/vnd.ms-excel',
-            'ppt' => 'application/vnd.ms-powerpoint',
-            'docx' => 'application/msword',
-            'xlsx' => 'application/vnd.ms-excel',
-            'pptx' => 'application/vnd.ms-powerpoint',
-            // open office
-            'odt' => 'application/vnd.oasis.opendocument.text',
-            'ods' => 'application/vnd.oasis.opendocument.spreadsheet',
-        );
-
-        if (isset($mimet[$idx])) {
-            return $mimet[$idx];
-        } else {
-            return 'application/octet-stream';
-        }
-    }
-
-
-    /*
-     * Integracion con SMSs Masivos
-     */
-
-
-    function enviaSms($telefono, $mensaje) {
-
-        // Integracion con SMSs Masivos
-
-        curl_setopt_array($canal = curl_init(), array(
-                CURLOPT_URL => "https://app.smsmasivos.com.mx/components/api/api.envio.sms.php",
-                //HTTPS
-                //CURLOPT_URL => "https://smsmasivos.com.mx/sms/api.envio.new.php",
-                //CURLOPT_SSL_VERIFYPEER => FALSE,
-                CURLOPT_POST => TRUE,
-                CURLOPT_RETURNTRANSFER => TRUE,
-                CURLOPT_POSTFIELDS => array(
-                    // 1 via
-                    "apikey" => "80607e5c71de572f05dddb716aed6df28702400e",
-                    // 2 vias
-                    //"apikey" => "367dd2b78953bd42ce135685a20eb1bcff9f0cd4",
-                    "mensaje" => $mensaje,
-                    "numcelular" => $telefono,
-                    "numregion" => "52"/*,
-                    "sandbox" => "1",*/
-                )
-            )
-        );
-
-        $respuesta = curl_exec($canal);
-        curl_close($canal);
-
-        $respuesta = json_decode($respuesta);
-
-        echo $respuesta->mensaje;
-    }
-
-
-    /*
-     * Integracion con One Signal
-     */
-
-
-    function enviaNotificacion($playerId, $mensaje) {
-        echo "<div style='display:none'>";
+    function delegacionVirtual_enviaCorreo_aprobado(
+        $destinatario_para
+        , $titulo
+        , $idTramite
+        , $tramite_folioARCA
+        , $tramite_status
+        , $tramite_vehiculo_marca
+        , $tramite_vehiculo_modelo
+        , $tramite_vehiculo_ano
+        , $tramite_vehiculo_color
+        , $tramite_vehiculo_vin
+        , $tramite_cliente_nombre
+        , $tramite_cliente_correoElectronico
+        , $tramite_tipoTramite
+        , $tramite_tipoFactura
+        , $tramite_numeroFactura) {
 
         try {
-            $contenido = array(
-                "en" => $mensaje
-            );
 
-            $campos = array(
-                "app_id" => "e036afcd-3b50-4a50-8fbf-6ff6d6d90767",
-                "include_player_ids" => array($playerId),
-                "contents" => $contenido
-            );
+            // Arma cadena de envio
 
-            $campos = json_encode($campos);
+            $json = [
+                "to" => [
+                    [
+                        "email" => $destinatario_para
+                    ]
+                ],
+                "template_id" => "vywj2lp0kpk47oqz",
+                "subject" => $titulo,
+                "personalization" => [
+                    [
+                        "email" => $destinatario_para,
+                        "data" => [
+                            "idTramite" => $idTramite,
+                            "tramite_folioARCA" => $tramite_folioARCA,
+                            "tramite_status" => $tramite_status,
+                            "tramite_vehiculo_marca" => $tramite_vehiculo_marca,
+                            "tramite_vehiculo_modelo" => $tramite_vehiculo_modelo,
+                            "tramite_vehiculo_ano" => $tramite_vehiculo_ano,
+                            "tramite_vehiculo_color" => $tramite_vehiculo_color,
+                            "tramite_vehiculo_vin" => $tramite_vehiculo_vin,
+                            "tramite_cliente_nombre" => $tramite_cliente_nombre,
+                            "tramite_cliente_correoElectronico" => $tramite_cliente_correoElectronico,
+                            "tramite_tipoTramite" => $tramite_tipoTramite,
+                            "tramite_tipoFactura" => $tramite_tipoFactura,
+                            "tramite_numeroFactura" => $tramite_numeroFactura
+                        ]
+                    ]
+                ]
+            ];
 
-            $canal = curl_init();
-            curl_setopt($canal, CURLOPT_URL, "https://onesignal.com/api/v1/notifications");
-            curl_setopt($canal, CURLOPT_HTTPHEADER, array("Content-Type: application/json; charset=utf-8"));
-            curl_setopt($canal, CURLOPT_RETURNTRANSFER, TRUE);
-            curl_setopt($canal, CURLOPT_HEADER, FALSE);
-            curl_setopt($canal, CURLOPT_POST, TRUE);
-            curl_setopt($canal, CURLOPT_POSTFIELDS, $campos);
-            curl_setopt($canal, CURLOPT_SSL_VERIFYPEER, FALSE);
+            $parametros = [
+                "aplicacion" => "seminuevosarca.com.mx",
+                "json" => json_encode($json)
+            ];
 
-            $respuesta = curl_exec($canal);
-            curl_close($canal);
+            // Envia correo
+
+            enviaCorreo($parametros);
         } catch (Exception $e) {
         }
+    }
 
-        echo "</div>";
+
+    function delegacionVirtual_enviaCorreo_cancelado(
+        $destinatario_para
+        , $destinatario_copia
+        , $titulo
+        , $idTramite
+        , $tramite_folioARCA
+        , $tramite_status
+        , $concesionario_nombreComercial
+        , $usuario_nombre
+        , $mensajero_nombre
+        , $tramite_comentariosConcesionario
+        , $tramite_comentariosARCA
+        , $tramite_vehiculo_marca
+        , $tramite_vehiculo_modelo
+        , $tramite_vehiculo_ano
+        , $tramite_vehiculo_color
+        , $tramite_vehiculo_vin
+        , $tramite_cliente_nombre
+        , $tramite_cliente_correoElectronico
+        , $tramite_tipoTramite
+        , $tramite_tipoFactura
+        , $tramite_numeroFactura) {
+
+        try {
+
+            // Arma cadena de envio
+
+            $json = [
+                "to" => [
+                    [
+                        "email" => $destinatario_para
+                    ]
+                ],
+                "cc" => [
+                    [
+                        "email" => $destinatario_copia
+                    ]
+                ],
+                "template_id" => "351ndgw9mpd4zqx8",
+                "subject" => $titulo,
+                "personalization" => [
+                    [
+                        "email" => $destinatario_para,
+                        "data" => [
+                            "idTramite" => $idTramite,
+                            "tramite_folioARCA" => $tramite_folioARCA,
+                            "tramite_status" => $tramite_status,
+                            "concesionario_nombreComercial" => $concesionario_nombreComercial,
+                            "usuario_nombre" => $usuario_nombre,
+                            "mensajero_nombre" => $mensajero_nombre,
+                            "tramite_comentariosConcesionario" => $tramite_comentariosConcesionario,
+                            "tramite_comentariosARCA" => $tramite_comentariosARCA,
+                            "tramite_vehiculo_marca" => $tramite_vehiculo_marca,
+                            "tramite_vehiculo_modelo" => $tramite_vehiculo_modelo,
+                            "tramite_vehiculo_ano" => $tramite_vehiculo_ano,
+                            "tramite_vehiculo_color" => $tramite_vehiculo_color,
+                            "tramite_vehiculo_vin" => $tramite_vehiculo_vin,
+                            "tramite_cliente_nombre" => $tramite_cliente_nombre,
+                            "tramite_cliente_correoElectronico" => $tramite_cliente_correoElectronico,
+                            "tramite_tipoTramite" => $tramite_tipoTramite,
+                            "tramite_tipoFactura" => $tramite_tipoFactura,
+                            "tramite_numeroFactura" => $tramite_numeroFactura
+                        ]
+                    ],
+                    [
+                        "email" => $destinatario_copia,
+                        "data" => [
+                            "idTramite" => $idTramite,
+                            "tramite_folioARCA" => $tramite_folioARCA,
+                            "tramite_status" => $tramite_status,
+                            "concesionario_nombreComercial" => $concesionario_nombreComercial,
+                            "usuario_nombre" => $usuario_nombre,
+                            "mensajero_nombre" => $mensajero_nombre,
+                            "tramite_comentariosConcesionario" => $tramite_comentariosConcesionario,
+                            "tramite_comentariosARCA" => $tramite_comentariosARCA,
+                            "tramite_vehiculo_marca" => $tramite_vehiculo_marca,
+                            "tramite_vehiculo_modelo" => $tramite_vehiculo_modelo,
+                            "tramite_vehiculo_ano" => $tramite_vehiculo_ano,
+                            "tramite_vehiculo_color" => $tramite_vehiculo_color,
+                            "tramite_vehiculo_vin" => $tramite_vehiculo_vin,
+                            "tramite_cliente_nombre" => $tramite_cliente_nombre,
+                            "tramite_cliente_correoElectronico" => $tramite_cliente_correoElectronico,
+                            "tramite_tipoTramite" => $tramite_tipoTramite,
+                            "tramite_tipoFactura" => $tramite_tipoFactura,
+                            "tramite_numeroFactura" => $tramite_numeroFactura
+                        ]
+                    ]
+                ]
+            ];
+
+            $parametros = [
+                "aplicacion" => "seminuevosarca.com.mx",
+                "json" => json_encode($json)
+            ];
+
+            // Envia correo
+
+            enviaCorreo($parametros);
+        } catch (Exception $e) {
+        }
+    }
+
+
+    function delegacionVirtual_enviaCorreo_cancelado_usuario(
+        $destinatario_para
+        , $titulo
+        , $archivoAdjunto_nombre
+        , $archivoAdjunto_contenido
+        , $idTramite
+        , $tramite_folioARCA
+        , $tramite_status
+        , $tramite_vehiculo_marca
+        , $tramite_vehiculo_modelo
+        , $tramite_vehiculo_ano
+        , $tramite_vehiculo_color
+        , $tramite_vehiculo_vin
+        , $tramite_cliente_nombre
+        , $tramite_cliente_correoElectronico
+        , $tramite_tipoTramite
+        , $tramite_tipoFactura
+        , $tramite_numeroFactura) {
+
+        try {
+
+            // Arma cadena de envio
+
+            $json = [
+                "to" => [
+                    [
+                        "email" => $destinatario_para
+                    ]
+                ],
+                "template_id" => "z3m5jgrrepxgdpyo",
+                "subject" => $titulo,
+                "attachments" => [
+                    [
+                        "filename" => $archivoAdjunto_nombre,
+                        "content" => $archivoAdjunto_contenido
+                    ]
+                ],
+                "personalization" => [
+                    [
+                        "email" => $destinatario_para,
+                        "data" => [
+                            "idTramite" => $idTramite,
+                            "tramite_folioARCA" => $tramite_folioARCA,
+                            "tramite_status" => $tramite_status,
+                            "tramite_vehiculo_marca" => $tramite_vehiculo_marca,
+                            "tramite_vehiculo_modelo" => $tramite_vehiculo_modelo,
+                            "tramite_vehiculo_ano" => $tramite_vehiculo_ano,
+                            "tramite_vehiculo_color" => $tramite_vehiculo_color,
+                            "tramite_vehiculo_vin" => $tramite_vehiculo_vin,
+                            "tramite_cliente_nombre" => $tramite_cliente_nombre,
+                            "tramite_cliente_correoElectronico" => $tramite_cliente_correoElectronico,
+                            "tramite_tipoTramite" => $tramite_tipoTramite,
+                            "tramite_tipoFactura" => $tramite_tipoFactura,
+                            "tramite_numeroFactura" => $tramite_numeroFactura
+                        ]
+                    ]
+                ]
+            ];
+
+            $parametros = [
+                "aplicacion" => "seminuevosarca.com.mx",
+                "json" => json_encode($json)
+            ];
+
+            // Envia correo
+
+            enviaCorreo($parametros);
+        } catch (Exception $e) {
+        }
+    }
+
+
+    function delegacionVirtual_enviaCorreo_devueltoALaAgencia(
+        $destinatario_para
+        , $titulo
+        , $idTramite
+        , $tramite_folioARCA
+        , $tramite_status
+        , $tramite_vehiculo_marca
+        , $tramite_vehiculo_modelo
+        , $tramite_vehiculo_ano
+        , $tramite_vehiculo_color
+        , $tramite_vehiculo_vin
+        , $tramite_vehiculo_placa
+        , $tramite_cliente_nombre
+        , $tramite_cliente_correoElectronico
+        , $tramite_tipoTramite
+        , $tramite_tipoFactura
+        , $tramite_numeroFactura) {
+
+        try {
+
+            // Arma cadena de envio
+
+            $json = [
+                "to" => [
+                    [
+                        "email" => $destinatario_para
+                    ]
+                ],
+                "template_id" => "o65qngkzmqwgwr12",
+                "subject" => $titulo,
+                "personalization" => [
+                    [
+                        "email" => $destinatario_para,
+                        "data" => [
+                            "idTramite" => $idTramite,
+                            "tramite_folioARCA" => $tramite_folioARCA,
+                            "tramite_status" => $tramite_status,
+                            "tramite_vehiculo_marca" => $tramite_vehiculo_marca,
+                            "tramite_vehiculo_modelo" => $tramite_vehiculo_modelo,
+                            "tramite_vehiculo_ano" => $tramite_vehiculo_ano,
+                            "tramite_vehiculo_color" => $tramite_vehiculo_color,
+                            "tramite_vehiculo_vin" => $tramite_vehiculo_vin,
+                            "tramite_vehiculo_placa" => $tramite_vehiculo_placa,
+                            "tramite_cliente_nombre" => $tramite_cliente_nombre,
+                            "tramite_cliente_correoElectronico" => $tramite_cliente_correoElectronico,
+                            "tramite_tipoTramite" => $tramite_tipoTramite,
+                            "tramite_tipoFactura" => $tramite_tipoFactura,
+                            "tramite_numeroFactura" => $tramite_numeroFactura
+                        ]
+                    ]
+                ]
+            ];
+
+            $parametros = [
+                "aplicacion" => "seminuevosarca.com.mx",
+                "json" => json_encode($json)
+            ];
+
+            // Envia correo
+
+            enviaCorreo($parametros);
+        } catch (Exception $e) {
+        }
+    }
+
+
+    function delegacionVirtual_enviaCorreo_enviadoAARCA(
+        $destinatario_para
+        , $titulo
+        , $archivoAdjunto_nombre
+        , $archivoAdjunto_contenido
+        , $idTramite
+        , $tramite_folioARCA
+        , $tramite_status
+        , $concesionario_nombreComercial
+        , $usuario_nombre
+        , $mensajero_nombre
+        , $tramite_comentariosConcesionario
+        , $tramite_vehiculo_marca
+        , $tramite_vehiculo_modelo
+        , $tramite_vehiculo_ano
+        , $tramite_vehiculo_color
+        , $tramite_vehiculo_vin
+        , $tramite_vehiculo_placa
+        , $tramite_cliente_nombre
+        , $tramite_cliente_correoElectronico
+        , $tramite_tipoTramite
+        , $tramite_tipoFactura
+        , $tramite_numeroFactura) {
+
+        try {
+
+            // Arma cadena de envio
+
+            $json = [
+                "to" => [
+                    [
+                        "email" => $destinatario_para
+                    ]
+                ],
+                "template_id" => "3yxj6ljjqm1ldo2r",
+                "subject" => $titulo,
+                "attachments" => [
+                    [
+                        "filename" => $archivoAdjunto_nombre,
+                        "content" => $archivoAdjunto_contenido
+                    ]
+                ],
+                "personalization" => [
+                    [
+                        "email" => $destinatario_para,
+                        "data" => [
+                            "idTramite" => $idTramite,
+                            "tramite_folioARCA" => $tramite_folioARCA,
+                            "tramite_status" => $tramite_status,
+                            "concesionario_nombreComercial" => $concesionario_nombreComercial,
+                            "usuario_nombre" => $usuario_nombre,
+                            "mensajero_nombre" => $mensajero_nombre,
+                            "tramite_comentariosConcesionario" => $tramite_comentariosConcesionario,
+                            "tramite_vehiculo_marca" => $tramite_vehiculo_marca,
+                            "tramite_vehiculo_modelo" => $tramite_vehiculo_modelo,
+                            "tramite_vehiculo_ano" => $tramite_vehiculo_ano,
+                            "tramite_vehiculo_color" => $tramite_vehiculo_color,
+                            "tramite_vehiculo_vin" => $tramite_vehiculo_vin,
+                            "tramite_vehiculo_placa" => $tramite_vehiculo_placa,
+                            "tramite_cliente_nombre" => $tramite_cliente_nombre,
+                            "tramite_cliente_correoElectronico" => $tramite_cliente_correoElectronico,
+                            "tramite_tipoTramite" => $tramite_tipoTramite,
+                            "tramite_tipoFactura" => $tramite_tipoFactura,
+                            "tramite_numeroFactura" => $tramite_numeroFactura
+                        ]
+                    ]
+                ]
+            ];
+
+            $parametros = [
+                "aplicacion" => "seminuevosarca.com.mx",
+                "json" => json_encode($json)
+            ];
+
+            // Envia correo
+
+            enviaCorreo($parametros);
+        } catch (Exception $e) {
+        }
+    }
+
+
+    function delegacionVirtual_enviaCorreo_rechazado(
+        $destinatario_para
+        , $titulo
+        , $idTramite
+        , $tramite_folioARCA
+        , $tramite_status
+        , $tramite_vehiculo_marca
+        , $tramite_vehiculo_modelo
+        , $tramite_vehiculo_ano
+        , $tramite_vehiculo_color
+        , $tramite_vehiculo_vin
+        , $tramite_cliente_nombre
+        , $tramite_cliente_correoElectronico
+        , $tramite_tipoTramite
+        , $tramite_tipoFactura
+        , $tramite_numeroFactura) {
+
+        try {
+
+            // Arma cadena de envio
+
+            $json = [
+                "to" => [
+                    [
+                        "email" => $destinatario_para
+                    ]
+                ],
+                "template_id" => "pr9084zz65e4w63d",
+                "subject" => $titulo,
+                "personalization" => [
+                    [
+                        "email" => $destinatario_para,
+                        "data" => [
+                            "idTramite" => $idTramite,
+                            "tramite_folioARCA" => $tramite_folioARCA,
+                            "tramite_status" => $tramite_status,
+                            "tramite_vehiculo_marca" => $tramite_vehiculo_marca,
+                            "tramite_vehiculo_modelo" => $tramite_vehiculo_modelo,
+                            "tramite_vehiculo_ano" => $tramite_vehiculo_ano,
+                            "tramite_vehiculo_color" => $tramite_vehiculo_color,
+                            "tramite_vehiculo_vin" => $tramite_vehiculo_vin,
+                            "tramite_cliente_nombre" => $tramite_cliente_nombre,
+                            "tramite_cliente_correoElectronico" => $tramite_cliente_correoElectronico,
+                            "tramite_tipoTramite" => $tramite_tipoTramite,
+                            "tramite_tipoFactura" => $tramite_tipoFactura,
+                            "tramite_numeroFactura" => $tramite_numeroFactura
+                        ]
+                    ]
+                ]
+            ];
+
+            $parametros = [
+                "aplicacion" => "seminuevosarca.com.mx",
+                "json" => json_encode($json)
+            ];
+
+            // Envia correo
+
+            enviaCorreo($parametros);
+        } catch (Exception $e) {
+        }
+    }
+
+
+    function delegacionVirtual_enviaCorreo_reenviadoAARCA(
+        $destinatario_para
+        , $titulo
+        , $archivoAdjunto_nombre
+        , $archivoAdjunto_contenido
+        , $idTramite
+        , $tramite_folioARCA
+        , $tramite_status
+        , $concesionario_nombreComercial
+        , $usuario_nombre
+        , $mensajero_nombre
+        , $tramite_comentariosConcesionario
+        , $tramite_comentariosARCA
+        , $tramite_vehiculo_marca
+        , $tramite_vehiculo_modelo
+        , $tramite_vehiculo_ano
+        , $tramite_vehiculo_color
+        , $tramite_vehiculo_vin
+        , $tramite_vehiculo_placa
+        , $tramite_cliente_nombre
+        , $tramite_cliente_correoElectronico
+        , $tramite_tipoTramite
+        , $tramite_tipoFactura
+        , $tramite_numeroFactura) {
+
+        try {
+
+            // Arma cadena de envio
+
+            $json = [
+                "to" => [
+                    [
+                        "email" => $destinatario_para
+                    ]
+                ],
+                "template_id" => "x2p0347w0pklzdrn",
+                "subject" => $titulo,
+                "attachments" => [
+                    [
+                        "filename" => $archivoAdjunto_nombre,
+                        "content" => $archivoAdjunto_contenido
+                    ]
+                ],
+                "personalization" => [
+                    [
+                        "email" => $destinatario_para,
+                        "data" => [
+                            "idTramite" => $idTramite,
+                            "tramite_folioARCA" => $tramite_folioARCA,
+                            "tramite_status" => $tramite_status,
+                            "concesionario_nombreComercial" => $concesionario_nombreComercial,
+                            "usuario_nombre" => $usuario_nombre,
+                            "mensajero_nombre" => $mensajero_nombre,
+                            "tramite_comentariosConcesionario" => $tramite_comentariosConcesionario,
+                            "tramite_comentariosARCA" => $tramite_comentariosARCA,
+                            "tramite_vehiculo_marca" => $tramite_vehiculo_marca,
+                            "tramite_vehiculo_modelo" => $tramite_vehiculo_modelo,
+                            "tramite_vehiculo_ano" => $tramite_vehiculo_ano,
+                            "tramite_vehiculo_color" => $tramite_vehiculo_color,
+                            "tramite_vehiculo_vin" => $tramite_vehiculo_vin,
+                            "tramite_vehiculo_placa" => $tramite_vehiculo_placa,
+                            "tramite_cliente_nombre" => $tramite_cliente_nombre,
+                            "tramite_cliente_correoElectronico" => $tramite_cliente_correoElectronico,
+                            "tramite_tipoTramite" => $tramite_tipoTramite,
+                            "tramite_tipoFactura" => $tramite_tipoFactura,
+                            "tramite_numeroFactura" => $tramite_numeroFactura
+                        ]
+                    ]
+                ]
+            ];
+
+            $parametros = [
+                "aplicacion" => "seminuevosarca.com.mx",
+                "json" => json_encode($json)
+            ];
+
+            // Envia correo
+
+            enviaCorreo($parametros);
+        } catch (Exception $e) {
+        }
+    }
+
+
+    function delegacionVirtual_enviaCorreo_comprobanteDePago(
+        $destinatario_para
+        , $titulo
+        , $archivoAdjunto_nombre
+        , $archivoAdjunto_contenido
+        , $idTramite
+        , $tramite_folioARCA
+        , $tramite_status
+        , $concesionario_nombreComercial
+        , $usuario_nombre
+        , $mensajero_nombre
+        , $tramite_comentariosConcesionario
+        , $tramite_comentariosARCA
+        , $tramite_vehiculo_marca
+        , $tramite_vehiculo_modelo
+        , $tramite_vehiculo_ano
+        , $tramite_vehiculo_color
+        , $tramite_vehiculo_vin
+        , $tramite_vehiculo_placa
+        , $tramite_cliente_nombre
+        , $tramite_cliente_correoElectronico
+        , $tramite_tipoTramite
+        , $tramite_tipoFactura
+        , $tramite_numeroFactura) {
+
+        try {
+
+            // Arma cadena de envio
+
+            $json = [
+                "to" => [
+                    [
+                        "email" => $destinatario_para
+                    ]
+                ],
+                "template_id" => "3zxk54vkqpxljy6v",
+                "subject" => $titulo,
+                "attachments" => [
+                    [
+                        "filename" => $archivoAdjunto_nombre,
+                        "content" => $archivoAdjunto_contenido
+                    ]
+                ],
+                "personalization" => [
+                    [
+                        "email" => $destinatario_para,
+                        "data" => [
+                            "idTramite" => $idTramite,
+                            "tramite_folioARCA" => $tramite_folioARCA,
+                            "tramite_status" => $tramite_status,
+                            "concesionario_nombreComercial" => $concesionario_nombreComercial,
+                            "usuario_nombre" => $usuario_nombre,
+                            "mensajero_nombre" => $mensajero_nombre,
+                            "tramite_comentariosConcesionario" => $tramite_comentariosConcesionario,
+                            "tramite_comentariosARCA" => $tramite_comentariosARCA,
+                            "tramite_vehiculo_marca" => $tramite_vehiculo_marca,
+                            "tramite_vehiculo_modelo" => $tramite_vehiculo_modelo,
+                            "tramite_vehiculo_ano" => $tramite_vehiculo_ano,
+                            "tramite_vehiculo_color" => $tramite_vehiculo_color,
+                            "tramite_vehiculo_vin" => $tramite_vehiculo_vin,
+                            "tramite_vehiculo_placa" => $tramite_vehiculo_placa,
+                            "tramite_cliente_nombre" => $tramite_cliente_nombre,
+                            "tramite_cliente_correoElectronico" => $tramite_cliente_correoElectronico,
+                            "tramite_tipoTramite" => $tramite_tipoTramite,
+                            "tramite_tipoFactura" => $tramite_tipoFactura,
+                            "tramite_numeroFactura" => $tramite_numeroFactura
+                        ]
+                    ]
+                ]
+            ];
+
+            $parametros = [
+                "aplicacion" => "seminuevosarca.com.mx",
+                "json" => json_encode($json)
+            ];
+
+            // Envia correo
+
+            enviaCorreo($parametros);
+        } catch (Exception $e) {
+        }
+    }
+
+
+    function delegacionVirtual_enviaCorreo_comprobanteBiometricos(
+        $destinatario_para
+        , $titulo
+        , $archivoAdjunto_nombre
+        , $archivoAdjunto_contenido
+        , $idTramite
+        , $tramite_folioARCA
+        , $tramite_status
+        , $concesionario_nombreComercial
+        , $usuario_nombre
+        , $mensajero_nombre
+        , $tramite_comentariosConcesionario
+        , $tramite_comentariosARCA
+        , $tramite_vehiculo_marca
+        , $tramite_vehiculo_modelo
+        , $tramite_vehiculo_ano
+        , $tramite_vehiculo_color
+        , $tramite_vehiculo_vin
+        , $tramite_vehiculo_placa
+        , $tramite_cliente_nombre
+        , $tramite_cliente_correoElectronico
+        , $tramite_tipoTramite
+        , $tramite_tipoFactura
+        , $tramite_numeroFactura) {
+
+        try {
+
+            // Arma cadena de envio
+
+            $json = [
+                "to" => [
+                    [
+                        "email" => $destinatario_para
+                    ]
+                ],
+                "template_id" => "jpzkmgqm9evl059v",
+                "subject" => $titulo,
+                "attachments" => [
+                    [
+                        "filename" => $archivoAdjunto_nombre,
+                        "content" => $archivoAdjunto_contenido
+                    ]
+                ],
+                "personalization" => [
+                    [
+                        "email" => $destinatario_para,
+                        "data" => [
+                            "idTramite" => $idTramite,
+                            "tramite_folioARCA" => $tramite_folioARCA,
+                            "tramite_status" => $tramite_status,
+                            "concesionario_nombreComercial" => $concesionario_nombreComercial,
+                            "usuario_nombre" => $usuario_nombre,
+                            "mensajero_nombre" => $mensajero_nombre,
+                            "tramite_comentariosConcesionario" => $tramite_comentariosConcesionario,
+                            "tramite_comentariosARCA" => $tramite_comentariosARCA,
+                            "tramite_vehiculo_marca" => $tramite_vehiculo_marca,
+                            "tramite_vehiculo_modelo" => $tramite_vehiculo_modelo,
+                            "tramite_vehiculo_ano" => $tramite_vehiculo_ano,
+                            "tramite_vehiculo_color" => $tramite_vehiculo_color,
+                            "tramite_vehiculo_vin" => $tramite_vehiculo_vin,
+                            "tramite_vehiculo_placa" => $tramite_vehiculo_placa,
+                            "tramite_cliente_nombre" => $tramite_cliente_nombre,
+                            "tramite_cliente_correoElectronico" => $tramite_cliente_correoElectronico,
+                            "tramite_tipoTramite" => $tramite_tipoTramite,
+                            "tramite_tipoFactura" => $tramite_tipoFactura,
+                            "tramite_numeroFactura" => $tramite_numeroFactura
+                        ]
+                    ]
+                ]
+            ];
+
+            $parametros = [
+                "aplicacion" => "seminuevosarca.com.mx",
+                "json" => json_encode($json)
+            ];
+
+            // Envia correo
+
+            enviaCorreo($parametros);
+        } catch (Exception $e) {
+        }
+    }
+
+
+    function delegacionVirtual_enviaCorreo_comprobanteE6(
+        $destinatario_para
+        , $titulo
+        , $archivoAdjunto_nombre
+        , $archivoAdjunto_contenido
+        , $idTramite
+        , $tramite_folioARCA
+        , $tramite_status
+        , $concesionario_nombreComercial
+        , $usuario_nombre
+        , $mensajero_nombre
+        , $tramite_comentariosConcesionario
+        , $tramite_comentariosARCA
+        , $tramite_vehiculo_marca
+        , $tramite_vehiculo_modelo
+        , $tramite_vehiculo_ano
+        , $tramite_vehiculo_color
+        , $tramite_vehiculo_vin
+        , $tramite_vehiculo_placa
+        , $tramite_cliente_nombre
+        , $tramite_cliente_correoElectronico
+        , $tramite_tipoTramite
+        , $tramite_tipoFactura
+        , $tramite_numeroFactura) {
+
+        try {
+
+            // Arma cadena de envio
+
+            $json = [
+                "to" => [
+                    [
+                        "email" => $destinatario_para
+                    ]
+                ],
+                "template_id" => "3z0vklodvkpg7qrx",
+                "subject" => $titulo,
+                "attachments" => [
+                    [
+                        "filename" => $archivoAdjunto_nombre,
+                        "content" => $archivoAdjunto_contenido
+                    ]
+                ],
+                "personalization" => [
+                    [
+                        "email" => $destinatario_para,
+                        "data" => [
+                            "idTramite" => $idTramite,
+                            "tramite_folioARCA" => $tramite_folioARCA,
+                            "tramite_status" => $tramite_status,
+                            "concesionario_nombreComercial" => $concesionario_nombreComercial,
+                            "usuario_nombre" => $usuario_nombre,
+                            "mensajero_nombre" => $mensajero_nombre,
+                            "tramite_comentariosConcesionario" => $tramite_comentariosConcesionario,
+                            "tramite_comentariosARCA" => $tramite_comentariosARCA,
+                            "tramite_vehiculo_marca" => $tramite_vehiculo_marca,
+                            "tramite_vehiculo_modelo" => $tramite_vehiculo_modelo,
+                            "tramite_vehiculo_ano" => $tramite_vehiculo_ano,
+                            "tramite_vehiculo_color" => $tramite_vehiculo_color,
+                            "tramite_vehiculo_vin" => $tramite_vehiculo_vin,
+                            "tramite_vehiculo_placa" => $tramite_vehiculo_placa,
+                            "tramite_cliente_nombre" => $tramite_cliente_nombre,
+                            "tramite_cliente_correoElectronico" => $tramite_cliente_correoElectronico,
+                            "tramite_tipoTramite" => $tramite_tipoTramite,
+                            "tramite_tipoFactura" => $tramite_tipoFactura,
+                            "tramite_numeroFactura" => $tramite_numeroFactura
+                        ]
+                    ]
+                ]
+            ];
+
+            $parametros = [
+                "aplicacion" => "seminuevosarca.com.mx",
+                "json" => json_encode($json)
+            ];
+
+            // Envia correo
+
+            enviaCorreo($parametros);
+        } catch (Exception $e) {
+        }
+    }
+
+
+    function delegacionVirtual_enviaCorreo_actualizacionSolicitadaARCA(
+        $destinatario_para
+        , $titulo
+        , $archivoAdjunto_nombre
+        , $archivoAdjunto_contenido
+        , $idTramite
+        , $tramite_folioARCA
+        , $tramite_status
+        , $concesionario_nombreComercial
+        , $usuario_nombre
+        , $mensajero_nombre
+        , $tramite_comentariosConcesionario
+        , $tramite_comentariosARCA
+        , $tramite_vehiculo_marca
+        , $tramite_vehiculo_modelo
+        , $tramite_vehiculo_ano
+        , $tramite_vehiculo_color
+        , $tramite_vehiculo_vin
+        , $tramite_vehiculo_placa
+        , $tramite_cliente_nombre
+        , $tramite_cliente_correoElectronico
+        , $tramite_tipoTramite
+        , $tramite_tipoFactura
+        , $tramite_numeroFactura) {
+
+        try {
+
+            // Arma cadena de envio
+
+            $json = [
+                "to" => [
+                    [
+                        "email" => $destinatario_para
+                    ]
+                ],
+                "template_id" => "yzkq340710kld796",
+                "subject" => $titulo,
+                "attachments" => [
+                    [
+                        "filename" => $archivoAdjunto_nombre,
+                        "content" => $archivoAdjunto_contenido
+                    ]
+                ],
+                "personalization" => [
+                    [
+                        "email" => $destinatario_para,
+                        "data" => [
+                            "idTramite" => $idTramite,
+                            "tramite_folioARCA" => $tramite_folioARCA,
+                            "tramite_status" => $tramite_status,
+                            "concesionario_nombreComercial" => $concesionario_nombreComercial,
+                            "usuario_nombre" => $usuario_nombre,
+                            "mensajero_nombre" => $mensajero_nombre,
+                            "tramite_comentariosConcesionario" => $tramite_comentariosConcesionario,
+                            "tramite_comentariosARCA" => $tramite_comentariosARCA,
+                            "tramite_vehiculo_marca" => $tramite_vehiculo_marca,
+                            "tramite_vehiculo_modelo" => $tramite_vehiculo_modelo,
+                            "tramite_vehiculo_ano" => $tramite_vehiculo_ano,
+                            "tramite_vehiculo_color" => $tramite_vehiculo_color,
+                            "tramite_vehiculo_vin" => $tramite_vehiculo_vin,
+                            "tramite_vehiculo_placa" => $tramite_vehiculo_placa,
+                            "tramite_cliente_nombre" => $tramite_cliente_nombre,
+                            "tramite_cliente_correoElectronico" => $tramite_cliente_correoElectronico,
+                            "tramite_tipoTramite" => $tramite_tipoTramite,
+                            "tramite_tipoFactura" => $tramite_tipoFactura,
+                            "tramite_numeroFactura" => $tramite_numeroFactura
+                        ]
+                    ]
+                ]
+            ];
+
+            $parametros = [
+                "aplicacion" => "seminuevosarca.com.mx",
+                "json" => json_encode($json)
+            ];
+
+            // Envia correo
+
+            enviaCorreo($parametros);
+        } catch (Exception $e) {
+        }
+    }
+
+
+    function delegacionVirtual_enviaCorreo_actualizacionSolicitadaICV(
+        $destinatario_para
+        , $titulo
+        , $archivoAdjunto_nombre
+        , $archivoAdjunto_contenido
+        , $idTramite
+        , $tramite_folioARCA
+        , $concesionario_nombreComercial
+        , $usuario_nombre
+        , $mensajero_nombre
+        , $tramite_comentariosConcesionario
+        , $tramite_comentariosARCA
+        , $tramite_vehiculo_marca
+        , $tramite_vehiculo_modelo
+        , $tramite_vehiculo_ano
+        , $tramite_vehiculo_color
+        , $tramite_vehiculo_vin
+        , $tramite_vehiculo_placa
+        , $tramite_cliente_nombre
+        , $tramite_cliente_correoElectronico
+        , $tramite_tipoTramite
+        , $tramite_tipoFactura
+        , $tramite_numeroFactura) {
+
+        try {
+
+            // Arma cadena de envio
+
+            $json = [
+                "to" => [
+                    [
+                        "email" => $destinatario_para
+                    ]
+                ],
+                "template_id" => "v69oxl5mdpd4785k",
+                "subject" => $titulo,
+                "attachments" => [
+                    [
+                        "filename" => $archivoAdjunto_nombre,
+                        "content" => $archivoAdjunto_contenido
+                    ]
+                ],
+                "personalization" => [
+                    [
+                        "email" => $destinatario_para,
+                        "data" => [
+                            "idTramite" => $idTramite,
+                            "tramite_folioARCA" => $tramite_folioARCA,
+                            "concesionario_nombreComercial" => $concesionario_nombreComercial,
+                            "usuario_nombre" => $usuario_nombre,
+                            "mensajero_nombre" => $mensajero_nombre,
+                            "tramite_comentariosConcesionario" => $tramite_comentariosConcesionario,
+                            "tramite_comentariosARCA" => $tramite_comentariosARCA,
+                            "tramite_vehiculo_marca" => $tramite_vehiculo_marca,
+                            "tramite_vehiculo_modelo" => $tramite_vehiculo_modelo,
+                            "tramite_vehiculo_ano" => $tramite_vehiculo_ano,
+                            "tramite_vehiculo_color" => $tramite_vehiculo_color,
+                            "tramite_vehiculo_vin" => $tramite_vehiculo_vin,
+                            "tramite_vehiculo_placa" => $tramite_vehiculo_placa,
+                            "tramite_cliente_nombre" => $tramite_cliente_nombre,
+                            "tramite_cliente_correoElectronico" => $tramite_cliente_correoElectronico,
+                            "tramite_tipoTramite" => $tramite_tipoTramite,
+                            "tramite_tipoFactura" => $tramite_tipoFactura,
+                            "tramite_numeroFactura" => $tramite_numeroFactura
+                        ]
+                    ]
+                ]
+            ];
+
+            $parametros = [
+                "aplicacion" => "seminuevosarca.com.mx",
+                "json" => json_encode($json)
+            ];
+
+            // Envia correo
+
+            enviaCorreo($parametros);
+        } catch (Exception $e) {
+        }
     }
 ?>

@@ -36,22 +36,22 @@
 
         $titulo = "ARCA - " . $tramite["folioARCA"] . " - " . $concesionario["nombreComercial"] . " - " . trim($tramite["cliente_nombre"] . " " . $tramite["cliente_apellidoPaterno"] . " " . $tramite["cliente_apellidoMaterno"]) . " - ACTUALIZACION";
 
-        $mensaje = "Se ha actualizado la solicitud de trámite con los siguientes datos, favor de ingresar al sistema para ver los detalles:"
-            . "<br /><br />Id: ". $idTramite
-            . "<br />Folio ARCA: ". $tramite["folioARCA"]
-            . "<br />Estatus: ". $tramite["status"]
-            . "<br />Marca: ". $tramite["vehiculo_marca"]
-            . "<br />Modelo: ". $tramite["vehiculo_modelo"]
-            . "<br />Año: ". $tramite["vehiculo_ano"]
-            . "<br />Color: ". $tramite["vehiculo_color"]
-            . "<br />VIN: ". $tramite["vehiculo_vin"]
-            . "<br />Nombre Cliente: ". $tramite["cliente_nombre"] . " " . $tramite["cliente_apellidoPaterno"] . " " . $tramite["cliente_apellidoMaterno"]
-            . "<br />Correo Cliente: ". $tramite["cliente_correoElectronico"]
-            . "<br />Tipo de trámite: ". $tramite["tipoTramite"]
-            . "<br />Tipo de factura: ". $tramite["tipoFactura"]
-            . "<br />Número de factura: ". $tramite["numeroFactura"];
-
-        $enviaCorreo = enviaCorreoMailjet($correoNotificacion, $correoNotificacion_copia, $titulo, $mensaje, $archivo, "delegacionvirtual@seminuevosarca.com.mx");
+        delegacionVirtual_enviaCorreo_aprobado(
+            $correoNotificacion
+            , $titulo
+            , $idTramite
+            , $tramite["folioARCA"]
+            , $tramite["status"]
+            , $tramite["vehiculo_marca"]
+            , $tramite["vehiculo_modelo"]
+            , $tramite["vehiculo_ano"]
+            , $tramite["vehiculo_color"]
+            , $tramite["vehiculo_vin"]
+            , $tramite["cliente_nombre"] . " " . $tramite["cliente_apellidoPaterno"] . " " . $tramite["cliente_apellidoMaterno"]
+            , $tramite["cliente_correoElectronico"]
+            , $tramite["tipoTramite"]
+            , $tramite["tipoFactura"]
+            , $tramite["numeroFactura"]);
 
         echo "ok";
     } catch (Exception $ex) {
