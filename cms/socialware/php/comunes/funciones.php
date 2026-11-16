@@ -943,17 +943,53 @@ $indiceConcesionario++;
 
             // Arma cadena de envio
 
+            $destinatarios_para = [];
+            $destinatarios_copia = [];
+            $personalizaciones = [];
+
+            $destinatario_para_elementos = explode(",", $destinatario_para);
+
+            foreach ($destinatario_para_elementos as $destinatario_para_elemento) {
+                $destinatarios_para[] = (object) [
+                        "email" => $destinatario_para_elemento
+                    ];
+
+                $personalizaciones[] = (object) [
+                        "email" => $destinatario_para_elemento,
+                        "data" => [
+                            "idTramite" => $idTramite,
+                            "tramite_folioARCA" => $tramite_folioARCA,
+                            "concesionario_nombreComercial" => $concesionario_nombreComercial,
+                            "usuario_nombre" => $usuario_nombre,
+                            "mensajero_nombre" => $mensajero_nombre,
+                            "tramite_comentariosConcesionario" => $tramite_comentariosConcesionario,
+                            "tramite_comentariosARCA" => $tramite_comentariosARCA,
+                            "tramite_vehiculo_marca" => $tramite_vehiculo_marca,
+                            "tramite_vehiculo_modelo" => $tramite_vehiculo_modelo,
+                            "tramite_vehiculo_ano" => $tramite_vehiculo_ano,
+                            "tramite_vehiculo_color" => $tramite_vehiculo_color,
+                            "tramite_vehiculo_vin" => $tramite_vehiculo_vin,
+                            "tramite_vehiculo_placa" => $tramite_vehiculo_placa,
+                            "tramite_cliente_nombre" => $tramite_cliente_nombre,
+                            "tramite_cliente_correoElectronico" => $tramite_cliente_correoElectronico,
+                            "tramite_tipoTramite" => $tramite_tipoTramite,
+                            "tramite_tipoFactura" => $tramite_tipoFactura,
+                            "tramite_numeroFactura" => $tramite_numeroFactura
+                        ]
+                    ];
+            }
+
+            $destinatario_copia_elementos = explode(",", $destinatario_copia);
+
+            foreach ($destinatario_copia_elementos as $destinatario_copia_elemento) {
+                $destinatarios_copia[] = (object) [
+                        "email" => $destinatario_copia_elemento
+                    ];
+            }
+
             $json = [
-                "to" => [
-                    [
-                        "email" => $destinatario_para
-                    ]
-                ],
-                "cc" => [
-                    [
-                        "email" => $destinatario_copia
-                    ]
-                ],
+                "to" => $destinatarios_para,
+                "cc" => $destinatarios_copia,
                 "template_id" => "pxkjn41qdrplz781",
                 "subject" => $titulo,
                 "attachments" => [
@@ -962,54 +998,7 @@ $indiceConcesionario++;
                         "content" => $archivoAdjunto_contenido
                     ]
                 ],
-                "personalization" => [
-                    [
-                        "email" => $destinatario_para,
-                        "data" => [
-                            "idTramite" => $idTramite,
-                            "tramite_folioARCA" => $tramite_folioARCA,
-                            "concesionario_nombreComercial" => $concesionario_nombreComercial,
-                            "usuario_nombre" => $usuario_nombre,
-                            "mensajero_nombre" => $mensajero_nombre,
-                            "tramite_comentariosConcesionario" => $tramite_comentariosConcesionario,
-                            "tramite_comentariosARCA" => $tramite_comentariosARCA,
-                            "tramite_vehiculo_marca" => $tramite_vehiculo_marca,
-                            "tramite_vehiculo_modelo" => $tramite_vehiculo_modelo,
-                            "tramite_vehiculo_ano" => $tramite_vehiculo_ano,
-                            "tramite_vehiculo_color" => $tramite_vehiculo_color,
-                            "tramite_vehiculo_vin" => $tramite_vehiculo_vin,
-                            "tramite_vehiculo_placa" => $tramite_vehiculo_placa,
-                            "tramite_cliente_nombre" => $tramite_cliente_nombre,
-                            "tramite_cliente_correoElectronico" => $tramite_cliente_correoElectronico,
-                            "tramite_tipoTramite" => $tramite_tipoTramite,
-                            "tramite_tipoFactura" => $tramite_tipoFactura,
-                            "tramite_numeroFactura" => $tramite_numeroFactura
-                        ]
-                    ],
-                    [
-                        "email" => $destinatario_copia,
-                        "data" => [
-                            "idTramite" => $idTramite,
-                            "tramite_folioARCA" => $tramite_folioARCA,
-                            "concesionario_nombreComercial" => $concesionario_nombreComercial,
-                            "usuario_nombre" => $usuario_nombre,
-                            "mensajero_nombre" => $mensajero_nombre,
-                            "tramite_comentariosConcesionario" => $tramite_comentariosConcesionario,
-                            "tramite_comentariosARCA" => $tramite_comentariosARCA,
-                            "tramite_vehiculo_marca" => $tramite_vehiculo_marca,
-                            "tramite_vehiculo_modelo" => $tramite_vehiculo_modelo,
-                            "tramite_vehiculo_ano" => $tramite_vehiculo_ano,
-                            "tramite_vehiculo_color" => $tramite_vehiculo_color,
-                            "tramite_vehiculo_vin" => $tramite_vehiculo_vin,
-                            "tramite_vehiculo_placa" => $tramite_vehiculo_placa,
-                            "tramite_cliente_nombre" => $tramite_cliente_nombre,
-                            "tramite_cliente_correoElectronico" => $tramite_cliente_correoElectronico,
-                            "tramite_tipoTramite" => $tramite_tipoTramite,
-                            "tramite_tipoFactura" => $tramite_tipoFactura,
-                            "tramite_numeroFactura" => $tramite_numeroFactura
-                        ]
-                    ]
-                ]
+                "personalization" => $personalizaciones
             ];
 
             $parametros = [
@@ -1046,17 +1035,18 @@ $indiceConcesionario++;
 
             // Arma cadena de envio
 
-            $json = [
-                "to" => [
-                    [
-                        "email" => $destinatario_para
-                    ]
-                ],
-                "template_id" => "vywj2lp0kpk47oqz",
-                "subject" => $titulo,
-                "personalization" => [
-                    [
-                        "email" => $destinatario_para,
+            $destinatarios_para = [];
+            $personalizaciones = [];
+
+            $destinatario_para_elementos = explode(",", $destinatario_para);
+
+            foreach ($destinatario_para_elementos as $destinatario_para_elemento) {
+                $destinatarios_para[] = (object) [
+                        "email" => $destinatario_para_elemento
+                    ];
+
+                $personalizaciones[] = (object) [
+                        "email" => $destinatario_para_elemento,
                         "data" => [
                             "idTramite" => $idTramite,
                             "tramite_folioARCA" => $tramite_folioARCA,
@@ -1072,8 +1062,14 @@ $indiceConcesionario++;
                             "tramite_tipoFactura" => $tramite_tipoFactura,
                             "tramite_numeroFactura" => $tramite_numeroFactura
                         ]
-                    ]
-                ]
+                    ];
+            }
+
+            $json = [
+                "to" => $destinatarios_para,
+                "template_id" => "vywj2lp0kpk47oqz",
+                "subject" => $titulo,
+                "personalization" => $personalizaciones
             ];
 
             $parametros = [
@@ -1116,67 +1112,56 @@ $indiceConcesionario++;
 
             // Arma cadena de envio
 
+            $destinatarios_para = [];
+            $destinatarios_copia = [];
+            $personalizaciones = [];
+
+            $destinatario_para_elementos = explode(",", $destinatario_para);
+
+            foreach ($destinatario_para_elementos as $destinatario_para_elemento) {
+                $destinatarios_para[] = (object) [
+                        "email" => $destinatario_para_elemento
+                    ];
+
+                $personalizaciones[] = (object) [
+                        "email" => $destinatario_para_elemento,
+                        "data" => [
+                            "idTramite" => $idTramite,
+                            "tramite_folioARCA" => $tramite_folioARCA,
+                            "tramite_status" => $tramite_status,
+                            "concesionario_nombreComercial" => $concesionario_nombreComercial,
+                            "usuario_nombre" => $usuario_nombre,
+                            "mensajero_nombre" => $mensajero_nombre,
+                            "tramite_comentariosConcesionario" => $tramite_comentariosConcesionario,
+                            "tramite_comentariosARCA" => $tramite_comentariosARCA,
+                            "tramite_vehiculo_marca" => $tramite_vehiculo_marca,
+                            "tramite_vehiculo_modelo" => $tramite_vehiculo_modelo,
+                            "tramite_vehiculo_ano" => $tramite_vehiculo_ano,
+                            "tramite_vehiculo_color" => $tramite_vehiculo_color,
+                            "tramite_vehiculo_vin" => $tramite_vehiculo_vin,
+                            "tramite_cliente_nombre" => $tramite_cliente_nombre,
+                            "tramite_cliente_correoElectronico" => $tramite_cliente_correoElectronico,
+                            "tramite_tipoTramite" => $tramite_tipoTramite,
+                            "tramite_tipoFactura" => $tramite_tipoFactura,
+                            "tramite_numeroFactura" => $tramite_numeroFactura
+                        ]
+                    ];
+            }
+
+            $destinatario_copia_elementos = explode(",", $destinatario_copia);
+
+            foreach ($destinatario_copia_elementos as $destinatario_copia_elemento) {
+                $destinatarios_copia[] = (object) [
+                        "email" => $destinatario_copia_elemento
+                    ];
+            }
+
             $json = [
-                "to" => [
-                    [
-                        "email" => $destinatario_para
-                    ]
-                ],
-                "cc" => [
-                    [
-                        "email" => $destinatario_copia
-                    ]
-                ],
+                "to" => $destinatarios_para,
+                "cc" => $destinatarios_copia,
                 "template_id" => "351ndgw9mpd4zqx8",
                 "subject" => $titulo,
-                "personalization" => [
-                    [
-                        "email" => $destinatario_para,
-                        "data" => [
-                            "idTramite" => $idTramite,
-                            "tramite_folioARCA" => $tramite_folioARCA,
-                            "tramite_status" => $tramite_status,
-                            "concesionario_nombreComercial" => $concesionario_nombreComercial,
-                            "usuario_nombre" => $usuario_nombre,
-                            "mensajero_nombre" => $mensajero_nombre,
-                            "tramite_comentariosConcesionario" => $tramite_comentariosConcesionario,
-                            "tramite_comentariosARCA" => $tramite_comentariosARCA,
-                            "tramite_vehiculo_marca" => $tramite_vehiculo_marca,
-                            "tramite_vehiculo_modelo" => $tramite_vehiculo_modelo,
-                            "tramite_vehiculo_ano" => $tramite_vehiculo_ano,
-                            "tramite_vehiculo_color" => $tramite_vehiculo_color,
-                            "tramite_vehiculo_vin" => $tramite_vehiculo_vin,
-                            "tramite_cliente_nombre" => $tramite_cliente_nombre,
-                            "tramite_cliente_correoElectronico" => $tramite_cliente_correoElectronico,
-                            "tramite_tipoTramite" => $tramite_tipoTramite,
-                            "tramite_tipoFactura" => $tramite_tipoFactura,
-                            "tramite_numeroFactura" => $tramite_numeroFactura
-                        ]
-                    ],
-                    [
-                        "email" => $destinatario_copia,
-                        "data" => [
-                            "idTramite" => $idTramite,
-                            "tramite_folioARCA" => $tramite_folioARCA,
-                            "tramite_status" => $tramite_status,
-                            "concesionario_nombreComercial" => $concesionario_nombreComercial,
-                            "usuario_nombre" => $usuario_nombre,
-                            "mensajero_nombre" => $mensajero_nombre,
-                            "tramite_comentariosConcesionario" => $tramite_comentariosConcesionario,
-                            "tramite_comentariosARCA" => $tramite_comentariosARCA,
-                            "tramite_vehiculo_marca" => $tramite_vehiculo_marca,
-                            "tramite_vehiculo_modelo" => $tramite_vehiculo_modelo,
-                            "tramite_vehiculo_ano" => $tramite_vehiculo_ano,
-                            "tramite_vehiculo_color" => $tramite_vehiculo_color,
-                            "tramite_vehiculo_vin" => $tramite_vehiculo_vin,
-                            "tramite_cliente_nombre" => $tramite_cliente_nombre,
-                            "tramite_cliente_correoElectronico" => $tramite_cliente_correoElectronico,
-                            "tramite_tipoTramite" => $tramite_tipoTramite,
-                            "tramite_tipoFactura" => $tramite_tipoFactura,
-                            "tramite_numeroFactura" => $tramite_numeroFactura
-                        ]
-                    ]
-                ]
+                "personalization" => $personalizaciones
             ];
 
             $parametros = [
@@ -1215,23 +1200,18 @@ $indiceConcesionario++;
 
             // Arma cadena de envio
 
-            $json = [
-                "to" => [
-                    [
-                        "email" => $destinatario_para
-                    ]
-                ],
-                "template_id" => "z3m5jgrrepxgdpyo",
-                "subject" => $titulo,
-                "attachments" => [
-                    [
-                        "filename" => $archivoAdjunto_nombre,
-                        "content" => $archivoAdjunto_contenido
-                    ]
-                ],
-                "personalization" => [
-                    [
-                        "email" => $destinatario_para,
+            $destinatarios_para = [];
+            $personalizaciones = [];
+
+            $destinatario_para_elementos = explode(",", $destinatario_para);
+
+            foreach ($destinatario_para_elementos as $destinatario_para_elemento) {
+                $destinatarios_para[] = (object) [
+                        "email" => $destinatario_para_elemento
+                    ];
+
+                $personalizaciones[] = (object) [
+                        "email" => $destinatario_para_elemento,
                         "data" => [
                             "idTramite" => $idTramite,
                             "tramite_folioARCA" => $tramite_folioARCA,
@@ -1247,8 +1227,20 @@ $indiceConcesionario++;
                             "tramite_tipoFactura" => $tramite_tipoFactura,
                             "tramite_numeroFactura" => $tramite_numeroFactura
                         ]
+                    ];
+            }
+
+            $json = [
+                "to" => $destinatarios_para,
+                "template_id" => "z3m5jgrrepxgdpyo",
+                "subject" => $titulo,
+                "attachments" => [
+                    [
+                        "filename" => $archivoAdjunto_nombre,
+                        "content" => $archivoAdjunto_contenido
                     ]
-                ]
+                ],
+                "personalization" => $personalizaciones
             ];
 
             $parametros = [
@@ -1286,17 +1278,18 @@ $indiceConcesionario++;
 
             // Arma cadena de envio
 
-            $json = [
-                "to" => [
-                    [
-                        "email" => $destinatario_para
-                    ]
-                ],
-                "template_id" => "o65qngkzmqwgwr12",
-                "subject" => $titulo,
-                "personalization" => [
-                    [
-                        "email" => $destinatario_para,
+            $destinatarios_para = [];
+            $personalizaciones = [];
+
+            $destinatario_para_elementos = explode(",", $destinatario_para);
+
+            foreach ($destinatario_para_elementos as $destinatario_para_elemento) {
+                $destinatarios_para[] = (object) [
+                        "email" => $destinatario_para_elemento
+                    ];
+
+                $personalizaciones[] = (object) [
+                        "email" => $destinatario_para_elemento,
                         "data" => [
                             "idTramite" => $idTramite,
                             "tramite_folioARCA" => $tramite_folioARCA,
@@ -1313,8 +1306,14 @@ $indiceConcesionario++;
                             "tramite_tipoFactura" => $tramite_tipoFactura,
                             "tramite_numeroFactura" => $tramite_numeroFactura
                         ]
-                    ]
-                ]
+                    ];
+            }
+
+            $json = [
+                "to" => $destinatarios_para,
+                "template_id" => "o65qngkzmqwgwr12",
+                "subject" => $titulo,
+                "personalization" => $personalizaciones
             ];
 
             $parametros = [
@@ -1358,23 +1357,18 @@ $indiceConcesionario++;
 
             // Arma cadena de envio
 
-            $json = [
-                "to" => [
-                    [
-                        "email" => $destinatario_para
-                    ]
-                ],
-                "template_id" => "3yxj6ljjqm1ldo2r",
-                "subject" => $titulo,
-                "attachments" => [
-                    [
-                        "filename" => $archivoAdjunto_nombre,
-                        "content" => $archivoAdjunto_contenido
-                    ]
-                ],
-                "personalization" => [
-                    [
-                        "email" => $destinatario_para,
+            $destinatarios_para = [];
+            $personalizaciones = [];
+
+            $destinatario_para_elementos = explode(",", $destinatario_para);
+
+            foreach ($destinatario_para_elementos as $destinatario_para_elemento) {
+                $destinatarios_para[] = (object) [
+                        "email" => $destinatario_para_elemento
+                    ];
+
+                $personalizaciones[] = (object) [
+                        "email" => $destinatario_para_elemento,
                         "data" => [
                             "idTramite" => $idTramite,
                             "tramite_folioARCA" => $tramite_folioARCA,
@@ -1395,8 +1389,20 @@ $indiceConcesionario++;
                             "tramite_tipoFactura" => $tramite_tipoFactura,
                             "tramite_numeroFactura" => $tramite_numeroFactura
                         ]
+                    ];
+            }
+
+            $json = [
+                "to" => $destinatarios_para,
+                "template_id" => "3yxj6ljjqm1ldo2r",
+                "subject" => $titulo,
+                "attachments" => [
+                    [
+                        "filename" => $archivoAdjunto_nombre,
+                        "content" => $archivoAdjunto_contenido
                     ]
-                ]
+                ],
+                "personalization" => $personalizaciones
             ];
 
             $parametros = [
@@ -1433,17 +1439,18 @@ $indiceConcesionario++;
 
             // Arma cadena de envio
 
-            $json = [
-                "to" => [
-                    [
-                        "email" => $destinatario_para
-                    ]
-                ],
-                "template_id" => "pr9084zz65e4w63d",
-                "subject" => $titulo,
-                "personalization" => [
-                    [
-                        "email" => $destinatario_para,
+            $destinatarios_para = [];
+            $personalizaciones = [];
+
+            $destinatario_para_elementos = explode(",", $destinatario_para);
+
+            foreach ($destinatario_para_elementos as $destinatario_para_elemento) {
+                $destinatarios_para[] = (object) [
+                        "email" => $destinatario_para_elemento
+                    ];
+
+                $personalizaciones[] = (object) [
+                        "email" => $destinatario_para_elemento,
                         "data" => [
                             "idTramite" => $idTramite,
                             "tramite_folioARCA" => $tramite_folioARCA,
@@ -1459,8 +1466,14 @@ $indiceConcesionario++;
                             "tramite_tipoFactura" => $tramite_tipoFactura,
                             "tramite_numeroFactura" => $tramite_numeroFactura
                         ]
-                    ]
-                ]
+                    ];
+            }
+
+            $json = [
+                "to" => $destinatarios_para,
+                "template_id" => "pr9084zz65e4w63d",
+                "subject" => $titulo,
+                "personalization" => $personalizaciones
             ];
 
             $parametros = [
@@ -1505,23 +1518,18 @@ $indiceConcesionario++;
 
             // Arma cadena de envio
 
-            $json = [
-                "to" => [
-                    [
-                        "email" => $destinatario_para
-                    ]
-                ],
-                "template_id" => "x2p0347w0pklzdrn",
-                "subject" => $titulo,
-                "attachments" => [
-                    [
-                        "filename" => $archivoAdjunto_nombre,
-                        "content" => $archivoAdjunto_contenido
-                    ]
-                ],
-                "personalization" => [
-                    [
-                        "email" => $destinatario_para,
+            $destinatarios_para = [];
+            $personalizaciones = [];
+
+            $destinatario_para_elementos = explode(",", $destinatario_para);
+
+            foreach ($destinatario_para_elementos as $destinatario_para_elemento) {
+                $destinatarios_para[] = (object) [
+                        "email" => $destinatario_para_elemento
+                    ];
+
+                $personalizaciones[] = (object) [
+                        "email" => $destinatario_para_elemento,
                         "data" => [
                             "idTramite" => $idTramite,
                             "tramite_folioARCA" => $tramite_folioARCA,
@@ -1543,8 +1551,20 @@ $indiceConcesionario++;
                             "tramite_tipoFactura" => $tramite_tipoFactura,
                             "tramite_numeroFactura" => $tramite_numeroFactura
                         ]
+                    ];
+            }
+
+            $json = [
+                "to" => $destinatarios_para,
+                "template_id" => "x2p0347w0pklzdrn",
+                "subject" => $titulo,
+                "attachments" => [
+                    [
+                        "filename" => $archivoAdjunto_nombre,
+                        "content" => $archivoAdjunto_contenido
                     ]
-                ]
+                ],
+                "personalization" => $personalizaciones
             ];
 
             $parametros = [
@@ -1589,23 +1609,18 @@ $indiceConcesionario++;
 
             // Arma cadena de envio
 
-            $json = [
-                "to" => [
-                    [
-                        "email" => $destinatario_para
-                    ]
-                ],
-                "template_id" => "3zxk54vkqpxljy6v",
-                "subject" => $titulo,
-                "attachments" => [
-                    [
-                        "filename" => $archivoAdjunto_nombre,
-                        "content" => $archivoAdjunto_contenido
-                    ]
-                ],
-                "personalization" => [
-                    [
-                        "email" => $destinatario_para,
+            $destinatarios_para = [];
+            $personalizaciones = [];
+
+            $destinatario_para_elementos = explode(",", $destinatario_para);
+
+            foreach ($destinatario_para_elementos as $destinatario_para_elemento) {
+                $destinatarios_para[] = (object) [
+                        "email" => $destinatario_para_elemento
+                    ];
+
+                $personalizaciones[] = (object) [
+                        "email" => $destinatario_para_elemento,
                         "data" => [
                             "idTramite" => $idTramite,
                             "tramite_folioARCA" => $tramite_folioARCA,
@@ -1627,8 +1642,20 @@ $indiceConcesionario++;
                             "tramite_tipoFactura" => $tramite_tipoFactura,
                             "tramite_numeroFactura" => $tramite_numeroFactura
                         ]
+                    ];
+            }
+
+            $json = [
+                "to" => $destinatarios_para,
+                "template_id" => "3zxk54vkqpxljy6v",
+                "subject" => $titulo,
+                "attachments" => [
+                    [
+                        "filename" => $archivoAdjunto_nombre,
+                        "content" => $archivoAdjunto_contenido
                     ]
-                ]
+                ],
+                "personalization" => $personalizaciones
             ];
 
             $parametros = [
@@ -1673,23 +1700,18 @@ $indiceConcesionario++;
 
             // Arma cadena de envio
 
-            $json = [
-                "to" => [
-                    [
-                        "email" => $destinatario_para
-                    ]
-                ],
-                "template_id" => "jpzkmgqm9evl059v",
-                "subject" => $titulo,
-                "attachments" => [
-                    [
-                        "filename" => $archivoAdjunto_nombre,
-                        "content" => $archivoAdjunto_contenido
-                    ]
-                ],
-                "personalization" => [
-                    [
-                        "email" => $destinatario_para,
+            $destinatarios_para = [];
+            $personalizaciones = [];
+
+            $destinatario_para_elementos = explode(",", $destinatario_para);
+
+            foreach ($destinatario_para_elementos as $destinatario_para_elemento) {
+                $destinatarios_para[] = (object) [
+                        "email" => $destinatario_para_elemento
+                    ];
+
+                $personalizaciones[] = (object) [
+                        "email" => $destinatario_para_elemento,
                         "data" => [
                             "idTramite" => $idTramite,
                             "tramite_folioARCA" => $tramite_folioARCA,
@@ -1711,8 +1733,20 @@ $indiceConcesionario++;
                             "tramite_tipoFactura" => $tramite_tipoFactura,
                             "tramite_numeroFactura" => $tramite_numeroFactura
                         ]
+                    ];
+            }
+
+            $json = [
+                "to" => $destinatarios_para,
+                "template_id" => "jpzkmgqm9evl059v",
+                "subject" => $titulo,
+                "attachments" => [
+                    [
+                        "filename" => $archivoAdjunto_nombre,
+                        "content" => $archivoAdjunto_contenido
                     ]
-                ]
+                ],
+                "personalization" => $personalizaciones
             ];
 
             $parametros = [
@@ -1757,23 +1791,18 @@ $indiceConcesionario++;
 
             // Arma cadena de envio
 
-            $json = [
-                "to" => [
-                    [
-                        "email" => $destinatario_para
-                    ]
-                ],
-                "template_id" => "3z0vklodvkpg7qrx",
-                "subject" => $titulo,
-                "attachments" => [
-                    [
-                        "filename" => $archivoAdjunto_nombre,
-                        "content" => $archivoAdjunto_contenido
-                    ]
-                ],
-                "personalization" => [
-                    [
-                        "email" => $destinatario_para,
+            $destinatarios_para = [];
+            $personalizaciones = [];
+
+            $destinatario_para_elementos = explode(",", $destinatario_para);
+
+            foreach ($destinatario_para_elementos as $destinatario_para_elemento) {
+                $destinatarios_para[] = (object) [
+                        "email" => $destinatario_para_elemento
+                    ];
+
+                $personalizaciones[] = (object) [
+                        "email" => $destinatario_para_elemento,
                         "data" => [
                             "idTramite" => $idTramite,
                             "tramite_folioARCA" => $tramite_folioARCA,
@@ -1795,8 +1824,20 @@ $indiceConcesionario++;
                             "tramite_tipoFactura" => $tramite_tipoFactura,
                             "tramite_numeroFactura" => $tramite_numeroFactura
                         ]
+                    ];
+            }
+
+            $json = [
+                "to" => $destinatarios_para,
+                "template_id" => "3z0vklodvkpg7qrx",
+                "subject" => $titulo,
+                "attachments" => [
+                    [
+                        "filename" => $archivoAdjunto_nombre,
+                        "content" => $archivoAdjunto_contenido
                     ]
-                ]
+                ],
+                "personalization" => $personalizaciones
             ];
 
             $parametros = [
@@ -1841,23 +1882,18 @@ $indiceConcesionario++;
 
             // Arma cadena de envio
 
-            $json = [
-                "to" => [
-                    [
-                        "email" => $destinatario_para
-                    ]
-                ],
-                "template_id" => "yzkq340710kld796",
-                "subject" => $titulo,
-                "attachments" => [
-                    [
-                        "filename" => $archivoAdjunto_nombre,
-                        "content" => $archivoAdjunto_contenido
-                    ]
-                ],
-                "personalization" => [
-                    [
-                        "email" => $destinatario_para,
+            $destinatarios_para = [];
+            $personalizaciones = [];
+
+            $destinatario_para_elementos = explode(",", $destinatario_para);
+
+            foreach ($destinatario_para_elementos as $destinatario_para_elemento) {
+                $destinatarios_para[] = (object) [
+                        "email" => $destinatario_para_elemento
+                    ];
+
+                $personalizaciones[] = (object) [
+                        "email" => $destinatario_para_elemento,
                         "data" => [
                             "idTramite" => $idTramite,
                             "tramite_folioARCA" => $tramite_folioARCA,
@@ -1879,8 +1915,20 @@ $indiceConcesionario++;
                             "tramite_tipoFactura" => $tramite_tipoFactura,
                             "tramite_numeroFactura" => $tramite_numeroFactura
                         ]
+                    ];
+            }
+
+            $json = [
+                "to" => $destinatarios_para,
+                "template_id" => "yzkq340710kld796",
+                "subject" => $titulo,
+                "attachments" => [
+                    [
+                        "filename" => $archivoAdjunto_nombre,
+                        "content" => $archivoAdjunto_contenido
                     ]
-                ]
+                ],
+                "personalization" => $personalizaciones
             ];
 
             $parametros = [
@@ -1924,23 +1972,18 @@ $indiceConcesionario++;
 
             // Arma cadena de envio
 
-            $json = [
-                "to" => [
-                    [
-                        "email" => $destinatario_para
-                    ]
-                ],
-                "template_id" => "v69oxl5mdpd4785k",
-                "subject" => $titulo,
-                "attachments" => [
-                    [
-                        "filename" => $archivoAdjunto_nombre,
-                        "content" => $archivoAdjunto_contenido
-                    ]
-                ],
-                "personalization" => [
-                    [
-                        "email" => $destinatario_para,
+            $destinatarios_para = [];
+            $personalizaciones = [];
+
+            $destinatario_para_elementos = explode(",", $destinatario_para);
+
+            foreach ($destinatario_para_elementos as $destinatario_para_elemento) {
+                $destinatarios_para[] = (object) [
+                        "email" => $destinatario_para_elemento
+                    ];
+
+                $personalizaciones[] = (object) [
+                        "email" => $destinatario_para_elemento,
                         "data" => [
                             "idTramite" => $idTramite,
                             "tramite_folioARCA" => $tramite_folioARCA,
@@ -1961,8 +2004,20 @@ $indiceConcesionario++;
                             "tramite_tipoFactura" => $tramite_tipoFactura,
                             "tramite_numeroFactura" => $tramite_numeroFactura
                         ]
+                    ];
+            }
+
+            $json = [
+                "to" => $destinatarios_para,
+                "template_id" => "v69oxl5mdpd4785k",
+                "subject" => $titulo,
+                "attachments" => [
+                    [
+                        "filename" => $archivoAdjunto_nombre,
+                        "content" => $archivoAdjunto_contenido
                     ]
-                ]
+                ],
+                "personalization" => $personalizaciones
             ];
 
             $parametros = [
