@@ -187,14 +187,25 @@
                                                                     <select class="form-control select2-show-search form-select" data-placeholder="Ver todo" id="campo_status" name="status">
                                                                         <option <?php echo estaVacio($status) ? "selected" : "" ?> value="">Ver todo</option>
 
-                                                                        <?php
+                                                                        <!--?php
 
                                                                             $status_BD = consulta($conexion, "SELECT DISTINCT status FROM tramite s ORDER BY status");
 
                                                                             while ($estatu_BD = obtenResultado($status_BD)) {
                                                                                 echo "<option " . ($estatu_BD["status"] == $status ? "selected" : "") . " value='" . $estatu_BD["status"] . "'>" . $estatu_BD["status"] . "</option>";
                                                                             }
-                                                                        ?>
+                                                                        ?-->
+                                                                        
+                                                                        <option <?php echo $status == "Enviado a ARCA" ? "selected" : "" ?> value="Enviado a ARCA">Enviado a ARCA</option>
+                                                                        <option <?php echo $status == "Devuelto a la agencia" ? "selected" : "" ?> value="Devuelto a la agencia">Devuelto a la agencia</option>
+                                                                        <option <?php echo $status == "Reenviado a ARCA" ? "selected" : "" ?> value="Reenviado a ARCA">Reenviado a ARCA</option>
+                                                                        <option <?php echo $status == "A la espera de respuesta de ICV" ? "selected" : "" ?> value="A la espera de respuesta de ICV">A la espera de respuesta de ICV</option>
+                                                                        <option <?php echo $status == "Aprobado" ? "selected" : "" ?> value="Aprobado">Aprobado</option>
+                                                                        <option <?php echo $status == "Aprobado con biométricos" ? "selected" : "" ?> value="Aprobado con biométricos">Aprobado con biométricos</option>
+                                                                        <option <?php echo $status == "Rechazado" ? "selected" : "" ?> value="Rechazado">Rechazado</option>
+                                                                        <option <?php echo $status == "Cancelado" ? "selected" : "" ?> value="Cancelado">Cancelado</option>
+                                                                        <option <?php echo $status == "Actualización solicitada a ARCA" ? "selected" : "" ?> value="Actualización solicitada a ARCA">Actualización solicitada a ARCA</option>
+                                                                        <option <?php echo $status == "Actualización solicitada a ICV" ? "selected" : "" ?> value="Actualización solicitada a ICV">Actualización solicitada a ICV</option>
                                                                     </select>
                                                                 </div>
                                                             </div>                                                            
