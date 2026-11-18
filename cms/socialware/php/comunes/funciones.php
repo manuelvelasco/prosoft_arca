@@ -898,7 +898,7 @@ $indiceConcesionario++;
                 $titulo = "Seminuevos ARCA | Sincronización de inventario";
                 $mensaje = "Hola,<br /><br />te informamos que el proceso de sincronización con Intelimotors que has solicitado se ha concretado con éxito.";
 
-                enviaCorreo($usuario_correoElectronico, $titulo, $mensaje);
+//enviaCorreo($usuario_correoElectronico, $titulo, $mensaje);
             }
 
             // Cierra la conexion con base de datos y libera recursos
@@ -918,8 +918,6 @@ $indiceConcesionario++;
         $destinatario_para
         , $destinatario_copia
         , $titulo
-        , $archivoAdjunto_nombre
-        , $archivoAdjunto_contenido
         , $idTramite
         , $tramite_folioARCA
         , $concesionario_nombreComercial
@@ -937,7 +935,8 @@ $indiceConcesionario++;
         , $tramite_cliente_correoElectronico
         , $tramite_tipoTramite
         , $tramite_tipoFactura
-        , $tramite_numeroFactura) {
+        , $tramite_numeroFactura
+        , $archivoAdjunto) {
 
         try {
 
@@ -992,18 +991,13 @@ $indiceConcesionario++;
                 "cc" => $destinatarios_copia,
                 "template_id" => "pxkjn41qdrplz781",
                 "subject" => $titulo,
-                "attachments" => [
-                    [
-                        "filename" => $archivoAdjunto_nombre,
-                        "content" => $archivoAdjunto_contenido
-                    ]
-                ],
                 "personalization" => $personalizaciones
             ];
 
             $parametros = [
                 "aplicacion" => "seminuevosarca.com.mx",
-                "json" => json_encode($json)
+                "json" => json_encode($json),
+                "archivoAdjunto" => $archivoAdjunto
             ];
 
             // Envia correo
@@ -1180,8 +1174,6 @@ $indiceConcesionario++;
     function delegacionVirtual_enviaCorreo_cancelado_usuario(
         $destinatario_para
         , $titulo
-        , $archivoAdjunto_nombre
-        , $archivoAdjunto_contenido
         , $idTramite
         , $tramite_folioARCA
         , $tramite_status
@@ -1194,7 +1186,8 @@ $indiceConcesionario++;
         , $tramite_cliente_correoElectronico
         , $tramite_tipoTramite
         , $tramite_tipoFactura
-        , $tramite_numeroFactura) {
+        , $tramite_numeroFactura
+        , $archivoAdjunto) {
 
         try {
 
@@ -1234,18 +1227,13 @@ $indiceConcesionario++;
                 "to" => $destinatarios_para,
                 "template_id" => "z3m5jgrrepxgdpyo",
                 "subject" => $titulo,
-                "attachments" => [
-                    [
-                        "filename" => $archivoAdjunto_nombre,
-                        "content" => $archivoAdjunto_contenido
-                    ]
-                ],
                 "personalization" => $personalizaciones
             ];
 
             $parametros = [
                 "aplicacion" => "seminuevosarca.com.mx",
-                "json" => json_encode($json)
+                "json" => json_encode($json),
+                "archivoAdjunto" => $archivoAdjunto
             ];
 
             // Envia correo
@@ -1332,8 +1320,6 @@ $indiceConcesionario++;
     function delegacionVirtual_enviaCorreo_enviadoAARCA(
         $destinatario_para
         , $titulo
-        , $archivoAdjunto_nombre
-        , $archivoAdjunto_contenido
         , $idTramite
         , $tramite_folioARCA
         , $tramite_status
@@ -1351,7 +1337,8 @@ $indiceConcesionario++;
         , $tramite_cliente_correoElectronico
         , $tramite_tipoTramite
         , $tramite_tipoFactura
-        , $tramite_numeroFactura) {
+        , $tramite_numeroFactura
+        , $archivoAdjunto) {
 
         try {
 
@@ -1396,18 +1383,13 @@ $indiceConcesionario++;
                 "to" => $destinatarios_para,
                 "template_id" => "3yxj6ljjqm1ldo2r",
                 "subject" => $titulo,
-                "attachments" => [
-                    [
-                        "filename" => $archivoAdjunto_nombre,
-                        "content" => $archivoAdjunto_contenido
-                    ]
-                ],
                 "personalization" => $personalizaciones
             ];
 
             $parametros = [
                 "aplicacion" => "seminuevosarca.com.mx",
-                "json" => json_encode($json)
+                "json" => json_encode($json),
+                "archivoAdjunto" => $archivoAdjunto
             ];
 
             // Envia correo
@@ -1492,8 +1474,6 @@ $indiceConcesionario++;
     function delegacionVirtual_enviaCorreo_reenviadoAARCA(
         $destinatario_para
         , $titulo
-        , $archivoAdjunto_nombre
-        , $archivoAdjunto_contenido
         , $idTramite
         , $tramite_folioARCA
         , $tramite_status
@@ -1512,7 +1492,8 @@ $indiceConcesionario++;
         , $tramite_cliente_correoElectronico
         , $tramite_tipoTramite
         , $tramite_tipoFactura
-        , $tramite_numeroFactura) {
+        , $tramite_numeroFactura
+        , $archivoAdjunto) {
 
         try {
 
@@ -1558,18 +1539,13 @@ $indiceConcesionario++;
                 "to" => $destinatarios_para,
                 "template_id" => "x2p0347w0pklzdrn",
                 "subject" => $titulo,
-                "attachments" => [
-                    [
-                        "filename" => $archivoAdjunto_nombre,
-                        "content" => $archivoAdjunto_contenido
-                    ]
-                ],
                 "personalization" => $personalizaciones
             ];
 
             $parametros = [
                 "aplicacion" => "seminuevosarca.com.mx",
-                "json" => json_encode($json)
+                "json" => json_encode($json),
+                "archivoAdjunto" => $archivoAdjunto
             ];
 
             // Envia correo
@@ -1583,8 +1559,6 @@ $indiceConcesionario++;
     function delegacionVirtual_enviaCorreo_comprobanteDePago(
         $destinatario_para
         , $titulo
-        , $archivoAdjunto_nombre
-        , $archivoAdjunto_contenido
         , $idTramite
         , $tramite_folioARCA
         , $tramite_status
@@ -1603,7 +1577,8 @@ $indiceConcesionario++;
         , $tramite_cliente_correoElectronico
         , $tramite_tipoTramite
         , $tramite_tipoFactura
-        , $tramite_numeroFactura) {
+        , $tramite_numeroFactura
+        , $archivoAdjunto) {
 
         try {
 
@@ -1649,18 +1624,13 @@ $indiceConcesionario++;
                 "to" => $destinatarios_para,
                 "template_id" => "3zxk54vkqpxljy6v",
                 "subject" => $titulo,
-                "attachments" => [
-                    [
-                        "filename" => $archivoAdjunto_nombre,
-                        "content" => $archivoAdjunto_contenido
-                    ]
-                ],
                 "personalization" => $personalizaciones
             ];
 
             $parametros = [
                 "aplicacion" => "seminuevosarca.com.mx",
-                "json" => json_encode($json)
+                "json" => json_encode($json),
+                "archivoAdjunto" => $archivoAdjunto
             ];
 
             // Envia correo
@@ -1674,8 +1644,6 @@ $indiceConcesionario++;
     function delegacionVirtual_enviaCorreo_comprobanteBiometricos(
         $destinatario_para
         , $titulo
-        , $archivoAdjunto_nombre
-        , $archivoAdjunto_contenido
         , $idTramite
         , $tramite_folioARCA
         , $tramite_status
@@ -1694,7 +1662,8 @@ $indiceConcesionario++;
         , $tramite_cliente_correoElectronico
         , $tramite_tipoTramite
         , $tramite_tipoFactura
-        , $tramite_numeroFactura) {
+        , $tramite_numeroFactura
+        , $archivoAdjunto) {
 
         try {
 
@@ -1740,18 +1709,13 @@ $indiceConcesionario++;
                 "to" => $destinatarios_para,
                 "template_id" => "jpzkmgqm9evl059v",
                 "subject" => $titulo,
-                "attachments" => [
-                    [
-                        "filename" => $archivoAdjunto_nombre,
-                        "content" => $archivoAdjunto_contenido
-                    ]
-                ],
                 "personalization" => $personalizaciones
             ];
 
             $parametros = [
                 "aplicacion" => "seminuevosarca.com.mx",
-                "json" => json_encode($json)
+                "json" => json_encode($json),
+                "archivoAdjunto" => $archivoAdjunto
             ];
 
             // Envia correo
@@ -1765,8 +1729,6 @@ $indiceConcesionario++;
     function delegacionVirtual_enviaCorreo_comprobanteE6(
         $destinatario_para
         , $titulo
-        , $archivoAdjunto_nombre
-        , $archivoAdjunto_contenido
         , $idTramite
         , $tramite_folioARCA
         , $tramite_status
@@ -1785,7 +1747,8 @@ $indiceConcesionario++;
         , $tramite_cliente_correoElectronico
         , $tramite_tipoTramite
         , $tramite_tipoFactura
-        , $tramite_numeroFactura) {
+        , $tramite_numeroFactura
+        , $archivoAdjunto) {
 
         try {
 
@@ -1831,18 +1794,13 @@ $indiceConcesionario++;
                 "to" => $destinatarios_para,
                 "template_id" => "3z0vklodvkpg7qrx",
                 "subject" => $titulo,
-                "attachments" => [
-                    [
-                        "filename" => $archivoAdjunto_nombre,
-                        "content" => $archivoAdjunto_contenido
-                    ]
-                ],
                 "personalization" => $personalizaciones
             ];
 
             $parametros = [
                 "aplicacion" => "seminuevosarca.com.mx",
-                "json" => json_encode($json)
+                "json" => json_encode($json),
+                "archivoAdjunto" => $archivoAdjunto
             ];
 
             // Envia correo
@@ -1856,8 +1814,6 @@ $indiceConcesionario++;
     function delegacionVirtual_enviaCorreo_actualizacionSolicitadaARCA(
         $destinatario_para
         , $titulo
-        , $archivoAdjunto_nombre
-        , $archivoAdjunto_contenido
         , $idTramite
         , $tramite_folioARCA
         , $tramite_status
@@ -1876,7 +1832,8 @@ $indiceConcesionario++;
         , $tramite_cliente_correoElectronico
         , $tramite_tipoTramite
         , $tramite_tipoFactura
-        , $tramite_numeroFactura) {
+        , $tramite_numeroFactura
+        , $archivoAdjunto) {
 
         try {
 
@@ -1922,18 +1879,13 @@ $indiceConcesionario++;
                 "to" => $destinatarios_para,
                 "template_id" => "yzkq340710kld796",
                 "subject" => $titulo,
-                "attachments" => [
-                    [
-                        "filename" => $archivoAdjunto_nombre,
-                        "content" => $archivoAdjunto_contenido
-                    ]
-                ],
                 "personalization" => $personalizaciones
             ];
 
             $parametros = [
                 "aplicacion" => "seminuevosarca.com.mx",
-                "json" => json_encode($json)
+                "json" => json_encode($json),
+                "archivoAdjunto" => $archivoAdjunto
             ];
 
             // Envia correo
@@ -1947,8 +1899,6 @@ $indiceConcesionario++;
     function delegacionVirtual_enviaCorreo_actualizacionSolicitadaICV(
         $destinatario_para
         , $titulo
-        , $archivoAdjunto_nombre
-        , $archivoAdjunto_contenido
         , $idTramite
         , $tramite_folioARCA
         , $concesionario_nombreComercial
@@ -1966,7 +1916,8 @@ $indiceConcesionario++;
         , $tramite_cliente_correoElectronico
         , $tramite_tipoTramite
         , $tramite_tipoFactura
-        , $tramite_numeroFactura) {
+        , $tramite_numeroFactura
+        , $archivoAdjunto) {
 
         try {
 
@@ -2011,18 +1962,13 @@ $indiceConcesionario++;
                 "to" => $destinatarios_para,
                 "template_id" => "v69oxl5mdpd4785k",
                 "subject" => $titulo,
-                "attachments" => [
-                    [
-                        "filename" => $archivoAdjunto_nombre,
-                        "content" => $archivoAdjunto_contenido
-                    ]
-                ],
                 "personalization" => $personalizaciones
             ];
 
             $parametros = [
                 "aplicacion" => "seminuevosarca.com.mx",
-                "json" => json_encode($json)
+                "json" => json_encode($json),
+                "archivoAdjunto" => $archivoAdjunto
             ];
 
             // Envia correo

@@ -33,14 +33,13 @@
         $correoNotificacion = obtenResultado(consulta($conexion, "SELECT * FROM parametro WHERE nombre = 'delegacionVirtual_reenviarTramiteARCA_correosARCA'"))["valor"];
         $correoNotificacion_copia = null;
         $archivo = $constante_rutaTramites . "/" . $idTramite . "/" . $tramite["archivo_expediente"];
+        $archivoAdjunto = $constante_urlTramites . "/" . $idTramite . "/" . $tramite["archivo_expediente"];
 
         $titulo = "ARCA - " . $tramite["folioARCA"] . " - " . $concesionario["nombreComercial"] . " - " . trim($tramite["cliente_nombre"] . " " . $tramite["cliente_apellidoPaterno"] . " " . $tramite["cliente_apellidoMaterno"]) . " - ACTUALIZACION";
 
         delegacionVirtual_enviaCorreo_reenviadoAARCA(
             $correoNotificacion
             , $titulo
-            , $tramite["archivo_expediente"]
-            , base64_encode(file_get_contents($archivo))
             , $idTramite
             , $tramite["folioARCA"]
             , $tramite["status"]
@@ -59,7 +58,8 @@
             , $tramite["cliente_correoElectronico"]
             , $tramite["tipoTramite"]
             , $tramite["tipoFactura"]
-            , $tramite["numeroFactura"]);
+            , $tramite["numeroFactura"]
+            , $archivoAdjunto);
 
         echo "ok";
     } catch (Exception $ex) {

@@ -577,12 +577,11 @@
                                     $titulo = "ARCA - " . $folioARCA . " - " . $concesionario["nombreComercial"] . " - " . trim($cliente_nombre . " " . $cliente_apellidoPaterno . " " . $cliente_apellidoMaterno) . " - COMPROBANTE DE PAGO CARGADO";
 
                                     $archivoCorreo = $constante_rutaTramites . "/" . $id . "/" . $archivo_comprobantePago;
+                                    $archivoAdjunto = $constante_urlTramites . "/" . $id . "/" . $archivo_comprobantePago;
 
                                     delegacionVirtual_enviaCorreo_comprobanteDePago(
                                         $correoNotificar
                                         , $titulo
-                                        , $archivo_comprobantePago
-                                        , base64_encode(file_get_contents($archivoCorreo))
                                         , $id
                                         , $folioARCA
                                         , $status
@@ -601,7 +600,8 @@
                                         , $cliente_correoElectronico
                                         , $tipoTramite
                                         , $tipoFactura
-                                        , $numeroFactura);
+                                        , $numeroFactura
+                                        , $archivoAdjunto);
                                 } catch (Exception $e) {
                                 }
                             } else if (isset($_FILES["archivo_comprobanteBiometricos"]) && $_FILES["archivo_comprobanteBiometricos"]["size"] > 0) {
@@ -702,12 +702,11 @@
                                     $titulo = "ARCA - " . $folioARCA . " - " . $concesionario["nombreComercial"] . " - " . trim($cliente_nombre . " " . $cliente_apellidoPaterno . " " . $cliente_apellidoMaterno) . " - COMPROBANTE BIOMÉTRICOS CARGADO";
 
                                     $archivoCorreo = $constante_rutaTramites . "/" . $id . "/" . $archivo_comprobanteBiometricos;
+                                    $archivoAdjunto = $constante_urlTramites . "/" . $id . "/" . $archivo_comprobanteBiometricos;
 
                                     delegacionVirtual_enviaCorreo_comprobanteBiometricos(
                                         $correoNotificar
                                         , $titulo
-                                        , $archivo_comprobanteBiometricos
-                                        , base64_encode(file_get_contents($archivoCorreo))
                                         , $id
                                         , $folioARCA
                                         , $status
@@ -726,7 +725,8 @@
                                         , $cliente_correoElectronico
                                         , $tipoTramite
                                         , $tipoFactura
-                                        , $numeroFactura);
+                                        , $numeroFactura
+                                        , $archivoAdjunto);
                                 } catch (Exception $e) {
                                 }
                             } else if (isset($_FILES["archivo_comprobanteE6"]) && $_FILES["archivo_comprobanteE6"]["size"] > 0) {
@@ -827,12 +827,11 @@
                                     $titulo = "ARCA - " . $folioARCA . " - " . $concesionario["nombreComercial"] . " - " . trim($cliente_nombre . " " . $cliente_apellidoPaterno . " " . $cliente_apellidoMaterno) . " - COMPROBANTE DE E6 CARGADO";
 
                                     $archivoCorreo = $constante_rutaTramites . "/" . $id . "/" . $archivo_comprobanteE6;
+                                    $archivoAdjunto = $constante_urlTramites . "/" . $id . "/" . $archivo_comprobanteE6;
 
                                     delegacionVirtual_enviaCorreo_comprobanteE6(
                                         $correoNotificar
                                         , $titulo
-                                        , $archivo_comprobanteE6
-                                        , base64_encode(file_get_contents($archivoCorreo))
                                         , $id
                                         , $folioARCA
                                         , $status
@@ -851,7 +850,8 @@
                                         , $cliente_correoElectronico
                                         , $tipoTramite
                                         , $tipoFactura
-                                        , $numeroFactura);
+                                        , $numeroFactura
+                                        , $archivoAdjunto);
                                 } catch (Exception $e) {
                                 }
                             } else {
@@ -1227,12 +1227,11 @@
                                             $titulo = "ARCA - " . $folioARCA . " - " . $concesionario["nombreComercial"] . " - " . trim($cliente_nombre . " " . $cliente_apellidoPaterno . " " . $cliente_apellidoMaterno) . " - ACTUALIZACION";
 
                                             $archivoCorreo = $constante_rutaTramites . "/" . $id . "/" . $archivo_expediente;
+                                            $archivoAdjunto = $constante_urlTramites . "/" . $id . "/" . $archivo_expediente;
 
                                             delegacionVirtual_enviaCorreo_actualizacionSolicitadaARCA(
                                                 $correoNotificar
                                                 , $titulo
-                                                , $archivo_expediente
-                                                , base64_encode(file_get_contents($archivoCorreo))
                                                 , $id
                                                 , $folioARCA
                                                 , $status
@@ -1251,7 +1250,8 @@
                                                 , $cliente_correoElectronico
                                                 , $tipoTramite
                                                 , $tipoFactura
-                                                , $numeroFactura);
+                                                , $numeroFactura
+                                                , $archivoAdjunto);
 
                                             break;
                                         case "Actualización solicitada a ICV":
@@ -1260,12 +1260,11 @@
                                             $titulo = "ARCA - " . $folioARCA . " - " . $concesionario["nombreComercial"] . " - " . trim($cliente_nombre . " " . $cliente_apellidoPaterno . " " . $cliente_apellidoMaterno) . " - ACTUALIZACION";
 
                                             $archivoCorreo = $constante_rutaTramites . "/" . $id . "/" . $archivo_expediente;
+                                            $archivoAdjunto = $constante_urlTramites . "/" . $id . "/" . $archivo_expediente;
 
                                             delegacionVirtual_enviaCorreo_actualizacionSolicitadaICV(
                                                 $correoNotificar
                                                 , $titulo
-                                                , $archivo_expediente
-                                                , base64_encode(file_get_contents($archivoCorreo))
                                                 , $id
                                                 , $folioARCA
                                                 , $concesionario["nombreComercial"]
@@ -1283,7 +1282,8 @@
                                                 , $cliente_correoElectronico
                                                 , $tipoTramite
                                                 , $tipoFactura
-                                                , $numeroFactura);
+                                                , $numeroFactura
+                                                , $archivoAdjunto);
 
                                             break;
                                     }

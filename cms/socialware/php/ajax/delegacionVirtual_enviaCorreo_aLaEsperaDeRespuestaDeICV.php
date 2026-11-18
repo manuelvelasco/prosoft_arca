@@ -33,6 +33,8 @@
         $correoNotificacion = obtenResultado(consulta($conexion, "SELECT * FROM parametro WHERE nombre = 'delegacionVirtual_enviarTramiteICV_correosICV'"))["valor"];
         $correoNotificacion_copia = obtenResultado(consulta($conexion, "SELECT * FROM parametro WHERE nombre = 'delegacionVirtual_enviarTramiteICV_correosARCA'"))["valor"];
         $archivo = $constante_rutaTramites . "/" . $idTramite . "/" . $tramite["archivo_expediente"];
+        $archivo = $constante_rutaTramites . "/" . $idTramite . "/" . $tramite["archivo_expediente"];
+        $archivoAdjunto = $constante_urlTramites . "/" . $idTramite . "/" . $tramite["archivo_expediente"];
 
         $titulo = "ARCA - " . $tramite["folioARCA"] . " - " . $concesionario["nombreComercial"] . " - " . trim($tramite["cliente_nombre"] . " " . $tramite["cliente_apellidoPaterno"] . " " . $tramite["cliente_apellidoMaterno"]);
 
@@ -40,8 +42,6 @@
             $correoNotificacion
             , $correoNotificacion_copia
             , $titulo
-            , $tramite["archivo_expediente"]
-            , base64_encode(file_get_contents($archivo))
             , $idTramite
             , $tramite["folioARCA"]
             , $concesionario["nombreComercial"]
@@ -59,7 +59,8 @@
             , $tramite["cliente_correoElectronico"]
             , $tramite["tipoTramite"]
             , $tramite["tipoFactura"]
-            , $tramite["numeroFactura"]);
+            , $tramite["numeroFactura"]
+            , $archivoAdjunto);
 
         echo "ok";
     } catch (Exception $ex) {
