@@ -440,6 +440,7 @@
 
                                         $nombreEstandarizado = $id . "_expediente_" . date("YmdHis") . "_" . rand(100, 999) . "." . pathinfo($archivo["name"], PATHINFO_EXTENSION);
                                         $archivoDestino = $constante_rutaTramites . "/" . $id . "/" . $nombreEstandarizado;
+                                        $archivoAdjunto = $constante_urlTramites . "/" . $id . "/" . $nombreEstandarizado;
 
                                         if (!file_exists($constante_rutaTramites . "/" . $id)) {
                                             //mkdir($constante_rutaTramites . "/" . $id, 0755, true);
@@ -470,8 +471,6 @@
                                 delegacionVirtual_enviaCorreo_enviadoAARCA(
                                     $correoNotificacion
                                     , $titulo
-                                    , $archivo_expediente
-                                    , base64_encode(file_get_contents($archivoDestino))
                                     , $id
                                     , $folioARCA
                                     , $status
@@ -489,7 +488,8 @@
                                     , $cliente_correoElectronico
                                     , $tipoTramite
                                     , $tipoFactura
-                                    , $numeroFactura);
+                                    , $numeroFactura
+                                    , $archivoAdjunto);
 
                                 $mensaje = "ok - El tramite ha sido registrado";
 
@@ -1049,12 +1049,11 @@
                                             $titulo = "ARCA - " . $folioARCA . " - " . $concesionario["nombreComercial"] . " - " . trim($cliente_nombre . " " . $cliente_apellidoPaterno . " " . $cliente_apellidoMaterno) . " - ACTUALIZACION";
 
                                             $archivoCorreo = $constante_rutaTramites . "/" . $id . "/" . $archivo_expediente;
+                                            $archivoAdjunto = $constante_urlTramites . "/" . $id . "/" . $archivo_expediente;
 
                                             delegacionVirtual_enviaCorreo_reenviadoAARCA(
                                                 $correoNotificar
                                                 , $titulo
-                                                , $archivo_expediente
-                                                , base64_encode(file_get_contents($archivoCorreo))
                                                 , $id
                                                 , $folioARCA
                                                 , $status
@@ -1073,7 +1072,8 @@
                                                 , $cliente_correoElectronico
                                                 , $tipoTramite
                                                 , $tipoFactura
-                                                , $numeroFactura);
+                                                , $numeroFactura
+                                                , $archivoAdjunto);
 
                                             break;
                                         case "A la espera de respuesta de ICV":
@@ -1083,13 +1083,12 @@
                                             $titulo = "ARCA - " . $folioARCA . " - " . $concesionario["nombreComercial"] . " - " . trim($cliente_nombre . " " . $cliente_apellidoPaterno . " " . $cliente_apellidoMaterno);
 
                                             $archivoCorreo = $constante_rutaTramites . "/" . $id . "/" . $archivo_expediente;
+                                            $archivoAdjunto = $constante_urlTramites . "/" . $id . "/" . $archivo_expediente;
 
                                             delegacionVirtual_enviaCorreo_aLaEsperaDeRespuestaDeICV(
                                                 $correoNotificar
                                                 , $correoNotificarCopia
                                                 , $titulo
-                                                , $archivo_expediente
-                                                , base64_encode(file_get_contents($archivoCorreo))
                                                 , $id
                                                 , $folioARCA
                                                 , $concesionario["nombreComercial"]
@@ -1107,7 +1106,8 @@
                                                 , $cliente_correoElectronico
                                                 , $tipoTramite
                                                 , $tipoFactura
-                                                , $numeroFactura);
+                                                , $numeroFactura
+                                                , $archivoAdjunto);
 
                                             break;
                                         case "Aprobado":
@@ -1168,12 +1168,11 @@
                                             $titulo = "ARCA - " . $folioARCA . " - " . $concesionario["nombreComercial"] . " - " . trim($cliente_nombre . " " . $cliente_apellidoPaterno . " " . $cliente_apellidoMaterno) . " - ACTUALIZACION";
 
                                             $archivoCorreo = $constante_rutaTramites . "/" . $id . "/" . $archivo_expediente;
+                                            $archivoAdjunto = $constante_urlTramites . "/" . $id . "/" . $archivo_expediente;
 
                                             delegacionVirtual_enviaCorreo_cancelado_usuario(
                                                 $correoNotificar
                                                 , $titulo
-                                                , $archivo_expediente
-                                                , base64_encode(file_get_contents($archivoCorreo))
                                                 , $id
                                                 , $folioARCA
                                                 , $status
@@ -1186,7 +1185,8 @@
                                                 , $cliente_correoElectronico
                                                 , $tipoTramite
                                                 , $tipoFactura
-                                                , $numeroFactura);
+                                                , $numeroFactura
+                                                , $archivoAdjunto);
 
                                             if ($statusAnterior == "A la espera de respuesta de ICV"
                                                 || $statusAnterior == "Aprobado"
