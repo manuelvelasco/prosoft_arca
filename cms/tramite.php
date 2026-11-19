@@ -1200,6 +1200,7 @@
                                                 delegacionVirtual_enviaCorreo_cancelado(
                                                     $correoNotificar
                                                     , $correoNotificarCopia
+                                                    , $titulo
                                                     , $id
                                                     , $folioARCA
                                                     , $status
@@ -3412,7 +3413,6 @@
 
             function solicitarActualizacionFolio() {
                 //event.preventDefault();
-
 
                 if (confirm("¿Desea solicitar actualización de este trámite a ARCA?")) {
                     if (!validaArchivos()) {
