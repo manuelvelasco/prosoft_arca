@@ -266,11 +266,11 @@
                 }
 
                 if (isset($_FILES["archivo_checklistE6"]) && $_FILES["archivo_checklistE6"]["size"] > 22020096) {
-                    $mensaje .= "* PDF de checklist para E6 debe pesar menos de 20 MB<br />";
+                    $mensaje .= "* PDF de checklist para E6 foliado debe pesar menos de 20 MB<br />";
                 }
 
                 if (isset($_FILES["archivo_comprobanteE6"]) && $_FILES["archivo_comprobanteE6"]["size"] > 22020096) {
-                    $mensaje .= "* PDF de checklist para E6 debe pesar menos de 20 MB<br />";
+                    $mensaje .= "* PDF de checklist para E6 foliado debe pesar menos de 20 MB<br />";
                 }
 
                 if (isset($_FILES["archivo_comprobanteBiometricos"]) && $_FILES["archivo_comprobanteBiometricos"]["size"] > 22020096) {
@@ -2531,7 +2531,7 @@
 
                                                         <div class="col-md-6 col-sm-12">
                                                             <div class="form-group">
-                                                                <label class="form-label mb-10">PDF de checklist para E6</label>
+                                                                <label class="form-label mb-10">PDF de checklist para E6 foliado</label>
 
                                                                 <div>
                                                                     <input id="campo_archivo_comprobanteE6" name="archivo_comprobanteE6" type="file" <?php echo $habilitar_campo_archivo_comprobanteE6 ? "" : "disabled" ?> />
@@ -2696,7 +2696,7 @@
 
                                                             <div class="col-md-6 col-sm-12">
                                                                 <div class="form-group">
-                                                                    <label class="form-label mb-10">PDF de checklist para E6</label>
+                                                                    <label class="form-label mb-10">PDF de checklist para E6 foliado</label>
 
                                                                     <div>
                                                                         <input id="campo_archivo_checklistE6" name="archivo_checklistE6" type="file" <?php echo $habilitar_campo_archivo_checklistE6 ? "" : "disabled" ?> />
