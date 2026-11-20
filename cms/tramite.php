@@ -3104,11 +3104,11 @@
 
 
             function cargaAnos() {
-                var marca = $("#campo_vehiculo_marca option:selected").val();
-                var modelo = $("#campo_vehiculo_modelo option:selected").val();
-
                 var idMarca = $("#campo_vehiculo_marca option:selected").attr("data-id");
+                var marca = $("#campo_vehiculo_marca option:selected").val();
+
                 var idModelo = $("#campo_vehiculo_modelo option:selected").attr("data-id");
+                var modelo = $("#campo_vehiculo_modelo option:selected").val();
 
                 $.ajax({
                     url: "socialware/php/ajax/cargaAnos.php?idMarca=" + idMarca + "&marca=" + marca + "&idModelo=" + idModelo + "&modelo=" + modelo,
