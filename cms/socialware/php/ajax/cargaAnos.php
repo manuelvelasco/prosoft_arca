@@ -68,6 +68,10 @@
             ];
         }
 
+        // Ordena el arreglo de forma ascendente
+
+        usort($resultado["data"], fn($a, $b) => $a["name"] <=> $b["name"]);
+
         // Devuelve el resultado a string
 
         $jsonActualizado = json_encode($resultado);
