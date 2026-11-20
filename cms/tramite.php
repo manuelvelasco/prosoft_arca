@@ -3104,8 +3104,8 @@
 
 
             function cargaAnos() {
-                var marca = $("#select_marca option:selected").val();
-                var modelo = $("#select_modelo option:selected").val();
+                var marca = $("#campo_vehiculo_marca option:selected").val();
+                var modelo = $("#campo_vehiculo_modelo option:selected").val();
 
                 var idMarca = $("#campo_vehiculo_marca option:selected").attr("data-id");
                 var idModelo = $("#campo_vehiculo_modelo option:selected").attr("data-id");
