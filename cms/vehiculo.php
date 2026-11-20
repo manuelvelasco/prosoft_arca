@@ -5214,12 +5214,16 @@ error_log("\nidUsuario = " . $usuario_id, 3, $rutaLog);*/
                 });
             }
 
+
             function cargaAnos(){
+                var marca = $("#select_marca option:selected").val();
+                var modelo = $("#select_modelo option:selected").val();
+
                 var idMarca = $("#select_marca option:selected").attr("data-id");
                 var idModelo = $("#select_modelo option:selected").attr("data-id");
 
                 $.ajax({
-                    url: "socialware/php/ajax/cargaAnos.php?marca=" + idMarca + "&modelo=" + idModelo,
+                    url: "socialware/php/ajax/cargaAnos.php?idMarca=" + idMarca + "&marca=" + marca + "&idModelo=" + idModelo + "&modelo=" + modelo,
                     type: "post"
                 }).done(function (resultado, textStatus, jqXHR) {
                     var contenido = "";
@@ -5227,21 +5231,22 @@ error_log("\nidUsuario = " . $usuario_id, 3, $rutaLog);*/
                     var ano = '<?php echo $ano; ?>' ;
 
                     var json = jQuery.parseJSON(resultado);
-                    $.each(json.data,function(i,nodo){
-                        if(ano == nodo.name){
+
+                    $.each(json.data,function(i,nodo) {
+                        if (ano == nodo.name) {
                             contenido += "<option value='" + nodo.name + "' data-id='" + nodo.id + "' selected>" + nodo.name + "</option>";
-                        }else{
+                        } else {
                             contenido += "<option value='" + nodo.name + "' data-id='" + nodo.id + "'>" + nodo.name + "</option>";
                         }
                     });
 
-                    $("#select_ano").html("");
+                    $("#select_ano").html(contenido);
                     $("#select_version").html("");
 
-                    $("#select_ano").append(contenido);
                     cargaVersiones();
                 });
             }
+
 
             function cargaVersiones(){
                 var idMarca = $("#select_marca option:selected").attr("data-id");

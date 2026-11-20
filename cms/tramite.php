@@ -3104,11 +3104,14 @@
 
 
             function cargaAnos() {
+                var marca = $("#select_marca option:selected").val();
+                var modelo = $("#select_modelo option:selected").val();
+
                 var idMarca = $("#campo_vehiculo_marca option:selected").attr("data-id");
                 var idModelo = $("#campo_vehiculo_modelo option:selected").attr("data-id");
 
                 $.ajax({
-                    url: "socialware/php/ajax/cargaAnos.php?marca=" + idMarca + "&modelo=" + idModelo,
+                    url: "socialware/php/ajax/cargaAnos.php?idMarca=" + idMarca + "&marca=" + marca + "&idModelo=" + idModelo + "&modelo=" + modelo,
                     type: "post"
                 }).done(function (resultado, textStatus, jqXHR) {
                     var contenido = "";
