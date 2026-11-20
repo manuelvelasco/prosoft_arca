@@ -54,6 +54,10 @@
             hr {
                 border-color: #888;
             }
+
+            #contenedor_version_otro {
+                display: none;
+            }
         </style>
     </head>
 
@@ -370,10 +374,6 @@
                 }
             }//end of class|
 
-//$rutaLog = "/var/www/html/arca/error.log";
-/*error_log("\n\n[" . date("Y-m-d H:i:s") . "]", 3, $rutaLog);
-error_log("\nidUsuario = " . $usuario_id, 3, $rutaLog);*/
-
             // Obtiene parametros de request
 
             $esSubmit = sanitiza($conexion, filter_input(INPUT_POST, "esSubmit"));
@@ -391,6 +391,7 @@ error_log("\nidUsuario = " . $usuario_id, 3, $rutaLog);*/
             $marca = sanitiza($conexion, filter_input(INPUT_POST, "marca"));
             $modelo = sanitiza($conexion, filter_input(INPUT_POST, "modelo"));
             $version = sanitiza($conexion, filter_input(INPUT_POST, "version"));
+            $version_otro = sanitiza($conexion, filter_input(INPUT_POST, "version_otro"));
             $ano = sanitiza($conexion, filter_input(INPUT_POST, "ano"));
             $color = sanitiza($conexion, filter_input(INPUT_POST, "color"));
             $precio = sanitiza($conexion, filter_input(INPUT_POST, "precio"));
@@ -522,6 +523,8 @@ error_log("\nidUsuario = " . $usuario_id, 3, $rutaLog);*/
 
                 if (estaVacio($version)) {
                     $mensaje .= "* Versión<br />";
+                } else if ($version == "Otro" && estaVacio($version_otro)) {
+                    $mensaje .= "* Describa versión<br />";
                 }
 
                 if (estaVacio($ano)) {
@@ -547,6 +550,10 @@ error_log("\nidUsuario = " . $usuario_id, 3, $rutaLog);*/
                 if (!estaVacio($mensaje)) {
                     $mensaje = "Proporcione los siguientes datos:<br /><br />" . $mensaje;
                 } else {
+                    if ($version == "Otro" && !estaVacio($version_otro)) {
+                         $version = $version_otro;
+                    }
+ 
                     if (estaVacio($id)) {
 
                         // Es insercion
@@ -2184,16 +2191,26 @@ error_log("\nidUsuario = " . $usuario_id, 3, $rutaLog);*/
                 return $file_ary;
             }  
 
+
             $tieneHabilitadoIntelimotor = 0;
+
             if ($esUsuarioOperador) {
                 $concesionarioAsociadoIntelimotor = consulta($conexion, "SELECT id FROM concesionario WHERE id = " . $usuario_idConcesionario . " AND intelimotor_apiKey != '' AND intelimotor_apiSecret != ''");
+
                 if (cuentaResultados($concesionarioAsociadoIntelimotor) > 0) {
                     $tieneHabilitadoIntelimotor = 1;
                 }
             } else {
-                $concesionarioAsociadoIntelimotor = consulta($conexion, "SELECT v.id FROM vehiculo v INNER JOIN concesionario c ON v.idConcesionario = c.id WHERE v.id = " . $id . " AND c.intelimotor_apiKey != '' AND c.intelimotor_apiSecret != ''");
-                if (cuentaResultados($concesionarioAsociadoIntelimotor) > 0) {
-                    $tieneHabilitadoIntelimotor = 1;
+//$rutaLog = "/home/1678977.cloudwaysapps.com/zxkxdcbsvk/public_html/cms/error.log";
+//error_log("\n\n[" . date("Y-m-d H:i:s") . "]", 3, $rutaLog);
+//error_log("\n" . "SELECT v.id FROM vehiculo v INNER JOIN concesionario c ON c.id = v.idConcesionario WHERE v.id = " . $id . " AND c.intelimotor_apiKey IS NOT NULL AND TRIM(c.intelimotor_apiKey) != '' AND c.intelimotor_apiSecret IS NOT NULL AND TRIM(c.intelimotor_apiSecret) != ''", 3, $rutaLog);
+
+                if (!estaVacio($id)) {
+                    $concesionarioAsociadoIntelimotor = consulta($conexion, "SELECT v.id FROM vehiculo v INNER JOIN concesionario c ON c.id = v.idConcesionario WHERE v.id = " . $id . " AND c.intelimotor_apiKey != '' AND c.intelimotor_apiSecret != ''");
+
+                    if (cuentaResultados($concesionarioAsociadoIntelimotor) > 0) {
+                        $tieneHabilitadoIntelimotor = 1;
+                    }
                 }
             }
         ?>
@@ -2456,6 +2473,19 @@ error_log("\nidUsuario = " . $usuario_id, 3, $rutaLog);*/
                                                                         <select class="form-control select2-show-search form-select" data-placeholder="Seleccione" id="select_version" name="version">
                                                                             
                                                                         </select>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-20" id="contenedor_version_otro">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="row mb-12">
+                                                                    <label class="form-label col-md-4" for="campo_colorInterior">Describa versión <span class="txt-danger ml-10">*</span></label>
+                                                                    <div class="col-md-8">
+                                                                        <input class="form-control" id="campo_version_otro" name="version_otro" type="text" />
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -5161,6 +5191,7 @@ error_log("\nidUsuario = " . $usuario_id, 3, $rutaLog);*/
                 });
 
                 cargaMarcas();
+                
             });
 
             function cargaMarcas(){
@@ -5216,11 +5247,11 @@ error_log("\nidUsuario = " . $usuario_id, 3, $rutaLog);*/
 
 
             function cargaAnos(){
-                var marca = $("#select_marca option:selected").val();
-                var modelo = $("#select_modelo option:selected").val();
-
                 var idMarca = $("#select_marca option:selected").attr("data-id");
+                var marca = $("#select_marca option:selected").val();
+
                 var idModelo = $("#select_modelo option:selected").attr("data-id");
+                var modelo = $("#select_modelo option:selected").val();
 
                 $.ajax({
                     url: "socialware/php/ajax/cargaAnos.php?idMarca=" + idMarca + "&marca=" + marca + "&idModelo=" + idModelo + "&modelo=" + modelo,
@@ -5250,43 +5281,67 @@ error_log("\nidUsuario = " . $usuario_id, 3, $rutaLog);*/
 
             function cargaVersiones(){
                 var idMarca = $("#select_marca option:selected").attr("data-id");
+                var marca = $("#select_marca option:selected").val();
+
                 var idModelo = $("#select_modelo option:selected").attr("data-id");
+                var modelo = $("#select_modelo option:selected").val();
+
                 var idAno = $("#select_ano option:selected").attr("data-id");
+                var ano = $("#select_ano option:selected").val();
 
                 $.ajax({
-                    url: "socialware/php/ajax/cargaVersiones.php?marca=" + idMarca + "&modelo=" + idModelo + "&ano=" + idAno,
+                    url: "socialware/php/ajax/cargaVersiones.php?idMarca=" + idMarca + "&marca=" + marca + "&idModelo=" + idModelo + "&modelo=" + modelo + "&idAno=" + idAno + "&ano=" + ano,
                     type: "post"
                 }).done(function (resultado, textStatus, jqXHR) {
                     var contenido = "";
 
-                    var version = '<?php echo $version; ?>' ;
+                    if (resultado.indexOf("error") == -1) {
+                        var version = '<?php echo $version; ?>' ;
 
-                    var json = jQuery.parseJSON(resultado);
-                    $.each(json.data,function(i,nodo){
-                        if(version == nodo.name){
-                            contenido += "<option value='" + nodo.name + "' data-id='" + nodo.id + "' selected>" + nodo.name + "</option>";
-                        }else{
-                            contenido += "<option value='" + nodo.name + "' data-id='" + nodo.id + "'>" + nodo.name + "</option>";
-                        }
-                    });
+                        var json = jQuery.parseJSON(resultado);
 
-                    $("#select_version").html("");
+                        $.each(json.data, function(i, nodo) {
+                            if (version == nodo.name) {
+                                contenido += "<option value='" + nodo.name + "' data-id='" + nodo.id + "' selected>" + nodo.name + "</option>";
+                            } else {
+                                contenido += "<option value='" + nodo.name + "' data-id='" + nodo.id + "'>" + nodo.name + "</option>";
+                            }
+                        });
+                    }
 
-                    $("#select_version").append(contenido);
+                    contenido += "<option " + (version == "Otro" ? "selected" : "") + " value='Otro' data-id=''>Otro</option>";
+
+                    $("#select_version").html(contenido);
+                    $("#select_version").change();
                 });
             }
 
-            $("#select_marca").on("change", function(){
+
+            $("#select_marca").on("change", function() {
                 cargaModelos();
             });
 
-            $("#select_modelo").on("change", function(){
+
+            $("#select_modelo").on("change", function() {
                 cargaAnos();
             });
 
-            $("#select_ano").on("change", function(){
+
+            $("#select_ano").on("change", function() {
                 cargaVersiones();
             });
+
+
+            $("#select_version").on("change", function() {
+                var version = $("#select_version option:selected").val();
+
+                if (version == "Otro") {
+                    $("#contenedor_version_otro").show();
+                } else {
+                    $("#contenedor_version_otro").hide();
+                }
+            });
+
 
 /*
             $(".link_agregarFormato").click(function() {
