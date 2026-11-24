@@ -2373,7 +2373,7 @@
                                                             <div class="row">
                                                                 <div class="col-12">
                                                                     <div class="row mb-12">
-                                                                        <label class="form-label col-md-4" for="campo_enganche">Enganche <span class="txt-danger ml-10">*</span></label>
+                                                                        <label class="form-label col-md-4" for="campo_enganche">Enganche</label>
                                                                         <div class="col-md-8">
                                                                             <input class="form-control campoNumerico" id="campo_enganche" name="enganche" type="number" value="<?php echo $enganche; ?>" />
                                                                         </div>
