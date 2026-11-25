@@ -6,8 +6,6 @@
 
 <html lang="es">
     <head>
-<meta http-equiv="Cache-Control" content="no-cache">
-
         <?php include("socialware/php/comunes/constantes.php"); ?>
 
         <?php include("socialware/php/comunes/funciones.php"); ?>
@@ -52,7 +50,7 @@
 
                             <div class="row">
                                 <div class="col-lg-12 col-md-12 col-sm-12 col-xl-12">
-                                    <div class="row mt-2 mb-6">
+                                    <div class="row mb-8">
                                         <div class="col-lg-4 col-md-3 col-sm-2 col-xs-1">
                                             <div class="card">
                                                 <iframe src="https://player.vimeo.com/video/1246717096?h=4e1c5bd192" frameborder="0" referrerpolicy="strict-origin-when-cross-origin" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" allowfullscreen></iframe>
