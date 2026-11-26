@@ -141,9 +141,9 @@
                                         <div class="col-lg-4 col-md-3 col-sm-2 col-xs-1">
                                             <div class="card">
                                                 <div class="card-body">
-                                                    <h5 class="card-title">ARCA - Delegacion Virtual - Guía para Agencias</h5>
+                                                    <h5 class="card-title">Delegacion Virtual - Proceso para recoger medios de identificación en el Instituto de Control Vehícular</h5>
                                                     <!--p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p-->
-                                                    <a class="btn btn-primary" download href="socialware/doc/ARCA-ProcesoParaRecogerMediosDeIdentificaciónEnElICV-20261111.pdf">Abrir PDF</a>
+                                                    <a class="btn btn-primary" download href="socialware/doc/ARCA-ProcesoParaRecogerMediosDeIdentificacionEnElICV-20261111.pdf">Abrir PDF</a>
                                                 </div>
                                             </div>
                                         </div>
